@@ -1,0 +1,305 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>hexo-git-backup 博客备份及恢复 | 小李博客</title><meta name="author" content="小李博客"><meta name="copyright" content="小李博客"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="博客备份备份对于静态博客来说是及其重要的，本文章介绍一种hexo-git-backup插件备份的办法来实现hexo博客备份 GitHub项目地址：https:&#x2F;&#x2F;github.com&#x2F;coneycode&#x2F;hexo-git-backup官方文档地址：https:&#x2F;&#x2F;github.com&#x2F;coneycode&#x2F;hexo-git-backup&#x2F;blob&#x2F;master&#x2F;README.md   安装插件 首先">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo-git-backup 博客备份及恢复">
+<meta property="og:url" content="http://xiaoliblog.cn/2022/05/04/Hexo/hexo-git-backup%20%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD%E5%8F%8A%E6%81%A2%E5%A4%8D/index.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="博客备份备份对于静态博客来说是及其重要的，本文章介绍一种hexo-git-backup插件备份的办法来实现hexo博客备份 GitHub项目地址：https:&#x2F;&#x2F;github.com&#x2F;coneycode&#x2F;hexo-git-backup官方文档地址：https:&#x2F;&#x2F;github.com&#x2F;coneycode&#x2F;hexo-git-backup&#x2F;blob&#x2F;master&#x2F;README.md   安装插件 首先">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/xiaoliblog/image@8df57ff10940cc28f2a002a9407e0833ad71ea64/2021/01/26/5826e1ab4aad3f7ac919f549b3919efe.png">
+<meta property="article:published_time" content="2022-05-04T09:05:36.112Z">
+<meta property="article:modified_time" content="2022-05-04T09:05:36.112Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/xiaoliblog/image@8df57ff10940cc28f2a002a9407e0833ad71ea64/2021/01/26/5826e1ab4aad3f7ac919f549b3919efe.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://xiaoliblog.cn/2022/05/04/Hexo/hexo-git-backup%20%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD%E5%8F%8A%E6%81%A2%E5%A4%8D/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'hexo-git-backup 博客备份及恢复',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-04 17:05:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/MyStyle/MyStyle.css" media="defer" onload="this.media='all'"/><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="小李博客"><span class="site-name">小李博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">hexo-git-backup 博客备份及恢复</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-04T09:05:36.112Z" title="发表于 2022-05-04 17:05:36">2022-05-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-04T09:05:36.112Z" title="更新于 2022-05-04 17:05:36">2022-05-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Hexo/">Hexo</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="hexo-git-backup 博客备份及恢复"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="博客备份"><a href="#博客备份" class="headerlink" title="博客备份"></a>博客备份</h1><p>备份对于静态博客来说是及其重要的，本文章介绍一种<code>hexo-git-backup</code>插件备份的办法来实现hexo博客备份</p>
+<div class="note success flat"><p>GitHub项目地址：<a target="_blank" rel="noopener" href="https://github.com/coneycode/hexo-git-backup">https://github.com/coneycode/hexo-git-backup</a><br>官方文档地址：<a target="_blank" rel="noopener" href="https://github.com/coneycode/hexo-git-backup/blob/master/README.md">https://github.com/coneycode/hexo-git-backup/blob/master/README.md</a></p>
+</div>
+
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><ul>
+<li><p>首先输入命令<code>hexo version</code>查看Hexo版本，如图所示，我的是<code>5.2.0</code>版本<br><img src="https://cdn.jsdelivr.net/gh/xiaoliblog/image@6e89f3447d152400271cd61033b1475a24bfea6f/2021/01/26/73324cb65ddd0d2a78f6e3dc1c31fc94.png"></p>
+</li>
+<li><p>安装备份插件，如果你的 Hexo 版本是 2.x.x，则使用以下命令安装：</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-git-backup@0.0.91 --save</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Hexo 版本是 3.x.x，则使用以下命令安装：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-git-backup --save</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h2><ul>
+<li><p>在GuiHub中新建仓库,例如<code>Hexo_Backup</code>，权限为<code>private</code>，分支为<code>master</code></p>
+</li>
+<li><p>复制所建库的<code>SSH</code>链接</p>
+</li>
+<li><p>在Hexo配置文件中添加</p>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">backup:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">    <span class="attr">repository:</span></span><br><span class="line">       <span class="attr">backup:</span> <span class="string">git@github.com:xingjiahui/Hexo-Backup.git,master(分支名,新库为main)</span></span><br></pre></td></tr></table></figure>
+
+<div class="note warning flat"><p>新建的github仓库默认分支为<code>main</code>，旧仓库默认分支依旧为<code>master</code>，一定要分清楚分支名</p>
+</div>
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"> hexo b(back)</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>每次更新博客后，都需要<code>hexo b</code>来备份</p>
+</blockquote>
+<p>备份的用处:</p>
+<ul>
+<li>当hexo g 报错没有头绪时，可以使用备份文件</li>
+<li>当本地文件丢失时，可以使用备份文件</li>
+<li>使用前提，配好环境(已下载<code>Node.js和Git</code>)</li>
+</ul>
+<h1 id="博客恢复"><a href="#博客恢复" class="headerlink" title="博客恢复"></a>博客恢复</h1><h2 id="博客文件"><a href="#博客文件" class="headerlink" title="博客文件"></a>博客文件</h2><ul>
+<li>建立hexo博客都会有一个独立的文件夹，电脑转移时安全的做法是将整个文件夹拷贝</li>
+<li><strong>必备文件</strong><ul>
+<li><code>config.yml</code>（站点配置）</li>
+<li><code>theme</code>（主题文件夹）</li>
+<li><code>source</code>（博客内容文件）。</li>
+</ul>
+</li>
+<li><strong>次要文件</strong><ul>
+<li><code>scaffolds</code>（文章的模板）</li>
+<li><code>package.json</code>（使用包的说明文件）</li>
+<li><code>.gitignore</code>（限定在提交的时候哪些文件可以忽略）</li>
+<li>三个次要文件为自动生成的，因此丢失也不怕影响博客内容，后续在<code>hexo init</code>时会生成这三个文件</li>
+</ul>
+</li>
+<li><strong>需要删除的文件</strong><ul>
+<li><code>.git</code>文件</li>
+<li><code>node_modules</code>（进行npm install会重新生成）</li>
+<li><code>public</code>（执行hexo g时会重新生成）</li>
+<li><code>.deploy_git</code>文件夹（执行hexo d时会重新生成）</li>
+<li><code>db.json</code>文件</li>
+<li>其实上面这些可删除的文件即为<code>.gitignore</code>文件里面记载的可以忽略的内容</li>
+</ul>
+</li>
+</ul>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><ul>
+<li><p>如果是更换了电脑，那么需要重新配置环境，即安装<code>Node.js</code>以及<code>Git</code></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">下载安装Node.js</a></li>
+<li><a target="_blank" rel="noopener" href="https://git-scm.com/download/">下载安装Git</a></li>
+<li>选择适合自己系统的安装</li>
+</ul>
+</li>
+<li><p>下载安装后，右击鼠标<code>Git Bash Here</code>，输入如下命令，检测是否安装成功</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">node -v</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm -v</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git --version</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="源文件拷贝"><a href="#源文件拷贝" class="headerlink" title="源文件拷贝"></a>源文件拷贝</h2><ul>
+<li>如果使用了hexo-git-backup插件备份，只需要从github上拉入本地即可</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/username/备份仓库名.git</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果是将原来博客文件拷贝到新电脑上，可以全部拷贝，或者只拷如下几个目录</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_config.yml</span><br><span class="line"> package.json</span><br><span class="line"> scaffolds/</span><br><span class="line"> source/</span><br><span class="line"> themes/</span><br></pre></td></tr></table></figure>
+
+<h2 id="搭建hexo"><a href="#搭建hexo" class="headerlink" title="搭建hexo"></a>搭建hexo</h2><div class="note warning flat"><p>注意：安装Hexo需要在你刚才拷贝源文件的文件夹内安装</p>
+</div>
+
+<ul>
+<li>在你刚才拷贝源文件的文件夹内，右键点击 <code>Git Bash：</code>，输入以下命令</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install -g cnpm --registry=https://registry.npm.taobao.org</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cnpm -v</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cnpm install -g hexo-cli</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo -v</span></span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>安装部署插件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-deployer-git --save  <span class="comment">#文章部署到git 的模块</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo init</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo g</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo s</span></span><br></pre></td></tr></table></figure>
+
+<p>本机访问<code>localhost:4040</code>即可看到自己发布的文章以及之前博客的界面，现在只差将博客托管到github page上了。</p>
+<div class="note warning flat"><p>注意：如果仓库有改动，要更改配置文件里面deploy下的repository和backup下的repository</p>
+</div>
+
+<h2 id="生成新密匙"><a href="#生成新密匙" class="headerlink" title="生成新密匙"></a>生成新密匙</h2><ul>
+<li>更换了新电脑，需要在Github添加新电脑产生的密匙，并<code>删除之前配好的密匙</code></li>
+<li>在刚才拷贝源文件的文件夹内，右键点击<code>Git Bash Here </code>,输入如下命令后一直按回车</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置用户信息</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global user.name <span class="string">&quot;Gitub用户名&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global user.email <span class="string">&quot;GitHub邮箱&quot;</span></span> </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">ssh-keygen -t rsa -C <span class="string">&quot;Github邮箱地址&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>然后会生成密匙，一般是在<code>C:\Users\电脑自定义名称\.ssh</code>下，里面的<code>pub</code>文件就是产生的密匙<br><img src="https://cdn.jsdelivr.net/gh/xiaoliblog/image@3ea03f9b8df4328716a81e03a3ee30814346347b/2021/01/26/83269c3350fd32fc11c1c4ae79b29748.png"></p>
+</li>
+<li><p>复制<code>pub</code>文件里的内容，进入Github网址，点击头像找到<code>setting</code>设置，选择<code>SSH and GPG keys</code>，点击<code>New SSH key</code>，然后给密钥命名并将<code>.pub</code>文件中的内容复制到<code>key</code>中<br><img src="https://cdn.jsdelivr.net/gh/xiaoliblog/image@c24ade9d0b6cb0a232b8457f3abc956d53186f0a/2021/01/26/f88fb6b31cac21c066233a8528b2fa0a.png"></p>
+</li>
+<li><p>在终端执行命令测试一下是否成功</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">ssh -T git@github.com</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="部署发布"><a href="#部署发布" class="headerlink" title="部署发布"></a>部署发布</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo clean   <span class="comment"># 清除缓存 网页正常情况下可以忽略此条命令</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo g       <span class="comment"># 生成静态网页</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo d       <span class="comment"># 开始部署</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>本地环境搭建好（<code>node git hexo</code>）</p>
+</li>
+<li><p>github 秘钥配置好</p>
+</li>
+<li><p>部分扩展插件装好  <code>$ npm install hexo-deployer-git --save</code></p>
+</li>
+<li><p>用户验证填写准确</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://xiaoliblog.cn">小李博客</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://xiaoliblog.cn">https://xiaoliblog.cn</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn" target="_blank">小李博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/xiaoliblog/image@8df57ff10940cc28f2a002a9407e0833ad71ea64/2021/01/26/5826e1ab4aad3f7ac919f549b3919efe.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2022/05/04/Web/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0_%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E8%BD%AE%E5%AD%90/" title="工作笔记🎯前端开发常用轮子"><img class="cover" src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20220101104622.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">工作笔记🎯前端开发常用轮子</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">小李博客</div><div class="author-info__description">越努力，越幸运！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i><span>博主的GitHub首页</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD"><span class="toc-number">1.</span> <span class="toc-text">博客备份</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93"><span class="toc-number">1.2.</span> <span class="toc-text">新建仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E6%81%A2%E5%A4%8D"><span class="toc-number">2.</span> <span class="toc-text">博客恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">博客文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">2.2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E6%96%87%E4%BB%B6%E6%8B%B7%E8%B4%9D"><span class="toc-number">2.3.</span> <span class="toc-text">源文件拷贝</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BAhexo"><span class="toc-number">2.4.</span> <span class="toc-text">搭建hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%96%B0%E5%AF%86%E5%8C%99"><span class="toc-number">2.5.</span> <span class="toc-text">生成新密匙</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E5%8F%91%E5%B8%83"><span class="toc-number">2.6.</span> <span class="toc-text">部署发布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.7.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/05/04/Web/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0_%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E5%A4%84%E7%90%86%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE/" title="工作笔记🎯如何优雅处理响应数据"><img src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20220101104622.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="工作笔记🎯如何优雅处理响应数据"/></a><div class="content"><a class="title" href="/2022/05/04/Web/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0_%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E5%A4%84%E7%90%86%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE/" title="工作笔记🎯如何优雅处理响应数据">工作笔记🎯如何优雅处理响应数据</a><time datetime="2022-05-04T09:05:36.209Z" title="发表于 2022-05-04 17:05:36">2022-05-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/04/Web/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0_%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E8%BD%AE%E5%AD%90/" title="工作笔记🎯前端开发常用轮子"><img src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20220101104622.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="工作笔记🎯前端开发常用轮子"/></a><div class="content"><a class="title" href="/2022/05/04/Web/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0_%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E8%BD%AE%E5%AD%90/" title="工作笔记🎯前端开发常用轮子">工作笔记🎯前端开发常用轮子</a><time datetime="2022-05-04T09:05:36.208Z" title="发表于 2022-05-04 17:05:36">2022-05-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/04/Hexo/hexo-git-backup%20%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD%E5%8F%8A%E6%81%A2%E5%A4%8D/" title="hexo-git-backup 博客备份及恢复"><img src="https://cdn.jsdelivr.net/gh/xiaoliblog/image@8df57ff10940cc28f2a002a9407e0833ad71ea64/2021/01/26/5826e1ab4aad3f7ac919f549b3919efe.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="hexo-git-backup 博客备份及恢复"/></a><div class="content"><a class="title" href="/2022/05/04/Hexo/hexo-git-backup%20%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD%E5%8F%8A%E6%81%A2%E5%A4%8D/" title="hexo-git-backup 博客备份及恢复">hexo-git-backup 博客备份及恢复</a><time datetime="2022-05-04T09:05:36.112Z" title="发表于 2022-05-04 17:05:36">2022-05-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 小李博客</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div><a style="margin-inline:5px" target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a><a style="margin-inline:5px" target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a><a style="margin-inline:5px" target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a><a style="margin-inline:5px" target="_blank" href="https://www.upyun.com/"><img src="https://img.shields.io/badge/CDN-又拍云-blue?style=flat&logo=appveyor" title="本站使用又拍云CDN加速"></a><a style="margin-inline:5px" target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vercel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a><a style="margin-inline:5px" target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a><a style="margin-inline:5px" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
