@@ -67,8 +67,8 @@
       
       codeBlockExpand: {
         enable: true,
-        height: 200,
-        scrollTop: 200
+        height: 300,
+        scrollTop: 400
       }
       
     }
@@ -381,29 +381,6 @@
     
     <div class="content"></div>
     
-    <div class="comment-head" id="直达评论">
-        <hr>
-        <div class="comment-headline">
-            <i class="fas fa-comments fa-fw"></i>
-            <span>评论</span>
-        </div>
-        
-            <div id="Discuss-Comments"></div>
-<script>
-  function LoadDiscuss() {
-    mengd.getScript('https://unpkg.com/discuss@latest/dist/discuss.js', function() {
-      Discuss.init(Object.assign({
-        el: '#Discuss-Comments',
-        serverURLs: '',
-      } , {"source":"https://unpkg.com/discuss@latest/dist/discuss.js","serverURLs":null}))
-    })
-  }
-  LoadDiscuss()
-</script>
-
-        
-    </div>
-
 </div>
         </main>
     </div>
@@ -423,10 +400,6 @@
          
 
 
-        
-            <a href="#直达评论" title="直达评论">
-                <i class="fas fa-comments"></i>
-            </a>
         
 
 
@@ -450,7 +423,7 @@
     <span>主题 </span>
     <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD.(萌典) </a>
   </div>
-  <div class="custom-text"><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" color="black"><span>湘ICP备2021002541号</span></a><p>我相信我可以，但我一直在路上，所以我有无限的可能！！</div>
+  <div class="custom-text">我相信我可以，但我一直在路上，所以我有无限的可能！！</div>
 </footer>
     <div id="mask" onclick="closeAll()"></div>
     

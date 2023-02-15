@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="content-language" content="zh-CN">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-<title>工作笔记🎯如何优雅处理响应数据 | 小李博客</title>
+<title>如何优雅处理响应数据 | 小李博客</title>
 <meta name="author" content="小李博客">
 <meta name="copyright" content="小李博客">
 
@@ -23,18 +23,18 @@
 
 <meta name="description" content="数据处理复杂数据 实际工作中经常会收到后端各种奇葩的数据格式，对应复杂的数据需要进行有效消息的提炼，就需要对JSON数据进行处理，比如如下格式  12345678910111213141516171819202122232425262728293031323334let jsonStr &#x3D; &amp;#123;  Code: 10000,  Message: &quot;成功&quot;,  Time:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工作笔记🎯如何优雅处理响应数据">
+<meta property="og:title" content="如何优雅处理响应数据">
 <meta property="og:url" content="http://xiaoliblog.cn/posts/52622.html">
 <meta property="og:site_name" content="小李博客">
 <meta property="og:description" content="数据处理复杂数据 实际工作中经常会收到后端各种奇葩的数据格式，对应复杂的数据需要进行有效消息的提炼，就需要对JSON数据进行处理，比如如下格式  12345678910111213141516171819202122232425262728293031323334let jsonStr &#x3D; &amp;#123;  Code: 10000,  Message: &quot;成功&quot;,  Time:">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://w.wallhaven.cc/full/d6/wallhaven-d66rvo.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
 <meta property="article:published_time" content="2022-05-04T09:05:36.209Z">
-<meta property="article:modified_time" content="2023-02-15T08:19:21.154Z">
+<meta property="article:modified_time" content="2023-02-15T11:11:04.053Z">
 <meta property="article:author" content="小李博客">
-<meta property="article:tag" content="工作笔记">
+<meta property="article:tag" content="小李博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://w.wallhaven.cc/full/d6/wallhaven-d66rvo.png">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
 
 
 <link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -67,8 +67,8 @@
       
       codeBlockExpand: {
         enable: true,
-        height: 200,
-        scrollTop: 200
+        height: 300,
+        scrollTop: 400
       }
       
     }
@@ -171,7 +171,7 @@
             <article id="post">
   <div class="post-info">
     <div class="post-title">
-      <h1>工作笔记🎯如何优雅处理响应数据</h1>
+      <h1>如何优雅处理响应数据</h1>
     </div>
     <div class="post-meta">
       <div class="post-date">
@@ -195,12 +195,6 @@
         <span class="post-meta-label">阅读时长:</span>
         <span>15分钟</span>
         
-    | <i class="far fa-eye fa-fw post-meta-icon"></i>
-    
-        <span class="post-meta-label">阅读量:</span>
-        <span id="Discuss-Visitors">0</span>
-    
-
       </div>
     </div>
   </div>
@@ -216,13 +210,14 @@
 <li>如果有用的信息就只有<code>rData</code>，如下所示，JSON格式化推荐<a target="_blank" rel="noopener" href="https://www.baidufe.com/fehelper/index/index.html">https://www.baidufe.com/fehelper/index/index.html</a></li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 转成</span></span><br><span class="line"><span class="keyword">let</span> result = [</span><br><span class="line">   [<span class="number">20</span>, <span class="string">&quot;#2dc6c8&quot;</span>, <span class="string">&quot;V1&quot;</span>],</span><br><span class="line">   [<span class="number">15</span>, <span class="string">&quot;#b6a2dd&quot;</span>, <span class="string">&quot;V2&quot;</span>],</span><br><span class="line">   [<span class="number">30</span>, <span class="string">&quot;#5ab1ee&quot;</span>, <span class="string">&quot;V3&quot;</span>],</span><br><span class="line">   [<span class="number">15</span>, <span class="string">&quot;#d7797f&quot;</span>, <span class="string">&quot;V4&quot;</span>],</span><br><span class="line">   [<span class="number">20</span>, <span class="string">&quot;#FFB800&quot;</span>, <span class="string">&quot;V5&quot;</span>]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.在异步调用成功后，将返回的串转为对象</span></span><br><span class="line"><span class="keyword">let</span> obj = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(jsonStr))  <span class="comment">/*将json串转化为model对象*/</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 然后取rData的值</span></span><br><span class="line"><span class="keyword">let</span> arrObj = obj.<span class="property">Result</span>.<span class="property">rData</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arrObj)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 遍历arrObj对象中的每个子集对象</span></span><br><span class="line"><span class="keyword">let</span> arr = []</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">in</span> arrObj) &#123;</span><br><span class="line">    <span class="keyword">var</span> tempArr = []</span><br><span class="line">    <span class="comment">// 将每个小子集加到临时数组中</span></span><br><span class="line">    tempArr.<span class="title function_">push</span>(arrObj[i].<span class="property">count</span>,arrObj[i].<span class="property">color</span>,arrObj[i].<span class="property">title</span>)</span><br><span class="line">    <span class="comment">// 完成后加到大数组</span></span><br><span class="line">    arr.<span class="title function_">push</span>(tempArr)</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr)</span><br><span class="line"><span class="comment">// 另外赋常用操作  将对象直接转数组，仅限于去掉第一层</span></span><br><span class="line"><span class="keyword">var</span> array = <span class="title class_">Array</span>.<span class="title function_">from</span>(jsonStr)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array)</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.在异步调用成功后，将返回的串转为对象</span></span><br><span class="line"><span class="keyword">let</span> obj = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(jsonStr))  <span class="comment">/*将json串转化为model对象*/</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 然后取rData的值</span></span><br><span class="line"><span class="keyword">let</span> arrObj = obj.<span class="property">Result</span>.<span class="property">rData</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arrObj)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 遍历arrObj对象中的每个子集对象</span></span><br><span class="line"><span class="keyword">let</span> arr = []</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">in</span> arrObj) &#123;</span><br><span class="line">    <span class="keyword">var</span> tempArr = []</span><br><span class="line">    <span class="comment">// 将每个小子集加到临时数组中</span></span><br><span class="line">    tempArr.<span class="title function_">push</span>(arrObj[i].<span class="property">count</span>,arrObj[i].<span class="property">color</span>,arrObj[i].<span class="property">title</span>)</span><br><span class="line">    <span class="comment">// 完成后加到大数组</span></span><br><span class="line">    arr.<span class="title function_">push</span>(tempArr)</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr)</span><br><span class="line"><span class="comment">// 另外赋常用操作  将对象直接转数组，仅限于去掉第一层</span></span><br><span class="line"><span class="keyword">var</span> array = <span class="title class_">Array</span>.<span class="title function_">from</span>(jsonStr)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array)</span><br></pre></td></tr></table></figure>
 
 <h2 id="深层数据"><a href="#深层数据" class="headerlink" title="深层数据"></a>深层数据</h2><ul>
 <li>有时候会获取对象深层次的属性值，比如如下数据</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 后端接口返回数据</span></span><br><span class="line"><span class="keyword">let</span> res = &#123;</span><br><span class="line">  <span class="attr">code</span>: <span class="number">200</span>,</span><br><span class="line">  <span class="attr">msg</span>: <span class="string">&quot;OK&quot;</span>,</span><br><span class="line">  <span class="attr">data</span>: &#123;</span><br><span class="line">    <span class="attr">config</span>: &#123;</span><br><span class="line">      <span class="attr">style</span>: &#123;</span><br><span class="line">        <span class="attr">color</span>: <span class="string">&quot;#f00&quot;</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">dataConfig</span>: &#123;</span><br><span class="line">      <span class="attr">x</span>: <span class="string">&quot;100&quot;</span>,</span><br><span class="line">      <span class="attr">y</span>: <span class="string">&quot;200&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可以多层判断获取</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res.<span class="property">data</span> &amp;&amp; res.<span class="property">data</span>.<span class="property">config</span> &amp;&amp; res.<span class="property">data</span>.<span class="property">config</span>.<span class="property">style</span> &amp;&amp; res.<span class="property">data</span>.<span class="property">config</span>.<span class="property">style</span>.<span class="property">color</span>)</span><br><span class="line"><span class="comment">// 获取使用ES语法，需要考虑兼容性问题</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res.<span class="property">data</span>?.<span class="property">config</span>?.<span class="property">style</span>?.<span class="property">color</span>)</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -240,14 +235,13 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">objTArr</span> = (<span class="params">data, realName, realValue</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res = <span class="title class_">Object</span>.<span class="title function_">keys</span>(data).<span class="title function_">map</span>(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; [realName]: key, [realValue]: data[key] &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> data = <span class="title function_">objTArr</span>(result, <span class="string">&quot;name&quot;</span>, <span class="string">&quot;value&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br></pre></td></tr></table></figure>
 
-<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20220103134828.png"></p>
 <h2 id="数据分组"><a href="#数据分组" class="headerlink" title="数据分组"></a>数据分组</h2><ul>
 <li>如果有两个数组对象，需要合并相关内容进行分组，比如如下</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gradeList = [</span><br><span class="line">  &#123; <span class="attr">grade1</span>: <span class="string">&quot;一年级&quot;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">grade2</span>: <span class="string">&quot;二年级&quot;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">grade3</span>: <span class="string">&quot;三年级&quot;</span> &#125;,</span><br><span class="line">];</span><br><span class="line"><span class="keyword">const</span> studentsList = [</span><br><span class="line">  &#123; <span class="attr">grade1</span>: [<span class="string">&quot;小明&quot;</span>, <span class="string">&quot;小张&quot;</span>, <span class="string">&quot;小赵&quot;</span>] &#125;,</span><br><span class="line">  &#123; <span class="attr">grade1</span>: [<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;王五&quot;</span>] &#125;,</span><br><span class="line">  &#123; <span class="attr">grade1</span>: [<span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;John&quot;</span>] &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理成如下数据</span></span><br><span class="line"><span class="keyword">const</span> studen = [&#123; <span class="attr">name</span>: <span class="string">&quot;小明&quot;</span>, <span class="attr">grade</span>: <span class="string">&quot;一年级&quot;</span> &#125;];</span><br><span class="line"><span class="keyword">const</span> gradeList = [</span><br><span class="line">  &#123; <span class="attr">grade1</span>: <span class="string">&quot;一年级&quot;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">grade2</span>: <span class="string">&quot;二年级&quot;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">grade3</span>: <span class="string">&quot;三年级&quot;</span> &#125;,</span><br><span class="line">];</span><br><span class="line"><span class="keyword">const</span> studentsList = [</span><br><span class="line">  &#123; <span class="attr">grade1</span>: [<span class="string">&quot;小明&quot;</span>, <span class="string">&quot;小张&quot;</span>, <span class="string">&quot;小赵&quot;</span>] &#125;,</span><br><span class="line">  &#123; <span class="attr">grade2</span>: [<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;王五&quot;</span>] &#125;,</span><br><span class="line">  &#123; <span class="attr">grade3</span>: [<span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;John&quot;</span>] &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理成如下数据</span></span><br><span class="line"><span class="keyword">const</span> student = [&#123; <span class="attr">name</span>: <span class="string">&quot;小明&quot;</span>, <span class="attr">grade</span>: <span class="string">&quot;一年级&quot;</span> &#125;];</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">parseDataFn</span> = (<span class="params">data, list</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> result = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; data.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> item = data[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> list[i]) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; item[key].<span class="property">length</span>; j++) &#123;</span><br><span class="line">        <span class="keyword">const</span> nameVal = item[key][j];</span><br><span class="line">        result.<span class="title function_">push</span>(&#123; <span class="attr">name</span>: nameVal ,<span class="attr">grade</span>:list[i][key] &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> data = <span class="title function_">parseDataFn</span>(studentsList, gradeList);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br></pre></td></tr></table></figure>
-<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20220103140212.png"></p>
+
 <h2 id="条件排序"><a href="#条件排序" class="headerlink" title="条件排序"></a>条件排序</h2><ul>
 <li>有一个根据返回的时间排序的需求，比如如下数据，根据<code>executetime</code>正序排列</li>
 </ul>
@@ -282,7 +276,9 @@
 </li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params">currentValue,index,arr</span>), thisValue)</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 筛选数组中的偶数</span></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>]</span><br><span class="line"><span class="keyword">let</span> result = arr.<span class="title function_">filter</span>(<span class="keyword">function</span> (<span class="params">num</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> num % <span class="number">2</span> === <span class="number">0</span>;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result)  <span class="comment">// [2,4,6,8,10]</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 筛选获取数据中已发布的数据</span></span><br><span class="line"><span class="keyword">let</span> filterData = res.<span class="property">data</span>.<span class="title function_">filter</span>(<span class="keyword">function</span> (<span class="params">res</span>) &#123;</span><br><span class="line">   <span class="keyword">return</span> res.<span class="property">stateName</span> == <span class="string">&quot;已发布&quot;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -304,7 +300,6 @@
 <li>有时候需要原生JS获取地址栏的参数，只需要对URL字符串<code>match</code>一个正则，就能获取一个所有参数键值对组成的数组，并通过<code>reduce</code>方法把键值对按<code>=</code>进行分割，全都保存在一个对象身上</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取地址栏的方法</span></span><br><span class="line"><span class="keyword">let</span> urlStr1 = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span></span><br><span class="line"><span class="keyword">let</span> urlStr2 = <span class="variable language_">document</span>.<span class="property">URL</span></span><br><span class="line"><span class="keyword">let</span> urlStr3 = <span class="variable language_">document</span>.<span class="property">location</span>.<span class="property">href</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> url = <span class="string">&#x27;http://url.com/page?username=admin&amp;password=123&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">getURLParameters</span> = url =&gt; (url</span><br><span class="line">    .<span class="title function_">match</span>(<span class="regexp">/([^?=&amp;]+)(=([^&amp;]*))/g</span>) || [] )</span><br><span class="line">    .<span class="title function_">reduce</span>(<span class="function">(<span class="params">a,v</span>) =&gt;</span> (</span><br><span class="line">       (a[v.<span class="title function_">slice</span>(<span class="number">0</span>,v.<span class="title function_">indexOf</span>(<span class="string">&#x27;=&#x27;</span>))] = v.<span class="title function_">slice</span>(v.<span class="title function_">indexOf</span>(<span class="string">&#x27;=&#x27;</span>) + <span class="number">1</span>), a)</span><br><span class="line">    ),&#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> result = <span class="title function_">getURLParameters</span>(url);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result);</span><br><span class="line"><span class="comment">// &#123; username: &#x27;admin&#x27;, password: &#x27;123&#x27; &#125;</span></span><br></pre></td></tr></table></figure>
-
 
 <h1 id="字符串处理"><a href="#字符串处理" class="headerlink" title="字符串处理"></a>字符串处理</h1><h2 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h2><ul>
 <li>字符串方法对数据处理非常常用，关于查找有以下常用方法</li>
@@ -404,7 +399,6 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">&quot;abcd&quot;</span></span><br><span class="line"><span class="keyword">let</span> res = str.<span class="title function_">split</span>(<span class="string">&quot;&quot;</span>)   <span class="comment">// [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;]</span></span><br><span class="line"><span class="keyword">let</span> res = str.<span class="title function_">split</span>(<span class="string">&quot;&quot;</span>,<span class="number">3</span>) <span class="comment">// [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;]</span></span><br></pre></td></tr></table></figure>
 
-
 <table>
 <thead>
 <tr>
@@ -498,7 +492,6 @@
 </tbody></table>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Orange&quot;</span>, <span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Mango&quot;</span>];</span><br><span class="line"><span class="keyword">let</span> str = arr.<span class="title function_">toString</span>(); <span class="comment">// Banana,Orange,Apple,Mango</span></span><br><span class="line"><span class="keyword">let</span> res = arr.<span class="title function_">join</span>(<span class="string">&quot;-&quot;</span>); <span class="comment">// Banana-Orange-Apple-Mango</span></span><br></pre></td></tr></table></figure>
 
-
 <table>
 <thead>
 <tr>
@@ -571,31 +564,16 @@
   <div class="pagination-post">
     
     
+    <a href="/posts/406925fb.html">
+      <div class="next-title">图片懒加载及defer和async<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">图片懒加载
+一个页面会有许多的图片，浏览器的可视区域是有限的，当我们点进页面但没有滑动全部展示时，其实下面的图片是没有作用的，这个时候如果说加载了也相当于白加载，而且还降低了网页的加载速度
+而懒加载就是延迟加载，只有滚动到可视区域时才加载当前的图片，不是一次性加载所有的图片，从而在一程度减少服务端的请求及带宽;
+...</div>
+    </a>
+    
   </div>
   
-    <div class="comment-head" id="直达评论">
-        <hr>
-        <div class="comment-headline">
-            <i class="fas fa-comments fa-fw"></i>
-            <span>评论</span>
-        </div>
-        
-            <div id="Discuss-Comments"></div>
-<script>
-  function LoadDiscuss() {
-    mengd.getScript('https://unpkg.com/discuss@latest/dist/discuss.js', function() {
-      Discuss.init(Object.assign({
-        el: '#Discuss-Comments',
-        serverURLs: '',
-      } , {"source":"https://unpkg.com/discuss@latest/dist/discuss.js","serverURLs":null}))
-    })
-  }
-  LoadDiscuss()
-</script>
-
-        
-    </div>
-
 </article>
 
 
@@ -639,10 +617,6 @@
 
 
         
-            <a href="#直达评论" title="直达评论">
-                <i class="fas fa-comments"></i>
-            </a>
-        
 
 
         <a href="#" title="回到顶部">
@@ -665,7 +639,7 @@
     <span>主题 </span>
     <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD.(萌典) </a>
   </div>
-  <div class="custom-text"><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" color="black"><span>湘ICP备2021002541号</span></a><p>我相信我可以，但我一直在路上，所以我有无限的可能！！</div>
+  <div class="custom-text">我相信我可以，但我一直在路上，所以我有无限的可能！！</div>
 </footer>
     <div id="mask" onclick="closeAll()"></div>
     
