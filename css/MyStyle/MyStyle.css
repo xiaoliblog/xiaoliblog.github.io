@@ -103,15 +103,11 @@
 /*********************Mono字体引入********************************************/
   @font-face {
     font-family :  'JetBrains Mono' ;    /*字体名称*/
-    src : url('https://cdn.jsdelivr.net/gh/xiaoliblog/xiaoliblog.github.io/css/fonts/JetBrainsMono/fonts/webfonts/JetBrainsMono-Medium.woff2');/*字体资源*/
+    src : url('https://github.com/xiaoliblog/MyCode/blob/main/JetBrainsMono-Medium.woff2');/*字体资源*/
     font-display : swap;
 }
- /*#article-container figure.highlight,#article-container pre{
-     font-family: 'JetBrains Mono' !important;
-     font-size:16px !important;
- }*/
 #article-container pre, #article-container code{
- 	font-family: 'JetBrains Mono' !important;
+    font-family: 'JetBrains Mono' !important;
     font-size:16px !important;
  }
  /*********************end Mono字体引入********************************************/
@@ -292,8 +288,6 @@ a {
 #footer:before {
   background-color: rgba(0, 0, 0, 0);
 }
-
-/*代码块美化#a9a9a9*/
 /*代码颜色，代码框背景*/
 #article-container figure.highlight,
 #article-container pre {
@@ -319,5 +313,6 @@ a {
 #article-container figure.highlight .string {
   color: #f6aa43;
 }
+
 
 /*********************end 基础美化********************************************/
