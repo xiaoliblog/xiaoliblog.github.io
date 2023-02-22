@@ -1,4 +1,27 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>CSS样式常用小技巧 | 小李博客</title><meta name="author" content="小李博客"><meta name="copyright" content="小李博客"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Sprites为了有效地减少服务器接收和发送请求的次数，提高页面的加载速度，,出现了CSS精灵技术(也称CSS Sprites、css雪碧)。 核心原理：将网页中的一些小背景图像整合到一张大图中，这样服务器只需要一次请求就可以了* Sprites使用 精灵技术主要针对于背景图片使用，技术把多个小背景图片整合到一张大图片中  这个大突破也称为Sprites精灵图或者雪碧图，如下所示为王者荣耀官网的背">
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>CSS样式常用小技巧 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/%E5%A4%A7%E7%AC%91.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="Sprites为了有效地减少服务器接收和发送请求的次数，提高页面的加载速度，,出现了CSS精灵技术(也称CSS Sprites、css雪碧)。 核心原理：将网页中的一些小背景图像整合到一张大图中，这样服务器只需要一次请求就可以了* Sprites使用 精灵技术主要针对于背景图片使用，技术把多个小背景图片整合到一张大图片中  这个大突破也称为Sprites精灵图或者雪碧图，如下所示为王者荣耀官网的背">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS样式常用小技巧">
 <meta property="og:url" content="http://xiaoliblog.cn/posts/db6d3d10.html">
@@ -11,157 +34,174 @@
 <meta property="article:author" content="小李博客">
 <meta property="article:tag" content="小李博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg"><link rel="shortcut icon" href="/img/%E5%A4%A7%E7%AC%91.svg"><link rel="canonical" href="http://xiaoliblog.cn/posts/db6d3d10.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.3.0/css/all.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  date_suffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  }
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'CSS样式常用小技巧',
-  isPost: true,
-  isHome: false,
-  isHighlightShrink: false,
-  isToc: true,
-  postUpdate: '2023-02-15 19:05:51'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
 
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
       },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 400
       }
+      
     }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
+</script>
+
     
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
+
+
+    <div id="body-wrap">
         
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><link rel="stylesheet" href="/css/MyStyle/MyStyle.css" media="defer" onload="this.media='all'"/><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="小李博客"><span class="site-name">小李博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">CSS样式常用小技巧</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-04T09:05:36.172Z" title="发表于 2022-05-04 17:05:36">2022-05-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-15T11:05:51.931Z" title="更新于 2023-02-15 19:05:51">2023-02-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CSS样式常用小技巧"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="Sprites"><a href="#Sprites" class="headerlink" title="Sprites"></a>Sprites</h1><p><strong>为了有效地减少服务器接收和发送请求的次数，提高页面的加载速度</strong>，,出现了<code>CSS精灵技术</code>(也称CSS Sprites、css雪碧)。</p>
+<nav id="nav-wrap">
+  <div class="navbar">
+    <div class="bar">
+      <a href="/" class="title">小李博客</a>
+      
+        <i class="fas fa-search search-btn"></i>
+      
+      <ul class="menu">
+         
+         
+        
+          
+            <li><a href="/">首页</a></li>
+           
+         
+        
+          
+            <li><a href="/archives">归档</a></li>
+           
+         
+        
+          
+            <li><a href="/link">友情链接</a></li>
+           
+         
+        
+          
+            <li><a href="/about">关于我</a></li>
+           
+        
+      </ul>
+      <i class="fas fa-bars open-nav"></i>
+    </div>
+  </div>
+  <div id="mobile-nav">
+    <ul>
+       
+         
+        
+        
+          <li><a href="/">首页</a></li>
+        
+       
+        
+        
+          <li><a href="/archives">归档</a></li>
+        
+       
+        
+        
+          <li><a href="/link">友情链接</a></li>
+        
+       
+        
+        
+          <li><a href="/about">关于我</a></li>
+        
+      
+    </ul>
+  </div>
+</nav>
+
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+            
+        </p>
+        <div class="header-icon">
+            
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="mailto:2312057536@qq.com"><i class="fa fa-envelope"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>CSS样式常用小技巧</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2022-05-04 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-15
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">3k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>13分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="Sprites"><a href="#Sprites" class="headerlink" title="Sprites"></a>Sprites</h1><p><strong>为了有效地减少服务器接收和发送请求的次数，提高页面的加载速度</strong>，,出现了<code>CSS精灵技术</code>(也称CSS Sprites、css雪碧)。</p>
 <p>核心原理：<em>将网页中的一些小背景图像整合到一张大图中，这样服务器只需要一次请求就可以了</em>*</p>
 <h2 id="Sprites使用"><a href="#Sprites使用" class="headerlink" title="Sprites使用"></a>Sprites使用</h2><ul>
 <li><p>精灵技术主要针对于<code>背景图片</code>使用，技术把多个小背景图片整合到一张大图片中</p>
@@ -357,4 +397,186 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-moz -<span class="attribute">border</span>- radius: <span class="number">10px</span>;</span><br><span class="line">-webkit-<span class="attribute">border</span> -radius: <span class="number">10px</span>;</span><br><span class="line">-o-<span class="attribute">border</span>- radius: <span class="number">10px</span>;</span><br><span class="line"><span class="attribute">border</span>- radius: <span class="number">10px</span>;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://xiaoliblog.cn">小李博客</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://xiaoliblog.cn">https://xiaoliblog.cn</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn" target="_blank">小李博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/211ab908.html" title="Flex弹性盒子模型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Flex弹性盒子模型</div></div></a></div><div class="next-post pull-right"><a href="/posts/e1d88301.html" title="BackUp博客备份及恢复"><img class="cover" src="https://w.wallhaven.cc/full/1p/wallhaven-1pqq1w.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">BackUp博客备份及恢复</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">小李博客</div><div class="author-info__description">越努力，越幸运！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i><span>博主的GitHub首页</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Sprites"><span class="toc-number">1.</span> <span class="toc-text">Sprites</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprites%E4%BD%BF%E7%94%A8"><span class="toc-number">1.1.</span> <span class="toc-text">Sprites使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS%E4%B8%89%E8%A7%92"><span class="toc-number">2.</span> <span class="toc-text">CSS三角</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%AC%E4%B8%9C%E6%95%88%E6%9E%9C"><span class="toc-number">2.1.</span> <span class="toc-text">京东效果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E6%A0%B7%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">CSS用户界面样式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BC%A0%E6%A0%87%E6%A0%B7%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">鼠标样式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AE%E5%BB%93%E7%BA%BFoutline"><span class="toc-number">3.2.</span> <span class="toc-text">轮廓线outline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E6%AD%A2%E6%8B%96%E6%8B%BD%E6%96%87%E6%9C%AC%E5%9F%9Fresize"><span class="toc-number">3.3.</span> <span class="toc-text">防止拖拽文本域resize</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vertical-align"><span class="toc-number">4.</span> <span class="toc-text">vertical-align</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E5%BA%95%E9%83%A8%E7%A9%BA%E7%99%BD%E7%BC%9D%E9%9A%99"><span class="toc-number">4.1.</span> <span class="toc-text">图片底部空白缝隙</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BA%A2%E5%87%BA%E6%96%87%E5%AD%97%E7%9C%81%E7%95%A5%E5%8F%B7%E8%A1%A8%E7%A4%BA"><span class="toc-number">5.</span> <span class="toc-text">溢出文字省略号表示</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E8%A1%8C%E6%96%87%E6%9C%AC"><span class="toc-number">5.1.</span> <span class="toc-text">单行文本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E8%A1%8C%E6%96%87%E6%9C%AC"><span class="toc-number">5.2.</span> <span class="toc-text">多行文本</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%83%E5%B1%80%E6%8A%80%E5%B7%A7"><span class="toc-number">6.</span> <span class="toc-text">布局技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#margin%E8%B4%9F%E5%80%BC%E8%BF%90%E7%94%A8"><span class="toc-number">6.1.</span> <span class="toc-text">margin负值运用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E5%AD%97%E5%9B%B4%E7%BB%95%E6%B5%AE%E5%8A%A8%E5%85%83%E7%B4%A0"><span class="toc-number">6.2.</span> <span class="toc-text">文字围绕浮动元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0%E8%BF%90%E7%94%A8"><span class="toc-number">6.3.</span> <span class="toc-text">行内块元素运用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS%E4%B8%89%E8%A7%92%E5%BA%94%E7%94%A8"><span class="toc-number">6.4.</span> <span class="toc-text">CSS三角应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">7.</span> <span class="toc-text">CSS初始化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E6%A8%A1%E7%B3%8A%E5%A4%84%E7%90%86"><span class="toc-number">8.</span> <span class="toc-text">图片模糊处理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%A7%81%E6%9C%89%E5%89%8D%E7%BC%80"><span class="toc-number">9.</span> <span class="toc-text">浏览器私有前缀</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/52622.html" title="如何优雅处理响应数据">如何优雅处理响应数据</a><time datetime="2022-05-04T09:05:36.209Z" title="发表于 2022-05-04 17:05:36">2022-05-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/406925fb.html" title="图片懒加载及defer和async">图片懒加载及defer和async</a><time datetime="2022-05-04T09:05:36.208Z" title="发表于 2022-05-04 17:05:36">2022-05-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/211ab908.html" title="Flex弹性盒子模型">Flex弹性盒子模型</a><time datetime="2022-05-04T09:05:36.177Z" title="发表于 2022-05-04 17:05:36">2022-05-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/db6d3d10.html" title="CSS样式常用小技巧">CSS样式常用小技巧</a><time datetime="2022-05-04T09:05:36.172Z" title="发表于 2022-05-04 17:05:36">2022-05-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/e1d88301.html" title="BackUp博客备份及恢复">BackUp博客备份及恢复</a><time datetime="2022-05-04T09:05:36.112Z" title="发表于 2022-05-04 17:05:36">2022-05-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 小李博客</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div><a style="margin-inline:5px" target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a><a style="margin-inline:5px" target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a><a style="margin-inline:5px" target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a><a style="margin-inline:5px" target="_blank" href="https://www.upyun.com/"><img src="https://img.shields.io/badge/CDN-又拍云-blue?style=flat&logo=appveyor" title="本站使用又拍云CDN加速"></a><a style="margin-inline:5px" target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vercel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a><a style="margin-inline:5px" target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a><a style="margin-inline:5px" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer src="//lib.baomitu.com/jquery/3.5.1/jquery.min.js"></script><script defer src="https://myhkw.cn/api/player/160561664166" id="myhk" key="160561664166" m="1"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-moz -<span class="attribute">border</span>- radius: <span class="number">10px</span>;</span><br><span class="line">-webkit-<span class="attribute">border</span> -radius: <span class="number">10px</span>;</span><br><span class="line">-o-<span class="attribute">border</span>- radius: <span class="number">10px</span>;</span><br><span class="line"><span class="attribute">border</span>- radius: <span class="number">10px</span>;</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/db6d3d10.html">http://xiaoliblog.cn/posts/db6d3d10.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/211ab908.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Flex弹性盒子模型</div>
+      <div class="prev-desc">弹性盒子模型CSS3 新增了弹性盒子模型（Flexible Box 或 FlexBox），是一种新的用于在 HTML 页面实现布局的方式。使得当 HTML 页面适应不同尺寸的屏幕和不同的设备时，元素是可预测地运行。
+弹性盒子模型实现 HTML 页面布局是与方向无关的。不类似于块级布局侧重垂直方向，内联布局侧重水平...</div>
+    </a>
+    
+    
+    <a href="/posts/e1d88301.html">
+      <div class="next-title">BackUp博客备份及恢复<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">博客备份备份对于静态博客来说是及其重要的，本文章介绍一种hexo-git-backup插件备份的办法来实现hexo博客备份GitHub项目地址：https://github.com/coneycode/hexo-git-backup官方文档地址：https://github.com/coneycode/hexo-...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Sprites"><span class="toc-text">Sprites</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprites%E4%BD%BF%E7%94%A8"><span class="toc-text">Sprites使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS%E4%B8%89%E8%A7%92"><span class="toc-text">CSS三角</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%AC%E4%B8%9C%E6%95%88%E6%9E%9C"><span class="toc-text">京东效果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E6%A0%B7%E5%BC%8F"><span class="toc-text">CSS用户界面样式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BC%A0%E6%A0%87%E6%A0%B7%E5%BC%8F"><span class="toc-text">鼠标样式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AE%E5%BB%93%E7%BA%BFoutline"><span class="toc-text">轮廓线outline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E6%AD%A2%E6%8B%96%E6%8B%BD%E6%96%87%E6%9C%AC%E5%9F%9Fresize"><span class="toc-text">防止拖拽文本域resize</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vertical-align"><span class="toc-text">vertical-align</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E5%BA%95%E9%83%A8%E7%A9%BA%E7%99%BD%E7%BC%9D%E9%9A%99"><span class="toc-text">图片底部空白缝隙</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BA%A2%E5%87%BA%E6%96%87%E5%AD%97%E7%9C%81%E7%95%A5%E5%8F%B7%E8%A1%A8%E7%A4%BA"><span class="toc-text">溢出文字省略号表示</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E8%A1%8C%E6%96%87%E6%9C%AC"><span class="toc-text">单行文本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E8%A1%8C%E6%96%87%E6%9C%AC"><span class="toc-text">多行文本</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%83%E5%B1%80%E6%8A%80%E5%B7%A7"><span class="toc-text">布局技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#margin%E8%B4%9F%E5%80%BC%E8%BF%90%E7%94%A8"><span class="toc-text">margin负值运用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E5%AD%97%E5%9B%B4%E7%BB%95%E6%B5%AE%E5%8A%A8%E5%85%83%E7%B4%A0"><span class="toc-text">文字围绕浮动元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0%E8%BF%90%E7%94%A8"><span class="toc-text">行内块元素运用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS%E4%B8%89%E8%A7%92%E5%BA%94%E7%94%A8"><span class="toc-text">CSS三角应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">CSS初始化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E6%A8%A1%E7%B3%8A%E5%A4%84%E7%90%86"><span class="toc-text">图片模糊处理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%A7%81%E6%9C%89%E5%89%8D%E7%BC%80"><span class="toc-text">浏览器私有前缀</span></a></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2020 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD.(萌典) </a>
+  </div>
+  <div class="custom-text">我相信我可以，但我一直在路上，所以我有无限的可能！！</div>
+</footer>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<script src="https://myhkw.cn/api/player/160561664166" id="myhk" key="160561664166" m="1"></script>
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>
