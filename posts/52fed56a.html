@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Axios应用及跨域问题 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="Axios Axios 是一个开源的可以用在浏览器端和 NodeJS 的异步通信框架，她的主要作用就是实现 AJAX 异步通信 GitHub：https:&#x2F;&#x2F;github.com&#x2F;axios&#x2F;axios 中文文档：http:&#x2F;&#x2F;www.axios-js.com&#x2F;zh-cn&#x2F;docs&#x2F; 由于 Vue.js 是一个 视图层框架 并且作者（尤雨溪）严格准守 SoC （关注度分离原则），所以 Vue.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Axios应用及跨域问题">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/52fed56a.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="Axios Axios 是一个开源的可以用在浏览器端和 NodeJS 的异步通信框架，她的主要作用就是实现 AJAX 异步通信 GitHub：https:&#x2F;&#x2F;github.com&#x2F;axios&#x2F;axios 中文文档：http:&#x2F;&#x2F;www.axios-js.com&#x2F;zh-cn&#x2F;docs&#x2F; 由于 Vue.js 是一个 视图层框架 并且作者（尤雨溪）严格准守 SoC （关注度分离原则），所以 Vue.js">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-02-22T04:53:10.545Z">
+<meta property="article:modified_time" content="2023-02-22T12:17:16.539Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Axios应用及跨域问题</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-02-22 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-22
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">4.1k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>18分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h1><ul>
+<li>Axios 是一个开源的可以用在浏览器端和 NodeJS 的异步通信框架，她的主要作用就是实现 AJAX 异步通信</li>
+<li>GitHub：<a target="_blank" rel="noopener" href="https://github.com/axios/axios">https://github.com/axios/axios</a></li>
+<li>中文文档：<a target="_blank" rel="noopener" href="http://www.axios-js.com/zh-cn/docs/">http://www.axios-js.com/zh-cn/docs/</a></li>
+<li>由于 Vue.js 是一个 <strong>视图层框架</strong> 并且作者（尤雨溪）严格准守 <code>SoC</code> （关注度分离原则），所以 Vue.js 并不包含 AJAX 的通信功能，为了解决通信问题，作者单独开发了一个名为 <code>vue-resource</code> 的插件，不过在进入 2.0 版本以后停止了对该插件的维护并推荐了 Axios 框架</li>
+</ul>
+<h2 id="Axios的使用"><a href="#Axios的使用" class="headerlink" title="Axios的使用"></a>Axios的使用</h2><ul>
+<li>首先下载<code>Axios</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i axios</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>实现搜索框搜索歌曲关键字获取歌曲信息。在<code>App.vue</code>中实现</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">歌曲搜索接口</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">请求地址</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://autumnfish.cn/search">https://autumnfish.cn/search</a></td>
+</tr>
+<tr>
+<td align="center">请求方法</td>
+<td align="center">get</td>
+</tr>
+<tr>
+<td align="center">请求参数</td>
+<td align="center">keywords(查询关键字)</td>
+</tr>
+<tr>
+<td align="center">响应内容</td>
+<td align="center">歌曲搜索结果</td>
+</tr>
+</tbody></table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;keywords&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;getSongMsg&quot;</span>&gt;</span>获取歌曲信息<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 引入Axios</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span></span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 设置axios的基地址</span></span></span><br><span class="line"><span class="language-javascript">axios.<span class="property">defaults</span>.<span class="property">baseURL</span> = <span class="string">&#x27;https://autumnfish.cn&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">name</span>: <span class="string">&quot;App&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="title function_">data</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">keywords</span>:<span class="string">&#x27;青花瓷&#x27;</span></span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">methods</span>:&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">getSongMsg</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">      axios.<span class="title function_">get</span>(<span class="string">&#x27;/search?keywords=&#x27;</span>+<span class="variable language_">this</span>.<span class="property">keywords</span>).<span class="title function_">then</span>(</span></span><br><span class="line"><span class="language-javascript">        <span class="function"><span class="params">response</span> =&gt;</span>&#123;   <span class="comment">// response.data包含了完整数据</span></span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求成功了&#x27;</span>,response.<span class="property">data</span>)</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="function"><span class="params">error</span> =&gt;</span>&#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求失败了&#x27;</span>,error.<span class="property">message</span>)</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">      )</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>或者在<code>main.js</code>中原型挂载</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span> </span><br><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$axios</span> = axios</span><br><span class="line"><span class="comment">// 使用 this.$axios.get(&#123;...&#125;)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="请求格式"><a href="#请求格式" class="headerlink" title="请求格式"></a>请求格式</h2><ul>
+<li><code>GET</code>的请求</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 为给定 ID 的 user 创建请求</span></span><br><span class="line">axios.<span class="title function_">get</span>(<span class="string">&#x27;/user?ID=12345&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上面的请求也可以这样做</span></span><br><span class="line">axios.<span class="title function_">get</span>(<span class="string">&#x27;/user&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">params</span>: &#123;</span><br><span class="line">      <span class="attr">ID</span>: <span class="number">12345</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>POST</code>请求</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">axios.<span class="title function_">post</span>(<span class="string">&#x27;/user&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">firstName</span>: <span class="string">&#x27;Fred&#x27;</span>,</span><br><span class="line">    <span class="attr">lastName</span>: <span class="string">&#x27;Flintstone&#x27;</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="qs序列化插件"><a href="#qs序列化插件" class="headerlink" title="qs序列化插件"></a>qs序列化插件</h2><ul>
+<li><code>qs</code>是一个流行的查询参数序列化和解析库。可以将一个普通的object序列化成一个查询字符串，或者反过来将一个查询字符串解析成一个object,帮助我们查询字符串解析和序列化字符串</li>
+<li>需要使用qs内置库，首先安装qs</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install qs</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>main.js</code>中引入qs内置库并配置全局属性</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入qs</span></span><br><span class="line"><span class="keyword">import</span> qs <span class="keyword">from</span> <span class="string">&#x27;qs&#x27;</span></span><br><span class="line"><span class="comment">// 配置全局属性</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$qs</span> = qs</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>qs.parse()</code>是将URL解析成对象的形式</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">&quot;username=&#x27;admin&#x27;&amp;password=&#x27;admin&#x27;&quot;</span> </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(qs.<span class="title function_">parse</span>(str)) <span class="comment">// Object &#123; username: &quot;admin&quot;, password: &quot;admin&quot; &#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>qs.stringify()</code>是将对象 序列化成URL的形式，以<code>&amp;</code>进行拼接</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">qs.<span class="title function_">stringify</span>(&#123;<span class="attr">username</span>:<span class="string">&#x27;admin&#x27;</span>, <span class="attr">password</span>:<span class="string">&#x27;admin&#x27;</span>&#125;)</span><br><span class="line"><span class="comment">//username=admin&amp;password=admin</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>解决Vue中POST请求无法携带数据的问题</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">onSubmit</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> vm = <span class="variable language_">this</span>;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">axios</span>(&#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="comment">//=========解决POST请求无法携带数据的问题===========</span></span><br><span class="line">    <span class="attr">transformRequest</span>: [<span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title class_">Qs</span>.<span class="title function_">stringify</span>(data)</span><br><span class="line">    &#125;],</span><br><span class="line">    <span class="comment">//===============================</span></span><br><span class="line">    <span class="attr">data</span>:vm.<span class="property">product</span></span><br><span class="line">  &#125;).<span class="title function_">then</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Axios封装"><a href="#Axios封装" class="headerlink" title="Axios封装"></a>Axios封装</h2><ul>
+<li>实践开发中我们会封装拦截器，并对后端的响应码进行判断。也会封装请求方法</li>
+<li>新建<code>src/util/api.js</code>，编写如下</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/******************  http.js 用于封装axios *******************************/</span></span><br><span class="line"><span class="comment">// 引入qs</span></span><br><span class="line"><span class="keyword">import</span> qs <span class="keyword">from</span> <span class="string">&#x27;qs&#x27;</span></span><br><span class="line"><span class="comment">// 引入axios</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"><span class="comment">// 引入路由</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;../router&#x27;</span></span><br><span class="line"><span class="comment">// 单独引入提示框</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Message</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;element-ui&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/******************  基础配置 *******************************/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置默认的请求超时时间。例如超过了10s，就会告知用户当前请求超时，请刷新等</span></span><br><span class="line">axios.<span class="property">defaults</span>.<span class="property">timeout</span> = <span class="number">10000</span></span><br><span class="line"><span class="comment">// post请求的时候，我们需要加上一个请求头</span></span><br><span class="line">axios.<span class="property">defaults</span>.<span class="property">headers</span>.<span class="property">post</span>[<span class="string">&#x27;Content-Type&#x27;</span>] =</span><br><span class="line">  <span class="string">&#x27;application/x-www-form-urlencoded;charset=UTF-8&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 环境的切换</span></span><br><span class="line"><span class="comment">// if (process.env.NODE_ENV == &#x27;development&#x27;) &#123;    </span></span><br><span class="line"><span class="comment">//     axios.defaults.baseURL = &#x27;/api&#x27;;</span></span><br><span class="line"><span class="comment">// &#125; else if (process.env.NODE_ENV == &#x27;debug&#x27;) &#123;    </span></span><br><span class="line"><span class="comment">//     axios.defaults.baseURL = &#x27;&#x27;;</span></span><br><span class="line"><span class="comment">// &#125; else if (process.env.NODE_ENV == &#x27;production&#x27;) &#123;    </span></span><br><span class="line"><span class="comment">//     axios.defaults.baseURL = &#x27;http://api.123dailu.com/&#x27;;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/******************  配置响应拦截器 *******************************/</span></span><br><span class="line">axios.<span class="property">interceptors</span>.<span class="property">response</span>.<span class="title function_">use</span>(</span><br><span class="line">  <span class="function">(<span class="params">success</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// success 表示调到了接口</span></span><br><span class="line">    <span class="keyword">if</span> (success.<span class="property">status</span> &amp;&amp; success.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// 接下来处理后端JSON对象 有code、message、object对象</span></span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        success.<span class="property">data</span>.<span class="property">code</span> === <span class="number">500</span> ||</span><br><span class="line">        success.<span class="property">data</span>.<span class="property">code</span> === <span class="number">401</span> ||</span><br><span class="line">        success.<span class="property">data</span>.<span class="property">code</span> === <span class="number">403</span></span><br><span class="line">      ) &#123;</span><br><span class="line">        <span class="comment">// 状态信息</span></span><br><span class="line">        <span class="title class_">Message</span>.<span class="title function_">error</span>(&#123; <span class="attr">message</span>: success.<span class="property">data</span>.<span class="property">message</span> &#125;)</span><br><span class="line">        <span class="keyword">return</span> success.<span class="property">data</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 成功，有message就提示出来</span></span><br><span class="line">      <span class="keyword">if</span> (success.<span class="property">data</span>.<span class="property">message</span>) &#123;</span><br><span class="line">        <span class="title class_">Message</span>.<span class="title function_">success</span>(&#123; <span class="attr">message</span>: success.<span class="property">data</span>.<span class="property">message</span>&#125;)</span><br><span class="line">        <span class="keyword">return</span> success.<span class="property">data</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 返回JSON对象  前端只需res.code即可，不需要res.data.code</span></span><br><span class="line">    <span class="keyword">return</span> success.<span class="property">data</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 服务器错误，访问接口服务失败</span></span><br><span class="line">    <span class="keyword">if</span> (error.<span class="property">response</span>.<span class="property">code</span> == <span class="number">504</span> || error.<span class="property">response</span>.<span class="property">code</span> === <span class="number">404</span>) &#123;</span><br><span class="line">      <span class="title class_">Message</span>.<span class="title function_">error</span>(&#123; <span class="attr">message</span>: <span class="string">&#x27;服务器被吃了( ╯□╰ )&#x27;</span> &#125;)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (error.<span class="property">response</span>.<span class="property">code</span> === <span class="number">403</span>) &#123;</span><br><span class="line">      <span class="title class_">Message</span>.<span class="title function_">error</span>(&#123; <span class="attr">message</span>: <span class="string">&#x27;权限不足，请联系管理员&#x27;</span> &#125;)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (error.<span class="property">response</span>.<span class="property">code</span> === <span class="number">401</span>) &#123;</span><br><span class="line">      <span class="title class_">Message</span>.<span class="title function_">error</span>(&#123; <span class="attr">message</span>: <span class="string">&#x27;尚未登录，请登录&#x27;</span> &#125;)</span><br><span class="line">      <span class="comment">// 跳转到登录页</span></span><br><span class="line">      router.<span class="title function_">replace</span>(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (error.<span class="property">response</span>.<span class="property">data</span>.<span class="property">message</span>) &#123;</span><br><span class="line">        <span class="title class_">Message</span>.<span class="title function_">error</span>(&#123; <span class="attr">message</span>: error.<span class="property">response</span>.<span class="property">data</span>.<span class="property">message</span> &#125;)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="title class_">Message</span>.<span class="title function_">error</span>(&#123; <span class="attr">message</span>: <span class="string">&#x27;未知错误&#x27;</span> &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"><span class="comment">/******************  配置请求拦截器 *******************************/</span></span><br><span class="line">axios.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">use</span>(</span><br><span class="line">  <span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 在localStorage拿到token，之后的请求携带token，设置在请求头token中，后端通过拦截器获取并验证11111</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;token&#x27;</span>)) &#123;</span><br><span class="line">      config.<span class="property">headers</span>[<span class="string">&#x27;token&#x27;</span>] = <span class="variable language_">window</span>.<span class="property">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;token&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> config</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title class_">Message</span>.<span class="title function_">error</span>(&#123; <span class="attr">message</span>: error &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">/******************  请求封装 *******************************/</span></span><br><span class="line"><span class="comment">// 防止加前置路径</span></span><br><span class="line"><span class="keyword">let</span> baseURL = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">postRequest</span> = (<span class="params">url,params</span>)=&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">axios</span>(&#123;</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">`<span class="subst">$&#123;baseURL&#125;</span><span class="subst">$&#123;url&#125;</span>`</span>,</span><br><span class="line">        <span class="attr">data</span>: qs.<span class="title function_">stringify</span>(params)  <span class="comment">// qs序列化 后端才能收到</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">getRequest</span> = (<span class="params">url,params</span>)=&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">axios</span>(&#123;</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">`<span class="subst">$&#123;baseURL&#125;</span><span class="subst">$&#123;url&#125;</span>`</span>,</span><br><span class="line">        <span class="attr">params</span>: params, </span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">putRequest</span> = (<span class="params">url,params</span>)=&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">axios</span>(&#123;</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&#x27;put&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">`<span class="subst">$&#123;baseURL&#125;</span><span class="subst">$&#123;url&#125;</span>`</span>,</span><br><span class="line">        <span class="attr">data</span>: params, </span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">deleteRequest</span> = (<span class="params">url,params</span>)=&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">axios</span>(&#123;</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&#x27;delete&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">`<span class="subst">$&#123;baseURL&#125;</span><span class="subst">$&#123;url&#125;</span>`</span>,</span><br><span class="line">        <span class="attr">data</span>: params, </span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>main.js</code>中引入并挂载</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;postRequest,getRequest,putRequest,deleteRequest&#125; <span class="keyword">from</span> <span class="string">&#x27;./util/api&#x27;</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">postRequest</span> = postRequest</span><br><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getRequest</span> = getRequest</span><br><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">deleteRequest</span> = deleteRequest</span><br><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">putRequest</span> = putRequest</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用如下</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 发送POST请求的方法 */</span></span><br><span class="line"><span class="keyword">var</span> that = <span class="variable language_">this</span></span><br><span class="line"><span class="keyword">let</span> <span class="title class_">JSON</span>Data = &#123;</span><br><span class="line">   <span class="attr">username</span>: <span class="variable language_">this</span>.<span class="property">loginForm</span>.<span class="property">username</span>,</span><br><span class="line">   <span class="attr">password</span>: <span class="variable language_">this</span>.$md5(<span class="variable language_">this</span>.<span class="property">loginForm</span>.<span class="property">password</span> + <span class="variable language_">this</span>.<span class="property">saltValue</span>),</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">this</span>.<span class="title function_">postRequest</span>(<span class="string">&#x27;/user/login&#x27;</span>, <span class="title class_">JSON</span>Data).<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (response.<span class="property">code</span> == <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> token = response.<span class="property">extend</span>.<span class="property">token</span></span><br><span class="line">      <span class="comment">// 本地存储token</span></span><br><span class="line">      <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;token&#x27;</span>, token)</span><br><span class="line">      <span class="comment">// 跳转到主页</span></span><br><span class="line">      that.<span class="property">$router</span>.<span class="title function_">replace</span>(<span class="string">&#x27;/home&#x27;</span>)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h1><h2 id="跨域与同源"><a href="#跨域与同源" class="headerlink" title="跨域与同源"></a>跨域与同源</h2><ul>
+<li>跨域，指的是浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript施加的安全限制。</li>
+<li>跨域问题是浏览器对js的一种安全限制，也就是说浏览器的页面内去访问其他服务器上的资源的时候，就会出现跨域。同源策略明确了什么情况是属于跨域。<strong>所谓的同源策略，指的是协议、域名、端口完全相同，才是安全的</strong></li>
+<li>所谓同源是指，域名,协议，端口均相同</li>
+<li>跨域有以下解决方法<ul>
+<li>使用<code>CORS</code>（跨资源共享）解决跨域问题【不够安全】 </li>
+<li>使用<code>JSONP</code>解决跨域问题【很少使用】</li>
+<li>使用<code>Nginx</code>反向代理解决跨域问题，即配置代理服务器【开发常用】</li>
+</ul>
+</li>
+</ul>
+<h2 id="CORS请求原理"><a href="#CORS请求原理" class="headerlink" title="CORS请求原理"></a>CORS请求原理</h2><ul>
+<li><code>CORS</code>是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。它允许浏览器向跨源服务器，发出<code>XMLHttpRequest</code>请求，从而克服了<code>AJAX</code>只能同源使用的限制</li>
+<li>CORS需要浏览器和服务器同时支持。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉</li>
+<li>因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信（在<code>header</code>中设置: <code>&quot;Access-Control-Allow-0rigin&quot;,&quot;*&quot;)</code>，比如在<code>spring-mvc.xml</code>中配置</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:cors</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">&quot;/**&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">allowed-origins</span>=<span class="string">&quot;*&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">allowed-methods</span>=<span class="string">&quot;POST, GET, OPTIONS, DELETE, PUT,PATCH&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">allowed-headers</span>=<span class="string">&quot;Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">allow-credentials</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:cors</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这个跨域访问的解决方案的安全基础是基于<strong>JavaScript无法控制该HTTP头</strong>，它需要通过目标域返回的HTTP头来授权是否允许跨域访问。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">response.addHeader(‘Access-Control-Allow-Origin:*’);<span class="comment">//允许所有来源访问 </span></span><br><span class="line">response.addHeader(‘Access-Control-Allow-Method:POST,GET’);<span class="comment">//允许访问的方式</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>关于CORS，强烈推荐阅读👉<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2016/04/cors.html">跨域资源共享 CORS 详解(阮一峰)</a></li>
+</ul>
+<h2 id="JSONP方法"><a href="#JSONP方法" class="headerlink" title="JSONP方法"></a>JSONP方法</h2><ul>
+<li>JSONP （JSON with Padding）是JSON的一种“使用模式”，可用于解决主流浏览器的跨域数据访问的问题</li>
+<li>在同源策略下，在某个服务器下的页面是无法获取到该服务器以外的数据的，即一般的<code>ajax</code>是不能进行跨域请求的。但 <code>img</code>、<code>iframe</code> 、<code>script</code>等标签是个例外，这些标签可以通过<code>src</code>属性请求到其他服务器上的数据</li>
+<li>利用<code>&lt;script&gt;</code>标签的开放策略，我们可以实现跨域请求数据，当然这需要服务器端的配合。 Jquery中ajax的核心是通过 <code>XmlHttpRequest</code>获取非本页内容，<strong>而<code>jsonp</code>的核心则是动态添加<code>&lt;script&gt;</code>标签来调用服务器提供的 js脚本</strong></li>
+<li>当我们正常地请求一个JSON数据的时候，服务端返回的是一串JSON类型的数据，而我们使用 JSONP模式来请求数据的时候服务端返回的是一段可执行的JavaScript代码。因为jsonp跨域的原理就是用的动态加载<code>&lt;script&gt;</code>的<code>src</code> ，所以我们只能把参数通过<code>url</code>的方式传递，<strong>所以jsonp的 <code>type</code>类型只能是<code>get</code> ！</strong></li>
+</ul>
+<p>推荐使用CORS解决跨域问题，其他解决方法请参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/itcats_cn/article/details/82318092">https://blog.csdn.net/itcats_cn/article/details/82318092</a></p>
+<h2 id="配置代理"><a href="#配置代理" class="headerlink" title="配置代理"></a>配置代理</h2><ul>
+<li>以上跨域问题解决方案都需要服务器支持，当服务器无法设置<code>header</code>或提供<code>callback</code> 时我们就可以通过配置代理服务器来解决</li>
+<li>采用的代理服务器技术Niginx反向代理的方式解决跨域问题，比如在<code>nginx.conf</code>的<code>location</code> 中增加如下配置:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add_ header Access -Control -Allow-Origin *或域名;</span><br><span class="line">add_ header Access-Control -Allow-Headers X- Requested-With;</span><br><span class="line">add_ header Access-Control -Allow-Methods GET, POST, OPTIONS; </span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>更简单的解决方法是借用Vue CLI的脚手架配置代理服务器，参考官方文档：<a target="_blank" rel="noopener" href="https://cli.vuejs.org/zh/config/#devserver">https://cli.vuejs.org/zh/config/#devserver</a></p>
+</li>
+<li><p>在Vue中使用<code>proxy</code>进行跨域的原理是：将客户端请求发送给本地的代理服务器（启动vue项目的服务，<code>loclahost:8080</code>），再由本地的代理服务器去请求真正的服务器<code>5000</code></p>
+</li>
+<li><p>首先使用<code>Express</code>服务器框架进行搭建一个<code>5000</code>的服务器，详情参考我的<a href="https://xiaoliblog.cn/page/Ajax01.html#%E5%AE%89%E8%A3%85Express">Ajax基本操作</a></p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 引入Express</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//2. 创建应用对象</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//3. 创建路由规则</span></span><br><span class="line"><span class="comment">//request是对请求报文的封装</span></span><br><span class="line"><span class="comment">//response是对响应报文的封装</span></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/student&#x27;</span>, <span class="function">(<span class="params">request, response</span>) =&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//设置响应</span></span><br><span class="line">    response.<span class="title function_">send</span>(<span class="string">&quot;student&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/teacher&#x27;</span>, <span class="function">(<span class="params">request, response</span>) =&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//设置响应</span></span><br><span class="line">    response.<span class="title function_">send</span>(<span class="string">&quot;teacher&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4. 监听端口启动服务</span></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">5000</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;服务已经启动,5000 端口监听中...&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>假设本地端口<code>8080</code>需要访问<code>5000</code>端口的数据，就会出现跨域问题</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;getStudent&quot;</span>&gt;</span>获取学生学习<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 引入Axios</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">name</span>: <span class="string">&quot;App&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">methods</span>:&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">getStudent</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 会出现跨域问题</span></span></span><br><span class="line"><span class="language-javascript">      axios.<span class="title function_">get</span>(<span class="string">&#x27;http://localhost:5000/student&#x27;</span>).<span class="title function_">then</span>(</span></span><br><span class="line"><span class="language-javascript">        <span class="function"><span class="params">response</span> =&gt;</span>&#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求成功了&#x27;</span>,response.<span class="property">data</span>)</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="function"><span class="params">error</span> =&gt;</span>&#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求失败了&#x27;</span>,error.<span class="property">message</span>)</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">      )</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>在项目根目录下创建<code>vue.config.js</code>配置文件，开启访问<code>5000</code>的代理服务器。修改了脚手架配置需要重启服务器</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">   <span class="comment">// 开启代理服务器，在proxy中设置要访问的地址5000</span></span><br><span class="line">   <span class="attr">devServer</span>: &#123;</span><br><span class="line">        <span class="attr">proxy</span>: <span class="string">&#x27;http://localhost:5000&#x27;</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置好代理服务器后，客户端请求就需要改成本地<code>8080</code>的代理服务器了，再由代理服务器请求真正的<code>5000</code>端口的服务器</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">getStudent</span>(<span class="params"></span>) &#123;</span><br><span class="line">        axios.<span class="title function_">get</span>(<span class="string">&#x27;http://localhost:8080/student&#x27;</span>).<span class="title function_">then</span>(</span><br><span class="line">            <span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求成功了&#x27;</span>, response.<span class="property">data</span>)</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求失败了&#x27;</span>, error.<span class="property">message</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>以上代理服务器的配置方法有缺陷，只能配置一个代理服务器，且请求资源与本地同名时会出现问题</p>
+<ul>
+<li>可以通过以下配置进行多个代理服务器配置</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="comment">// 跨域配置多个代理</span></span><br><span class="line">    <span class="attr">devServer</span>: &#123;</span><br><span class="line">        <span class="attr">proxy</span>: &#123;</span><br><span class="line">            <span class="comment">// api为请求资源的前缀 比如localhost:8080/api/student</span></span><br><span class="line">            <span class="comment">// 这样就可以通过不同的api指定不同的代理服务器，api可以自定义</span></span><br><span class="line">            <span class="string">&#x27;/api&#x27;</span>: &#123;</span><br><span class="line">                <span class="attr">target</span>: <span class="string">&#x27;http://localhost:5000&#x27;</span>, <span class="comment">// 真正访问的服务器地址</span></span><br><span class="line">                <span class="attr">pathRewrite</span>: &#123;</span><br><span class="line">                    <span class="string">&#x27;^/api&#x27;</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">                &#125;, <span class="comment">// 把api替换空字符串去访问真正的服务器资源</span></span><br><span class="line">                <span class="attr">ws</span>: <span class="literal">true</span>, <span class="comment">// 用于支持websocket</span></span><br><span class="line">                <span class="attr">changeOrigin</span>: <span class="literal">true</span> <span class="comment">// 欺骗服务器告诉服务器自己端口和它一样，即用于控制请求头的host值</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&#x27;/demo&#x27;</span>: &#123;</span><br><span class="line">                <span class="attr">target</span>: <span class="string">&#x27;http://localhost:5001&#x27;</span>, <span class="comment">// 真正访问的服务器地址</span></span><br><span class="line">                <span class="attr">pathRewrite</span>: &#123;</span><br><span class="line">                    <span class="string">&#x27;^/demo&#x27;</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">                &#125;, <span class="comment">// 把api替换空字符串去访问真正的服务器资源</span></span><br><span class="line">                <span class="attr">ws</span>: <span class="literal">true</span>, <span class="comment">// 用于支持websocket</span></span><br><span class="line">                <span class="attr">changeOrigin</span>: <span class="literal">true</span> <span class="comment">// 欺骗服务器告诉服务器自己端口和它一样，即用于控制请求头的host值</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这样通过不同的前缀访问不同的服务器，比如在封装请求中添加前缀</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/ 防止加前置路径</span><br><span class="line"><span class="keyword">let</span> baseURL = <span class="string">&quot;api&quot;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">postRequest</span> = (<span class="params">url,params</span>)=&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">axios</span>(&#123;</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">`<span class="subst">$&#123;baseURL&#125;</span><span class="subst">$&#123;url&#125;</span>`</span>,</span><br><span class="line">        <span class="attr">data</span>: qs.<span class="title function_">stringify</span>(params)  <span class="comment">// qs序列化 后端才能收到</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后修改<code>App.vue</code>的地址，当请求本地<code>8080</code>的资源时就不需要加配置好的前缀</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;getStudent&quot;</span>&gt;</span>获取学生信息<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;getTeacher&quot;</span>&gt;</span>获取老师信息<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;getLocalMsg&quot;</span>&gt;</span>获取本地信息<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 引入Axios</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">name</span>: <span class="string">&quot;App&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">methods</span>:&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">getStudent</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">      axios.<span class="title function_">get</span>(<span class="string">&#x27;http://localhost:8080/api/student&#x27;</span>).<span class="title function_">then</span>(</span></span><br><span class="line"><span class="language-javascript">        <span class="function"><span class="params">response</span> =&gt;</span>&#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求成功了&#x27;</span>,response.<span class="property">data</span>)</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="function"><span class="params">error</span> =&gt;</span>&#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求失败了&#x27;</span>,error.<span class="property">message</span>)</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">      )</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">getTeacher</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">      axios.<span class="title function_">get</span>(<span class="string">&#x27;http://localhost:8080/demo/teacher&#x27;</span>).<span class="title function_">then</span>(</span></span><br><span class="line"><span class="language-javascript">        <span class="function"><span class="params">response</span> =&gt;</span>&#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求成功了&#x27;</span>,response.<span class="property">data</span>)</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="function"><span class="params">error</span> =&gt;</span>&#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求失败了&#x27;</span>,error.<span class="property">message</span>)</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">      )</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">getLocalMsg</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">      axios.<span class="title function_">get</span>(<span class="string">&#x27;http://localhost:8080/index&#x27;</span>).<span class="title function_">then</span>(</span></span><br><span class="line"><span class="language-javascript">        <span class="function"><span class="params">response</span> =&gt;</span>&#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求成功了&#x27;</span>,response.<span class="property">data</span>)</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="function"><span class="params">error</span> =&gt;</span>&#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求失败了&#x27;</span>,error.<span class="property">message</span>)</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">      )</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<div class="tip">
+    <p>接口地址有重叠地址时，将匹配度低的放在后面</p>
+</div>
+
+<ul>
+<li>如下写法是不行的，请求将全部被代理到 <code>192.191.1.1</code> 上面去。我们请求<code>/api</code> 时，首先读取到了配置项中的第一个，拿配置中的 <code>/</code> 去匹配请求中的 <code>/api</code> ， 发现请求的<code>/api</code> 中包含配置项<code>/</code>，匹配成功，直接将请求代理到了 <code>192.191.1.1</code> 上面去， 对<code>/api/action</code>的匹配也同理</li>
+<li>它的匹配规则是： 拿配置项中的地址去匹配请求中的地址，如果请求中的地址中包含配置中的地址，则匹配成功，否则，拿下一个配置项继续匹配</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">proxy</span>: &#123;</span><br><span class="line">  <span class="string">&#x27;/&#x27;</span>: &#123;</span><br><span class="line">      <span class="attr">target</span>: <span class="string">&#x27;http://192.191.1.1&#x27;</span>,</span><br><span class="line">      <span class="attr">changeOrigin</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">ws</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">secure</span>: <span class="literal">false</span></span><br><span class="line">  &#125;,</span><br><span class="line"><span class="string">&#x27;/api&#x27;</span>: &#123;</span><br><span class="line">      <span class="attr">target</span>: <span class="string">&#x27;http://192.191.1.2&#x27;</span>,</span><br><span class="line">      <span class="attr">changeOrigin</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">ws</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">secure</span>: <span class="literal">false</span></span><br><span class="line">  &#125;,</span><br><span class="line"><span class="string">&#x27;/api/action&#x27;</span>: &#123;</span><br><span class="line">      <span class="attr">target</span>: <span class="string">&#x27;http://192.191.1.3&#x27;</span>,</span><br><span class="line">      <span class="attr">changeOrigin</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">ws</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">secure</span>: <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>正确写法如下</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">proxy</span>: &#123;</span><br><span class="line">  <span class="string">&#x27;/api/action&#x27;</span>: &#123;</span><br><span class="line">      <span class="attr">target</span>: <span class="string">&#x27;http://192.191.1.3&#x27;</span>,</span><br><span class="line">      <span class="attr">changeOrigin</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">ws</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">secure</span>: <span class="literal">false</span></span><br><span class="line">  &#125;,</span><br><span class="line"><span class="string">&#x27;/api&#x27;</span>: &#123;</span><br><span class="line">      <span class="attr">target</span>: <span class="string">&#x27;http://192.191.1.2&#x27;</span>,</span><br><span class="line">      <span class="attr">changeOrigin</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">ws</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">secure</span>: <span class="literal">false</span></span><br><span class="line">  &#125;,</span><br><span class="line"><span class="string">&#x27;/&#x27;</span>: &#123;</span><br><span class="line">      <span class="attr">target</span>: <span class="string">&#x27;http://192.191.1.1&#x27;</span>,</span><br><span class="line">      <span class="attr">changeOrigin</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">ws</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">secure</span>: <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/52fed56a.html">http://xiaoliblog.cn/posts/52fed56a.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/25ba76c5.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Vue3计算属性与监视及生命周期</div>
+      <div class="prev-desc">计算属性与监视computed
+与Vue2.x中computed配置功能一致
+
+123456789101112131415161718192021222324252627282930313233343536373839404142&amp;lt;template&amp;gt;  &amp;lt;div class=&amp;quot;demo...</div>
+    </a>
+    
+    
+    <a href="/posts/dd20d485.html">
+      <div class="next-title">github搜索案例及slot插槽<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">github案例静态组件
+首先需要引入Bootstrap库，在index.html中引入，存放在public/css文件夹下
+
+1&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;&amp;lt;%= BASE_URL %&amp;gt;css/bootstrap.min.css&amp;qu...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Axios"><span class="toc-text">Axios</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Axios%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">Axios的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E6%A0%BC%E5%BC%8F"><span class="toc-text">请求格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#qs%E5%BA%8F%E5%88%97%E5%8C%96%E6%8F%92%E4%BB%B6"><span class="toc-text">qs序列化插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Axios%E5%B0%81%E8%A3%85"><span class="toc-text">Axios封装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="toc-text">跨域问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E5%9F%9F%E4%B8%8E%E5%90%8C%E6%BA%90"><span class="toc-text">跨域与同源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CORS%E8%AF%B7%E6%B1%82%E5%8E%9F%E7%90%86"><span class="toc-text">CORS请求原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSONP%E6%96%B9%E6%B3%95"><span class="toc-text">JSONP方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="toc-text">配置代理</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

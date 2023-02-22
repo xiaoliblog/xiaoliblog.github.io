@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>JavaScript中的对象 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="对象 面向对象的特征主要可以概括为封装性、继承性、多态性。  自定义对象字面量{}创建对象1234567891011 var o1&#x3D;&amp;#123;&amp;#125;; var o2&#x3D;&amp;#123;name:&amp;#x27;Jim&amp;#x27;&amp;#125;; var o3&#x3D;&amp;#123;name:&amp;#x27;Jim&amp;#x27;,age:19,gender:&amp;#x27;男&amp;#x27;&amp;#125;; var o4 &#x3D; &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript中的对象">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/297cf3ed.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="对象 面向对象的特征主要可以概括为封装性、继承性、多态性。  自定义对象字面量{}创建对象1234567891011 var o1&#x3D;&amp;#123;&amp;#125;; var o2&#x3D;&amp;#123;name:&amp;#x27;Jim&amp;#x27;&amp;#125;; var o3&#x3D;&amp;#123;name:&amp;#x27;Jim&amp;#x27;,age:19,gender:&amp;#x27;男&amp;#x27;&amp;#125;; var o4 &#x3D; &amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-02-22T04:53:10.522Z">
+<meta property="article:modified_time" content="2023-02-22T11:23:30.405Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>JavaScript中的对象</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-02-22 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-22
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">2.4k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>11分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h1><ul>
+<li>面向对象的特征主要可以概括为<strong>封装性、继承性、多态性</strong>。</li>
+</ul>
+<h2 id="自定义对象"><a href="#自定义对象" class="headerlink" title="自定义对象"></a>自定义对象</h2><h3 id="字面量-创建对象"><a href="#字面量-创建对象" class="headerlink" title="字面量{}创建对象"></a>字面量{}创建对象</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> o1=&#123;&#125;;</span><br><span class="line"> <span class="keyword">var</span> o2=&#123;<span class="attr">name</span>:<span class="string">&#x27;Jim&#x27;</span>&#125;;</span><br><span class="line"> <span class="keyword">var</span> o3=&#123;<span class="attr">name</span>:<span class="string">&#x27;Jim&#x27;</span>,<span class="attr">age</span>:<span class="number">19</span>,<span class="attr">gender</span>:<span class="string">&#x27;男&#x27;</span>&#125;;</span><br><span class="line"> <span class="keyword">var</span> o4 = &#123;</span><br><span class="line">   <span class="attr">name</span>: <span class="string">&#x27;Jim&#x27;</span>,</span><br><span class="line">   <span class="attr">age</span>: <span class="number">19</span>,</span><br><span class="line">   <span class="attr">gender</span>: <span class="string">&#x27;男&#x27;</span>,</span><br><span class="line">   <span class="attr">sayHello</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;你好&#x27;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="访问对象成员"><a href="#访问对象成员" class="headerlink" title="访问对象成员"></a>访问对象成员</h3><ul>
+<li>对象名.属性;</li>
+<li>对象名.方法名()</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">o4.<span class="property">name</span>;</span><br><span class="line">o4.<span class="title function_">sayHello</span>();</span><br></pre></td></tr></table></figure>
+<h3 id="增加对象成员"><a href="#增加对象成员" class="headerlink" title="增加对象成员"></a>增加对象成员</h3><ul>
+<li>引用不存在的成员，即增加成员</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">o4.<span class="property">tall</span>=<span class="number">181</span>;</span><br><span class="line">o4.<span class="property">introduce</span>=<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(o4.<span class="property">name</span>+o4.<span class="property">tall</span>);</span><br><span class="line">&#125;</span><br><span class="line">o4.<span class="title function_">introduce</span>();</span><br></pre></td></tr></table></figure>
+<h3 id="可变成员名"><a href="#可变成员名" class="headerlink" title="可变成员名"></a>可变成员名</h3><ul>
+<li>如果对象的成员名不确定时，还可通过一个变量保存成员的名称，使用[]语法来实现可变成员名。<code>成员名：字符串</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> key=<span class="string">&#x27;id&#x27;</span>;</span><br><span class="line">o4[key]=<span class="number">123</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="对象成员遍历"><a href="#对象成员遍历" class="headerlink" title="对象成员遍历"></a>对象成员遍历</h3><ul>
+<li><code>typeof</code>：判断成员类型，<code>function</code>表示方法</li>
+<li>访问方法：<code>o4[i]()</code></li>
+<li>访问属性：<code>o4[i]</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> o4)&#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">typeof</span>(o4[i]));  </span><br><span class="line">   <span class="keyword">if</span>(<span class="title function_">typeof</span>(o4[i])==<span class="string">&quot;function&quot;</span>)&#123;</span><br><span class="line">       o4[i]();  <span class="comment">//访问方法</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(o4[i]);  <span class="comment">//访问属性</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>动态增加对象成员<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">&quot;key&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">value</span>=<span class="string">&quot;name&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">&quot;val&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Jack&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;测试&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> k = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;key&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> v = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;val&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> btn = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;btn&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> o = &#123;&#125;;  <span class="comment">//创建空对象</span></span></span><br><span class="line"><span class="language-javascript">      btn.<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;  <span class="comment">//当点击btn时，调用匿名函数</span></span></span><br><span class="line"><span class="language-javascript">         o[k.<span class="property">value</span>] = v.<span class="property">value</span>;  <span class="comment">//增加属性，k的value为键、v的value为值</span></span></span><br><span class="line"><span class="language-javascript">         <span class="variable language_">console</span>.<span class="title function_">log</span>(o);  <span class="comment">//打印对象</span></span></span><br><span class="line"><span class="language-javascript">     &#125;</span></span><br><span class="line"><span class="language-javascript">   </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h2><ul>
+<li>浅拷贝—复制快捷方式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123;<span class="attr">name</span>: <span class="string">&#x27;Jim&#x27;</span>, <span class="attr">age</span>: <span class="number">19</span>, <span class="attr">gender</span>: <span class="string">&#x27;男&#x27;</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> o2=o1;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>深拷贝—复制文件本身</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">deepCopy</span>(<span class="params">obj</span>)&#123;</span><br><span class="line">   <span class="keyword">var</span> o = &#123;&#125;;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> obj)&#123;     <span class="comment">//假设k是简单的成员（不是对象）</span></span><br><span class="line">   o[k] = obj[k];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="this指向"><a href="#this指向" class="headerlink" title="this指向"></a>this指向</h2><ul>
+<li>使用<code>new</code>调用构造函数时，<code>this</code>指向新创建的对象</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>  <span class="title function_">Person</span>(<span class="params">name,age</span>)&#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> o1 = <span class="keyword">new</span> <span class="title class_">Person</span>(“<span class="title class_">Jack</span>”,<span class="number">18</span>);</span><br><span class="line"><span class="keyword">var</span> o2 = <span class="keyword">new</span> <span class="title class_">Person</span>(“<span class="title class_">Lily</span>”,<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将函数作为对象的方法调用，this指向该对象</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">   <span class="attr">name</span>:”<span class="title class_">Jack</span>”,</span><br><span class="line">   <span class="attr">age</span>:<span class="number">19</span>,</span><br><span class="line">   <span class="attr">sayHello</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>( <span class="variable language_">this</span>.<span class="property">name</span> + “,” + <span class="variable language_">this</span>.<span class="property">age</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.<span class="title function_">sayHello</span>();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>直接通过函数名调用函数，<code>this</code>指向全局对象<code>window</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">foo</span>()===<span class="variable language_">window</span>); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h1><h2 id="String对象"><a href="#String对象" class="headerlink" title="String对象"></a>String对象</h2><table>
+<thead>
+<tr>
+<th align="center">成员</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>length</code></td>
+<td align="center">获取字符串长度</td>
+</tr>
+<tr>
+<td align="center"><code>charAt(index)</code></td>
+<td align="center">获取index位置的字符，位置从0开始</td>
+</tr>
+<tr>
+<td align="center"><code>indexOf(searchValue)</code></td>
+<td align="center">获取seerchValue在字符串中首次出现的位置</td>
+</tr>
+<tr>
+<td align="center"><code>lastIndexOf(searchValue)</code></td>
+<td align="center">获取seerchValue在字符串中最后出现的位置</td>
+</tr>
+<tr>
+<td align="center"><code>substring(start[,end])</code></td>
+<td align="center">截取从start位置到end位置之间的一个子字符串</td>
+</tr>
+<tr>
+<td align="center"><code>substr(start[,length])</code></td>
+<td align="center">截取从start位置开始到length长度的子字符串</td>
+</tr>
+<tr>
+<td align="center"><code>toLowerCase()</code></td>
+<td align="center">获取字符串的小写形式</td>
+</tr>
+<tr>
+<td align="center"><code>toUpperCase()</code></td>
+<td align="center">获取字符串的大写形式</td>
+</tr>
+<tr>
+<td align="center"><code>split([separator[,limit])</code></td>
+<td align="center">使用separator分隔符将字符串分隔成数组，limit用于限制数量</td>
+</tr>
+<tr>
+<td align="center"><code>replace(str1,str2)</code></td>
+<td align="center">使用str2替换字符串中的str1，返回替换结果</td>
+</tr>
+</tbody></table>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name=<span class="string">&#x27;Administrator&#x27;</span>;</span><br><span class="line"><span class="keyword">if</span>(name.<span class="property">length</span>&lt;<span class="number">3</span>||name.<span class="property">length</span>&gt;<span class="number">10</span>)&#123;</span><br><span class="line">   <span class="title function_">alert</span>(<span class="string">&#x27;用户名必须在3~10之间&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(name.<span class="title function_">toLowerCase</span>().<span class="title function_">indexOf</span>(<span class="string">&#x27;admini&#x27;</span>)!== -<span class="number">1</span>)&#123; <span class="comment">//indexOf查找失败返回-1</span></span><br><span class="line">   <span class="title function_">alert</span>(<span class="string">&#x27;用户名中不能包含敏感词：admin&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Number对象"><a href="#Number对象" class="headerlink" title="Number对象"></a>Number对象</h2><ul>
+<li><code>Number</code>对象用于处理整数、浮点数等数值，常用的属性和方法如下。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">成员</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>MAX_VALUE</code></td>
+<td align="center">在JavaScript中所能表示的最大数值（静态成员）</td>
+</tr>
+<tr>
+<td align="center"><code>MIN_VALUE</code></td>
+<td align="center">在JavaScript中所能表示的最小正值（静态成员）</td>
+</tr>
+<tr>
+<td align="center"><code>toFixed(digits)</code></td>
+<td align="center">使用定点表示法来格式化一个数值</td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num=<span class="number">12345.6789</span>;</span><br><span class="line">num.<span class="title function_">toFixed</span>();  <span class="comment">//四舍五入，不包括小数部分，返回结果：12345</span></span><br><span class="line">num.<span class="title function_">toFixed</span>(<span class="number">1</span>); <span class="comment">//四舍五入，保留1位小数，返回结果：12345.7</span></span><br><span class="line">num.<span class="title function_">toFixed</span>(<span class="number">6</span>); <span class="comment">//用0填充不足的小数位，返回结果：12345.678900</span></span><br><span class="line">num.<span class="property">MAX_VALUE</span>;</span><br><span class="line">num.<span class="property">MIN_VALUE</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="Math对象"><a href="#Math对象" class="headerlink" title="Math对象"></a>Math对象</h2><ul>
+<li><code>Math</code>对象用于对数值进行数学运算。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">成员</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>PI</code></td>
+<td align="center">获取圆周率，结果为3.141592653589793</td>
+</tr>
+<tr>
+<td align="center"><code>abs(x)</code></td>
+<td align="center">获取x的绝对值，可传入普通数值或是用字符串表示的数值</td>
+</tr>
+<tr>
+<td align="center"><code>pow(base,xponent)</code></td>
+<td align="center">获取基数(base)的指数(exponent)次幂，即baseexponnet</td>
+</tr>
+<tr>
+<td align="center"><code>sqrt(x)</code></td>
+<td align="center">获取x的平方根</td>
+</tr>
+<tr>
+<td align="center"><code>ceil(x)</code></td>
+<td align="center">获取大于或等于x的最小整数，即向上取整</td>
+</tr>
+<tr>
+<td align="center"><code>floor(x)</code></td>
+<td align="center">获取小于或等于x的最大整数，即向下取整</td>
+</tr>
+<tr>
+<td align="center"><code>round(x)</code></td>
+<td align="center">获取x的四舍五入后的整数值</td>
+</tr>
+<tr>
+<td align="center"><code>random()</code></td>
+<td align="center">获取大于或等于0.0且小于1.0的随机值</td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num=<span class="number">10.88</span>;</span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">ceil</span>(num);</span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">random</span>();</span><br><span class="line"><span class="comment">//Math.floor( Math.random() * (max-min+1) + min)，生成[min,max]的随机整数。</span></span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">random</span>()*(<span class="number">3</span>-<span class="number">1</span>+<span class="number">1</span>)+<span class="number">1</span>; <span class="comment">//[1,3]  //Math.random()*(Max-Min+1)+Min</span></span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">random</span>()*(<span class="number">99</span>-<span class="number">88</span>)+<span class="number">88</span>; <span class="comment">//[88,99) //Math.random()*(Max-Min)+Min</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Date对象"><a href="#Date对象" class="headerlink" title="Date对象"></a>Date对象</h2><ul>
+<li><code>Date</code>对象用于处理日期和时间。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">成员</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>getFullYear()</code></td>
+<td align="center">获取表示年份的4位数字，如2020</td>
+</tr>
+<tr>
+<td align="center"><code>setFullYear(value)</code></td>
+<td align="center">设置年份</td>
+</tr>
+<tr>
+<td align="center"><code>getMonth()</code></td>
+<td align="center"><strong>获取月份，范围0~11（0表示一月，1表示二月，依次类推）</strong></td>
+</tr>
+<tr>
+<td align="center"><code>setMonth(value)</code></td>
+<td align="center">设置月份</td>
+</tr>
+<tr>
+<td align="center"><code>getDate()</code></td>
+<td align="center"><strong>获取月份中的某一天，范围1~31</strong></td>
+</tr>
+<tr>
+<td align="center"><code>setDate(value)</code></td>
+<td align="center">设置月份中的某一天</td>
+</tr>
+<tr>
+<td align="center"><code>getDay()</code></td>
+<td align="center"><strong>获取星期，范围0~6（0表示星期日，1表示星期一，依次类推</strong>）</td>
+</tr>
+<tr>
+<td align="center"><code>getHours()</code></td>
+<td align="center">获取小时数，返回0~23</td>
+</tr>
+<tr>
+<td align="center"><code>setHours(value)</code></td>
+<td align="center">设置小时数</td>
+</tr>
+<tr>
+<td align="center"><code>getMinutes()</code></td>
+<td align="center">获取分钟数，范围0~59</td>
+</tr>
+<tr>
+<td align="center"><code>setMinutes(value)</code></td>
+<td align="center">设置分钟数</td>
+</tr>
+<tr>
+<td align="center"><code> getSeconds()</code></td>
+<td align="center">获取秒数，范围0~59</td>
+</tr>
+<tr>
+<td align="center"><code>setSeconds(value)</code></td>
+<td align="center">设置秒数</td>
+</tr>
+<tr>
+<td align="center"><code>getMilliseconds() </code></td>
+<td align="center">获取毫秒数，范围0~999</td>
+</tr>
+<tr>
+<td align="center"><code>getMilliseconds(value)</code></td>
+<td align="center">设置毫秒数</td>
+</tr>
+<tr>
+<td align="center"><code>getTime() </code></td>
+<td align="center">获取从1970-01-01 00:00:00 距离Date对象所代表时间</td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> date=<span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">write</span>(date+<span class="string">&quot;&lt;br&gt;&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;年：&quot;</span>+date.<span class="title function_">getYear</span>());  <span class="comment">//年：120</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;年：&quot;</span>+date.<span class="title function_">getFullYear</span>());  <span class="comment">//年：2020</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;月：&quot;</span>+date.<span class="title function_">getMonth</span>());  <span class="comment">//月：9</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;日：&quot;</span>+date.<span class="title function_">getDate</span>());  <span class="comment">//日：15</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;时：&quot;</span>+date.<span class="title function_">getHours</span>());  <span class="comment">//时：8</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;分：&quot;</span>+date.<span class="title function_">getMinutes</span>());  <span class="comment">//分：52</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;秒：&quot;</span>+date.<span class="title function_">getSeconds</span>());  <span class="comment">//秒：54</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;周几：&quot;</span>+date.<span class="title function_">getDay</span>());  <span class="comment">//周几：4</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;</span> <span class="string">&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/1999/xhtml&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html; charset=utf-8&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>制作年历<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">      <span class="selector-tag">body</span>&#123;</span></span><br><span class="line"><span class="language-css">         <span class="attribute">text-align</span>:center;</span></span><br><span class="line"><span class="language-css">      &#125;</span></span><br><span class="line"><span class="language-css">      <span class="selector-class">.box</span>&#123;</span></span><br><span class="line"><span class="language-css">         <span class="attribute">margin</span>:<span class="number">0</span> auto;</span></span><br><span class="line"><span class="language-css">         <span class="attribute">width</span>:<span class="number">880px</span>;</span></span><br><span class="line"><span class="language-css">      &#125;</span></span><br><span class="line"><span class="language-css">      <span class="selector-class">.title</span>&#123;</span></span><br><span class="line"><span class="language-css">         <span class="attribute">background</span>:<span class="number">#ccc</span>;</span></span><br><span class="line"><span class="language-css">      &#125;</span></span><br><span class="line"><span class="language-css">      <span class="selector-tag">table</span>&#123;</span></span><br><span class="line"><span class="language-css">         <span class="attribute">height</span>:<span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">         <span class="attribute">width</span>:<span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">         <span class="attribute">font-size</span>:<span class="number">12px</span>;</span></span><br><span class="line"><span class="language-css">         <span class="attribute">text-align</span>:center;</span></span><br><span class="line"><span class="language-css">         <span class="attribute">float</span><span class="selector-pseudo">:left</span>;   <span class="comment">/*浮动属性，脱离文档流，向左移动，直至遇到父元素或另一个浮动元素的边缘*/</span></span></span><br><span class="line"><span class="language-css">         <span class="attribute">margin</span>:<span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">         <span class="attribute">font-family</span>:Arial;</span></span><br><span class="line"><span class="language-css">      &#125;</span></span><br><span class="line"><span class="language-css">   </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">/*定义年历生成函数*/</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">function</span> <span class="title function_">calendar</span>(<span class="params">y</span>)&#123;  <span class="comment">//y：从网页获取到的年份</span></span></span><br><span class="line"><span class="language-javascript">         <span class="comment">//获取指定年份1月1日的星期数值</span></span></span><br><span class="line"><span class="language-javascript">         <span class="keyword">var</span> w = <span class="keyword">new</span> <span class="title class_">Date</span>(y,<span class="number">0</span>).<span class="title function_">getDay</span>();	  </span></span><br><span class="line"><span class="language-javascript"><span class="comment">//Date创建方式1： var date1 = new Date(2017,9,1,11,53,4);年月日时分秒，至少给出年和月；另外月的范围是0~11，即参数为0，实际月份为1月；</span></span></span><br><span class="line"><span class="language-javascript"><span class="comment">//Date创建方式2： var date2 = new Date(&#x27;2017-10-01 11:53:04&#x27;);	//getDay() 获取星期，范围0~6</span></span></span><br><span class="line"><span class="language-javascript">         <span class="keyword">var</span> html=<span class="string">&#x27;&lt;div class=&quot;box&quot;&gt;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">         </span></span><br><span class="line"><span class="language-javascript">         <span class="comment">//拼接每个月份的表格</span></span></span><br><span class="line"><span class="language-javascript">         <span class="keyword">for</span>(<span class="keyword">var</span> m=<span class="number">1</span>;m&lt;=<span class="number">12</span>;m++)&#123;</span></span><br><span class="line"><span class="language-javascript">            html += <span class="string">&#x27;&lt;table&gt;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">            html += <span class="string">&#x27;&lt;tr class=&quot;title&quot;&gt;&lt;th colspan=&quot;7&quot;&gt;&#x27;</span> + y + <span class="string">&#x27; 年 &#x27;</span> + m + <span class="string">&#x27; 月&lt;/th&gt;&lt;/tr&gt;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">            html += <span class="string">&#x27;&lt;tr&gt;&lt;td&gt;日&lt;/td&gt;&lt;td&gt;一&lt;/td&gt;&lt;td&gt;二&lt;/td&gt;&lt;td&gt;三&lt;/td&gt;&lt;td&gt;四&lt;/td&gt;&lt;td&gt;五&lt;/td&gt;&lt;td&gt;六&lt;/td&gt;&lt;/tr&gt;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">			</span></span><br><span class="line"><span class="language-javascript">            <span class="comment">//获取月份m共有多少天？</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">var</span> max = (<span class="keyword">new</span> <span class="title class_">Date</span>(y,m,<span class="number">0</span>)).<span class="title function_">getDate</span>();   <span class="comment">//getDate获取月份中的某一天，范围1~31；当日为0时，可获得该月的天数。</span></span></span><br><span class="line"><span class="language-javascript">            <span class="comment">//开始tr标签</span></span></span><br><span class="line"><span class="language-javascript">            html = html+<span class="string">&#x27;&lt;tr&gt;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">for</span>(<span class="keyword">var</span> d=<span class="number">1</span>;d&lt;=max;d++)&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span>((w!=<span class="number">0</span>) &amp;&amp; (d==<span class="number">1</span>))&#123;  <span class="comment">//如果该月的第一天不是星期日，则填充空白</span></span></span><br><span class="line"><span class="language-javascript">               html = html+<span class="string">&#x27;&lt;td colspan=&quot;&#x27;</span> + w + <span class="string">&#x27;&quot;&gt;&lt;/td&gt;&#x27;</span>;  </span></span><br><span class="line"><span class="language-javascript">            &#125;				</span></span><br><span class="line"><span class="language-javascript">            html = html + <span class="string">&#x27;&lt;td&gt;&#x27;</span> + d + <span class="string">&#x27;&lt;/td&gt;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span>(w==<span class="number">6</span> &amp;&amp; d!=max)&#123;  <span class="comment">//如果星期六不是该月的最后一天，则换行	 </span></span></span><br><span class="line"><span class="language-javascript">               html = html + <span class="string">&#x27;&lt;/tr&gt;&lt;tr&gt;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(d==max)&#123;   <span class="comment">//该月的最后一天，闭合&lt;tr&gt;标签</span></span></span><br><span class="line"><span class="language-javascript">               html = html + <span class="string">&#x27;&lt;/tr&gt;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">               w = (w+<span class="number">1</span>&gt;<span class="number">6</span>)?<span class="number">0</span>:w+<span class="number">1</span>;</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">            html = html + <span class="string">&#x27;&lt;/table&gt;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">      html = html + <span class="string">&#x27;&lt;/div&gt;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">return</span> html;</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">   </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> year = <span class="built_in">parseInt</span>(<span class="title function_">prompt</span>(<span class="string">&#x27;输入年份:&#x27;</span>,<span class="string">&#x27;2019&#x27;</span>));</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">document</span>.<span class="title function_">write</span>(<span class="title function_">calendar</span>(year));   </span></span><br><span class="line"><span class="language-javascript">   </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><ul>
+<li><p>JSON: <strong>JavaScript Object Notation</strong>(JavaScript 对象表示法)。</p>
+</li>
+<li><p>JSON 是<strong>轻量级的文本数据交换格式</strong>，类似 XML，但 比 XML 更小、更快，更易解析。</p>
+</li>
+<li><p>JSON 独立于语言和平台，目前非常多的动态（PHP，JSP，.NET）编程语言都支持JSON。</p>
+</li>
+</ul>
+<h2 id="JSON对象"><a href="#JSON对象" class="headerlink" title="JSON对象"></a>JSON对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//JSON对象</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;“name”:“<span class="title class_">Jerry</span>”，“age”:<span class="number">15</span>&#125; </span><br><span class="line"><span class="comment">//JS对象</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>:“<span class="title class_">Jerry</span>”，<span class="attr">age</span>:<span class="number">15</span>，    </span><br><span class="line">   <span class="attr">sayHello</span>:<span class="keyword">function</span>&#123;……&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>JSON对象的属性名（key）必须被包含在双引号之中，而JavaScript对象除了有空格的属性名、中间有连字符-的属性名必须在双引号之中外，其它随意；</p>
+</li>
+<li><p>不能在JSON对象中定义方法，而在JavaScript对象中可以；</p>
+</li>
+<li><p>JSON对象可以被很多语言操作，而JavaScript对象只有JS自己可以识别。</p>
+</li>
+</ul>
+<h2 id="JSON数组"><a href="#JSON数组" class="headerlink" title="JSON数组"></a>JSON数组</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myJson =&#123;</span><br><span class="line">   <span class="string">&quot;country&quot;</span>:<span class="string">&quot;China&quot;</span>,</span><br><span class="line">   <span class="string">&quot;population&quot;</span>:<span class="string">&quot;1.3billion&quot;</span>,</span><br><span class="line">      <span class="string">&quot;bigCity&quot;</span>:[<span class="string">&quot;Peking&quot;</span>,<span class="string">&quot;Shanghai&quot;</span>,<span class="string">&quot;ShenZhen&quot;</span>,<span class="string">&quot;HongKong&quot;</span>]</span><br><span class="line">   &#125;</span><br><span class="line">   myJson .<span class="property">bigCity</span>[<span class="number">0</span>] = <span class="string">&quot;GuangZhou&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/297cf3ed.html">http://xiaoliblog.cn/posts/297cf3ed.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/a853674b.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Vue组件库Element-UI</div>
+      <div class="prev-desc">Element-UI基本使用
+Element-Ui官网：https://element.eleme.cn
+安装Element-Ui
+
+1npm i element-ui -S
+
+
+在main.js中引入
+
+1234567891011121314import Vue from &amp;#x27;vue&amp;#x27;;// ...</div>
+    </a>
+    
+    
+    <a href="/posts/158954c7.html">
+      <div class="next-title">谈谈JavaScript中的DOM<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">DOM
+什么是DOM？
+
+文 档（Document）表示HTML文件。
+节 点：文档中所有的内容，都称为节点。
+节点类型：标签节点（元素）、文本节点、属性节点、注释节点。
+DOM：Document Object Model，文档对象模型。
+作 用：完成对HTML文档内所有元素的获取、访问、标签属性和样式的设置等操...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1"><span class="toc-text">对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1"><span class="toc-text">自定义对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E9%9D%A2%E9%87%8F-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="toc-text">字面量{}创建对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E6%88%90%E5%91%98"><span class="toc-text">访问对象成员</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E5%AF%B9%E8%B1%A1%E6%88%90%E5%91%98"><span class="toc-text">增加对象成员</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98%E6%88%90%E5%91%98%E5%90%8D"><span class="toc-text">可变成员名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E6%88%90%E5%91%98%E9%81%8D%E5%8E%86"><span class="toc-text">对象成员遍历</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D"><span class="toc-text">深拷贝与浅拷贝</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#this%E6%8C%87%E5%90%91"><span class="toc-text">this指向</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="toc-text">内置对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#String%E5%AF%B9%E8%B1%A1"><span class="toc-text">String对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Number%E5%AF%B9%E8%B1%A1"><span class="toc-text">Number对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Math%E5%AF%B9%E8%B1%A1"><span class="toc-text">Math对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Date%E5%AF%B9%E8%B1%A1"><span class="toc-text">Date对象</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSON"><span class="toc-text">JSON</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON%E5%AF%B9%E8%B1%A1"><span class="toc-text">JSON对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON%E6%95%B0%E7%BB%84"><span class="toc-text">JSON数组</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

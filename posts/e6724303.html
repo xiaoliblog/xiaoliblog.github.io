@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Angular管道及父子组件数据传递 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="管道内置管道 Angular的管道可以看作成是一个数据格式化展示的工具。管道可以将数据格式化显示，而不改变源数据。获取数据可能简单到创建一个局部变量就行，也可能复杂到从WebSocket中获取数据流 使用管道运算符|实现  12345678export class AppComponent &amp;#123;  msg &#x3D; &amp;#x27;helloword&amp;#x27;;  student &#x3D;  &amp;#123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular管道及父子组件数据传递">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/e6724303.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="管道内置管道 Angular的管道可以看作成是一个数据格式化展示的工具。管道可以将数据格式化显示，而不改变源数据。获取数据可能简单到创建一个局部变量就行，也可能复杂到从WebSocket中获取数据流 使用管道运算符|实现  12345678export class AppComponent &amp;#123;  msg &#x3D; &amp;#x27;helloword&amp;#x27;;  student &#x3D;  &amp;#123">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-02-22T04:53:10.488Z">
+<meta property="article:modified_time" content="2023-02-22T11:51:38.283Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Angular管道及父子组件数据传递</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-02-22 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-22
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">1.6k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>7分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h1><h2 id="内置管道"><a href="#内置管道" class="headerlink" title="内置管道"></a>内置管道</h2><ul>
+<li>Angular的管道可以看作成是一个数据格式化展示的工具。管道可以将数据格式化显示，而不改变源数据。获取数据可能简单到创建一个局部变量就行，也可能复杂到从WebSocket中获取数据流</li>
+<li>使用管道运算符<code>|</code>实现</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  msg = <span class="string">&#x27;helloword&#x27;</span>;</span><br><span class="line">  student =  &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;小李&#x27;</span>, </span><br><span class="line">    <span class="attr">age</span>: <span class="number">34</span>,</span><br><span class="line">  &#125;</span><br><span class="line">  time = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--转为大写--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;msg | uppercase&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--object转为JSON--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;student | json&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--格式化当前时间--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;time | date:&quot;yyyy/MM/dd&quot;&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>我们可以把管道链在一起，以组合出一些潜在的有用功能</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--Wednesday, October 30, 2019 将时间以fullDate类型输出--&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>时间：&#123;&#123;time | date:&quot;fullDate&quot;&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--WEDNESDAY, OCTOBER 30, 2019 将时间以fullDate类型输出 并转化为大写字母--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>时间：&#123;&#123;time | date:&quot;fullDate&quot; | uppercase&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="自定义管道"><a href="#自定义管道" class="headerlink" title="自定义管道"></a>自定义管道</h2><ul>
+<li>比如自定义一个转换成大写的管道。首先需要创建管道文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">filter文件下myUpperCase文件</span></span><br><span class="line">ng g pipe filter/myUpperCase</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改文件内容如下</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Pipe</span>, <span class="title class_">PipeTransform</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Pipe</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;myUpperCase&#x27;</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">MyUpperCasePipe</span> <span class="keyword">implements</span> <span class="title class_">PipeTransform</span> &#123;</span><br><span class="line">  <span class="title function_">transform</span>(<span class="attr">value</span>: <span class="built_in">string</span>, ...<span class="attr">args</span>: <span class="built_in">string</span>[]): <span class="built_in">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> value.<span class="title function_">toUpperCase</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后使用即可</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;msg|myUpperCase&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>管道后面还可以传递参数，通过<code>:</code>加参数即可，然后通过<code>args</code>获取</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;msg|myUpperCase:&#x27;大写&#x27;&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Pipe</span>, <span class="title class_">PipeTransform</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Pipe</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;myUpperCase&#x27;</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">MyUpperCasePipe</span> <span class="keyword">implements</span> <span class="title class_">PipeTransform</span> &#123;</span><br><span class="line">  <span class="comment">// 管道到执行过滤任务的是一个固定的函数</span></span><br><span class="line">  <span class="title function_">transform</span>(<span class="attr">value</span>: <span class="built_in">string</span>, ...<span class="attr">args</span>: <span class="built_in">string</span>[]): <span class="built_in">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> value.<span class="title function_">toUpperCase</span>()+args[<span class="number">0</span>];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="父子组件数据传递"><a href="#父子组件数据传递" class="headerlink" title="父子组件数据传递"></a>父子组件数据传递</h1><h2 id="父传子数据"><a href="#父传子数据" class="headerlink" title="父传子数据"></a>父传子数据</h2><ul>
+<li>首先创建一个子组件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g component views/child</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>app</code>根组件中显示</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-child</span>&gt;</span><span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在父组件中定义一个数据用于传递给子组件，并在HTML中声明</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  sendChildMsg = <span class="string">&#x27;传给子组件的信息&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-child</span> [<span class="attr">item</span>]=<span class="string">&quot;sendChildMsg&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后子组件需要导入<code>Input</code>模块，使用装饰器声明</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 增加导入Input模块</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnInit</span>, <span class="title class_">Input</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-child&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./child.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./child.component.css&#x27;</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ChildComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line">  <span class="comment">// 声明导进来的数据</span></span><br><span class="line">  <span class="meta">@Input</span>() <span class="attr">item</span>: <span class="built_in">any</span>;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnInit</span>(): <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后就可以在子组件中使用父组件传过来的数据</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>child works!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="子传父数据"><a href="#子传父数据" class="headerlink" title="子传父数据"></a>子传父数据</h2><ul>
+<li>首先子组件需要指定触发事件，先导入<code>Output</code>和<code>EventEmitter</code>模块，声明事件<code>childMsg</code>并创建对象</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnInit</span>, <span class="title class_">Input</span>, <span class="title class_">Output</span>, <span class="title class_">EventEmitter</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-child&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./child.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./child.component.css&#x27;</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ChildComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line">  <span class="meta">@Input</span>() <span class="attr">item</span>: <span class="built_in">any</span>;</span><br><span class="line">  <span class="comment">// new一个事件对象</span></span><br><span class="line">  <span class="meta">@Output</span>() childMsg = <span class="keyword">new</span> <span class="title class_">EventEmitter</span>();</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnInit</span>(): <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">  <span class="comment">// 按钮点击事件</span></span><br><span class="line">  <span class="title function_">sendMsg</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 传一个对象给父组件，发送数据</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">childMsg</span>.<span class="title function_">emit</span>(&#123; <span class="attr">msg</span>: <span class="string">&#x27;我是子组件，这是我发给父组件的消息&#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在组件上绑定一个事件用于触发事件，传递数据给父组件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>child works!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">&quot;sendMsg()&quot;</span>&gt;</span>发送消息给父元素<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在父组件定义一个变量<code>getChildMsg</code>用于保存子组件传来的数据。然后在子组件上进行监听，绑定子组件的触发事件<code>childMsg</code></li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  <span class="comment">// 子组件的数据</span></span><br><span class="line">  getChildMsg = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="title function_">getEvent</span>(<span class="params">event:<span class="built_in">any</span></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(event.<span class="property">msg</span>)</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">getChildMsg</span> = event.<span class="property">msg</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--childMsg可以自定义--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-child</span> (<span class="attr">childMsg</span>)=<span class="string">&quot;getEvent($event)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>子组件发来信息：&#123;&#123;getChildMsg&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="原生DOM对象"><a href="#原生DOM对象" class="headerlink" title="原生DOM对象"></a>原生DOM对象</h2><ul>
+<li>在组件模板中获取</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> (<span class="attr">keyup.enter</span>)=<span class="string">&quot;onKeyUp(username.value)&quot;</span> #<span class="attr">username</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在类中获取原生DOM，需要<code>@ViewChild</code>装饰器</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> #<span class="attr">home</span>&gt;</span>content<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">ElementRef</span>, <span class="title class_">OnInit</span>, <span class="title class_">ViewChild</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&quot;app-home&quot;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&quot;./home.component.html&quot;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&quot;./home.component.less&quot;</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line">  <span class="comment">// 获取dom实例</span></span><br><span class="line">  <span class="meta">@ViewChild</span>(<span class="string">&quot;home&quot;</span>,&#123;<span class="attr">static</span>: <span class="literal">true</span>&#125;) </span><br><span class="line">  <span class="attr">home</span>:<span class="title class_">ElementRef</span> | <span class="literal">undefined</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 在ngAfterViewInit的生命周期里面获取，类似vue的mounted</span></span><br><span class="line">  <span class="title function_">ngAfterViewInit</span>(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">home</span>.<span class="property">nativeElement</span>.<span class="property">style</span>.<span class="property">color</span> = <span class="string">&#x27;#ffae00&#x27;</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;home&quot;</span>,<span class="variable language_">this</span>.<span class="property">home</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>父子组件通信还有另一种方法是使用打标识的方法，类似于Vue中的<code>ref</code>，使用<code>#</code>标识</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--父组件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> #<span class="attr">c0</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">app-childA</span> #<span class="attr">c1</span>&gt;</span><span class="tag">&lt;/<span class="name">app-childA</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">app-childB</span> #<span class="attr">c2</span>&gt;</span><span class="tag">&lt;/<span class="name">app-childB</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">&quot;print()&quot;</span>&gt;</span>获取所有带标识的组件信息<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ViewChild</code>装饰器用于将子组件识别符与某个属性关联起来，第一个参数必须是已经存在的子组件识别符（不带<code>#</code>），第二个参数<code>static</code>指定该组件是否为静态组件（不会有时有有时无的组件）</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">   <span class="comment">// 使用装饰器@ViewChild,static静态元素</span></span><br><span class="line">   <span class="meta">@ViewChild</span>(<span class="string">&#x27;c0&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">true</span>&#125;)</span><br><span class="line">   <span class="keyword">private</span> child0;</span><br><span class="line">   <span class="meta">@ViewChild</span>(<span class="string">&#x27;c1&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">true</span>&#125;)</span><br><span class="line">   <span class="keyword">private</span> child1;</span><br><span class="line">   <span class="meta">@ViewChild</span>(<span class="string">&#x27;c2&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">true</span>&#125;)</span><br><span class="line">   <span class="keyword">private</span> child2;</span><br><span class="line">   <span class="comment">// 输出父组件内部的有标识符的子组件引用</span></span><br><span class="line">   <span class="title function_">print</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(child0)</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(child1)</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(child2)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="内容投影"><a href="#内容投影" class="headerlink" title="内容投影"></a>内容投影</h2><ul>
+<li>内容投影相当于插槽，父组件传HTML结构给子组件，子组件通过<code>ng-content</code>接收</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--app 父组件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bootstrap-panel</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;heading&quot;</span>&gt;</span></span><br><span class="line">      Heading</span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;body&quot;</span>&gt;</span></span><br><span class="line">      Body</span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bootstap-panel</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--bootstrap-panel子组件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;panel panel-default&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;panel-heading&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">ng-content</span> <span class="attr">select</span>=<span class="string">&quot;.heading&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-content</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;panel-body&quot;</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">ng-content</span> <span class="attr">select</span>=<span class="string">&quot;.body&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-content</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果只有一个<code>ng-content</code>，不需要<code>select</code>属性，此属性绑定类名</li>
+<li><code>ng-content</code>在浏览器中会被<code>&lt;div class=&quot;heading&quot;&gt;&lt;/div&gt;</code>替代，如果不想要这额外的<code>div</code>，可以使用<code>ng-container</code>替代这个<code>div</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--app 父组件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bootstrap-panel</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">ng-container</span> <span class="attr">class</span>=<span class="string">&quot;heading&quot;</span>&gt;</span></span><br><span class="line">      Heading</span><br><span class="line">   <span class="tag">&lt;/<span class="name">ng-container</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">ng-container</span> <span class="attr">class</span>=<span class="string">&quot;body&quot;</span>&gt;</span></span><br><span class="line">      Body</span><br><span class="line">   <span class="tag">&lt;/<span class="name">ng-container</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bootstap-panel</span>&gt;</span></span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/e6724303.html">http://xiaoliblog.cn/posts/e6724303.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/678603c2.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>谈谈CSS选择器</div>
+      <div class="prev-desc">CSS3基础CSS(Cascading Style Sheet，层叠样式表)是一种标准的格式化网页的方式，用于控制网页样式。 
+
+内容与表现分离
+网页的表现统一，容易修改
+丰富的样式，使得页面布局更加灵活
+减少网页的代码量，增加网页的浏览速度，节省网络带宽
+运用独立于页面的CSS，有利于网页被搜索引擎收录
+
+引入...</div>
+    </a>
+    
+    
+    <a href="/posts/c9530e4e.html">
+      <div class="next-title">Angular路由模块及编程式导航<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">路由路由配置
+专门有一个独立模块来配置相关路由，这个模块类的名字叫做AppRoutingModule，位于src/app下的app-routing.module.ts文件中
+使用命令安装路由
+
+1ng generate module app-routing --flat --module=app
+
+
+改写文件如下...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%A1%E9%81%93"><span class="toc-text">管道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E7%AE%A1%E9%81%93"><span class="toc-text">内置管道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AE%A1%E9%81%93"><span class="toc-text">自定义管道</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92"><span class="toc-text">父子组件数据传递</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%B6%E4%BC%A0%E5%AD%90%E6%95%B0%E6%8D%AE"><span class="toc-text">父传子数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E4%BC%A0%E7%88%B6%E6%95%B0%E6%8D%AE"><span class="toc-text">子传父数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%94%9FDOM%E5%AF%B9%E8%B1%A1"><span class="toc-text">原生DOM对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E6%8A%95%E5%BD%B1"><span class="toc-text">内容投影</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

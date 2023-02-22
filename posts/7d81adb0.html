@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Dart入门及环境搭建 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="DartDart简介 Dart是由谷歌开发的计算机编程语言，它可以被用于web、服务器、移动应用和物联网等领域的开发 Dart诞生于2011年，号称要取代JavaScript。但是过去的几年中一直不温不火。直到Flutter的出现现在被人们重新重视，要学Flutter的话我们必须首先得会Dart 官方文档：https:&#x2F;&#x2F;dart.cn&#x2F;  环境搭建 要在我们本地开发Dart程序的话首先需要安装D">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dart入门及环境搭建">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/7d81adb0.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="DartDart简介 Dart是由谷歌开发的计算机编程语言，它可以被用于web、服务器、移动应用和物联网等领域的开发 Dart诞生于2011年，号称要取代JavaScript。但是过去的几年中一直不温不火。直到Flutter的出现现在被人们重新重视，要学Flutter的话我们必须首先得会Dart 官方文档：https:&#x2F;&#x2F;dart.cn&#x2F;  环境搭建 要在我们本地开发Dart程序的话首先需要安装D">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-02-22T04:53:10.511Z">
+<meta property="article:modified_time" content="2023-02-22T11:37:10.453Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Dart入门及环境搭建</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-02-22 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-22
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">1.8k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>8分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="Dart"><a href="#Dart" class="headerlink" title="Dart"></a>Dart</h1><h2 id="Dart简介"><a href="#Dart简介" class="headerlink" title="Dart简介"></a>Dart简介</h2><ul>
+<li><code>Dart</code>是由谷歌开发的计算机编程语言，它可以被用于web、服务器、移动应用和物联网等领域的开发</li>
+<li><code>Dart</code>诞生于2011年，号称要取代JavaScript。但是过去的几年中一直不温不火。直到Flutter的出现现在被人们重新重视，要学Flutter的话我们必须首先得会Dart</li>
+<li>官方文档：<a target="_blank" rel="noopener" href="https://dart.cn/">https://dart.cn/</a></li>
+</ul>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><ul>
+<li>要在我们本地开发Dart程序的话首先需要安装<code>Dart SDK</code>，进入官网：<a target="_blank" rel="noopener" href="https://dart.cn/get-dart">https://dart.cn/get-dart</a></li>
+<li>Windows系统推荐：<a target="_blank" rel="noopener" href="https://gekorm.com/dart-windows/">https://gekorm.com/dart-windows/</a>，下载后安装即可</li>
+<li>安装程序默认是会把<code>dart</code>添加进系统变量<code>path</code>中，可以打开<code>cmd</code>命令行，输入 <code>dart --version</code>，有版本信息打印即表示安装成功</li>
+<li>然后在<code>VsCode</code>开发工具上安装<code>Dart</code>和<code>Code Runner</code>两个插件</li>
+<li>新建<code>index.dart</code>文件，开始第一个代码实现</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">main()&#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&#x27;你好 dart&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><h2 id="变量-x2F-常量"><a href="#变量-x2F-常量" class="headerlink" title="变量&#x2F;常量"></a>变量&#x2F;常量</h2><ul>
+<li><code>dart</code>是一个强大的脚本类语言，可以不预先定义变量类型，自动会类型推倒。与C语言类似，需要加<code>;</code>结尾一个语句，变量命名不能以数字开头</li>
+<li><code>dart</code>中定义变量可以通过<code>var</code>关键字可以通过类型来申明变量</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main()&#123;</span><br><span class="line">  <span class="keyword">var</span> str = <span class="string">&#x27;你好&#x27;</span>;</span><br><span class="line">  <span class="built_in">String</span> s = <span class="string">&#x27;你好&#x27;</span>;</span><br><span class="line">  <span class="built_in">int</span> <span class="built_in">num</span> = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>const</code>值不变一开始就得赋值；<code>final</code>可以开始不赋值，且只能赋一次；<code>final</code>不仅有 <code>const</code>的编译时常量的特性，最重要的它是运行时常量，并且<code>final</code>是惰性初始化，即在运行时第次使用前才初始化；</li>
+<li>永远不改量的量，请使用<code>final</code>或<code>const</code>修饰它，而不是使用<code>var</code>或其他变量类型</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main()&#123;</span><br><span class="line">  <span class="keyword">const</span> PI = <span class="number">3.14</span>;</span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">num</span> = <span class="number">3.14</span>;</span><br><span class="line">  <span class="keyword">final</span> time = <span class="keyword">new</span> <span class="built_in">DateTime</span>.now();</span><br><span class="line">  <span class="comment">// const t = new DateTime.now();  报错</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ul>
+<li>字符串类型<code>String</code></li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main()&#123;</span><br><span class="line">  <span class="comment">// 1. 字符串</span></span><br><span class="line">  <span class="built_in">String</span> str = <span class="string">&#x27;&#x27;&#x27;hello&#x27;&#x27;&#x27;</span>;  <span class="comment">// 三个单引号可以写多行字符串</span></span><br><span class="line">  <span class="comment">// 2. 字符串拼接</span></span><br><span class="line">  <span class="built_in">String</span> str1 = <span class="string">&#x27;你好&#x27;</span>;</span><br><span class="line">  <span class="built_in">String</span> str2 = <span class="string">&#x27;Dart&#x27;</span>;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;<span class="subst">$str1</span> <span class="subst">$str2</span>&quot;</span>);</span><br><span class="line">  <span class="built_in">print</span>(str1+str2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>数值类型有两种<code>int</code>和<code>double</code>，其中<code>double</code>既可以是整型也可以是浮点型</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main()&#123;</span><br><span class="line">  <span class="comment">// 1. int</span></span><br><span class="line">  <span class="built_in">int</span> a = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">// 2. double</span></span><br><span class="line">  <span class="built_in">double</span> b = <span class="number">0.12</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>布尔类型<code>bool</code></li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main()&#123;</span><br><span class="line">  <span class="comment">// 1. 布尔类型</span></span><br><span class="line">  <span class="built_in">bool</span> flag = <span class="keyword">true</span>;</span><br><span class="line">  <span class="keyword">if</span>(flag)&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;真&quot;</span>);</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;假&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>集合类型<code>list</code></li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main()&#123;</span><br><span class="line">  <span class="comment">// 1. 第一种定义List的方式</span></span><br><span class="line">  <span class="keyword">var</span> list = [<span class="string">&#x27;张三&#x27;</span>,<span class="number">20</span>,<span class="keyword">true</span>];</span><br><span class="line">  <span class="built_in">print</span>(list);</span><br><span class="line">  <span class="built_in">print</span>(list.length);</span><br><span class="line">  <span class="built_in">print</span>(list[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2. 第二张定义list的方式</span></span><br><span class="line">  <span class="keyword">var</span> list2 = &lt;<span class="built_in">String</span>&gt;[<span class="string">&#x27;张三&#x27;</span>,<span class="string">&#x27;李四&#x27;</span>,<span class="string">&#x27;王五&#x27;</span>]; <span class="comment">// 限制类型</span></span><br><span class="line">  <span class="built_in">print</span>(list2);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 3. 第三种定义list的方式</span></span><br><span class="line">  <span class="keyword">var</span> list3 = [];</span><br><span class="line">  list3.add(<span class="string">&#x27;张三&#x27;</span>);</span><br><span class="line">  list3.add(<span class="string">&#x27;李四&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 4. 第四种定义list的方式</span></span><br><span class="line">  <span class="keyword">var</span> list4 = <span class="built_in">List</span>.filled(<span class="number">2</span>, <span class="string">&quot;&quot;</span>);<span class="comment">//创建一个固定长度的集合</span></span><br><span class="line">  list4[<span class="number">0</span>] = <span class="string">&#x27;123&#x27;</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">var</span> list4 = <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt;.filled(<span class="number">2</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Maps</code>键值对类型</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main()&#123;</span><br><span class="line">  <span class="comment">// 1. 第一种定义Maps的方式</span></span><br><span class="line">  <span class="keyword">var</span> person = &#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>:<span class="string">&quot;张三&quot;</span>,</span><br><span class="line">    <span class="string">&quot;age&quot;</span>:<span class="number">20</span>,</span><br><span class="line">    <span class="string">&quot;work&quot;</span>:[<span class="string">&#x27;吃饭&#x27;</span>,<span class="string">&#x27;睡觉&#x27;</span>]</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="built_in">print</span>(person);</span><br><span class="line">  <span class="built_in">print</span>(person[<span class="string">&quot;name&quot;</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2. 第二种定义Maps的方式</span></span><br><span class="line">  <span class="keyword">var</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">  map[<span class="string">&quot;name&quot;</span>] = <span class="string">&quot;李四&quot;</span>;</span><br><span class="line">  map[<span class="string">&quot;age&quot;</span>] = <span class="number">20</span>;</span><br><span class="line">  map[<span class="string">&quot;work&quot;</span>] = [<span class="string">&#x27;吃饭&#x27;</span>,<span class="string">&#x27;睡觉&#x27;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用<code>is</code>关键字判断数据类型</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main()&#123;</span><br><span class="line">  <span class="keyword">var</span> str = <span class="number">123</span>;</span><br><span class="line">  <span class="keyword">if</span>(str <span class="keyword">is</span> <span class="built_in">String</span>)&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;String类型&#x27;</span>);</span><br><span class="line">  &#125;<span class="keyword">else</span> <span class="keyword">if</span>(str <span class="keyword">is</span> <span class="built_in">int</span>)&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;int类型&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>数据类型转换</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  <span class="comment">// 数值类型转字符串类型 toString</span></span><br><span class="line">  <span class="built_in">int</span> number = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">var</span> numStr = number.toString();</span><br><span class="line">  <span class="comment">// 字符串类型转数值类型 parse</span></span><br><span class="line">  <span class="built_in">String</span> str = <span class="string">&quot;123&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> <span class="built_in">num</span> = <span class="built_in">int</span>.parse(str);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 异常处理</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="built_in">String</span> str = <span class="string">&quot;0&quot;</span>;</span><br><span class="line">    <span class="keyword">var</span> <span class="built_in">num</span> = <span class="built_in">int</span>.parse(str);</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">num</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// isEmpty 判断字符串是否为空,可以用于转bool类型</span></span><br><span class="line">  <span class="keyword">var</span> str = <span class="string">&#x27;xxx&#x27;</span>;</span><br><span class="line">  <span class="keyword">if</span>(str.isEmpty)&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;str空&quot;</span>);</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;str不为空&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h2><ul>
+<li><code>Dart</code>定义函数和C语言一致，参数可以通过<code>$xxx</code>获取</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> printInfo() &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&#x27;我是方法&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  printInfo();</span><br><span class="line">  <span class="built_in">int</span> getNum() &#123;</span><br><span class="line">    <span class="built_in">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> i + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">String</span> getUserInfo(<span class="built_in">String</span> username,<span class="built_in">int</span> age)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;姓名<span class="subst">$username</span>---年龄<span class="subst">$age</span>&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Dart库"><a href="#Dart库" class="headerlink" title="Dart库"></a>Dart库</h1><h2 id="自定义库"><a href="#自定义库" class="headerlink" title="自定义库"></a>自定义库</h2><ul>
+<li>在<code>Dart</code>中，库的使用时通过<code>import</code>关键字引入的；<code>library</code>指令可以创建一个库，每个<code>Dart</code>文件都是一个库，即使没有使用<code>library</code>指令来指定</li>
+<li>比如自定义一个库</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">  <span class="built_in">String</span> _name; <span class="comment">// 私有属性</span></span><br><span class="line">  <span class="built_in">int</span> age;</span><br><span class="line">  <span class="comment">// 默认构造函数的简写</span></span><br><span class="line">  Animal(<span class="keyword">this</span>._name, <span class="keyword">this</span>.age);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> printInfo() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;<span class="subst">$&#123;<span class="keyword">this</span>._name&#125;</span>---<span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">String</span> getName() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">void</span> _run() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;这是一个私有方法&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  execRun()&#123;</span><br><span class="line">    <span class="keyword">this</span>._run(); <span class="comment">// 类里面方法的相互调用</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后引入并使用</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;Animal.dart&#x27;</span>;</span><br><span class="line">main()&#123;</span><br><span class="line">  <span class="keyword">var</span> dog = <span class="keyword">new</span> Animal(<span class="string">&#x27;小黑狗&#x27;</span>,<span class="number">20</span>);</span><br><span class="line">  <span class="built_in">print</span>(dog.getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果只需要导入库的一部分，有两种模式<ul>
+<li>模式一：只导入需要的部分，使用<code>show</code>关键字</li>
+<li>模式二：隐藏不需要的部分，使用<code>hide</code>关键字</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:lib1/1ib1.dart&#x27;</span> <span class="keyword">show</span> foo;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:lib2/1ib2.dart&#x27;</span> <span class="keyword">hide</span> foo;</span><br></pre></td></tr></table></figure>
+
+<h2 id="系统库"><a href="#系统库" class="headerlink" title="系统库"></a>系统库</h2><ul>
+<li>系统库以<code>dart:xx</code>前缀，使用<code>dart:io</code>请求接口</li>
+<li>只有<code>async</code>方法才能使用<code>await</code>关键字调用方法；如果调用别的<code>async</code>方法必须使用<code>await</code>关键字</li>
+<li><code>async</code>是让方法变成异步；<code>await</code>是等待异步方法执行完成</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;dart:io&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;dart:math&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;dart:convert&#x27;</span>;</span><br><span class="line"><span class="keyword">void</span> main() <span class="keyword">async</span>&#123;</span><br><span class="line">  <span class="built_in">print</span>(min(<span class="number">12</span>, <span class="number">1</span>));</span><br><span class="line">  <span class="keyword">var</span> result = <span class="keyword">await</span> _getDataFromAPI();</span><br><span class="line">  <span class="built_in">print</span>(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// API接口 http://news-at.zhihu.com/api/3/stories/latest</span></span><br><span class="line">_getDataFromAPI() <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="comment">//1. 创建HttpClient对象</span></span><br><span class="line">  <span class="keyword">var</span> httpClient = <span class="keyword">new</span> HttpClient();</span><br><span class="line">  <span class="comment">//2. 创建uri对象</span></span><br><span class="line">  <span class="keyword">var</span> uri = <span class="keyword">new</span> <span class="built_in">Uri</span>.http(<span class="string">&#x27;news-at.zhihu.com&#x27;</span>,<span class="string">&#x27;/api/3/stories/latest&#x27;</span>);</span><br><span class="line">  <span class="comment">//3. 发起请求，等待请求</span></span><br><span class="line">  <span class="keyword">var</span> request = <span class="keyword">await</span> httpClient.getUrl(uri);</span><br><span class="line">  <span class="comment">//4. 关闭请求，等待响应</span></span><br><span class="line">  <span class="keyword">var</span> response = <span class="keyword">await</span> request.close();</span><br><span class="line">  <span class="comment">//5. 解码响应的内容</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> response.transform(utf8.decoder).join();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h2><ul>
+<li>如果需要第三方库，需要有一下步骤<ul>
+<li>需要在自己想项目根目录新建一个<code>pubspec.yaml</code></li>
+<li>在<code>pubspec.yaml</code>文件 然后配置名称、描述、依赖等信息</li>
+<li>然后运行<code>dart pub get</code>获取包下载到本地</li>
+<li>项目中引入库<code>import &#39;package:http/http.dart&#39; as http;</code> 看文档使用</li>
+</ul>
+</li>
+<li>第三方库一般管理在<code>pub</code>包管理系统中，从以下网站可以找到要用的库<ul>
+<li><a target="_blank" rel="noopener" href="https://pub.dev/">https://pub.dev/</a></li>
+<li><a target="_blank" rel="noopener" href="https://pub.flutter-io.cn/packages/">https://pub.flutter-io.cn/packages/</a></li>
+<li><a target="_blank" rel="noopener" href="https://pub.dartlang.org/flutter/">https://pub.dartlang.org/flutter/</a></li>
+</ul>
+</li>
+<li>创建一个<code>pubspec.yaml</code>文件，内容如下</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">A</span> <span class="string">new</span> <span class="string">flutter</span> <span class="string">module</span> <span class="string">project.</span></span><br><span class="line"><span class="attr">environment:</span></span><br><span class="line">  <span class="attr">sdk:</span> <span class="string">&#x27;&gt;=2.10.0 &lt;3.0.0&#x27;</span></span><br><span class="line"><span class="attr">dependencies:</span></span><br><span class="line">  <span class="attr">http:</span> <span class="string">^0.13.4</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在当前目录下运行以下命令</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dart pub get</span><br></pre></td></tr></table></figure>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;dart:convert&#x27;</span> <span class="keyword">as</span> convert;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:http/http.dart&#x27;</span> <span class="keyword">as</span> http;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main(<span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; arguments) <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="comment">// This example uses the Google Books API to search for books about http.</span></span><br><span class="line">  <span class="comment">// https://developers.google.com/books/docs/overview</span></span><br><span class="line">  <span class="keyword">var</span> url =</span><br><span class="line">      <span class="built_in">Uri</span>.https(<span class="string">&#x27;www.googleapis.com&#x27;</span>, <span class="string">&#x27;/books/v1/volumes&#x27;</span>, &#123;<span class="string">&#x27;q&#x27;</span>: <span class="string">&#x27;&#123;http&#125;&#x27;</span>&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Await the http get response, then decode the json-formatted response.</span></span><br><span class="line">  <span class="keyword">var</span> response = <span class="keyword">await</span> http.<span class="keyword">get</span>(url);</span><br><span class="line">  <span class="keyword">if</span> (response.statusCode == <span class="number">200</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> jsonResponse =</span><br><span class="line">        convert.jsonDecode(response.body) <span class="keyword">as</span> <span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">dynamic</span>&gt;;</span><br><span class="line">    <span class="keyword">var</span> itemCount = jsonResponse[<span class="string">&#x27;totalItems&#x27;</span>];</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Number of books about http: <span class="subst">$itemCount</span>.&#x27;</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Request failed with status: <span class="subst">$&#123;response.statusCode&#125;</span>.&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/7d81adb0.html">http://xiaoliblog.cn/posts/7d81adb0.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/f3235866.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Flutter常用布局控件使用</div>
+      <div class="prev-desc">RowWidget
+Flutter中的row控件就是水平控件，它可以让Row里边的子元素进行水平排列
+Row控件可以分为灵活排列和非灵活排列两种，这两种模式都需要熟练掌握，等经验丰富后可根据需求进行使用
+
+非灵活排列
+从字面上就可以理解到，不灵活就是根据Row子元素的大小，进行布局。如果子元素不足，它会留有空隙，...</div>
+    </a>
+    
+    
+    <a href="/posts/bd24c001.html">
+      <div class="next-title">Flutter入门及环境搭建<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">Flutter
+Flutter是谷歌公司开发的一款开源、免费的移动UI框架，可以让我们快速的在Android和ios上构建高质量App。它最大的特点就是跨平台、以及高性能
+官方文档：https://flutter.dev/
+
+环境搭建
+参考技术胖Flutter免费视频第一季-环境搭建：https://jspang...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Dart"><span class="toc-text">Dart</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Dart%E7%AE%80%E4%BB%8B"><span class="toc-text">Dart简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">环境搭建</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-text">语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F-x2F-%E5%B8%B8%E9%87%8F"><span class="toc-text">变量&#x2F;常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="toc-text">函数类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dart%E5%BA%93"><span class="toc-text">Dart库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%93"><span class="toc-text">自定义库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%BA%93"><span class="toc-text">系统库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93"><span class="toc-text">第三方库</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

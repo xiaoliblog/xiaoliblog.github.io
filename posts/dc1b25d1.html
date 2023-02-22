@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Vue指令之样式绑定及显示切换 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="样式绑定v-bind指令 插值表达式不能用于属性中，可以通过v-bind实现属性值的绑定 语法  123456789&lt;img src&#x3D;&quot;img.jpg&quot;&gt;&lt;!--v-bind:属性名&#x3D;表达式--&gt;&lt;img v-bind:src&#x3D;&quot;imgSrc&quot;&gt; &lt;!--imgSrc&#x3D;img.jpg--&gt;&lt;img v-b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue指令之样式绑定及显示切换">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/dc1b25d1.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="样式绑定v-bind指令 插值表达式不能用于属性中，可以通过v-bind实现属性值的绑定 语法  123456789&lt;img src&#x3D;&quot;img.jpg&quot;&gt;&lt;!--v-bind:属性名&#x3D;表达式--&gt;&lt;img v-bind:src&#x3D;&quot;imgSrc&quot;&gt; &lt;!--imgSrc&#x3D;img.jpg--&gt;&lt;img v-b">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-02-22T04:53:10.538Z">
+<meta property="article:modified_time" content="2023-02-22T12:11:00.387Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Vue指令之样式绑定及显示切换</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-02-22 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-22
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">1.8k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>9分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="样式绑定"><a href="#样式绑定" class="headerlink" title="样式绑定"></a>样式绑定</h1><h2 id="v-bind指令"><a href="#v-bind指令" class="headerlink" title="v-bind指令"></a>v-bind指令</h2><ul>
+<li>插值表达式不能用于属性中，可以通过<code>v-bind</code>实现属性值的绑定</li>
+<li>语法</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img.jpg&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--v-bind:属性名=表达式--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">v-bind:src</span>=<span class="string">&quot;imgSrc&quot;</span>&gt;</span> <span class="comment">&lt;!--imgSrc=img.jpg--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">v-bind:title</span>=<span class="string">&quot;imgtitle+‘!！！’&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">v-bind:class</span>=<span class="string">&quot;isActive?&#x27;active&#x27;:&#x27;&#x27;&quot;</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">v-bind:class</span>=<span class="string">&quot;&#123;active:isActive&#125;&quot;</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">v-bind:href</span>=<span class="string">&quot;link&quot;</span>&gt;</span>baidu<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--v-bind可以省略--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">&quot;imgSrc&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>v-bind</code>指令的作用是：为元素绑定属性。</li>
+<li>完整写法是<code>v-bind:属性名</code>。简写的话可以直接省略<code>v- bind</code>，只保留<code>:属性名</code></li>
+<li>需要动态的增删<code>class</code>建议使用对象的方式<code>&#123;active:isActive&#125;</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">img</span> <span class="attr">v-bind:src</span>=<span class="string">&quot;imgSrc&quot;</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--绑定事件和切换类名（三元表达式的方法）--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">img</span> <span class="attr">v-bind:src</span>=<span class="string">&quot;imgSrc&quot;</span> <span class="attr">:class</span>=<span class="string">&quot;isActive?&#x27;active&#x27;:&#x27;&#x27;&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;changeActive&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">&quot;imgSrc&quot;</span> <span class="attr">:title</span>=<span class="string">&quot;imgTitle+&#x27;!&#x27; &quot;</span>&gt;</span> <span class="comment">&lt;!--简写--&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--绑定事件和切换类名（对象的方法）--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">&quot;imgSrc&quot;</span> <span class="attr">:title</span>=<span class="string">&quot;imgTitle+&#x27;!&#x27; &quot;</span>  <span class="attr">:class</span>=<span class="string">&quot;&#123;active:isActive&#125;&quot;</span>  @<span class="attr">click</span>=<span class="string">&quot;changeActive&quot;</span>&gt;</span> <span class="comment">&lt;!--简写--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">   <span class="attr">el</span>: <span class="string">&quot;#app&quot;</span>,</span><br><span class="line">   <span class="attr">data</span>:&#123;</span><br><span class="line">      <span class="attr">imgSrc</span>:<span class="string">&quot;logo.png&quot;</span>,</span><br><span class="line">      <span class="attr">imgTitle</span>:<span class="string">&quot;小李博客&quot;</span>,</span><br><span class="line">      <span class="attr">isActive</span>:<span class="literal">false</span></span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="attr">methods</span>: &#123;</span><br><span class="line">      <span class="attr">changeActive</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">         <span class="variable language_">this</span>.<span class="property">isActive</span>=!<span class="variable language_">this</span>.<span class="property">isActive</span>;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="绑定class样式"><a href="#绑定class样式" class="headerlink" title="绑定class样式"></a>绑定class样式</h2><ul>
+<li>通过<code>v-bind</code>指令绑定<code>class</code>属性，可以简写为<code>:class</code>，绑定class样式有三种写法<ul>
+<li>字符串写法：适用于样式类名不确定，需要动态指定</li>
+<li>数组写法：适用于样式类名和个数不确定，需要动态指定</li>
+<li>对象写法：适用于样式类名和个数不确定，需要动态决定是否使用</li>
+</ul>
+</li>
+<li>CSS测试样式如下</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">border</span>:<span class="number">1px</span> solid black;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.black</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: black;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.red</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.green</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.all1</span>&#123;</span><br><span class="line">    <span class="attribute">border</span>:<span class="number">2px</span> solid red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.all2</span>&#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.all3</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>:skyblue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>首先是字符串写法，点击<code>div</code>改变颜色。适用于样式类名不确定，需要动态指定</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">&quot;color&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;changeColor&quot;</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>:&#123;</span><br><span class="line">       <span class="attr">color</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">methods</span>:&#123;</span><br><span class="line">        <span class="title function_">changeColor</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="keyword">const</span> arr = [<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;black&#x27;</span>,<span class="string">&#x27;green&#x27;</span>]</span><br><span class="line">            <span class="comment">// 随机数字0-2</span></span><br><span class="line">            <span class="keyword">const</span> index = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()*<span class="number">3</span>)</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">color</span> = arr[index]   <span class="comment">// 随机添加类名</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>数组写法，实现添加多个类名的功能。适用于样式类名和个数不确定，需要动态指定</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">&quot;classArr&quot;</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>:&#123;</span><br><span class="line">       <span class="attr">classArr</span>:[<span class="string">&#x27;green&#x27;</span>,<span class="string">&#x27;all1&#x27;</span>],</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>对象写法，实现<code>all1</code>和<code>all2</code>样式不使用，而使用<code>all3</code>。适用于样式类名和个数不确定，需要动态决定是否使用</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">&quot;classObj&quot;</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>:&#123;</span><br><span class="line">       <span class="attr">classObj</span>:&#123;</span><br><span class="line">            <span class="attr">all1</span>:<span class="literal">false</span>,</span><br><span class="line">            <span class="attr">all2</span>:<span class="literal">false</span>,</span><br><span class="line">            <span class="attr">all3</span>:<span class="literal">true</span></span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="绑定style样式"><a href="#绑定style样式" class="headerlink" title="绑定style样式"></a>绑定style样式</h2><ul>
+<li>样式绑定有两种方法，一种是对象绑定，一种是数组绑定</li>
+<li>对象绑定如下，所有样式都写在对象里面</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:style</span>=<span class="string">&quot;styleObj&quot;</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>:&#123;</span><br><span class="line">       <span class="attr">styleObj</span>:&#123;</span><br><span class="line">            <span class="comment">// key不能乱写，font-size写法 fontSize</span></span><br><span class="line">            <span class="attr">fontSize</span>: <span class="string">&#x27;40px&#x27;</span>,</span><br><span class="line">            <span class="attr">color</span>: <span class="string">&#x27;red&#x27;</span>,</span><br><span class="line">            <span class="attr">backgroundColor</span>:<span class="string">&#x27;yellow&#x27;</span></span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>数组绑定如下，其实就是一个对象数组，里面存放对象，多个对象用逗号隔开</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:style</span>=<span class="string">&quot;styleArr&quot;</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>:&#123;</span><br><span class="line">       <span class="attr">styleArr</span>:[</span><br><span class="line">           &#123;</span><br><span class="line">            <span class="attr">fontSize</span>: <span class="string">&#x27;40px&#x27;</span>,</span><br><span class="line">            <span class="attr">color</span>: <span class="string">&#x27;red&#x27;</span>,</span><br><span class="line">           &#125;,</span><br><span class="line">           &#123;</span><br><span class="line">            <span class="attr">backgroundColor</span>:<span class="string">&#x27;yellow&#x27;</span></span><br><span class="line">           &#125;</span><br><span class="line">       ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="显示切换"><a href="#显示切换" class="headerlink" title="显示切换"></a>显示切换</h1><h2 id="v-show指令"><a href="#v-show指令" class="headerlink" title="v-show指令"></a>v-show指令</h2><ul>
+<li>语法</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img.jpg&quot;</span> <span class="attr">v-show</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img.jpg&quot;</span> <span class="attr">v-show</span>=<span class="string">&quot;isShow&quot;</span>&gt;</span> <span class="comment">&lt;!--布尔变量--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img.jpg&quot;</span> <span class="attr">v-show</span>=<span class="string">&quot;age&gt;=18&quot;</span>&gt;</span> <span class="comment">&lt;!--变量判断--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>v-show</code>指令的作用是：根据真假切换元素的显示状态，原理是修改元素的<code>display</code>，实现显示隐藏</li>
+<li>指令后面的内容最终都会解析为<strong>布尔值</strong>，值为<code>true</code>元素显示，值为<code>false</code>元素隐藏</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;切换显示状态&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;changIsShow&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;logo.png&quot;</span> <span class="attr">v-show</span>=<span class="string">&quot;isShow&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;累加年龄&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;addage&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;logo.png&quot;</span> <span class="attr">v-show</span>=<span class="string">&quot;age&gt;=18&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">   <span class="attr">el</span>: <span class="string">&quot;#app&quot;</span>,</span><br><span class="line">   <span class="attr">data</span>:&#123;</span><br><span class="line">      <span class="attr">isShow</span>:<span class="literal">false</span>,</span><br><span class="line">      <span class="attr">age</span>:<span class="number">17</span></span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="attr">methods</span>: &#123;</span><br><span class="line">      <span class="attr">changIsShow</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">         <span class="variable language_">this</span>.<span class="property">isShow</span>=!<span class="variable language_">this</span>.<span class="property">isShow</span>;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">addage</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">         <span class="variable language_">this</span>.<span class="property">age</span>++</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="v-if指令"><a href="#v-if指令" class="headerlink" title="v-if指令"></a>v-if指令</h2><ul>
+<li>语法</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">&quot;true&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">&quot;isShow&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">&quot;表达式&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>v-if</code>指令的作用是：根据表达式的真假切换元素的显示状态。本质是通过操纵<code>dom</code>元素来切换显示状态</li>
+<li>表达式的值为<code>true</code>，元素存在于<code>dom</code>树中，为<code>false</code>，从<code>dom</code>树中移除</li>
+<li>频繁的切换<code>v-show</code>，反之使用<code>v-if</code>，前者的切换消耗小</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;切换显示&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;changIsShow&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">&quot;isShow&quot;</span>&gt;</span>小李博客<span class="tag">&lt;/<span class="name">p</span>&gt;</span>  <span class="comment">&lt;!--直接从DOM中消除--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-show</span>=<span class="string">&quot;isShow&quot;</span>&gt;</span>小李博客 --v-show修饰<span class="tag">&lt;/<span class="name">p</span>&gt;</span>   <span class="comment">&lt;!--只更改display--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">   <span class="attr">el</span>: <span class="string">&quot;#app&quot;</span>,</span><br><span class="line">   <span class="attr">data</span>:&#123;</span><br><span class="line">      <span class="attr">isShow</span>:<span class="literal">false</span>,</span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="attr">methods</span>: &#123;</span><br><span class="line">      <span class="attr">changIsShow</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">         <span class="variable language_">this</span>.<span class="property">isShow</span>=!<span class="variable language_">this</span>.<span class="property">isShow</span>; <span class="comment">//取反</span></span><br><span class="line">      &#125;,</span><br><span class="line">   &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>v-if</code>可以配置<code>template</code>标签实现多个元素显示和隐藏，但只适用<code>v-if</code>不适用<code>v-show</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>当前的n值：&#123;&#123;n&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;n++&quot;</span>&gt;</span>点我n+1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-if</span>=<span class="string">&quot;n === 1&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Angular<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>React<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Vue<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="v-else-if指令"><a href="#v-else-if指令" class="headerlink" title="v-else-if指令"></a>v-else-if指令</h2><ul>
+<li><code>v-if</code>是一组判断，当同时成立时会出现。但<code>v-else-if</code>是一个一个判断，判断成功取第一个的结果</li>
+<li>比如如下实例</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span>&gt;</span>当前的n值：&#123;&#123;n&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;n++&quot;</span>&gt;</span>点我n+1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-if</span>=<span class="string">&quot;n === 1&quot;</span>&gt;</span>Angular<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-else-if</span>=<span class="string">&quot;n === 1&quot;</span>&gt;</span>React<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-else-if</span>=<span class="string">&quot;n === 3&quot;</span>&gt;</span>Vue<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span>&gt;</span>当前的n值：&#123;&#123;n&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;n++&quot;</span>&gt;</span>点我n+1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-if</span>=<span class="string">&quot;n === 1&quot;</span>&gt;</span>Angular<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-if</span>=<span class="string">&quot;n === 1&quot;</span>&gt;</span>React<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-if</span>=<span class="string">&quot;n === 3&quot;</span>&gt;</span>Vue<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="v-else指令"><a href="#v-else指令" class="headerlink" title="v-else指令"></a>v-else指令</h2><ul>
+<li>等同于C语言中的判断结构，<code>v-else</code>用于不满足条件的显示，<code>v-if</code>、<code>v-else-if</code>、<code>v-else</code>必须连续，不能被打断</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>当前的n值：&#123;&#123;n&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;n++&quot;</span>&gt;</span>点我n+1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-if</span>=<span class="string">&quot;n === 1&quot;</span>&gt;</span>Angular<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-else-if</span>=<span class="string">&quot;n === 1&quot;</span>&gt;</span>React<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-else-if</span>=<span class="string">&quot;n === 3&quot;</span>&gt;</span>Vue<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-else</span>&gt;</span>哈哈<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/dc1b25d1.html">http://xiaoliblog.cn/posts/dc1b25d1.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/cc6deab3.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Vue简介及其核心特性</div>
+      <div class="prev-desc">Vue简介
+Vue是一个渐进式的JavaScript框架，只注重视图层，结合了HTML+CSS+JS，非常的易用，并且有很好的生态系统。而且vue体积很小，速度很快，优化很到位
+
+可以用来简化Dom操作和响应式数据驱动。采用组件化模式，提高代码复用率、且让代码更好维护
+
+声明式编码，让编码人员无需直接操作DOM，...</div>
+    </a>
+    
+    
+    <a href="/posts/9539444a.html">
+      <div class="next-title">Vue指令之列表渲染和数据监测原理<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">列表渲染v-for指令
+语法
+
+1234567&amp;lt;ul&amp;gt;   &amp;lt;li v-for=&amp;quot;item in arr&amp;quot;&amp;gt;&amp;lt;/li&amp;gt;   &amp;lt;!--也可以使用of--&amp;gt;   &amp;lt;li v-for=&amp;quot;item of arr&amp;quot;&amp;gt;&amp;lt;...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%B7%E5%BC%8F%E7%BB%91%E5%AE%9A"><span class="toc-text">样式绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#v-bind%E6%8C%87%E4%BB%A4"><span class="toc-text">v-bind指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%91%E5%AE%9Aclass%E6%A0%B7%E5%BC%8F"><span class="toc-text">绑定class样式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%91%E5%AE%9Astyle%E6%A0%B7%E5%BC%8F"><span class="toc-text">绑定style样式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%88%87%E6%8D%A2"><span class="toc-text">显示切换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#v-show%E6%8C%87%E4%BB%A4"><span class="toc-text">v-show指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#v-if%E6%8C%87%E4%BB%A4"><span class="toc-text">v-if指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#v-else-if%E6%8C%87%E4%BB%A4"><span class="toc-text">v-else-if指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#v-else%E6%8C%87%E4%BB%A4"><span class="toc-text">v-else指令</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

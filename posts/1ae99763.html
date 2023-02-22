@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Vue自定义指令及其生命周期 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="自定义指令函数式 我们可以自定义指令，首先介绍下函数式自定义指令。比如自定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大十倍  12345&lt;div id&#x3D;&quot;app&quot;&gt;   &lt;h2&gt;当前的n值是&lt;span v-text&#x3D;&quot;n&quot;&gt;&lt;&#x2F;span&gt;&lt;&#x2F;h2&gt;   &lt;h2&gt;放大">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue自定义指令及其生命周期">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/1ae99763.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="自定义指令函数式 我们可以自定义指令，首先介绍下函数式自定义指令。比如自定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大十倍  12345&lt;div id&#x3D;&quot;app&quot;&gt;   &lt;h2&gt;当前的n值是&lt;span v-text&#x3D;&quot;n&quot;&gt;&lt;&#x2F;span&gt;&lt;&#x2F;h2&gt;   &lt;h2&gt;放大">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-02-22T04:53:10.541Z">
+<meta property="article:modified_time" content="2023-02-22T12:11:41.684Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Vue自定义指令及其生命周期</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-02-22 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-22
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">1.7k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>8分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h1><h2 id="函数式"><a href="#函数式" class="headerlink" title="函数式"></a>函数式</h2><ul>
+<li>我们可以自定义指令，首先介绍下函数式自定义指令。比如自定义一个<code>v-big</code>指令，和<code>v-text</code>功能类似，但会把绑定的数值放大十倍</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span>&gt;</span>当前的n值是<span class="tag">&lt;<span class="name">span</span> <span class="attr">v-text</span>=<span class="string">&quot;n&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span>&gt;</span>放大十倍的n值是<span class="tag">&lt;<span class="name">span</span> <span class="attr">v-big</span>=<span class="string">&quot;n&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;n++&quot;</span>&gt;</span>点我n+1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">n</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 自定义指令</span></span><br><span class="line">    <span class="attr">directives</span>: &#123;</span><br><span class="line">        <span class="comment">// 函数形式,不用返回值直接操作</span></span><br><span class="line">        <span class="title function_">big</span>(<span class="params">element, binding</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(element, binding)</span><br><span class="line">            element.<span class="property">innerHTML</span> = binding.<span class="property">value</span> * <span class="number">10</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li><p>打印出的<code>element</code>和<code>binding</code>形参如下，一个是真实的DOM元素，另一个包含了指令的信息</p>
+</li>
+<li><p>那自定义的<code>big</code>函数何时会被调用</p>
+<ul>
+<li>指令与元素成功绑定时，即初始化时</li>
+<li>指令所在的模板被重新解析时。模板即Vue绑定的HTML块</li>
+</ul>
+</li>
+</ul>
+<h2 id="对象式"><a href="#对象式" class="headerlink" title="对象式"></a>对象式</h2><ul>
+<li>通过另一种对象式自定义指令。定义一个<code>v-fbind</code>指令， 和<code>v-bind</code>功能类似， 但可以让其所绑定的<code>input</code>元素默认获取焦点</li>
+<li>注意，使用函数式是无法实现的。因为<code>focus</code>焦点必须是输入框元素是真实DOM时才调用，而初始时调用是无法执行的</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;n++&quot;</span>&gt;</span>点我n+1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">v-fbind:value</span>=<span class="string">&quot;n&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">n</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 自定义指令</span></span><br><span class="line">    <span class="attr">directives</span>: &#123;</span><br><span class="line">        <span class="comment">// 对象形式，能实现一些细节</span></span><br><span class="line">        <span class="attr">fbind</span>: &#123;</span><br><span class="line">            <span class="comment">// 可以指定关键点调用</span></span><br><span class="line">            <span class="comment">// 当指令与元素成功绑定时调用</span></span><br><span class="line">            <span class="title function_">bind</span>(<span class="params">element, binding</span>) &#123;</span><br><span class="line">                element.<span class="property">value</span> = binding.<span class="property">value</span>;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;bind&quot;</span>)</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// 指令所在元素被插入页面时调用</span></span><br><span class="line">            <span class="title function_">inserted</span>(<span class="params">element, binding</span>) &#123;</span><br><span class="line">                element.<span class="title function_">focus</span>();</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;inserted&quot;</span>)</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// 指令所在模板被重新解析时</span></span><br><span class="line">            <span class="title function_">update</span>(<span class="params">element, binding</span>) &#123;</span><br><span class="line">                element.<span class="property">value</span> = binding.<span class="property">value</span>;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;update&quot;</span>)</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><ul>
+<li>如果指令名比较长，可以用<code>-</code>分隔</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>放大十倍后的n值是:<span class="tag">&lt;<span class="name">span</span> <span class="attr">v-big-number</span>=<span class="string">&quot;n&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">n</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 自定义指令</span></span><br><span class="line">    <span class="attr">directives</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;big-number&#x27;</span>(element, binding) &#123;</span><br><span class="line">            element.<span class="property">innerText</span> = binding.<span class="property">value</span> * <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>自定义的指令中<code>this</code>都是<code>window</code>，Vue不进行维护</li>
+<li>Vue实例中定义的指令是局部指令，只能当前实例可以使用。也可以定义为全局指令</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="title function_">directive</span>(<span class="string">&#x27;big&#x27;</span>, <span class="keyword">function</span> (<span class="params">element, binding</span>) &#123;</span><br><span class="line">   element.<span class="property">innerText</span> = binding.<span class="property">value</span> * <span class="number">10</span>;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><h2 id="引出生命周期"><a href="#引出生命周期" class="headerlink" title="引出生命周期"></a>引出生命周期</h2><ul>
+<li>实现一个文字透明度改动的功能，要求Vue模板渲染完成后就调用定时器</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--用对象的简写形式--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span> <span class="attr">:style</span>=<span class="string">&quot;&#123;opacity&#125;&quot;</span>&gt;</span>欢迎学习Vue<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;stop&quot;</span>&gt;</span>停止变换<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">opacity</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">methods</span>: &#123;</span><br><span class="line">        <span class="title function_">stop</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.$destroy();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// Vue完成模板解析，并把初始的真实DOM挂载到页面后调用</span></span><br><span class="line">    <span class="title function_">mounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;mounted&quot;</span>)</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">timer</span> = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">opacity</span> -= <span class="number">0.01</span>;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">opacity</span> &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">opacity</span> = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">16</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">beforeDestroy</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="built_in">clearInterval</span>(<span class="variable language_">this</span>.<span class="property">timer</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>常用的生命周期钩子:<ul>
+<li><code>mounted</code>：发送ajax请求、启动定时器、绑定自定义事件、订阅消息等【初始化操作】</li>
+<li><code>beforeDestroy</code>：清除定时器、解绑自定义事件、取消订阅消息等【收尾工作】</li>
+</ul>
+</li>
+<li>关于销毁Vue实例<ul>
+<li>销毁后借助Vue开发者工具看不到任何信息</li>
+<li>销毁后自定义事件会失效，但原生DOM事件依然有效</li>
+<li>一般不会在<code>beforeDestroy</code>操作数据。因为即便操作数据，也不会再触发更新流程了</li>
+</ul>
+</li>
+</ul>
+<h2 id="生命周期示例"><a href="#生命周期示例" class="headerlink" title="生命周期示例"></a>生命周期示例</h2><ul>
+<li>Vue实例有一个完整的生命周期，也就是说从开始创建、初始化数据、编译模板、挂在DOM、渲染-更新-渲染、卸载等一系列过程，我们成为Vue 实例的生命周期，钩子就是在某个阶段给你一个做某些处理的机会</li>
+<li>详情参考《详解vue生命周期》：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000011381906">https://segmentfault.com/a/1190000011381906</a></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;message&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;destroy&quot;</span>&gt;</span>点击销毁VM<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">message</span>: <span class="string">&#x27;Vue的生命周期&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">methods</span>: &#123;</span><br><span class="line">        <span class="title function_">destroy</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="comment">// 销毁</span></span><br><span class="line">            <span class="variable language_">this</span>.$destroy();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">beforeCreate</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">group</span>(<span class="string">&#x27;------beforeCreate创建前状态------&#x27;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;el     : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$el</span>); <span class="comment">//undefined</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;data   : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$data</span>); <span class="comment">//undefined </span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;message: &quot;</span> + <span class="variable language_">this</span>.<span class="property">message</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">created</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">group</span>(<span class="string">&#x27;------created创建完毕状态------&#x27;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;el     : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$el</span>); <span class="comment">//undefined</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;data   : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$data</span>); <span class="comment">//已被初始化 </span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;message: &quot;</span> + <span class="variable language_">this</span>.<span class="property">message</span>); <span class="comment">//已被初始化</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">beforeMount</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">group</span>(<span class="string">&#x27;------beforeMount挂载前状态------&#x27;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;el     : &quot;</span> + (<span class="variable language_">this</span>.<span class="property">$el</span>)); <span class="comment">//已被初始化</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">$el</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;data   : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$data</span>); <span class="comment">//已被初始化  </span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;message: &quot;</span> + <span class="variable language_">this</span>.<span class="property">message</span>); <span class="comment">//已被初始化  </span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">mounted</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">group</span>(<span class="string">&#x27;------mounted 挂载结束状态------&#x27;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;el     : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$el</span>); <span class="comment">//已被初始化</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">$el</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;data   : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$data</span>); <span class="comment">//已被初始化</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;message: &quot;</span> + <span class="variable language_">this</span>.<span class="property">message</span>); <span class="comment">//已被初始化 </span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">beforeUpdate</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">group</span>(<span class="string">&#x27;beforeUpdate 更新前状态===============》&#x27;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;el     : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$el</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">$el</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;data   : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$data</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;message: &quot;</span> + <span class="variable language_">this</span>.<span class="property">message</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">updated</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">group</span>(<span class="string">&#x27;updated 更新完成状态===============》&#x27;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;el     : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$el</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">$el</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;data   : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$data</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;message: &quot;</span> + <span class="variable language_">this</span>.<span class="property">message</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">beforeDestroy</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">group</span>(<span class="string">&#x27;beforeDestroy 销毁前状态===============》&#x27;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;el     : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$el</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">$el</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;data   : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$data</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;message: &quot;</span> + <span class="variable language_">this</span>.<span class="property">message</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">destroyed</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">group</span>(<span class="string">&#x27;destroyed 销毁完成状态===============》&#x27;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;el     : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$el</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">$el</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;data   : &quot;</span> + <span class="variable language_">this</span>.<span class="property">$data</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c%s&quot;</span>, <span class="string">&quot;color:red&quot;</span>, <span class="string">&quot;message: &quot;</span> + <span class="variable language_">this</span>.<span class="property">message</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/1ae99763.html">http://xiaoliblog.cn/posts/1ae99763.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/a26451a7.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Vue表单数据收集及管道过滤器</div>
+      <div class="prev-desc">收集表单数据表单实例1234567891011121314151617181920212223242526272829303132333435&amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt;    &amp;lt;!--点击按钮就触发表达提交事件，阻止表单跳转刷新的默认行为--&amp;gt;    &amp;lt;form...</div>
+    </a>
+    
+    
+    <a href="/posts/350bb680.html">
+      <div class="next-title">Vue组件自定义事件<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">自定义事件绑定事件
+子给父传递数据可以通过父组件给子组件传递函数类型的props实现
+
+比如实现School组件点击按钮传递学校名给父组件App。首先在父组件中定义函数
+
+
+12345678910111213141516171819202122232425262728293031323334353637&amp;lt;t...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4"><span class="toc-text">自定义指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F"><span class="toc-text">函数式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%BC%8F"><span class="toc-text">对象式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-text">补充</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%87%BA%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">引出生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%A4%BA%E4%BE%8B"><span class="toc-text">生命周期示例</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

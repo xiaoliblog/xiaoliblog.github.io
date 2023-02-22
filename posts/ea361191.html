@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Rxjs响应式编程库 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="RxJSRxJs概述 RxJS是一个用于处理异步编程的JavaScript 库，目标是使编写异步和基于回调的代码更容易 可观察对象Observable： 类比Promise对象，内部可以用于执行异步代码，通过调用内部提供的方法将异步代码执行的结果传递到可观察对象外部 观察者Observer：类比then方法中的回调函数，用于接收可观察对象中传递出来数据 订阅subscribe：类比then方法，通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rxjs响应式编程库">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/ea361191.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="RxJSRxJs概述 RxJS是一个用于处理异步编程的JavaScript 库，目标是使编写异步和基于回调的代码更容易 可观察对象Observable： 类比Promise对象，内部可以用于执行异步代码，通过调用内部提供的方法将异步代码执行的结果传递到可观察对象外部 观察者Observer：类比then方法中的回调函数，用于接收可观察对象中传递出来数据 订阅subscribe：类比then方法，通">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-02-22T04:53:10.482Z">
+<meta property="article:modified_time" content="2023-02-22T11:50:38.546Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="Angular">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Rxjs响应式编程库</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-02-22 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-22
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">1.1k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>5分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="RxJS"><a href="#RxJS" class="headerlink" title="RxJS"></a>RxJS</h1><h2 id="RxJs概述"><a href="#RxJs概述" class="headerlink" title="RxJs概述"></a>RxJs概述</h2><ul>
+<li><code>RxJS</code>是一个用于处理异步编程的JavaScript 库，目标是使编写异步和基于回调的代码更容易</li>
+<li>可观察对象<code>Observable</code>： 类比<code>Promise</code>对象，内部可以用于执行异步代码，通过调用内部提供的方法将异步代码执行的结果传递到可观察对象外部</li>
+<li>观察者<code>Observer</code>：类比<code>then</code>方法中的回调函数，用于接收可观察对象中传递出来数据</li>
+<li>订阅<code>subscribe</code>：类比<code>then</code>方法，通过订阅将可观察对象和观察者连接起来，当可观察对象发出数据时，订阅者可以接收到数据</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可观察对象</span></span><br><span class="line"><span class="keyword">const</span> observable = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="keyword">function</span> (<span class="params">observer</span>)&#123;</span><br><span class="line">   <span class="comment">// 延时模拟获取数据</span></span><br><span class="line">   <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// next把数据传递出去</span></span><br><span class="line">      observer.<span class="title function_">next</span>(&#123;</span><br><span class="line">         <span class="attr">name</span>:<span class="string">&#x27;张三&#x27;</span></span><br><span class="line">      &#125;)</span><br><span class="line">   &#125;,<span class="number">2000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 观察者接收数据</span></span><br><span class="line"><span class="keyword">const</span> observer = &#123;</span><br><span class="line">   <span class="attr">next</span>: <span class="keyword">function</span> (<span class="params">value</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(value)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 订阅</span></span><br><span class="line">observable.<span class="title function_">subscribe</span>(observer)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="可观察对象"><a href="#可观察对象" class="headerlink" title="可观察对象"></a>可观察对象</h2><ul>
+<li>在<code>Observable</code>对象内部可以多次调用<code>next</code>方法向外发送数据</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observable = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="keyword">function</span> (<span class="params">observer</span>)&#123;</span><br><span class="line">   <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">   <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      observer.<span class="title function_">next</span>(index++)</span><br><span class="line">   &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observer = &#123;</span><br><span class="line">   <span class="attr">next</span>: <span class="keyword">function</span> (<span class="params">value</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(value)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">observable.<span class="title function_">subscribe</span>(observer)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当所有数据发送完成以后，可以调用<code>complete</code>方法终止数据发送</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observable = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="keyword">function</span> (<span class="params">observer</span>)&#123;</span><br><span class="line">   <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">   <span class="keyword">let</span> timer = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      observer.<span class="title function_">next</span>(index++)</span><br><span class="line">      <span class="keyword">if</span>(index === <span class="number">3</span>)&#123;</span><br><span class="line">         <span class="comment">// 终止数据</span></span><br><span class="line">         observer.<span class="title function_">complete</span>()</span><br><span class="line">         <span class="built_in">clearInterval</span>(timer)</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observer = &#123;</span><br><span class="line">   <span class="attr">next</span>: <span class="keyword">function</span> (<span class="params">value</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(value)</span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="attr">complete</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;数据终止了&#x27;</span>)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">observable.<span class="title function_">subscribe</span>(observer)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当<code>Observable</code>内部逻辑发生错误时，可以调用<code>error</code>方法将失败信息发送给订阅者，<code>Observable</code> 终止</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observable = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="keyword">function</span> (<span class="params">observer</span>)&#123;</span><br><span class="line">   <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">   <span class="keyword">let</span> timer = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      observer.<span class="title function_">next</span>(index++)</span><br><span class="line">      <span class="keyword">if</span>(index === <span class="number">3</span>)&#123;</span><br><span class="line">         <span class="comment">// 终止数据</span></span><br><span class="line">         observer.<span class="title function_">error</span>(<span class="string">&quot;发生错误&quot;</span>)</span><br><span class="line">         <span class="built_in">clearInterval</span>(timer)</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observer = &#123;</span><br><span class="line">   <span class="attr">next</span>: <span class="keyword">function</span> (<span class="params">value</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(value)</span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="attr">error</span>: <span class="keyword">function</span>(<span class="params">error</span>)&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(error)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">observable.<span class="title function_">subscribe</span>(observer)</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="辅助方法"><a href="#辅助方法" class="headerlink" title="辅助方法"></a>辅助方法</h1><h2 id="range"><a href="#range" class="headerlink" title="range"></a>range</h2><ul>
+<li><code>rang(start,length)</code>，调用方法后返回<code>observable</code>对象，被订阅后会发出指定范围的数值</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; range &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">range</span>(<span class="number">0</span>,<span class="number">5</span>).<span class="title function_">subscribe</span>(<span class="function"><span class="params">n</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(n) )</span><br><span class="line"></span><br><span class="line"><span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="comment">// 4</span></span><br><span class="line"><span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="from"><a href="#from" class="headerlink" title="from"></a>from</h2><ul>
+<li>可以将<code>Array</code>、<code>Promise</code>、<code>Iterator</code>转化为<code>observable</code>对象，广泛用于<code>axios</code>请求处理返回的<code>Promise</code>对象转换成<code>observable</code></li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="keyword">from</span> &#125; <span class="string">&quot;rxjs&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">form</span>([<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>]).<span class="title function_">subscribe</span>(<span class="variable language_">console</span>.<span class="property">log</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">p</span> ()&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>)=&gt;</span>&#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">         <span class="title function_">resolve</span>(&#123;</span><br><span class="line">            <span class="attr">a</span>:<span class="number">1</span></span><br><span class="line">         &#125;)</span><br><span class="line">      &#125;,<span class="number">2000</span>)</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">form</span>(<span class="title function_">p</span>()).<span class="title function_">subscribe</span>(<span class="variable language_">console</span>.<span class="property">log</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="forkJoin"><a href="#forkJoin" class="headerlink" title="forkJoin"></a>forkJoin</h2><ul>
+<li><code>forkJoin</code>是Rx版本的<code>Promise.all()</code>，即表示等到所有的<code>Observable</code>都完成后才一次性返回值</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="keyword">from</span>,forkJoin &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span></span><br><span class="line"></span><br><span class="line">axios.<span class="property">interceptors</span>.<span class="property">response</span>.<span class="title function_">use</span>(<span class="function"><span class="params">response</span> =&gt;</span> response.<span class="property">data</span>)</span><br><span class="line"></span><br><span class="line"><span class="title function_">forkJoin</span>(&#123;</span><br><span class="line">   <span class="attr">goods</span>:<span class="title function_">from</span>(axios.<span class="title function_">get</span>(<span class="string">&quot;http://localhost:3005/goods&quot;</span>)),</span><br><span class="line">   <span class="attr">category</span>:<span class="title function_">from</span>(axios.<span class="title function_">get</span>(<span class="string">&quot;http://localhost:3005/category&quot;</span>))</span><br><span class="line">&#125;).<span class="title function_">subscribe</span>(<span class="variable language_">console</span>.<span class="property">log</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="fromEvent"><a href="#fromEvent" class="headerlink" title="fromEvent"></a>fromEvent</h2><ul>
+<li><code>fromEvent</code>可以将事件转换为<code>Observable</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; fromEvent &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> button = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;btn&#x27;</span>)</span><br><span class="line"><span class="comment">// 可以将Observe 简写成一个函数，表示next</span></span><br><span class="line"><span class="title function_">formEvent</span>(button,<span class="string">&quot;click&quot;</span>).<span class="title function_">subscribe</span>( <span class="function"><span class="params">e</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(e))</span><br></pre></td></tr></table></figure>
+
+<h1 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h1><ul>
+<li>数据流：从可观察对象内部输出的数据就是数据流，可观察对象内部可以向外部源源不断的输出数据</li>
+<li>操作符：用于操作数据流，可以对象数据流进行转换，过滤等等操作</li>
+</ul>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><ul>
+<li><code>map</code>：对数据流进行转换，基于原有值进行转换</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; interval &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123; map &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs/operators&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">interval</span>(<span class="number">1000</span>).<span class="title function_">pipe</span>(<span class="title function_">map</span>(<span class="function"><span class="params">n</span> =&gt;</span> n * <span class="number">2</span>)).<span class="title function_">subscribe</span>(<span class="function"><span class="params">n</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(n) )</span><br></pre></td></tr></table></figure>
+
+<h2 id="take"><a href="#take" class="headerlink" title="take"></a>take</h2><ul>
+<li><code>take</code>：用于获取数据流中的前几个</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; range &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123; take &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs/operators&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">range</span>(<span class="number">1</span>,<span class="number">10</span>).<span class="title function_">pipe</span>(<span class="title function_">take</span>(<span class="number">5</span>)).<span class="title function_">subscribe</span>(<span class="variable language_">console</span>.<span class="property">log</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>takeWhile</code>：根据条件从数据源前面开始获取</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; range &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123; take &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs/operators&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">range</span>(<span class="number">1</span>,<span class="number">10</span>).<span class="title function_">pipe</span>(<span class="title function_">takeWhile</span>(<span class="function"><span class="params">n</span> =&gt;</span> n &lt; <span class="number">8</span>)).<span class="title function_">subscribe</span>(<span class="variable language_">console</span>.<span class="property">log</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>takeUntil</code>：接收可观察对象，当可观察对象发出值时，终止主数据源</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; fromEvent &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123; takeUntil &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs/operators&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> button = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;btn&#x27;</span>)</span><br><span class="line"><span class="title function_">formEvent</span>(<span class="variable language_">document</span>,<span class="string">&quot;mousemove&quot;</span>)</span><br><span class="line">.<span class="title function_">pipe</span>(<span class="title function_">takeUntil</span>(<span class="title function_">fromEvent</span>(button,<span class="string">&quot;click&quot;</span>)))</span><br><span class="line">.<span class="title function_">subscribe</span>(<span class="variable language_">console</span>.<span class="property">log</span>)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="pluck"><a href="#pluck" class="headerlink" title="pluck"></a>pluck</h2><ul>
+<li>获取数据流对象中的属性值</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; fromEvent &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123; pluck &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs/operators&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> button = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;btn&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="title function_">formEvent</span>(button,<span class="string">&quot;click&quot;</span>).<span class="title function_">pipe</span>(<span class="title function_">pluck</span>(<span class="string">&quot;target&quot;</span>)).<span class="title function_">subscribe</span>( <span class="variable language_">console</span>.<span class="property">log</span>)</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/ea361191.html">http://xiaoliblog.cn/posts/ea361191.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/1012081c.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>TypeScript基本使用</div>
+      <div class="prev-desc">TypeScriptTypeScript简介
+TypeScript 是 JavaScript 的超集，扩展了 JavaScript 的语法，因此现有的 JavaScript 代码可与 TypeScript 一起工作无需任何修改，TypeScript 通过类型注解提供编译时的静态类型检查
+
+TypeScript 设...</div>
+    </a>
+    
+    
+    <a href="/posts/52622.html">
+      <div class="next-title">如何优雅处理响应数据<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">数据处理复杂数据
+实际工作中经常会收到后端各种奇葩的数据格式，对应复杂的数据需要进行有效消息的提炼，就需要对JSON数据进行处理，比如如下格式
+
+12345678910111213141516171819202122232425262728293031323334let jsonStr = &amp;#123;  Cod...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RxJS"><span class="toc-text">RxJS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RxJs%E6%A6%82%E8%BF%B0"><span class="toc-text">RxJs概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E8%A7%82%E5%AF%9F%E5%AF%B9%E8%B1%A1"><span class="toc-text">可观察对象</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E6%96%B9%E6%B3%95"><span class="toc-text">辅助方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#range"><span class="toc-text">range</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#from"><span class="toc-text">from</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#forkJoin"><span class="toc-text">forkJoin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fromEvent"><span class="toc-text">fromEvent</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">操作符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#map"><span class="toc-text">map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#take"><span class="toc-text">take</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pluck"><span class="toc-text">pluck</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

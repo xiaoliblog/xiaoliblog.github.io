@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>微信小程序自定义导航栏组件 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="TabBarVant Weapp 小程序已经支持使用 npm 安装第三方包，注意这个是在你小程序项目的目录下  1npm i vant-weapp -S --production   保证当前你的微信开发者工具是最新版本，然后找到顶部选项的【工具】点击执行【构建npm】 成功以后你项目的目录里会多出一个文件夹miniprogram_npm，当我们需要调用到Vant组件的时候，需要在想相对应的.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序自定义导航栏组件">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/5542a5a3.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="TabBarVant Weapp 小程序已经支持使用 npm 安装第三方包，注意这个是在你小程序项目的目录下  1npm i vant-weapp -S --production   保证当前你的微信开发者工具是最新版本，然后找到顶部选项的【工具】点击执行【构建npm】 成功以后你项目的目录里会多出一个文件夹miniprogram_npm，当我们需要调用到Vant组件的时候，需要在想相对应的.js">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-02-22T04:53:10.565Z">
+<meta property="article:modified_time" content="2023-02-22T11:44:09.352Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>微信小程序自定义导航栏组件</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-02-22 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-22
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">1.7k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>8分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="TabBar"><a href="#TabBar" class="headerlink" title="TabBar"></a>TabBar</h1><h2 id="Vant-Weapp"><a href="#Vant-Weapp" class="headerlink" title="Vant Weapp"></a>Vant Weapp</h2><ul>
+<li>小程序已经支持使用 npm 安装第三方包，注意这个是在你小程序项目的目录下</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vant-weapp -S --production</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>保证当前你的微信开发者工具是最新版本，然后找到顶部选项的【工具】点击执行【构建npm】</li>
+<li>成功以后你项目的目录里会多出一个文件夹<code>miniprogram_npm</code>，当我们需要调用到Vant组件的时候，需要在想相对应的<code>.json</code>文件里添加配置</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;usingComponents&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">   <span class="attr">&quot;van-button&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/miniprogram_npm/vant-weapp/button/index&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="tabBar"><a href="#tabBar" class="headerlink" title="tabBar"></a>tabBar</h2><ul>
+<li><code>tabBar</code>可以使用<code>Vant Weapp</code>框架<a target="_blank" rel="noopener" href="https://youzan.github.io/vant-weapp/#/home">https://youzan.github.io/vant-weapp/#/home</a></li>
+<li>先在<code>app.json</code>中配置页面的路径</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;tabBar&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;custom&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;list&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;pagePath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pages/index/index&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;政策解读&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;pagePath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pages/query/query&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;林长查询&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;pagePath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pages/dynamic/dynamic&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;林长动态&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;pagePath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pages/news/news&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;焦点新闻&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在项目根目录新建<code>custom-tab-bar</code>文件夹，然后新建组件<code>index</code>，注意不能改变名字</li>
+<li>首先引入<code>Vant</code>的组件</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;component&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;usingComponents&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;van-tabbar&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/miniprogram_npm/vant-weapp/tabbar/index&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;van-tabbar-item&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/miniprogram_npm/vant-weapp/tabbar-item/index&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--底部导航栏--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">van-tabbar</span>  <span class="attr">active</span>=<span class="string">&quot;&#123;&#123; active &#125;&#125;&quot;</span> <span class="attr">bind:change</span>=<span class="string">&quot;bottomNavOnChange&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">van-tabbar-item</span> <span class="attr">icon</span>=<span class="string">&quot;home-o&quot;</span>&gt;</span>政策解读<span class="tag">&lt;/<span class="name">van-tabbar-item</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">van-tabbar-item</span> <span class="attr">icon</span>=<span class="string">&quot;search&quot;</span>&gt;</span>林长查询<span class="tag">&lt;/<span class="name">van-tabbar-item</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">van-tabbar-item</span> <span class="attr">icon</span>=<span class="string">&quot;comment-o&quot;</span>&gt;</span>林长动态<span class="tag">&lt;/<span class="name">van-tabbar-item</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">van-tabbar-item</span> <span class="attr">icon</span>=<span class="string">&quot;newspaper-o&quot;</span>&gt;</span>焦点新闻<span class="tag">&lt;/<span class="name">van-tabbar-item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">van-tabbar</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后调用<code>wx.switchTab</code>切换回调，跳转URL</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Component</span>(&#123;</span><br><span class="line">  <span class="attr">properties</span>: &#123;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">data</span>: &#123;</span><br><span class="line">    <span class="comment">// 当前子页 设置为null</span></span><br><span class="line">    <span class="attr">active</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="string">&quot;list&quot;</span>: [&#123;</span><br><span class="line">        <span class="string">&quot;pagePath&quot;</span>: <span class="string">&quot;/pages/index/index&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">&quot;pagePath&quot;</span>: <span class="string">&quot;/pages/query/query&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">&quot;pagePath&quot;</span>: <span class="string">&quot;/pages/dynamic/dynamic&quot;</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">&quot;pagePath&quot;</span>: <span class="string">&quot;/pages/news/news&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="comment">// 底部导航栏的回调</span></span><br><span class="line">    <span class="title function_">bottomNavOnChange</span>(<span class="params">event</span>) &#123;</span><br><span class="line">      <span class="comment">// event.detail 的值为当前选中项的索引</span></span><br><span class="line">      <span class="keyword">const</span> index = event.<span class="property">detail</span>;</span><br><span class="line">      <span class="comment">// 小程序切换页面</span></span><br><span class="line">      wx.<span class="title function_">switchTab</span>(&#123;</span><br><span class="line">        <span class="attr">url</span>: <span class="variable language_">this</span>.<span class="property">data</span>.<span class="property">list</span>[index].<span class="property">pagePath</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在需要使用的组件中引入，注意在每个跳转的子页面都要加以下事件，设置当前高亮的索引</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">onLoad</span>: <span class="keyword">function</span> (<span class="params">options</span>) &#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="title function_">getTabBar</span>().<span class="title function_">setData</span>(&#123;</span><br><span class="line">      <span class="attr">active</span>: <span class="number">0</span></span><br><span class="line">   &#125;)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h2 id="回到顶部"><a href="#回到顶部" class="headerlink" title="回到顶部"></a>回到顶部</h2><ul>
+<li>微信小程序的回到顶部功能非常简单</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = <span class="title function_">getApp</span>()</span><br><span class="line"><span class="title class_">Page</span>(&#123;</span><br><span class="line">  <span class="attr">data</span>: &#123;</span><br><span class="line">    <span class="comment">// 是否显示返回顶部</span></span><br><span class="line">    <span class="attr">showBack</span>:<span class="literal">false</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 回调：获取滚动条当前位置</span></span><br><span class="line">  <span class="title function_">onPageScroll</span>(<span class="params">event</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(event.<span class="property">scrollTop</span> &gt; <span class="number">100</span>)&#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">setData</span>(&#123;</span><br><span class="line">        showBack : <span class="literal">true</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">setData</span>(&#123;</span><br><span class="line">        <span class="attr">showBack</span>:<span class="literal">false</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 回到顶部函数，调用即可</span></span><br><span class="line">  <span class="title function_">backTop</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (wx.<span class="property">pageScrollTo</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (wx.<span class="property">pageScrollTo</span>) &#123;</span><br><span class="line">        wx.<span class="title function_">pageScrollTo</span>(&#123;</span><br><span class="line">          <span class="attr">scrollTop</span>: <span class="number">0</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        wx.<span class="title function_">showModal</span>(&#123;</span><br><span class="line">          <span class="attr">title</span>: <span class="string">&#x27;提示&#x27;</span>,</span><br><span class="line">          <span class="attr">content</span>: <span class="string">&#x27;当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。&#x27;</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="NavBar"><a href="#NavBar" class="headerlink" title="NavBar"></a>NavBar</h1><h2 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h2><ul>
+<li>然后在<code>app.json</code>中设置</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;window&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;navigationStyle&quot;</span><span class="punctuation">:</span> <span class="string">&quot;custom&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>app.js</code>中获取系统信息并保存在全局变量中</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">App</span>(&#123;</span><br><span class="line">  <span class="attr">data</span>: &#123;&#125;,</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="attr">onLaunch</span>: <span class="keyword">function</span> (<span class="params">options</span>) &#123;</span><br><span class="line">    <span class="comment">// 判断是否由分享进入小程序</span></span><br><span class="line">    <span class="keyword">if</span> (options.<span class="property">scene</span> == <span class="number">1007</span> || options.<span class="property">scene</span> == <span class="number">1008</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">globalData</span>.<span class="property">share</span> = <span class="literal">true</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">globalData</span>.<span class="property">share</span> = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 获取设备顶部窗口的高度（不同设备窗口高度不一样，根据这个来设置自定义导航栏的高度）</span></span><br><span class="line">    wx.<span class="title function_">getSystemInfo</span>(&#123;</span><br><span class="line">      <span class="attr">success</span>: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">globalData</span>.<span class="property">height</span> = res.<span class="property">statusBarHeight</span></span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 定义全局数据</span></span><br><span class="line">  <span class="attr">globalData</span>: &#123;</span><br><span class="line">    <span class="attr">share</span>: <span class="literal">false</span>, <span class="comment">// 默认为false</span></span><br><span class="line">    <span class="attr">height</span>: <span class="number">0</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建组件"><a href="#创建组件" class="headerlink" title="创建组件"></a>创建组件</h2><ul>
+<li>然后创建<code>components/navbar</code>组件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&#x27;nav-wrap&#x27;</span> <span class="attr">style</span>=<span class="string">&#x27;height: &#123;&#123;height*2 + 10&#125;&#125;px;&#x27;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--标题--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&#x27;nav-title&#x27;</span> <span class="attr">style</span>=<span class="string">&#x27;line-height: &#123;&#123;height*2 + 44&#125;&#125;px;&#x27;</span>&gt;</span>&#123;&#123;navbarData.first&#125;&#125;&#123;&#123;navbarData.title&#125;&#125;<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;left&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--控制左上角按钮的显示隐藏，首页不显示--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&#x27;nav-capsule&#x27;</span> <span class="attr">style</span>=<span class="string">&#x27;height: &#123;&#123;height*2 + 44&#125;&#125;px;&#x27;</span> <span class="attr">wx:if</span>=<span class="string">&#x27;&#123;&#123;navbarData.showCapsule&#125;&#125;&#x27;</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--左上角的返回按钮，控制返回按钮显示--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">view</span> <span class="attr">bindtap</span>=<span class="string">&#x27;_navback&#x27;</span> <span class="attr">wx:if</span>=<span class="string">&#x27;&#123;&#123;!share&#125;&#125;&#x27;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">image</span> <span class="attr">src</span>=<span class="string">&#x27;/assets/images/back-pre.png&#x27;</span> <span class="attr">mode</span>=<span class="string">&#x27;aspectFill&#x27;</span> <span class="attr">class</span>=<span class="string">&#x27;back-pre&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--分隔线--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&#x27;navbar-v-line&#x27;</span> <span class="attr">wx:if</span>=<span class="string">&#x27;&#123;&#123;!share&#125;&#125;&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--返回主页--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">view</span> <span class="attr">bindtap</span>=<span class="string">&#x27;_backhome&#x27;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">image</span> <span class="attr">src</span>=<span class="string">&#x27;/assets/images/back-home.png&#x27;</span> <span class="attr">mode</span>=<span class="string">&#x27;aspectFill&#x27;</span> <span class="attr">class</span>=<span class="string">&#x27;back-home&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 顶部要固定定位   标题要居中   自定义按钮和标题要和右边微信原生的胶囊上下对齐 */</span></span><br><span class="line"><span class="selector-class">.nav-wrap</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#3367d6</span>;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">9999999</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav-wrap</span> <span class="selector-class">.left</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">justify-content</span>: space-around;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 标题要居中 */</span></span><br><span class="line"><span class="selector-class">.nav-title</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">400</span>rpx;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">text-overflow</span>: ellipsis;</span><br><span class="line">  <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">36</span>rpx;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">font-weight</span>: <span class="number">600</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav-capsule</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">30</span>rpx;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">140</span>rpx;</span><br><span class="line">  <span class="attribute">justify-content</span>: space-between;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.navbar-v-line</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">1px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">32</span>rpx;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#e5e5e5</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.back-pre</span>,</span><br><span class="line"><span class="selector-class">.back-home</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">32</span>rpx;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">36</span>rpx;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">4</span>rpx;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10</span>rpx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav-capsule</span> <span class="selector-class">.back-home</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">36</span>rpx;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40</span>rpx;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">3</span>rpx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在JS中获取父组件传来的数据</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = <span class="title function_">getApp</span>()</span><br><span class="line"><span class="title class_">Component</span>(&#123;</span><br><span class="line">  <span class="attr">properties</span>: &#123;</span><br><span class="line">    <span class="attr">navbarData</span>: &#123;   <span class="comment">//navbarData   由父页面传递的数据，变量名字自命名</span></span><br><span class="line">      <span class="attr">type</span>: <span class="title class_">Object</span>,</span><br><span class="line">      <span class="attr">value</span>: &#123;&#125;,</span><br><span class="line">      <span class="attr">observer</span>: <span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">data</span>: &#123;</span><br><span class="line">    <span class="attr">height</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="comment">//默认值  默认显示左上角</span></span><br><span class="line">    <span class="attr">navbarData</span>: &#123;</span><br><span class="line">      <span class="attr">showCapsule</span>: <span class="number">1</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">attached</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 获取是否是通过分享进入的小程序</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">setData</span>(&#123;</span><br><span class="line">      <span class="attr">share</span>: app.<span class="property">globalData</span>.<span class="property">share</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// 定义导航栏的高度   方便对齐</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">setData</span>(&#123;</span><br><span class="line">      <span class="attr">height</span>: app.<span class="property">globalData</span>.<span class="property">height</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="comment">// 返回上一页面</span></span><br><span class="line">    <span class="title function_">_navback</span>(<span class="params"></span>) &#123;</span><br><span class="line">      wx.<span class="title function_">navigateBack</span>()</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//返回到首页</span></span><br><span class="line">    <span class="title function_">_backhome</span>(<span class="params"></span>) &#123;</span><br><span class="line">      wx.<span class="title function_">switchTab</span>(&#123;</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;/pages/index/index&#x27;</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;) </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在需要使用的组件引入并设置</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav-bar</span> <span class="attr">navbar-data</span>=<span class="string">&#x27;&#123;&#123;navbarData&#125;&#125;&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">nav-bar</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--离顶部栏的高度，自己把握--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">view</span>  <span class="attr">style</span>=<span class="string">&#x27;margin-top: &#123;&#123;height+20&#125;&#125;px&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">getApp</span>()</span><br><span class="line"><span class="title class_">Page</span>(&#123;</span><br><span class="line">  <span class="attr">data</span>: &#123;</span><br><span class="line">    <span class="comment">// 组件所需的参数</span></span><br><span class="line">    <span class="attr">navbarData</span>: &#123;</span><br><span class="line">      <span class="attr">showCapsule</span>: <span class="number">0</span>, <span class="comment">//是否显示左上角图标   1表示显示    0表示不显示</span></span><br><span class="line">      <span class="attr">title</span>: <span class="string">&#x27;智慧林长&#x27;</span>, <span class="comment">//导航栏 中间的标题</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 此页面 页面内容距最顶部的距离</span></span><br><span class="line">    <span class="attr">height</span>: app.<span class="property">globalData</span>.<span class="property">height</span> * <span class="number">2</span> + <span class="number">20</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/5542a5a3.html">http://xiaoliblog.cn/posts/5542a5a3.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    
+    <a href="/posts/87f4d1be.html">
+      <div class="next-title">微信小程序登陆授权及上线<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">登陆流程开发接口
+微信登陆授权流程如下
+用户访问小程序，触发app.js的 wx.login 方法，获取到code并存储入 app.globalData 
+当用户点击登录按钮，通过app.globalData获取code，并发起request到服务器，服务器通过包装url（含code、appid、secret）获...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TabBar"><span class="toc-text">TabBar</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Vant-Weapp"><span class="toc-text">Vant Weapp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tabBar"><span class="toc-text">tabBar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E5%88%B0%E9%A1%B6%E9%83%A8"><span class="toc-text">回到顶部</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NavBar"><span class="toc-text">NavBar</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-text">获取数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6"><span class="toc-text">创建组件</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

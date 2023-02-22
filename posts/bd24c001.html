@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Flutter入门及环境搭建 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="Flutter Flutter是谷歌公司开发的一款开源、免费的移动UI框架，可以让我们快速的在Android和ios上构建高质量App。它最大的特点就是跨平台、以及高性能 官方文档：https:&#x2F;&#x2F;flutter.dev&#x2F;  环境搭建 参考技术胖Flutter免费视频第一季-环境搭建：https:&#x2F;&#x2F;jspang.com&#x2F;detailed?id&#x3D;41#toc21 首先需要配置Java JDK，然后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter入门及环境搭建">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/bd24c001.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="Flutter Flutter是谷歌公司开发的一款开源、免费的移动UI框架，可以让我们快速的在Android和ios上构建高质量App。它最大的特点就是跨平台、以及高性能 官方文档：https:&#x2F;&#x2F;flutter.dev&#x2F;  环境搭建 参考技术胖Flutter免费视频第一季-环境搭建：https:&#x2F;&#x2F;jspang.com&#x2F;detailed?id&#x3D;41#toc21 首先需要配置Java JDK，然后">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-02-22T04:53:10.511Z">
+<meta property="article:modified_time" content="2023-02-22T11:36:26.949Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Flutter入门及环境搭建</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-02-22 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-22
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">2.3k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>10分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="Flutter"><a href="#Flutter" class="headerlink" title="Flutter"></a>Flutter</h1><ul>
+<li><code>Flutter</code>是谷歌公司开发的一款开源、免费的移动UI框架，可以让我们快速的在<code>Android</code>和<code>ios</code>上构建高质量App。它最大的特点就是跨平台、以及高性能</li>
+<li>官方文档：<a target="_blank" rel="noopener" href="https://flutter.dev/">https://flutter.dev/</a></li>
+</ul>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><ul>
+<li>参考技术胖Flutter免费视频第一季-环境搭建：<a target="_blank" rel="noopener" href="https://jspang.com/detailed?id=41#toc21">https://jspang.com/detailed?id=41#toc21</a></li>
+<li>首先需要配置<code>Java JDK</code>，然后安装<code>android studio</code>，官方网站：<a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio/">https://developer.android.google.cn/studio/</a></li>
+<li>配置<code>Android sdk</code>路径的时候不能有中文和空格</li>
+<li>再在Flutter官网下载<code>Flutter SDK</code>，下载好后解压到一个路径，配置好环境变量，把<code>bin</code>目录复制到<code>Path</code>里</li>
+<li>使用<code>flutter -v</code>命令检查是否配置成功</li>
+<li>搭建环境过程中要下载很多资源文件，当一些资源下载不了的时候，可能会报各种错误。在国内访问Flutter的时候有可能会受到限制。Flutter官方为我们提供了国内的镜像：<a target="_blank" rel="noopener" href="https://flutterchina.club/setup-windows/">https://flutterchina.club/setup-windows/</a></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">把下面两个添加到环境变量里，键值对</span></span><br><span class="line">PUB_HOSTED_URL=https://pub.flutter-io.cn</span><br><span class="line">FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>使用<code>flutter doctor</code> 命令可以检查是否配置成功，出现<code>cmdline-tools component is missing</code>，参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41824429/article/details/118942087">博客</a></p>
+</li>
+<li><p>如果找不到<code>Android SDK</code>，就运行以下命令</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lutter config --android-sdk D:\AndroidSDK</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>汉化：进入<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/">https://plugins.jetbrains.com/</a>，找个中文插件，下载<code>203.xxx</code>版本的语言包，然后在<code>Android studio</code>中从本地磁盘安装插件即可</li>
+</ul>
+<h2 id="安装虚拟机"><a href="#安装虚拟机" class="headerlink" title="安装虚拟机"></a>安装虚拟机</h2><ul>
+<li><p>在<code>Android studio</code>中安装<code>Flutter</code>插件，然后就可以创建<code>Flutter</code>项目了</p>
+</li>
+<li><p>然后点击顶部的<code>Tools</code>工具，选择<code>AVD Manager</code>创建虚拟机，一般选择<code>Nexus 5</code>，根据屏幕自定义，版本可以选最新版本</p>
+</li>
+<li><p>创建好后点击运行，一般会出现很多错误，可以自行百度</p>
+<ul>
+<li>The emulator process for AVD Pixel_5_API_30 has terminated：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43224762/article/details/121255382">https://blog.csdn.net/qq_43224762/article/details/121255382</a> </li>
+<li>AVD Manager Unable to locate adb：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wenjun_xiao/article/details/107198615">https://blog.csdn.net/wenjun_xiao/article/details/107198615</a></li>
+</ul>
+</li>
+<li><p>虚拟机配置好后，使用<code>debug</code>启动项目，启动过程会有点慢，耐心等待，建议修改android目录下的<code>build.gradle</code>文件，把<code>google()</code> 和<code>jcenter()</code>这两行去掉，改为阿里的链接</p>
+</li>
+</ul>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line">    ext.kotlin_version = <span class="string">&#x27;1.3.50&#x27;</span></span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;https://maven.aliyun.com/repository/google&#x27;</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;https://maven.aliyun.com/nexus/content/repositories/google&#x27;</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;http://download.flutter.io&#x27;</span>&#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;http://maven.aliyun.com/nexus/content/repositories/jcenter&#x27;</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;https://maven.aliyun.com/repository/public&#x27;</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;http://maven.aliyun.com/nexus/content/groups/public&#x27;</span>&#125;</span><br><span class="line">        google()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">dependencies</span> &#123;</span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">&#x27;com.android.tools.build:gradle:4.1.0&#x27;</span></span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">&quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">allprojects</span> &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;https://maven.aliyun.com/repository/google&#x27;</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;https://maven.aliyun.com/nexus/content/repositories/google&#x27;</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;http://download.flutter.io&#x27;</span>&#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;http://maven.aliyun.com/nexus/content/repositories/jcenter&#x27;</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;https://maven.aliyun.com/repository/public&#x27;</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;http://maven.aliyun.com/nexus/content/groups/public&#x27;</span>&#125;</span><br><span class="line">        google()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rootProject.buildDir = <span class="string">&#x27;../build&#x27;</span></span><br><span class="line"><span class="keyword">subprojects</span> &#123;</span><br><span class="line">    <span class="keyword">project</span>.buildDir = <span class="string">&quot;$&#123;rootProject.buildDir&#125;/$&#123;project.name&#125;&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">subprojects</span> &#123;</span><br><span class="line">    <span class="keyword">project</span>.evaluationDependsOn(<span class="string">&#x27;:app&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> clean(type: <span class="keyword">Delete</span>) &#123;</span><br><span class="line">    <span class="keyword">delete</span> rootProject.buildDir</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>再修改Flutter SDK包下的<code>flutter.gradle</code>文件，这个目录要根据你的SDK存放的位置有所变化，比如</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\FlutterSDK\flutter_windows_2.8.1-stable\flutter\packages\flutter_tools\gradle</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;https://maven.aliyun.com/repository/google&#x27;</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;https://maven.aliyun.com/nexus/content/repositories/google&#x27;</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;http://download.flutter.io&#x27;</span>&#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;http://maven.aliyun.com/nexus/content/repositories/jcenter&#x27;</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;https://maven.aliyun.com/repository/public&#x27;</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">&#x27;http://maven.aliyun.com/nexus/content/groups/public&#x27;</span>&#125;</span><br><span class="line">        google()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">dependencies</span> &#123;</span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">&#x27;com.android.tools.build:gradle:4.1.0&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="VsCode配置"><a href="#VsCode配置" class="headerlink" title="VsCode配置"></a>VsCode配置</h2><ul>
+<li><code>Android Studio</code>进行开发的，感觉太重量级了，所以比较喜欢使用<code>VsCode</code>进行配置</li>
+<li><code>VsCode</code>中只需要安装<code>Flutter</code>和<code>Dart</code>插件即可。关于虚拟机，可以制作一个批处理文件，来直接开启AVD虚拟机，这样就不用再等两分钟来开启Android Studio了<ul>
+<li>在桌面新建<code>EmulatorRun.bat</code>文件 ，名字可以自定义</li>
+<li>查找<code>emulator.exe</code>文件的路径，把查找到的路径放到<code>bat</code>文件中，推荐使用<code>Everything</code>软件查找</li>
+<li>一般会查找到两个<code>emulator.exe</code>文件，一个是在<code>tools</code>目录下，一个是在<code>emulator</code>目录下，我们选择<code>emulator</code>目录下的这个，复制它的路径</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">D:\<span class="title">AndroidSDK</span>\<span class="title">emulator</span>\<span class="title">emulator.exe</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后打开<code>Android Studio</code>，并查看你的AVD虚拟机名称，空格使用<code>_</code>代替，然后加在新建的<code>bat</code>文件中，然后双击<code>bat</code>文件就可以打开虚拟机<ul>
+<li><code>netdelay none</code> ：设置模拟器的网络延迟时间，默认为<code>none</code>，就是没有延迟</li>
+<li><code>netspeed full</code>：设置网络加速值，<code>full</code>代表全速</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">D:\<span class="title">AndroidSDK</span>\<span class="title">emulator</span>\<span class="title">emulator.exe</span> -<span class="title">netdelay</span> <span class="title">none</span> -<span class="title">netspeed</span> <span class="title">full</span> -<span class="title">avd</span> <span class="title">Pixel_5_API_30</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>现在模拟器也有了，VSCode也支持Flutter开发了，在VsCode中<code>ctrl+~</code>打开终端，然后在终端中输入下面的命令，经过短暂的编译后就会启动我们的程序了</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">前提开启了虚拟机</span></span><br><span class="line">flutter run</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果频繁打开<code>bat</code>文件比较麻烦，在安装了Flutter和Dart插件以后，在VSCode的右下角显示<code>No Devices</code>,我们直接点击它，就会显示我们电脑中安装的虚拟机，如果你电脑上没有，也可以进行安装</li>
+</ul>
+<h2 id="入口文件"><a href="#入口文件" class="headerlink" title="入口文件"></a>入口文件</h2><ul>
+<li>VsCode创建Flutter项目</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter create xxx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>lib/main.dart</code>为项目的入口文件，可以在里面编写代码</li>
+<li><code>StatefulWidget</code> ： 具有可变状态的窗口部件，也就是你在使用应用的时候就可以随时变化，比如我们常见的进度条，随着进度不断变化。</li>
+<li><code>StatelessWidget</code>：不可变状态窗口部件，也就是你在使用时不可以改变，比如固定的文字（写上后就在那里了，死也不会变了）</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入UI库</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"><span class="comment">//主函数（入口函数） 箭头函数</span></span><br><span class="line"><span class="keyword">void</span> main() =&gt;runApp(MyApp());</span><br><span class="line"><span class="comment">// 声明MyApp类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span></span>&#123;</span><br><span class="line">  <span class="comment">//重写build方法</span></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context)&#123;</span><br><span class="line">    <span class="comment">//返回一个Material风格的组件</span></span><br><span class="line">   <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      title:<span class="string">&#x27;Welcome to Flutteraa&#x27;</span>,</span><br><span class="line">      home:Scaffold(</span><br><span class="line">        <span class="comment">//创建一个Bar，并添加文本</span></span><br><span class="line">        appBar:AppBar(</span><br><span class="line">          title:Text(<span class="string">&#x27;Welcome to Flutter&#x27;</span>),</span><br><span class="line">        ),</span><br><span class="line">        <span class="comment">//在主体的中间区域，添加一个hello world 的文本</span></span><br><span class="line">        body:Center(</span><br><span class="line">          child:Text(<span class="string">&#x27;Hello World&#x27;</span>),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>写完后打开终端，运行<code>flutter run</code>，等待一小会，就会看到虚拟机中显示了Hello World的内容</li>
+<li><code>VsCode</code>编写唯一不好的就是无法热更新，需要在终端按以下按键</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r 键：点击后热加载，也就算是重新加载吧。</span><br><span class="line">p 键：显示网格，这个可以很好的掌握布局情况，工作中很有用。</span><br><span class="line">o 键：切换android和ios的预览模式。</span><br><span class="line">q 键：退出调试预览模式。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>另一种方法就是启用<code>debug</code>模式，保存就能产生变化</li>
+</ul>
+<h1 id="Widget"><a href="#Widget" class="headerlink" title="Widget"></a>Widget</h1><h2 id="StatelessWidget"><a href="#StatelessWidget" class="headerlink" title="StatelessWidget"></a>StatelessWidget</h2><ul>
+<li>无状态组件 <code>StatelessWidget</code>，是不可变的，这意味着它们的属性不能改变，所有的值都是最终的</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      <span class="comment">// 去掉右上角debug</span></span><br><span class="line">      debugShowCheckedModeBanner: <span class="keyword">false</span>,</span><br><span class="line">      home: HomePage(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomePage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">&#x27;Flutter_Demo&#x27;</span>),</span><br><span class="line">        elevation: <span class="number">10.0</span>,   <span class="comment">// 阴影</span></span><br><span class="line">        centerTitle: <span class="keyword">true</span>,  <span class="comment">// 居中</span></span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>无状态组件传递参数方式</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      title: <span class="string">&quot;Test&quot;</span>,</span><br><span class="line">      home: Scaffold(</span><br><span class="line">        appBar: AppBar(</span><br><span class="line">          title: Text(<span class="string">&quot;Test&quot;</span>),</span><br><span class="line">        ),</span><br><span class="line">        body: MyText(</span><br><span class="line">          str1: <span class="string">&quot;传递的值&quot;</span>, <span class="comment">//向自定义的MyText类传值，格式：参数名称:参数值</span></span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyText</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> MyText(&#123;Key key,<span class="meta">@required</span> <span class="keyword">this</span>.str1&#125;) : <span class="keyword">super</span>(key: key);  <span class="comment">//接收传递过来的值，使用@required修饰，表示为必传参数</span></span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">String</span> str1;  <span class="comment">//定义接收参数</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Text(str1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="StatefulWidget"><a href="#StatefulWidget" class="headerlink" title="StatefulWidget"></a>StatefulWidget</h2><ul>
+<li>有状态组件<code>StatefulWidget</code>持有状态可能在Widget生命周期中发生变化。实现一个<code>StatefulWidget</code>至少需要两个类<ul>
+<li>一个<code>StatefulWidget</code>类</li>
+<li>一个<code>State</code>类。<code>StatefulWidget</code>类本身是不变的，但是<code>State</code>类在<code>Widget</code>生命周期中始终存在</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      <span class="comment">// 去掉右上角debug</span></span><br><span class="line">      debugShowCheckedModeBanner: <span class="keyword">false</span>,</span><br><span class="line">      home: HomePage(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomePage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">&#x27;Flutter_Demo&#x27;</span>),</span><br><span class="line">        elevation: <span class="number">10.0</span>,   <span class="comment">// 阴影</span></span><br><span class="line">        centerTitle: <span class="keyword">true</span>,  <span class="comment">// 居中</span></span><br><span class="line">      ),</span><br><span class="line">      body: CountPage(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// stf   有状态</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CountPage</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  _CountPageState createState() =&gt; _CountPageState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_CountPageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">CountPage</span>&gt; </span>&#123;</span><br><span class="line">  <span class="built_in">int</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Column(</span><br><span class="line">     children:[</span><br><span class="line">       Text(<span class="string">&#x27;<span class="subst">$count</span>&#x27;</span>),</span><br><span class="line">       RaisedButton(onPressed: ()&#123;</span><br><span class="line">         setState(() &#123;</span><br><span class="line">           count++;</span><br><span class="line">         &#125;);</span><br><span class="line">       &#125;,child: Text(<span class="string">&quot;点击&quot;</span>))</span><br><span class="line">     ]</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>有状态组件传递参数方式</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      title: <span class="string">&quot;Test&quot;</span>,</span><br><span class="line">      home: Scaffold(</span><br><span class="line">        appBar: AppBar(</span><br><span class="line">          title: Text(<span class="string">&quot;Test&quot;</span>),</span><br><span class="line">        ),</span><br><span class="line">        body: MyText(</span><br><span class="line">          str1: <span class="string">&quot;传递的值&quot;</span>, <span class="comment">//向自定义的MyText类传值，格式：参数名称:参数值</span></span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyText</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> MyText(&#123;Key key,<span class="meta">@required</span> <span class="keyword">this</span>.str1&#125;) : <span class="keyword">super</span>(key: key);  <span class="comment">//接收传递过来的值，使用@required修饰，表示为必传参数</span></span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">String</span> str1;  <span class="comment">//定义接收参数</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="comment">// 有状态的参数都在widget里面，整型要使用toString()转一下</span></span><br><span class="line">    <span class="keyword">return</span> Text(widget.str);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/bd24c001.html">http://xiaoliblog.cn/posts/bd24c001.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/7d81adb0.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Dart入门及环境搭建</div>
+      <div class="prev-desc">DartDart简介
+Dart是由谷歌开发的计算机编程语言，它可以被用于web、服务器、移动应用和物联网等领域的开发
+Dart诞生于2011年，号称要取代JavaScript。但是过去的几年中一直不温不火。直到Flutter的出现现在被人们重新重视，要学Flutter的话我们必须首先得会Dart
+官方文档：htt...</div>
+    </a>
+    
+    
+    <a href="/posts/ea553297.html">
+      <div class="next-title">ECMAScript 6中的面向对象编程<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">面向对象
+面向对象的思维特点
+抽取（抽象）对象共用的属性和行为组织（封装）成一个类（模板）
+对类进行实例化，获取类的对象
+
+
+面向对象编程我们考虑的是有哪些对象，按照面向对象的思维特点不断的创建对象使用对象指挥对象做事情
+
+类和对象
+在JavaScript中，对象是一组无序的相关属性和方法的集合，所有的事物都是对...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Flutter"><span class="toc-text">Flutter</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-text">安装虚拟机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VsCode%E9%85%8D%E7%BD%AE"><span class="toc-text">VsCode配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6"><span class="toc-text">入口文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Widget"><span class="toc-text">Widget</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#StatelessWidget"><span class="toc-text">StatelessWidget</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#StatefulWidget"><span class="toc-text">StatefulWidget</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

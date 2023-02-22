@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Flutter路由导航及传参 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="页面导航RaisedButton  RaisedButton这个组件的使用在实际工作中用的也比较多，它有两个最基本的属性 child：可以放入容器，图标，文字。让你构建多彩的按钮 onPressed：点击事件的相应，一般会调用Navigator组件    Navigators Navigator.push：是跳转到下一个页面，它要接受两个参数一个是上下文context，另一个是要跳转的处理函数 N">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter路由导航及传参">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/e05fb77b.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="页面导航RaisedButton  RaisedButton这个组件的使用在实际工作中用的也比较多，它有两个最基本的属性 child：可以放入容器，图标，文字。让你构建多彩的按钮 onPressed：点击事件的相应，一般会调用Navigator组件    Navigators Navigator.push：是跳转到下一个页面，它要接受两个参数一个是上下文context，另一个是要跳转的处理函数 N">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-02-22T04:53:10.515Z">
+<meta property="article:modified_time" content="2023-02-22T11:37:43.695Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Flutter路由导航及传参</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-02-22 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-22
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">2.8k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>13分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="页面导航"><a href="#页面导航" class="headerlink" title="页面导航"></a>页面导航</h1><h2 id="RaisedButton"><a href="#RaisedButton" class="headerlink" title="RaisedButton"></a>RaisedButton</h2><ul>
+<li><code> RaisedButton</code>这个组件的使用在实际工作中用的也比较多，它有两个最基本的属性<ul>
+<li><code>child</code>：可以放入容器，图标，文字。让你构建多彩的按钮</li>
+<li><code>onPressed</code>：点击事件的相应，一般会调用<code>Navigator</code>组件</li>
+</ul>
+</li>
+</ul>
+<h2 id="Navigators"><a href="#Navigators" class="headerlink" title="Navigators"></a>Navigators</h2><ul>
+<li><code>Navigator.push</code>：是跳转到下一个页面，它要接受两个参数一个是上下文<code>context</code>，另一个是要跳转的处理函数</li>
+<li><code>Navigator.pop</code>：是返回到上一个页面，使用时传递一个<code>context</code>（上下文）参数，使用时要注意的是，你必须是有上级页面的，也就是说上级页面使用了<code>Navigator.push</code></li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(</span><br><span class="line">  MaterialApp(</span><br><span class="line">    title: <span class="string">&#x27;导航演示01&#x27;</span>,</span><br><span class="line">    home: <span class="keyword">new</span> FirstScreen()</span><br><span class="line">  )</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FirstScreen</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context)&#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(title:Text(<span class="string">&#x27;导航页面&#x27;</span>)),</span><br><span class="line">      body: Center(</span><br><span class="line">        child: RaisedButton(</span><br><span class="line">          child: Text(<span class="string">&#x27;查看商品详情页&#x27;</span>),</span><br><span class="line">          onPressed: ()&#123;</span><br><span class="line">            Navigator.push(context,MaterialPageRoute(</span><br><span class="line">              builder: (context) =&gt; <span class="keyword">new</span> SecondScreen()</span><br><span class="line">            ));</span><br><span class="line">          &#125;,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新的页面</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SecondScreen</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span></span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context)&#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(title: Text(<span class="string">&#x27;商品详情页&#x27;</span>)),</span><br><span class="line">      body:Center(</span><br><span class="line">        child: RaisedButton(</span><br><span class="line">          child: Text(<span class="string">&#x27;返回&#x27;</span>),</span><br><span class="line">          onPressed:()&#123;</span><br><span class="line">            Navigator.pop(context);</span><br><span class="line">          &#125;</span><br><span class="line">        )</span><br><span class="line">      )</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>组件之间跳转，比如新建一个<code>otherPage.dart</code>，里面写登陆和菜单页面</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoginPage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context)&#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">&#x27;登陆&#x27;</span>)</span><br><span class="line">      ),</span><br><span class="line">      body: RaisedButton(</span><br><span class="line">        onPressed:()&#123;</span><br><span class="line">          Navigator.of(context).push(</span><br><span class="line">            MaterialPageRoute(</span><br><span class="line">              builder: (context)&#123;</span><br><span class="line">                <span class="keyword">return</span> MenuPage();</span><br><span class="line">              &#125;,</span><br><span class="line">              <span class="comment">// 设置路由名称 参数，这种跳转是否为首页，首页没有返回按钮</span></span><br><span class="line">              settings: RouteSettings(</span><br><span class="line">                name: <span class="string">&#x27;menu&#x27;</span>,</span><br><span class="line">                arguments: <span class="string">&#x27;&#x27;</span>  <span class="comment">// 参数</span></span><br><span class="line">              ),</span><br><span class="line">              <span class="comment">// 覆盖后的路由释放资源</span></span><br><span class="line">              maintainState: <span class="keyword">false</span>,</span><br><span class="line">              <span class="comment">// 是否为全屏</span></span><br><span class="line">              fullscreenDialog: <span class="keyword">true</span></span><br><span class="line">          ));</span><br><span class="line">        &#125;,</span><br><span class="line">        child: Text(<span class="string">&#x27;登陆&#x27;</span>)</span><br><span class="line">      )</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MenuPage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">&#x27;菜单&#x27;</span>)</span><br><span class="line">      )</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>main.dart</code>中引入一个登录页</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/cupertino.dart&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter_demo/LoginWidget.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      <span class="comment">// 去掉右上角debug</span></span><br><span class="line">      debugShowCheckedModeBanner: <span class="keyword">false</span>,</span><br><span class="line">      home: Scaffold(</span><br><span class="line">        body: LoginPage(),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h1><ul>
+<li>代码比较多，可以使用VSCode 中的<code>Awesome Flutter snippets</code>插件。它可以帮忙我们快速生成常用的Flutter代码片段</li>
+<li>比如输入<code>stlss</code>就会给我们生成如下代码</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">name</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> name(&#123; Key? key &#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Container(</span><br><span class="line">      </span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="路由参传"><a href="#路由参传" class="headerlink" title="路由参传"></a>路由参传</h2><ul>
+<li>路由参数配置在<code>settings: RouteSettings()</code>里面，然后通过以下代码接收</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dynamic</span> arguments = ModalRoute.of(context)?.settings.arguments;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoginPage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context)&#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">&#x27;登陆&#x27;</span>)</span><br><span class="line">      ),</span><br><span class="line">      body: RaisedButton(</span><br><span class="line">        onPressed:() &#123;</span><br><span class="line">         Navigator.of(context).push(</span><br><span class="line">            MaterialPageRoute(</span><br><span class="line">              builder: (context)&#123;</span><br><span class="line">                <span class="keyword">return</span> MenuPage(</span><br><span class="line">                  title: <span class="string">&#x27;菜单123&#x27;</span></span><br><span class="line">                );</span><br><span class="line">              &#125;,</span><br><span class="line">              <span class="comment">// 设置路由名称 参数，这种跳转是否为首页，首页没有返回按钮</span></span><br><span class="line">              settings: RouteSettings(</span><br><span class="line">                name: <span class="string">&#x27;menu&#x27;</span>,</span><br><span class="line">                arguments: <span class="string">&#x27;传的参数&#x27;</span>  <span class="comment">// 参数 也可以传json &#123;&quot;name&quot;: &quot;menu&quot;&#125;</span></span><br><span class="line">              ),</span><br><span class="line">              <span class="comment">// 覆盖后的路由释放资源</span></span><br><span class="line">              maintainState: <span class="keyword">false</span>,</span><br><span class="line">              <span class="comment">// 是否为全屏</span></span><br><span class="line">              fullscreenDialog: <span class="keyword">true</span></span><br><span class="line">          ))</span><br><span class="line">          .then((value) =&gt; <span class="built_in">print</span>(value)); <span class="comment">// 有返回值就执行</span></span><br><span class="line">        &#125;,</span><br><span class="line">        child: Text(<span class="string">&#x27;登陆&#x27;</span>)</span><br><span class="line">      )</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MenuPage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">String</span> title;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> MenuPage(&#123;Key? key,<span class="keyword">required</span> <span class="keyword">this</span>.title&#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="comment">// 接收参数</span></span><br><span class="line">    <span class="built_in">dynamic</span> arguments = ModalRoute.of(context)?.settings.arguments;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(title+<span class="string">&quot;&quot;</span>+arguments),</span><br><span class="line">        <span class="comment">// title: Text(title+&quot;&quot;+arguments.toString()) // JSON字符要处理</span></span><br><span class="line">      ),</span><br><span class="line">      body: RaisedButton(</span><br><span class="line">        onPressed:()&#123;</span><br><span class="line">          Navigator.of(context).pop(&#123;</span><br><span class="line">            <span class="string">&quot;username&quot;</span>:<span class="string">&quot;admin&quot;</span></span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">        child:Text(<span class="string">&quot;返回&quot;</span>)</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="组件传参"><a href="#组件传参" class="headerlink" title="组件传参"></a>组件传参</h2><ul>
+<li>两个组件之间传参直接在括号中传即可，然后再接收</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoginPage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context)&#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">&#x27;登陆&#x27;</span>)</span><br><span class="line">      ),</span><br><span class="line">      body: RaisedButton(</span><br><span class="line">        onPressed:() <span class="keyword">async</span>&#123;</span><br><span class="line">         <span class="keyword">var</span> result = <span class="keyword">await</span> Navigator.of(context).push(</span><br><span class="line">            MaterialPageRoute(</span><br><span class="line">              builder: (context)&#123;</span><br><span class="line">                <span class="comment">// 传递参数</span></span><br><span class="line">                <span class="keyword">return</span> MenuPage(</span><br><span class="line">                  title: <span class="string">&#x27;菜单123&#x27;</span></span><br><span class="line">                );</span><br><span class="line">              &#125;,</span><br><span class="line">              <span class="comment">// 设置路由名称 参数，这种跳转是否为首页，首页没有返回按钮</span></span><br><span class="line">              settings: RouteSettings(</span><br><span class="line">                name: <span class="string">&#x27;menu&#x27;</span>,</span><br><span class="line">                arguments: <span class="string">&#x27;&#x27;</span>  <span class="comment">// 参数</span></span><br><span class="line">              ),</span><br><span class="line">              <span class="comment">// 覆盖后的路由释放资源</span></span><br><span class="line">              maintainState: <span class="keyword">false</span>,</span><br><span class="line">              <span class="comment">// 是否为全屏</span></span><br><span class="line">              fullscreenDialog: <span class="keyword">true</span></span><br><span class="line">          ));</span><br><span class="line">          <span class="built_in">print</span>(result);</span><br><span class="line">        &#125;,</span><br><span class="line">        child: Text(<span class="string">&#x27;登陆&#x27;</span>)</span><br><span class="line">      )</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MenuPage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">String</span> title; </span><br><span class="line">  <span class="comment">// 接收参数</span></span><br><span class="line">  <span class="keyword">const</span> MenuPage(&#123;Key? key,<span class="keyword">required</span> <span class="keyword">this</span>.title&#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(title)</span><br><span class="line">      ),</span><br><span class="line">      body: RaisedButton(</span><br><span class="line">        onPressed:()&#123;</span><br><span class="line">          Navigator.of(context).pop(&#123;</span><br><span class="line">            <span class="string">&quot;username&quot;</span>:<span class="string">&quot;admin&quot;</span></span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">        child:Text(<span class="string">&quot;返回&quot;</span>)</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="商品案例"><a href="#商品案例" class="headerlink" title="商品案例"></a>商品案例</h2><ul>
+<li>Dart中可以使用类来抽象一个数据，比如我们模仿一个商品信息，有商品标题和商品描述。我们定义了一个<code>Product</code>类，里边有两个字符型变量，<code>title</code>和<code>description</code></li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span></span>&#123;</span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">String</span> title;  <span class="comment">//商品标题</span></span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">String</span> description;  <span class="comment">//商品描述</span></span><br><span class="line">  Product(<span class="keyword">this</span>.title,<span class="keyword">this</span>.description);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>作一个商品的列表，这里我们采用动态的构造方法，在主方法里传递一个商品列表<code>List</code>到自定义的<code>Widget</code>中；这个组件我们传递了一个<code>products</code>参数，也就是商品的列表数据，这个数据是我们用<code>List.generate</code>生成的。并且这个生成的<code>List</code>原型就是我们刚开始定义的<code>Product</code>这个类（抽象数据）</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  runApp(MaterialApp(</span><br><span class="line">      title: <span class="string">&#x27;数据传递案例&#x27;</span>,</span><br><span class="line">      home: ProductList(</span><br><span class="line">        <span class="comment">// 传递一个products数组</span></span><br><span class="line">        products: <span class="built_in">List</span>.generate(<span class="number">20</span>, (i) =&gt; Product(<span class="string">&#x27;商品 <span class="subst">$i</span>&#x27;</span>, <span class="string">&#x27;这是一个商品详情，编号为:<span class="subst">$i</span>&#x27;</span>)),</span><br><span class="line">      )));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ProductList</code>自定义组件的代码；先接受了主方法传递过来的参数，接受后用<code>ListView.builder</code>方法，作了一个根据传递参数数据形成的动态列表。</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductList</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="comment">//  声明接收的参数</span></span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">List</span>&lt;Product&gt; products;</span><br><span class="line">  ProductList(&#123;Key? key, <span class="keyword">required</span> <span class="keyword">this</span>.products&#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">        appBar: AppBar(title: Text(<span class="string">&#x27;商品列表&#x27;</span>)),</span><br><span class="line">        <span class="comment">// 动态生成列表</span></span><br><span class="line">        body: ListView.builder(</span><br><span class="line">          itemCount: products.length,</span><br><span class="line">          itemBuilder: (context, index) &#123;</span><br><span class="line">            <span class="keyword">return</span> ListTile(title: Text(products[index].title), onTap: () &#123;&#125;);</span><br><span class="line">          &#125;,</span><br><span class="line">        ));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<ul>
+<li>我们还是使用<code>Navigator</code>组件，然后使用路由<code>MaterialPageRoute</code>传递参数，具体代码如下，这段代码要写在<code>onTap</code>响应事件当中</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductList</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">List</span>&lt;Product&gt; products;</span><br><span class="line">  <span class="keyword">const</span> ProductList(&#123; Key? key, <span class="keyword">required</span> <span class="keyword">this</span>.products&#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">        appBar: AppBar(title: Text(<span class="string">&#x27;商品列表&#x27;</span>)),</span><br><span class="line">        body: ListView.builder(</span><br><span class="line">          itemCount: products.length,</span><br><span class="line">          itemBuilder: (context, index) &#123;</span><br><span class="line">            <span class="keyword">return</span> ListTile(</span><br><span class="line">              title: Text(products[index].title), </span><br><span class="line">              onTap: () &#123;</span><br><span class="line">               Navigator.push(</span><br><span class="line">                  context, </span><br><span class="line">                  MaterialPageRoute(</span><br><span class="line">                    builder:(context)=&gt;<span class="keyword">new</span> ProductDetail(product:products[index])</span><br><span class="line">                  )</span><br><span class="line">                );</span><br><span class="line">              &#125;);</span><br><span class="line">          &#125;,</span><br><span class="line">        ));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>现在需要声明<code>ProductDetail</code>这个类（组件），先要作的就是接受参数，具体代码如下</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductDetail</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 接收参数</span></span><br><span class="line">  <span class="keyword">final</span> Product product;</span><br><span class="line">  ProductDetail(&#123;Key ? key ,<span class="keyword">required</span> <span class="keyword">this</span>.product&#125;):<span class="keyword">super</span>(key:key);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title:Text(<span class="string">&#x27;<span class="subst">$&#123;product.title&#125;</span>&#x27;</span>),</span><br><span class="line">      ),</span><br><span class="line">      body:Center(child: Text(<span class="string">&#x27;<span class="subst">$&#123;product.description&#125;</span>&#x27;</span>),)</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="返回数据"><a href="#返回数据" class="headerlink" title="返回数据"></a>返回数据</h1><ul>
+<li>当我们返回页面时返回结果到上一个页面（也就是父页面）。这样的场景经常用于，我们去子页面选择了一项选项，然后把选择的结果返回给父级页面</li>
+</ul>
+<h2 id="异步编程"><a href="#异步编程" class="headerlink" title="异步编程"></a>异步编程</h2><ul>
+<li><code>Future</code>对象表示异步操作的结果，我们通常通过<code>then()</code>来处理返回的结果</li>
+<li><code>async</code>用于标明函数是一个异步函数，其返回值类型是<code>Future</code>类型</li>
+<li><code>await</code>用来等待耗时操作的返回结果，这个操作会阻塞到后面的代码</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoginPage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context)&#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">&#x27;登陆&#x27;</span>)</span><br><span class="line">      ),</span><br><span class="line">      body: RaisedButton(</span><br><span class="line">        onPressed:() <span class="keyword">async</span>&#123;</span><br><span class="line">        <span class="comment">// 接收一个返回结果</span></span><br><span class="line">         <span class="keyword">var</span> result = <span class="keyword">await</span> Navigator.of(context).push(</span><br><span class="line">            MaterialPageRoute(</span><br><span class="line">              builder: (context)&#123;</span><br><span class="line">                <span class="keyword">return</span> MenuPage();</span><br><span class="line">              &#125;,</span><br><span class="line">              <span class="comment">// 设置路由名称 参数，这种跳转是否为首页，首页没有返回按钮</span></span><br><span class="line">              settings: RouteSettings(</span><br><span class="line">                name: <span class="string">&#x27;menu&#x27;</span>,</span><br><span class="line">                arguments: <span class="string">&#x27;&#x27;</span>  <span class="comment">// 参数</span></span><br><span class="line">              ),</span><br><span class="line">              <span class="comment">// 覆盖后的路由释放资源</span></span><br><span class="line">              maintainState: <span class="keyword">false</span>,</span><br><span class="line">              <span class="comment">// 是否为全屏</span></span><br><span class="line">              fullscreenDialog: <span class="keyword">true</span></span><br><span class="line">          ));</span><br><span class="line">          <span class="built_in">print</span>(result);</span><br><span class="line">        &#125;,</span><br><span class="line">        child: Text(<span class="string">&#x27;登陆&#x27;</span>)</span><br><span class="line">      )</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MenuPage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">&#x27;菜单&#x27;</span>)</span><br><span class="line">      ),</span><br><span class="line">      body: RaisedButton(</span><br><span class="line">        onPressed:()&#123;</span><br><span class="line">          <span class="comment">// 添加返回的数据</span></span><br><span class="line">          Navigator.of(context).pop(&#123;</span><br><span class="line">            <span class="string">&quot;username&quot;</span>:<span class="string">&quot;admin&quot;</span></span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">        child:Text(<span class="string">&quot;返回&quot;</span>)</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="SnackBar"><a href="#SnackBar" class="headerlink" title="SnackBar"></a>SnackBar</h2><ul>
+<li><code>SnackBar</code>是用户操作后，显示提示信息的一个控件，用于显示跳转携带返回的数据，类似<code>Tost</code>，会自动隐藏。<code>SnackBar</code>是以<code>Scaffold</code>的<code>showSnackBar</code>方法来进行显示的</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Scaffold.of(context).showSnackBar(SnackBar(content:Text(<span class="string">&#x27;<span class="subst">$result</span>&#x27;</span>)));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>返回数据其实是特别容易的，只要在返回时带第二个参数就可以了</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Navigator.pop(context,<span class="string">&#x27;华为手机&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  runApp(MaterialApp(</span><br><span class="line">      title: <span class="string">&#x27;页面跳转返回数据&#x27;</span>,</span><br><span class="line">      home: FirstPage()</span><br><span class="line">  ));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FirstPage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(title: Text(<span class="string">&#x27;商品页面&#x27;</span>)),</span><br><span class="line">      body:Center(</span><br><span class="line">        child:RouteButton(),</span><br><span class="line">      )</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 跳转的RouteButton</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RouteButton</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> RaisedButton(</span><br><span class="line">      onPressed: ()&#123;</span><br><span class="line">        _navigateToProduct(context);</span><br><span class="line">      &#125;,</span><br><span class="line">      child: Text(<span class="string">&#x27;获取手机信息&#x27;</span>),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 内部方法 异步</span></span><br><span class="line">  _navigateToProduct(BuildContext context) <span class="keyword">async</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">final</span> result = <span class="keyword">await</span> Navigator.push(</span><br><span class="line">      context, </span><br><span class="line">      MaterialPageRoute(builder:(context)=&gt; Product())</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    Scaffold.of(context).showSnackBar(SnackBar(content:Text(<span class="string">&#x27;<span class="subst">$result</span>&#x27;</span>)));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(title:Text(<span class="string">&#x27;手机页面&#x27;</span>)),</span><br><span class="line">      body:Center(</span><br><span class="line">        child: Column(</span><br><span class="line">          children: &lt;Widget&gt;[</span><br><span class="line">            RaisedButton(</span><br><span class="line">              child: Text(<span class="string">&#x27;华为手机&#x27;</span>),</span><br><span class="line">              onPressed: ()&#123;</span><br><span class="line">                <span class="comment">// 多加一个参数就是返回的内容</span></span><br><span class="line">                Navigator.pop(context,<span class="string">&#x27;华为手机&#x27;</span>);</span><br><span class="line">              &#125;,</span><br><span class="line">            ),</span><br><span class="line">            RaisedButton(</span><br><span class="line">              child: Text(<span class="string">&#x27;小米手机&#x27;</span>),</span><br><span class="line">              onPressed: ()&#123;</span><br><span class="line">                <span class="comment">// 多加一个参数就是返回的内容</span></span><br><span class="line">                Navigator.pop(context,<span class="string">&#x27;小米手机&#x27;</span>);</span><br><span class="line">              &#125;,</span><br><span class="line">            ),</span><br><span class="line">          ],</span><br><span class="line">        )</span><br><span class="line">      )</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="命名路由"><a href="#命名路由" class="headerlink" title="命名路由"></a>命名路由</h1><h2 id="路由配置"><a href="#路由配置" class="headerlink" title="路由配置"></a>路由配置</h2><ul>
+<li>命名路由是区别于基本路由的一种存在，方便于大型项目中路由的统一管理，现在，在前面基本路由的项目基础上实现实现命名路由</li>
+<li>命名路由在使用前，需要在根组件<code>main.dart</code>中进行简单的配置（前面是页面路径，后面是页面中的组件名称）</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/cupertino.dart&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter_demo/LoginWidget.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      <span class="comment">// 去掉右上角debug</span></span><br><span class="line">      debugShowCheckedModeBanner: <span class="keyword">false</span>,</span><br><span class="line">      <span class="comment">// 多个路由</span></span><br><span class="line">      routes: &#123;</span><br><span class="line">        <span class="string">&quot;/home&quot;</span> : (context) =&gt; LoginPage(),</span><br><span class="line">        <span class="string">&quot;/menu&quot;</span>: (context) =&gt; MenuPage(),</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">//initialRoute: &quot;menu&quot;,  // 指定哪一个当初始化的首页</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>路由配置完成以后，在需要进行路由跳转的地方直接输入上面配置的名称使用就可以了</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Navigator.of(context).pushNamed(<span class="string">&quot;/menu&quot;</span>)</span><br><span class="line"><span class="comment">// 传递和获取参数</span></span><br><span class="line">Navigator.of(context)</span><br><span class="line">   .pushNamed(<span class="string">&quot;/menu&quot;</span>,arguments: <span class="string">&quot;参数&quot;</span>)</span><br><span class="line">   .then((value) =&gt; <span class="built_in">print</span>(value));</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="路由拦截"><a href="#路由拦截" class="headerlink" title="路由拦截"></a>路由拦截</h2><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/cupertino.dart&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter_demo/LoginWidget.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      <span class="comment">// 去掉右上角debug</span></span><br><span class="line">      debugShowCheckedModeBanner: <span class="keyword">false</span>,</span><br><span class="line">      <span class="comment">// 多个路由</span></span><br><span class="line">      routes: &#123;</span><br><span class="line">        <span class="string">&quot;home&quot;</span>: (context) =&gt; LoginPage(),</span><br><span class="line">        <span class="comment">//&quot;menu&quot;: (context) =&gt; MenuPage(),</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 路由监听</span></span><br><span class="line">      onGenerateRoute: (RouteSettings s) &#123;</span><br><span class="line">        <span class="comment">// 没有在上面注册的路由 跳转就会报错</span></span><br><span class="line">        <span class="built_in">print</span>(s.name);  <span class="comment">// 路由名称</span></span><br><span class="line">        <span class="comment">// 根据路由名称进行业务逻辑设计</span></span><br><span class="line">        <span class="keyword">switch</span> (s.name) &#123;</span><br><span class="line">          <span class="keyword">case</span> <span class="string">&quot;meun&quot;</span>:</span><br><span class="line">            <span class="keyword">return</span> MaterialPageRoute(</span><br><span class="line">                builder: (context) &#123;</span><br><span class="line">                  <span class="keyword">return</span> MenuPage();</span><br><span class="line">                &#125;,</span><br><span class="line">                settings: s);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">default</span>:</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="路由封装"><a href="#路由封装" class="headerlink" title="路由封装"></a>路由封装</h2><ul>
+<li>在<code>lib</code>下创建<code>routes/routes.dart</code>文件，创建一个<code>views</code>文件夹存放视图</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter_demo/view/home.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Map</span>&lt;<span class="built_in">String</span>, WidgetBuilder&gt; routes = &#123;</span><br><span class="line">  <span class="string">&quot;/home&quot;</span>: &#123;BuildContext context&#125; =&gt; HomeView(),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>main.dart</code>中使用</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter_demo/routes/routes.dart&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  runApp(MyApp());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      debugShowCheckedModeBanner: <span class="keyword">false</span>,</span><br><span class="line">      <span class="comment">// 使用路由</span></span><br><span class="line">      routes: routes,</span><br><span class="line">      home: Scaffold(appBar: AppBar(title: Text(<span class="string">&#x27;接口测试&#x27;</span>)), body: DioDemo()),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/e05fb77b.html">http://xiaoliblog.cn/posts/e05fb77b.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/3087f2de.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>MaterialApp常用控件</div>
+      <div class="prev-desc">AppBar
+AppBar组件主要用于定义应用程序顶部区域，可以用来展示应用程序标题、搜索入口、下拉菜单、标签栏等信息。
+AppBar是顶部导航栏，有以下常用的可选属性；更多属性可以Ctrl点击查看构造方法
+
+123456789101112131415161718192021AppBar(&amp;#123;    Ke...</div>
+    </a>
+    
+    
+    <a href="/posts/258372c3.html">
+      <div class="next-title">Flutter常用组件使用下篇<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">ListView WidgetListView
+ListView是一个视图组，显示可滚动项目的列表。并将每个项目结果转换为放置到列表中的视图
+搭一个基本的结构后加入ListView组件，在body代码处加入下面的代码
+
+123456789101112131415161718import &amp;#x27;package...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E5%AF%BC%E8%88%AA"><span class="toc-text">页面导航</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RaisedButton"><span class="toc-text">RaisedButton</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Navigators"><span class="toc-text">Navigators</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="toc-text">参数传递</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%8F%82%E4%BC%A0"><span class="toc-text">路由参传</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%8F%82"><span class="toc-text">组件传参</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%95%86%E5%93%81%E6%A1%88%E4%BE%8B"><span class="toc-text">商品案例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE"><span class="toc-text">返回数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B"><span class="toc-text">异步编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SnackBar"><span class="toc-text">SnackBar</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E8%B7%AF%E7%94%B1"><span class="toc-text">命名路由</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE"><span class="toc-text">路由配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E6%8B%A6%E6%88%AA"><span class="toc-text">路由拦截</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%B0%81%E8%A3%85"><span class="toc-text">路由封装</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

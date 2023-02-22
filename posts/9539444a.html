@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Vue指令之列表渲染和数据监测原理 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="列表渲染v-for指令 语法  1234567&lt;ul&gt;   &lt;li v-for&#x3D;&quot;item in arr&quot;&gt;&lt;&#x2F;li&gt;   &lt;!--也可以使用of--&gt;   &lt;li v-for&#x3D;&quot;item of arr&quot;&gt;&lt;&#x2F;li&gt;   &lt;!-- item 表示一项数据,index 索引值--&amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue指令之列表渲染和数据监测原理">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/9539444a.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="列表渲染v-for指令 语法  1234567&lt;ul&gt;   &lt;li v-for&#x3D;&quot;item in arr&quot;&gt;&lt;&#x2F;li&gt;   &lt;!--也可以使用of--&gt;   &lt;li v-for&#x3D;&quot;item of arr&quot;&gt;&lt;&#x2F;li&gt;   &lt;!-- item 表示一项数据,index 索引值--&amp;g">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-02-22T04:53:10.537Z">
+<meta property="article:modified_time" content="2023-02-22T12:09:36.261Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Vue指令之列表渲染和数据监测原理</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-02-22 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-22
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">2.8k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>13分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="列表渲染"><a href="#列表渲染" class="headerlink" title="列表渲染"></a>列表渲染</h1><h2 id="v-for指令"><a href="#v-for指令" class="headerlink" title="v-for指令"></a>v-for指令</h2><ul>
+<li>语法</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;item in arr&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--也可以使用of--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;item of arr&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!-- item 表示一项数据,index 索引值--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in arr&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>v-for</code>指令的作用是：根据数据生成列表结构。<code>v-for</code>经常配置数组结合使用</li>
+<li>想让哪个元素遍历添加，就加到哪个元素上。可以遍历数、对象或者字符串</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>人员列表<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in personList&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">            &#123;&#123;item.id&#125;&#125;-&#123;&#123;item.name&#125;&#125;-&#123;&#123;item.age&#125;&#125;--&#123;&#123;index&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>汽车信息<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in car&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">            &#123;&#123;index&#125;&#125;-&#123;&#123;item&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>字符串遍历<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in str&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">            &#123;&#123;index&#125;&#125;-&#123;&#123;item&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>遍历指定次数<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;(number,index) in 5&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">            &#123;&#123;index&#125;&#125;-&#123;&#123;number&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="property">config</span>.<span class="property">productionTip</span> = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">personList</span>: [&#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;001&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;张三&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;002&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;李四&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">20</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;003&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;王五&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">38</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">car</span>: &#123;</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&#x27;奥迪A8&#x27;</span>,</span><br><span class="line">            <span class="attr">price</span>: <span class="string">&#x27;70万&#x27;</span>,</span><br><span class="line">            <span class="attr">color</span>: <span class="string">&#x27;黑色&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">str</span>: <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="key原理"><a href="#key原理" class="headerlink" title="key原理"></a>key原理</h2><ul>
+<li><code>key</code>就是给节点唯一标识，相当于数据库中的主键。<code>key</code>的取值只有以下情况<ul>
+<li>不写，默认使用<code>index</code>做<code>key</code></li>
+<li>使用<code>index</code>做<code>key</code></li>
+<li>使用<code>item.id</code>做<code>key</code> ，前提具有自定义<code>id</code>属性，且不唯一</li>
+</ul>
+</li>
+<li>使用<code>index</code>做<code>key</code>在特殊情况下会出现问题。比如往数组前加一个数据，后面的输入框会出现问题</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> @<span class="attr">click.once</span>=<span class="string">&quot;add&quot;</span>&gt;</span>添加一个老王<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in personList&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">        &#123;&#123;item.id&#125;&#125;-&#123;&#123;item.name&#125;&#125;-&#123;&#123;item.age&#125;&#125;--&#123;&#123;index&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">personList</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;001&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;张三&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;002&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;李四&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">20</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;003&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;王五&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">38</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">methods</span>: &#123;</span><br><span class="line">        <span class="title function_">add</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> p = &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;004&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;老王&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="string">&#x27;40&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 在头部添加</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">personList</span>.<span class="title function_">unshift</span>(p)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>这种结果，主要是由于虚拟<code>DOM</code>和<code>DIFF</code>算法导致的，在虚拟DOM对比中，只有文本DOM不同，输入框DOM被复用了</p>
+</li>
+<li><p>使用<code>id</code>作为<code>key</code>就不会出现这种问题。因为<code>key</code>是不唯一的，<code>DIFF</code>算法会认为是新数据，不会复用DOM</p>
+</li>
+<li><p>面试题： react、 vue中的key有什么作用? （key的内部原理）</p>
+<ul>
+<li>虚拟DOM中key的作用<ul>
+<li><code>key</code>是虚拟<code>DOM</code>对象的标识。当数据发生变化时，Vue会根据【新数据】生成【新的虚拟DOM】。随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下:</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>对比规则</p>
+<ul>
+<li>旧虚拟DOM中找到了与新虚拟DOM相同的key<ul>
+<li>若虚拟DOM中内容没变，直接使用之 前的真实DOM!</li>
+<li>若虚拟DOM中内容变了，则生成新的真实DOM，随后替换掉页面中之前的真实DOM</li>
+</ul>
+</li>
+<li>旧虚拟DOM中未找到与新虚拟DOM相同的key<ul>
+<li>创建新的真实DOM，随后渲染到到页面</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>用<code>index</code>作为<code>key</code>可能会引发的问题:</p>
+<ul>
+<li>若对数据进行：逆序添加、逆序删除等破坏顺序操作。会产生没有必要的真实DOM更新，虽然界面效果没问题，但效率低</li>
+<li>如果结构中还包含输入类的DOM，会产生错误DOM更新，导致界面有问题</li>
+</ul>
+</li>
+<li><p>开发中如何选择key?</p>
+<ul>
+<li>最好使用每条数据的唯一标识作为<code>key</code>，比如id、 手机号、身份证号、学号等唯一值</li>
+<li>如果不存在对数据的逆序添加、逆序副除等破坏顺序操作，仅用于渲染列表用于展示，使用<code>index</code>作为key是没有问题的</li>
+</ul>
+</li>
+</ul>
+<h1 id="列表过滤"><a href="#列表过滤" class="headerlink" title="列表过滤"></a>列表过滤</h1><h2 id="监听实现"><a href="#监听实现" class="headerlink" title="监听实现"></a>监听实现</h2><ul>
+<li>实现一个搜索框搜索姓名，过滤掉不符合搜索条件的列表。使用<code>watch</code>实现</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请输入名字&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;keywords&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in filPersons&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">        &#123;&#123;item.id&#125;&#125;-&#123;&#123;item.name&#125;&#125;-&#123;&#123;item.age&#125;&#125;-&#123;&#123;item.sex&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">keywords</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="attr">personList</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;001&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;马冬梅&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">18</span>,</span><br><span class="line">                <span class="attr">sex</span>: <span class="string">&#x27;女&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;002&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;周冬雨&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">20</span>,</span><br><span class="line">                <span class="attr">sex</span>: <span class="string">&#x27;女&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;003&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;周杰伦&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">38</span>,</span><br><span class="line">                <span class="attr">sex</span>: <span class="string">&#x27;男&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;003&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;温兆伦&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">38</span>,</span><br><span class="line">                <span class="attr">sex</span>: <span class="string">&#x27;男&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">filPersons</span>: []</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">watch</span>: &#123;</span><br><span class="line">        <span class="attr">keywords</span>: &#123;</span><br><span class="line">            <span class="attr">immediate</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="title function_">handler</span>(<span class="params">val</span>) &#123;</span><br><span class="line">                <span class="comment">// filter过滤完返回新数组</span></span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">filPersons</span> = <span class="variable language_">this</span>.<span class="property">personList</span>.<span class="title function_">filter</span>(<span class="function">(<span class="params">p</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="comment">// 包含返回索引，不包含返回-1，注意空字符串全局匹配</span></span><br><span class="line">                    <span class="keyword">return</span> p.<span class="property">name</span>.<span class="title function_">indexOf</span>(val) !== -<span class="number">1</span>;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="计算实现"><a href="#计算实现" class="headerlink" title="计算实现"></a>计算实现</h2><ul>
+<li>使用<code>computed</code>计算属性实现</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请输入名字&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;keywords&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in filPersons&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">        &#123;&#123;item.id&#125;&#125;-&#123;&#123;item.name&#125;&#125;-&#123;&#123;item.age&#125;&#125;-&#123;&#123;item.sex&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">keywords</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="attr">personList</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;001&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;马冬梅&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">18</span>,</span><br><span class="line">                <span class="attr">sex</span>: <span class="string">&#x27;女&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;002&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;周冬雨&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">20</span>,</span><br><span class="line">                <span class="attr">sex</span>: <span class="string">&#x27;女&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;003&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;周杰伦&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">38</span>,</span><br><span class="line">                <span class="attr">sex</span>: <span class="string">&#x27;男&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;003&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;温兆伦&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">38</span>,</span><br><span class="line">                <span class="attr">sex</span>: <span class="string">&#x27;男&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">computed</span>:&#123;</span><br><span class="line">        <span class="title function_">filPersons</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="comment">// 返回新数组给filPersons</span></span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">personList</span>.<span class="title function_">filter</span>(<span class="function">(<span class="params">p</span>)=&gt;</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> p.<span class="property">name</span>.<span class="title function_">indexOf</span>(<span class="variable language_">this</span>.<span class="property">keywords</span>) !== -<span class="number">1</span>;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="列表排序"><a href="#列表排序" class="headerlink" title="列表排序"></a>列表排序</h1><h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><ul>
+<li>对以上例子进行添加排序功能，注意其实现了在搜索过滤后也能进行排序</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>人员列表<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请输入名字&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;keywords&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;sortType = 2&quot;</span>&gt;</span>年龄升序<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;sortType = 1&quot;</span>&gt;</span>年龄降序<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;sortType = 0&quot;</span>&gt;</span>原顺序<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in filPersons&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">            &#123;&#123;item.id&#125;&#125;-&#123;&#123;item.name&#125;&#125;-&#123;&#123;item.age&#125;&#125;-&#123;&#123;item.sex&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">sortType</span>: <span class="number">0</span>, <span class="comment">// 0-原顺序 1-降序 2-升序</span></span><br><span class="line">        <span class="attr">keywords</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="attr">personList</span>: [&#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;001&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;马冬梅&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">18</span>,</span><br><span class="line">                <span class="attr">sex</span>: <span class="string">&#x27;女&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;002&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;周冬雨&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">30</span>,</span><br><span class="line">                <span class="attr">sex</span>: <span class="string">&#x27;女&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;003&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;周杰伦&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">28</span>,</span><br><span class="line">                <span class="attr">sex</span>: <span class="string">&#x27;男&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="string">&#x27;003&#x27;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&#x27;温兆伦&#x27;</span>,</span><br><span class="line">                <span class="attr">age</span>: <span class="number">66</span>,</span><br><span class="line">                <span class="attr">sex</span>: <span class="string">&#x27;男&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">computed</span>: &#123;</span><br><span class="line">        <span class="title function_">filPersons</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="comment">// 返回新数组给filPersons</span></span><br><span class="line">            <span class="keyword">const</span> arr = <span class="variable language_">this</span>.<span class="property">personList</span>.<span class="title function_">filter</span>(<span class="function">(<span class="params">p</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> p.<span class="property">name</span>.<span class="title function_">indexOf</span>(<span class="variable language_">this</span>.<span class="property">keywords</span>) !== -<span class="number">1</span>;</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="comment">// 判断一下是否需要排序,1,2都为true,0为false</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">sortType</span>) &#123;</span><br><span class="line">                arr.<span class="title function_">sort</span>(<span class="function">(<span class="params">p1, p2</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="comment">// 升序前-后，降序后-前</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">sortType</span> === <span class="number">1</span> ? p2.<span class="property">age</span> - p1.<span class="property">age</span> : p1.<span class="property">age</span> - p2.<span class="property">age</span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> arr</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="监测数据原理"><a href="#监测数据原理" class="headerlink" title="监测数据原理"></a>监测数据原理</h1><h2 id="对象角度"><a href="#对象角度" class="headerlink" title="对象角度"></a>对象角度</h2><ul>
+<li>简单模拟一下Vue的数据监测。只是简单模拟一下，还有许多未考虑到，比如数据代理（不使用<code>_data</code>）和<code>data</code>中内嵌对象的处理等</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;小李博客&#x27;</span>,</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;http://xiaoliblog.cn&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 创建一个监视的实例对象，用于监视data中的属性变化</span></span><br><span class="line"><span class="keyword">const</span> obs = <span class="keyword">new</span> <span class="title class_">Observer</span>(data);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obs);</span><br><span class="line"><span class="comment">// 准备一个vm实例对象</span></span><br><span class="line"><span class="keyword">let</span> vm = &#123;&#125;;</span><br><span class="line">vm.<span class="property">_data</span> = data = obs;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Observer</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">    <span class="comment">// 汇总对象中所有的属性形成一个数组</span></span><br><span class="line">    <span class="keyword">const</span> keys = <span class="title class_">Object</span>.<span class="title function_">keys</span>(obj)</span><br><span class="line">    <span class="comment">// 遍历</span></span><br><span class="line">    keys.<span class="title function_">forEach</span>(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="variable language_">this</span>, key, &#123;</span><br><span class="line">            <span class="title function_">get</span>(<span class="params"></span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> obj[key];</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="title function_">set</span>(<span class="params">value</span>) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`<span class="subst">$&#123;key&#125;</span>被修改了，我要去解析模板，生成虚拟DOM，进行比较...`</span>)</span><br><span class="line">                obj[key] = value;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>代码中使用到理模板字符串。模板字符串使用<strong>反引号</strong>来代替普通字符串中的双引号和单引号</li>
+<li>模板字符串可以包含特定语法<code>$&#123;expression&#125;</code>的占位符。详情参考<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Template_literals">MDN-模板字符串</a></li>
+</ul>
+<h2 id="Vue-set"><a href="#Vue-set" class="headerlink" title="Vue.set()"></a>Vue.set()</h2><ul>
+<li><code>Vue.set()</code>可以修改数据或者动态增加数据，其语法如下<ul>
+<li><code>target</code>：要更改的数据源（可以是对象或者数组）</li>
+<li><code> key</code>：要更改的具体数据</li>
+<li><code>value</code> ：重新赋的值</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="title function_">set</span>( target, key, value )</span><br><span class="line"><span class="comment">// 以下API也可以实现，this指向VM实例</span></span><br><span class="line"><span class="variable language_">this</span>.$set( target, key, value )</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>比如以下实例，点击按钮给对象<code>student</code>添加性别属性</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;add&quot;</span>&gt;</span>添加性别<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span>&gt;</span>学生姓名:&#123;&#123;student.name&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span> <span class="attr">v-if</span>=<span class="string">&quot;student.sex&quot;</span>&gt;</span>学生性别:&#123;&#123;student.sex&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span>&gt;</span>学生年龄:&#123;&#123;student.age&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> vm = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">student</span>: &#123;</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&#x27;tom&#x27;</span>,</span><br><span class="line">            <span class="attr">age</span>: <span class="number">21</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">methods</span>: &#123;</span><br><span class="line">        <span class="title function_">add</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="title class_">Vue</span>.<span class="title function_">set</span>(<span class="variable language_">this</span>.<span class="property">student</span>,<span class="string">&#x27;sex&#x27;</span>,<span class="string">&#x27;男&#x27;</span>)</span><br><span class="line">            <span class="comment">//this.$set(this.student, &#x27;sex&#x27;, &#x27;男&#x27;)</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>注意对象不能是 Vue 实例，或者 Vue 实例的根数据对象</strong></li>
+<li>不能直接给<code>data</code>添加，而是给<code>data</code>中的响应式对象添加。详情参考Vue文档：<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#Vue-set">https://cn.vuejs.org/v2/api/#Vue-set</a></li>
+</ul>
+<h2 id="数组角度"><a href="#数组角度" class="headerlink" title="数组角度"></a>数组角度</h2><ul>
+<li><p>数组数据只有索引，而没有对应的<code>getter/setter</code>方法，直接操作索引值是没有响应式的</p>
+</li>
+<li><p>Vue是这样设计的，JavaScript中修改数组的方法有<code>push</code>、<code>pop</code>、<code>shift</code>、<code>unshift</code>、<code>splice</code>、<code>sort</code>、<code>reverse</code>，只有调用这些方法才承认修改了数组。才能具有响应式</p>
+</li>
+<li><p>Vue 将被侦听的数组的变更方法进行了包裹，所以它们也将会触发视图更新。也就是把数组操作方法进行了包装，包装里有两个操作，一个是调用<code>Array.prototype.push</code>，另一个则是重新解析模板生成虚拟DOM</p>
+</li>
+<li><p>当然除了数组提供的七个方法，还可以通过<code>Vue.set()</code>方法进行响应式修改</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;addHobby&quot;</span>&gt;</span>添加爱好<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span>&gt;</span>学生姓名:&#123;&#123;student.name&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span> <span class="attr">v-if</span>=<span class="string">&quot;student.sex&quot;</span>&gt;</span>学生性别:&#123;&#123;student.sex&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span>&gt;</span>学生年龄:&#123;&#123;student.age&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span>&gt;</span>爱好<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;item in student.hobby&quot;</span>&gt;</span></span><br><span class="line">          &#123;&#123;item&#125;&#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> vm = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">student</span>: &#123;</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&#x27;tom&#x27;</span>,</span><br><span class="line">            <span class="attr">age</span>: <span class="number">21</span>,</span><br><span class="line">            <span class="attr">hobby</span>: [<span class="string">&#x27;抽烟&#x27;</span>, <span class="string">&#x27;喝酒&#x27;</span>, <span class="string">&#x27;烫头&#x27;</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">methods</span>: &#123;</span><br><span class="line">        <span class="title function_">addHobby</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">student</span>.<span class="property">hobby</span>.<span class="title function_">push</span>(<span class="string">&quot;篮球&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/9539444a.html">http://xiaoliblog.cn/posts/9539444a.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/dc1b25d1.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Vue指令之样式绑定及显示切换</div>
+      <div class="prev-desc">样式绑定v-bind指令
+插值表达式不能用于属性中，可以通过v-bind实现属性值的绑定
+语法
+
+123456789&amp;lt;img src=&amp;quot;img.jpg&amp;quot;&amp;gt;&amp;lt;!--v-bind:属性名=表达式--&amp;gt;&amp;lt;img v-bind:src=&amp;quot;imgSrc&amp;quot;...</div>
+    </a>
+    
+    
+    <a href="/posts/89d90873.html">
+      <div class="next-title">TodoList案例及浏览器本地存储<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">TodoList案例静态组件搭建
+首先根据页面，实现静态组件，抽取组件，使用组件实现静态页面效果
+
+出现spaces tabs报错是格式上少了或者多了空格，按Shift+AIt+F格式化一下
+
+创建MyHeader.vue组件
+
+
+12345678910111213141516171819202122232425...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%97%E8%A1%A8%E6%B8%B2%E6%9F%93"><span class="toc-text">列表渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#v-for%E6%8C%87%E4%BB%A4"><span class="toc-text">v-for指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#key%E5%8E%9F%E7%90%86"><span class="toc-text">key原理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%97%E8%A1%A8%E8%BF%87%E6%BB%A4"><span class="toc-text">列表过滤</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%91%E5%90%AC%E5%AE%9E%E7%8E%B0"><span class="toc-text">监听实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%AE%9E%E7%8E%B0"><span class="toc-text">计算实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%97%E8%A1%A8%E6%8E%92%E5%BA%8F"><span class="toc-text">列表排序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7"><span class="toc-text">计算属性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%91%E6%B5%8B%E6%95%B0%E6%8D%AE%E5%8E%9F%E7%90%86"><span class="toc-text">监测数据原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E8%A7%92%E5%BA%A6"><span class="toc-text">对象角度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-set"><span class="toc-text">Vue.set()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E8%A7%92%E5%BA%A6"><span class="toc-text">数组角度</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

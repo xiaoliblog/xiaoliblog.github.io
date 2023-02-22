@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Vue组件库Element-UI | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="Element-UI基本使用 Element-Ui官网：https:&#x2F;&#x2F;element.eleme.cn 安装Element-Ui  1npm i element-ui -S   在main.js中引入  1234567891011121314import Vue from &amp;#x27;vue&amp;#x27;;&#x2F;&#x2F; 引入ElementUI组件库import ElementUI from &amp;#x27;e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue组件库Element-UI">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/a853674b.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="Element-UI基本使用 Element-Ui官网：https:&#x2F;&#x2F;element.eleme.cn 安装Element-Ui  1npm i element-ui -S   在main.js中引入  1234567891011121314import Vue from &amp;#x27;vue&amp;#x27;;&#x2F;&#x2F; 引入ElementUI组件库import ElementUI from &amp;#x27;e">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-02-22T04:53:10.530Z">
+<meta property="article:modified_time" content="2023-02-22T11:56:55.526Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Vue组件库Element-UI</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-02-22 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-22
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">2.1k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>9分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="Element-UI"><a href="#Element-UI" class="headerlink" title="Element-UI"></a>Element-UI</h1><h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><ul>
+<li>Element-Ui官网：<a target="_blank" rel="noopener" href="https://element.eleme.cn/">https://element.eleme.cn</a></li>
+<li>安装Element-Ui</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i element-ui -S</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>main.js</code>中引入</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="comment">// 引入ElementUI组件库</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ElementUI</span> <span class="keyword">from</span> <span class="string">&#x27;element-ui&#x27;</span>;</span><br><span class="line"><span class="comment">// 引入ElementUI全部样式</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;element-ui/lib/theme-chalk/index.css&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="variable constant_">UI</span><span class="string">&#x27;./App.vue&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 应用ElementUI</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">ElementUI</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  <span class="attr">render</span>: <span class="function"><span class="params">h</span> =&gt;</span> <span class="title function_">h</span>(<span class="title class_">App</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>相关样式参考Element-Ui官网：<a target="_blank" rel="noopener" href="https://element.eleme.cn/">https://element.eleme.cn</a> ，比如按钮样式</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-row</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span>&gt;</span>默认按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span>&gt;</span>主要按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;success&quot;</span>&gt;</span>成功按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;info&quot;</span>&gt;</span>信息按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;warning&quot;</span>&gt;</span>警告按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;danger&quot;</span>&gt;</span>危险按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-row</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">name</span>: <span class="string">&quot;App&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">&#125;;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="按需引入"><a href="#按需引入" class="headerlink" title="按需引入"></a>按需引入</h2><ul>
+<li>如果引入全部ElementUI组件和样式会导致文件体积过大。所以需要按照需求选择性的引入，使用到一个蚂蚁金服开发的插件<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/babel-plugin-component/v/0.3.3">babel-plugin-component</a></li>
+<li>Github地址：<a target="_blank" rel="noopener" href="https://github.com/ElementUI/babel-plugin-component">https://github.com/ElementUI/babel-plugin-component</a></li>
+<li>安装插件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install babel-plugin-component -D</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后，将 <code>babel.config.js</code> 修改为</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">presets</span>: [</span><br><span class="line">    <span class="string">&quot;@vue/cli-plugin-babel/preset&quot;</span>,</span><br><span class="line">    [<span class="string">&quot;@babel/preset-env&quot;</span>, &#123; <span class="attr">modules</span>: <span class="literal">false</span> &#125;],</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">&quot;component&quot;</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">libraryName</span>: <span class="string">&quot;element-ui&quot;</span>,</span><br><span class="line">        <span class="attr">styleLibraryName</span>: <span class="string">&quot;theme-chalk&quot;</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>接下来，如果你只希望引入部分组件，比如 Button 和 Row，那么需要在 <code>main.js</code> 中写入以下内容</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//引入Vue</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="comment">//引入App</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 按需引入：值为el-后面的值，比如el-button,el-row</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Button</span>, <span class="title class_">Row</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;element-ui&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以自定义名称,默认el-button</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="title class_">Button</span>.<span class="property">name</span>, <span class="title class_">Button</span>);</span><br><span class="line"><span class="comment">//Vue.component(&#x27;el-btn&#x27;, Button);</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="title class_">Row</span>.<span class="property">name</span>, <span class="title class_">Row</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建vm</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&quot;#app&quot;</span>,</span><br><span class="line">  <span class="attr">render</span>: <span class="function">(<span class="params">h</span>) =&gt;</span> <span class="title function_">h</span>(<span class="title class_">App</span>),</span><br><span class="line">  <span class="attr">router</span>: router,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="Vue-Element-admin"><a href="#Vue-Element-admin" class="headerlink" title="Vue-Element-admin"></a>Vue-Element-admin</h1><h2 id="安装使用"><a href="#安装使用" class="headerlink" title="安装使用"></a>安装使用</h2><ul>
+<li><code>admin-element-vue</code>是一个后台前端解决方案，它基于 <code>Webpack</code> 、<code>Vue</code>和 <code>element-ui</code>实现。它使用了最新的前端技术栈，动态路由，权限验证，它可以帮助你快速搭建企业级中后台产品原型。</li>
+<li>中文文档地址：<a target="_blank" rel="noopener" href="https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/">https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/</a></li>
+<li>Github：<a target="_blank" rel="noopener" href="https://github.com/PanJiaChen/vue-element-admin">https://github.com/PanJiaChen/vue-element-admin</a></li>
+<li>克隆 <a target="_blank" rel="noopener" href="https://github.com/PanJiaChen/vue-element-admin">vue-element-admin</a> 完整模板到本地，主要作用是方便我们直接拿组件到项目中使用</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/PanJiaChen/vue-element-admin.git</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>克隆 <a target="_blank" rel="noopener" href="https://github.com/PanJiaChen/vue-admin-template">vue-admin-template</a> 基础模板到本地，主要作用是创建一个最简单的项目后台，再根据需求慢慢完善功能</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/PanJiaChen/vue-admin-template.git</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>克隆后项目后，进入项目目录，安装依赖</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入项目目录</span></span><br><span class="line">cd vue-element-admin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">建议不要用 cnpm 安装  可以通过如下操作解决 npm 下载速度慢的问题</span></span><br><span class="line">npm install --registry=https://registry.npm.taobao.org</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">本地开发 启动项目</span></span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">├── build                      # 构建相关</span><br><span class="line">├── mock                       # 项目mock 模拟数据</span><br><span class="line">├── plop-templates             # 基本模板</span><br><span class="line">├── public                     # 静态资源</span><br><span class="line">│   │── favicon.ico            # favicon图标</span><br><span class="line">│   └── index.html             # html模板</span><br><span class="line">├── src                        # 源代码</span><br><span class="line">│   ├── api                    # 所有请求</span><br><span class="line">│   ├── assets                 # 主题 字体等静态资源</span><br><span class="line">│   ├── components             # 全局公用组件</span><br><span class="line">│   ├── directive              # 全局指令</span><br><span class="line">│   ├── filters                # 全局 filter</span><br><span class="line">│   ├── icons                  # 项目所有 svg icons</span><br><span class="line">│   ├── lang                   # 国际化 language</span><br><span class="line">│   ├── layout                 # 全局 layout</span><br><span class="line">│   ├── router                 # 路由</span><br><span class="line">│   ├── store                  # 全局 store管理</span><br><span class="line">│   ├── styles                 # 全局样式</span><br><span class="line">│   ├── utils                  # 全局公用方法</span><br><span class="line">│   ├── vendor                 # 公用vendor</span><br><span class="line">│   ├── views                  # views 所有页面</span><br><span class="line">│   ├── App.vue                # 入口页面</span><br><span class="line">│   ├── main.js                # 入口文件 加载组件 初始化等</span><br><span class="line">│   └── permission.js          # 权限管理</span><br><span class="line">├── tests                      # 测试</span><br><span class="line">├── .env.xxx                   # 环境变量配置</span><br><span class="line">├── .eslintrc.js               # eslint 配置项</span><br><span class="line">├── .babelrc                   # babel-loader 配置</span><br><span class="line">├── .travis.yml                # 自动化CI配置</span><br><span class="line">├── vue.config.js              # vue-cli 配置</span><br><span class="line">├── postcss.config.js          # postcss 配置</span><br><span class="line">└── package.json               # package.json</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>修改侧边栏参考官方文档<a target="_blank" rel="noopener" href="https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/essentials/router-and-nav.html#%E9%85%8D%E7%BD%AE%E9%A1%B9">路由||侧边栏</a></p>
+</li>
+<li><p>本项目侧边栏和路由是绑定在一起的，所以你只有在 <code>@/router/index.js</code> 下面配置对应的路由，侧边栏就能动态的生成了</p>
+</li>
+<li><p>其中的<code>@</code>就是<code>src</code>目录，你可以在<code>vue.config.js</code>中看到</p>
+</li>
+<li><p>一般侧边栏有两种形式即：<code>submenu</code> 和 直接 <code>el-menu-item</code>。 一个是嵌套子菜单，另一个则是直接一个链接。</p>
+</li>
+<li><p>在 Sidebar 中已经帮你做了判断，当你一个路由下面的 children 声明的路由大于<code>&gt;1</code> 个时，自动会变成嵌套的模式。</p>
+</li>
+<li><p>如果子路由正好等于一个就会默认将<strong>子路由</strong>作为根路由显示在侧边栏中，若不想这样，可以通过设置在根路由中设置<code>alwaysShow: true</code>来取消这一特性</p>
+</li>
+<li><p>在路由中修改如下，图标可以去<a target="_blank" rel="noopener" href="https://panjiachen.github.io/vue-element-admin/#/icon/index">官方文档</a>查找</p>
+</li>
+</ul>
+<h1 id="Pagination"><a href="#Pagination" class="headerlink" title="Pagination"></a>Pagination</h1><h2 id="真假分页"><a href="#真假分页" class="headerlink" title="真假分页"></a>真假分页</h2><ul>
+<li><p>任何分页都有五个部分组成：1.记录的总条数，2.每页显示的记录条数，3.总页数，4.当前是第几页，5.当前页的所有记录 </p>
+</li>
+<li><p><strong>真分页</strong>：每一页都去后端发送请求，请求当前页的数据。适用于大数据量，能缓解后端接口的压力</p>
+</li>
+<li><p><strong>假分页</strong>：一开始就从获取所有数据，前端通过组件的方式对数据进行分页，在点击分页按钮时，数据已经都在浏览器缓存中了，不需要再请求后端接口。不适合大数据量</p>
+</li>
+<li><p>分页可以通过Element UI的内置组件<a target="_blank" rel="noopener" href="https://panjiachen.github.io/vue-element-admin-site/zh/feature/component/pagination.html">Pagination</a>实现，其为真分页</p>
+</li>
+</ul>
+<h2 id="Pagination原理"><a href="#Pagination原理" class="headerlink" title="Pagination原理"></a>Pagination原理</h2><ul>
+<li>通过分析综合模板，找到<code>src\views\table\complex-table.vue</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--父组件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">pagination</span> <span class="attr">v-show</span>=<span class="string">&quot;total&gt;0&quot;</span> <span class="attr">:total</span>=<span class="string">&quot;total&quot;</span> <span class="attr">:page.sync</span>=<span class="string">&quot;listQuery.page&quot;</span> <span class="attr">:limit.sync</span>=<span class="string">&quot;listQuery.limit&quot;</span> @<span class="attr">pagination</span>=<span class="string">&quot;getList&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>找到<code>src\components\Pageination\index.vue</code>源码</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--子组件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">&quot;&#123;&#x27;hidden&#x27;:hidden&#125;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;pagination-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-pagination</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:background</span>=<span class="string">&quot;background&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:current-page.sync</span>=<span class="string">&quot;currentPage&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:page-size.sync</span>=<span class="string">&quot;pageSize&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:layout</span>=<span class="string">&quot;layout&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:page-sizes</span>=<span class="string">&quot;pageSizes&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:total</span>=<span class="string">&quot;total&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">v-bind</span>=<span class="string">&quot;$attrs&quot;</span></span></span><br><span class="line"><span class="tag">      @<span class="attr">size-change</span>=<span class="string">&quot;handleSizeChange&quot;</span></span></span><br><span class="line"><span class="tag">      @<span class="attr">current-change</span>=<span class="string">&quot;handleCurrentChange&quot;</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; scrollTo &#125; <span class="keyword">from</span> <span class="string">&#x27;@/utils/scroll-to&#x27;</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">name</span>: <span class="string">&#x27;Pagination&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">props</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">total</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">required</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">type</span>: <span class="title class_">Number</span></span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">page</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">type</span>: <span class="title class_">Number</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">default</span>: <span class="number">1</span></span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">limit</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">type</span>: <span class="title class_">Number</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">default</span>: <span class="number">20</span></span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">pageSizes</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">type</span>: <span class="title class_">Array</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">default</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">50</span>]</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">layout</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">type</span>: <span class="title class_">String</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">default</span>: <span class="string">&#x27;total, sizes, prev, pager, next, jumper&#x27;</span></span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">background</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">type</span>: <span class="title class_">Boolean</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">default</span>: <span class="literal">true</span></span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">autoScroll</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">type</span>: <span class="title class_">Boolean</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">default</span>: <span class="literal">true</span></span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">hidden</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">type</span>: <span class="title class_">Boolean</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">default</span>: <span class="literal">false</span></span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">computed</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">currentPage</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">get</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">page</span></span></span><br><span class="line"><span class="language-javascript">      &#125;,</span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">set</span>(<span class="params">val</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">this</span>.$emit(<span class="string">&#x27;update:page&#x27;</span>, val)</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">pageSize</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">get</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">limit</span></span></span><br><span class="line"><span class="language-javascript">      &#125;,</span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">set</span>(<span class="params">val</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">this</span>.$emit(<span class="string">&#x27;update:limit&#x27;</span>, val)</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">handleSizeChange</span>(<span class="params">val</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">this</span>.$emit(<span class="string">&#x27;pagination&#x27;</span>, &#123; <span class="attr">page</span>: <span class="variable language_">this</span>.<span class="property">currentPage</span>, <span class="attr">limit</span>: val &#125;)</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">autoScroll</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">scrollTo</span>(<span class="number">0</span>, <span class="number">800</span>)</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">handleCurrentChange</span>(<span class="params">val</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">this</span>.$emit(<span class="string">&#x27;pagination&#x27;</span>, &#123; <span class="attr">page</span>: val, <span class="attr">limit</span>: <span class="variable language_">this</span>.<span class="property">pageSize</span> &#125;)</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">autoScroll</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">scrollTo</span>(<span class="number">0</span>, <span class="number">800</span>)</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.pagination-container</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">background</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">padding</span>: <span class="number">32px</span> <span class="number">16px</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.pagination-container</span><span class="selector-class">.hidden</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">display</span>: none;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Pagination</code>实际上是一个组件，组件里设置了分页常用到的参数。通过父组件使用Pagination组件，向该组件中传递参数，让Pagination组件得到分页常用到的参数值，这就能够实现分页，那么这样的组件之间的参数传递（父传子）</li>
+</ul>
+<h2 id="Pagination使用"><a href="#Pagination使用" class="headerlink" title="Pagination使用"></a>Pagination使用</h2><ul>
+<li>首先在对应文件夹下导入Pagination内容，以下内容可以在综合模块里找<ul>
+<li><code>components/Pagination</code></li>
+<li><code>utils/scroll-to.js</code></li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>total</code></td>
+<td align="center">记录的总条数</td>
+</tr>
+<tr>
+<td align="center"><code>listQuery.page</code></td>
+<td align="center">当前是第几页</td>
+</tr>
+<tr>
+<td align="center"><code>listQuery.limit</code></td>
+<td align="center">每页显示的数量</td>
+</tr>
+<tr>
+<td align="center"><code>getList()</code></td>
+<td align="center">当前页的所有记录（数据）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>步骤一： 使用<code>Pagination</code>组件，在需要分页的组件中加入<code>Pagination</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">pagination</span> <span class="attr">v-show</span>=<span class="string">&quot;total&gt;0&quot;</span> <span class="attr">:total</span>=<span class="string">&quot;total&quot;</span> <span class="attr">:page.sync</span>=<span class="string">&quot;listQuery.page&quot;</span> <span class="attr">:limit.sync</span>=<span class="string">&quot;listQuery.limit&quot;</span> @<span class="attr">pagination</span>=<span class="string">&quot;getList&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>步骤二：在<code>script</code>里注册<code>Pagination</code>，并声明相应的参数</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="comment">//本地注册</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Pagination</span> <span class="keyword">from</span> <span class="string">&#x27;@/components/Pagination&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">   <span class="comment">//使用组件</span></span><br><span class="line">  <span class="attr">components</span>: &#123; <span class="title class_">Pagination</span> &#125;,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">total</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="attr">listQuery</span>: &#123;</span><br><span class="line">        <span class="attr">page</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">limit</span>: <span class="number">10</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">getList</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// 获取数据</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>步骤三：声明<code>getList</code>函数，该函数用于获取后端提供的<code>PageInfo</code>对象，该对象里封装了分页所需要的所有的数据</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// this.fetchData()</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getList</span>() <span class="comment">//注意。此时使用分页的方法</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">getList</span>(<span class="params"></span>)&#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">var</span> vm = <span class="variable language_">this</span>;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">axios</span>(&#123;</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;http://localhost:8080//pageInfo?pageNum=&#x27;</span>+vm.<span class="property">listQuery</span>.<span class="property">page</span>+<span class="string">&#x27;&amp;pageSize=&#x27;</span>+vm.<span class="property">listQuery</span>.<span class="property">limit</span></span><br><span class="line">      &#125;).<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params">response</span>)&#123;</span><br><span class="line">        <span class="comment">//得到一个PageInfo对象</span></span><br><span class="line">         vm.<span class="property">total</span> = response.<span class="property">data</span>.<span class="property">total</span>;<span class="comment">// 将PageInfo中的total赋给vm的total</span></span><br><span class="line">         vm.<span class="property">list</span> = response.<span class="property">data</span>.<span class="property">list</span>;<span class="comment">//当前页显示的所有数据</span></span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/a853674b.html">http://xiaoliblog.cn/posts/a853674b.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/a84fa67b.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Vue-Router编程式路由及路由守卫</div>
+      <div class="prev-desc">编程式路由导航replace属性
+浏览器前进后退的历史记录是通过栈实现的。每次点击&amp;lt;router-link&amp;gt;跳转到不同的url，都会调用this.$router.push()，这个方法会向history栈添加一个记录，点击后退会返回到上一个页面
+this.$router.replace()，其同样是跳...</div>
+    </a>
+    
+    
+    <a href="/posts/297cf3ed.html">
+      <div class="next-title">JavaScript中的对象<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">对象
+面向对象的特征主要可以概括为封装性、继承性、多态性。
+
+自定义对象字面量{}创建对象1234567891011 var o1=&amp;#123;&amp;#125;; var o2=&amp;#123;name:&amp;#x27;Jim&amp;#x27;&amp;#125;; var o3=&amp;#123;name:&amp;#x27;Jim&amp;#x27;,ag...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Element-UI"><span class="toc-text">Element-UI</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-text">基本使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%89%E9%9C%80%E5%BC%95%E5%85%A5"><span class="toc-text">按需引入</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue-Element-admin"><span class="toc-text">Vue-Element-admin</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8"><span class="toc-text">安装使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="toc-text">项目结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pagination"><span class="toc-text">Pagination</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9C%9F%E5%81%87%E5%88%86%E9%A1%B5"><span class="toc-text">真假分页</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pagination%E5%8E%9F%E7%90%86"><span class="toc-text">Pagination原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pagination%E4%BD%BF%E7%94%A8"><span class="toc-text">Pagination使用</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

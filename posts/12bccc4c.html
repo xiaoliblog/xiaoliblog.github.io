@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Angular生命周期和自定义指令 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="生命周期组件生命周期 钩子可以在特定的组件生命周期发生时执行所需要的业务逻辑，红框中的方法只会被调用一次，其余会被多次调用 用户在组件初始化后看到组件，变更检测阶段会确保组件的属性与页面同步，如果由于路由等操作，组件从dom树上移除，那angular会执行组件的销毁阶段（变更检测中执行的方法与初始化是一个方法） 建一个新组件，在生成的组件上已经实现了OnInit接口，每一个钩子都是@angular">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular生命周期和自定义指令">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/12bccc4c.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="生命周期组件生命周期 钩子可以在特定的组件生命周期发生时执行所需要的业务逻辑，红框中的方法只会被调用一次，其余会被多次调用 用户在组件初始化后看到组件，变更检测阶段会确保组件的属性与页面同步，如果由于路由等操作，组件从dom树上移除，那angular会执行组件的销毁阶段（变更检测中执行的方法与初始化是一个方法） 建一个新组件，在生成的组件上已经实现了OnInit接口，每一个钩子都是@angular">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-02-22T04:53:10.487Z">
+<meta property="article:modified_time" content="2023-02-22T11:52:48.086Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Angular生命周期和自定义指令</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-02-22 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-02-22
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">1.8k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>8分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><h2 id="组件生命周期"><a href="#组件生命周期" class="headerlink" title="组件生命周期"></a>组件生命周期</h2><ul>
+<li>钩子可以在特定的组件生命周期发生时执行所需要的业务逻辑，红框中的方法只会被调用一次，其余会被多次调用</li>
+<li>用户在组件初始化后看到组件，变更检测阶段会确保组件的属性与页面同步，如果由于路由等操作，组件从<code>dom</code>树上移除，那<code>angular</code>会执行组件的销毁阶段（变更检测中执行的方法与初始化是一个方法）</li>
+<li>建一个新组件，在生成的组件上已经实现了<code>OnInit</code>接口，每一个钩子都是<code>@angular/core</code>这个库里定义的接口，每个接口都有唯一的钩子方法，方法名是接口名加<code>ng</code>前缀构成</li>
+<li>当一个组件被创建时，它的钩子函数首先被调用然后执行其他方法，构造函数是一定存在的，其它可以根据需求添加</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">钩子函数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>constructor</code></td>
+<td align="left">构造器函数，用于注入服务</td>
+</tr>
+<tr>
+<td align="center"><code>ngOnChanges</code></td>
+<td align="left">当一个父组件修改或初始化一个子组件的输入属性时被调用</td>
+</tr>
+<tr>
+<td align="center"><code>ngOnInit</code></td>
+<td align="left">组件初始化，通常会设置一些初始值</td>
+</tr>
+<tr>
+<td align="center"><code>ngDoCheck</code></td>
+<td align="left">手动触发更新检查，在每个angular的变更检测周期中调用</td>
+</tr>
+<tr>
+<td align="center"><code>ngAfterContentInit</code></td>
+<td align="left">内容初始化到组件之后</td>
+</tr>
+<tr>
+<td align="center"><code>ngAfterContentChecked</code></td>
+<td align="left">内容变更检测之后</td>
+</tr>
+<tr>
+<td align="center"><code>ngAfterViewInit</code></td>
+<td align="left">视图初始化之后</td>
+</tr>
+<tr>
+<td align="center"><code>ngAfterViewChecked</code></td>
+<td align="left">视图发生变化检测之后，这个可以用来保证用户视图的及时更新</td>
+</tr>
+<tr>
+<td align="center"><code>ngOnDestroy</code></td>
+<td align="left">组件注销时的清理工作，通常用于移除事件监听，退订可观察对象等</td>
+</tr>
+</tbody></table>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(</span><br><span class="line">      <span class="string">&#x27;00 构造函数执行了---除了使用简单的值对局部变量进行初始化之外，什么都不应该做&#x27;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">ngOnChanges</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(</span><br><span class="line">      <span class="string">&#x27;01 ngOnChanges执行了---当被绑定的输入属性的值发生变化时调用(父子组件传值的时候会触发)&#x27;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(</span><br><span class="line">      <span class="string">&#x27;02 ngOnInit执行了--- 第一次显示数据绑定和指令输入属性之后就会调用，只调用一次，请求数据一般放在这个里面&#x27;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">ngDoCheck</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(</span><br><span class="line">      <span class="string">&#x27;03 ngDoCheck执行了---检测，并在发生 Angular 无法或不愿意自己检测的变化时作出反应&#x27;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">ngAfterContentInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;04 ngAfterContentInit执行了---数据内容渲染到页面上后调用&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">ngAfterContentChecked</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(</span><br><span class="line">      <span class="string">&#x27;05 ngAfterContentChecked执行了---每次完成数据内容渲染到页面变更检测之后调用&#x27;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">ngAfterViewInit</span>(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(</span><br><span class="line">      <span class="string">&#x27;06 ngAfterViewInit执行了----初始化完组件视图及其子视图之后调用（dom操作放在这个里面）&#x27;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">ngAfterViewChecked</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(</span><br><span class="line">      <span class="string">&#x27;07 ngAfterViewChecked执行了----每次做完组件视图和子视图的变更检测之后调用&#x27;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnDestroy</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;08 ngOnDestroy执行了····&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//自定义方法</span></span><br><span class="line">  <span class="title function_">changeMsg</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;自定义方法&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h1><h2 id="条件渲染"><a href="#条件渲染" class="headerlink" title="条件渲染"></a>条件渲染</h2><ul>
+<li>条件渲染：根据条件渲染特定的HTML结构。<code>*ngIf</code>相当于<code>v-if</code>直接移除DOM</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  <span class="attr">person</span>:<span class="built_in">string</span> = <span class="string">&#x27;广东人&#x27;</span></span><br><span class="line">  <span class="title function_">togglePerson</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">person</span> = <span class="variable language_">this</span>.<span class="property">person</span> == <span class="string">&#x27;广东人&#x27;</span>?<span class="string">&#x27;湖北人&#x27;</span>:<span class="string">&#x27;广东人&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--条件渲染--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--Person如果是广东人就显示广东人的信息--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;person == &#x27;广东人&#x27;&quot;</span>&gt;</span></span><br><span class="line">    广东：1000人</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;person == &#x27;湖北人&#x27;&quot;</span>&gt;</span></span><br><span class="line">    湖北：40000人</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">&quot;togglePerson()&quot;</span>&gt;</span>切换身份<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--频繁切换不建议使用，推荐使用样式display进行操作--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> [<span class="attr">style.display</span>]=<span class="string">&quot;person ==&#x27;广东人&#x27;?&#x27;block&#x27;:&#x27;none&#x27;&quot;</span>&gt;</span></span><br><span class="line">    广东：1000人</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> [<span class="attr">style.display</span>]=<span class="string">&quot;person ==&#x27;湖北人&#x27;?&#x27;block&#x27;:&#x27;none&#x27;&quot;</span>&gt;</span></span><br><span class="line">    湖北：40000人</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当然如果频繁操作DOM可以使用<code>[hidden]</code>指令，相当于<code>v-show</code>，其本质是操作<code>display</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> [<span class="attr">hidden</span>]=<span class="string">&quot;data.length == 0&quot;</span>&gt;</span>课程列表<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="循环渲染"><a href="#循环渲染" class="headerlink" title="循环渲染"></a>循环渲染</h2><ul>
+<li>循环渲染使用<code>*ngFor</code>，相当于<code>v-for</code>，获取索引需要自定义</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--循环渲染--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let item of arr&quot;</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--列表循环获取索引值--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let item of arr;let i = index&quot;</span>&gt;</span>索引值:&#123;&#123;i&#125;&#125;,内容:&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--将列表的内容传入事件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let item of arr;let i = index&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;choosePerson(i,item)&quot;</span>&gt;</span>索引值:&#123;&#123;i&#125;&#125;,内容:&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  arr = [<span class="string">&#x27;钟南山&#x27;</span>, <span class="string">&#x27;刘兰娟&#x27;</span>, <span class="string">&#x27;吴京&#x27;</span>];</span><br><span class="line">  <span class="title function_">choosePerson</span>(<span class="attr">i</span>:<span class="built_in">number</span>,<span class="attr">item</span>:<span class="built_in">string</span>) :<span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(i,item)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>对对象数组进行操作</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  student = [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;小明&#x27;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="number">21</span>,</span><br><span class="line">      <span class="attr">hobby</span>: <span class="string">&#x27;guitar&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;小东&#x27;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="number">21</span>,</span><br><span class="line">      <span class="attr">hobby</span>: <span class="string">&#x27;basketball&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;小王&#x27;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="number">21</span>,</span><br><span class="line">      <span class="attr">hobby</span>: <span class="string">&#x27;打代码&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let item of student&quot;</span>&gt;</span>&#123;&#123;item.name&#125;&#125;的爱好是&#123;&#123;item.hobby&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="多条件渲染"><a href="#多条件渲染" class="headerlink" title="多条件渲染"></a>多条件渲染</h2><ul>
+<li>多条件渲染表示对多个条件进行判断，相当于JAVA中的<code>switch</code>分支结构</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  orderState = <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> [<span class="attr">ngSwitch</span>]=<span class="string">&quot;orderState&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngSwitchCase</span>=<span class="string">&quot;1&quot;</span>&gt;</span>待付款<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngSwitchCase</span>=<span class="string">&quot;2&quot;</span>&gt;</span>已付款<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngSwitchCase</span>=<span class="string">&quot;3&quot;</span>&gt;</span>发货<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngSwitchCase</span>=<span class="string">&quot;4&quot;</span>&gt;</span>已收货<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngSwitchDefault</span>&gt;</span>丢失<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="样式属性指令"><a href="#样式属性指令" class="headerlink" title="样式属性指令"></a>样式属性指令</h2><ul>
+<li><code>[NgStyle]</code>用于添加和删除一组 HTML 样式，绑定值必须为对象，属性为CSS样式</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> [<span class="attr">ngStyle</span>]=<span class="string">&quot;myStyleObj&quot;</span>&gt;</span>样式绑定<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">  myStyleObj = &#123;</span><br><span class="line">    <span class="attr">backgroundColor</span>: <span class="string">&#x27;red&#x27;</span>,</span><br><span class="line">    <span class="attr">width</span>: <span class="string">&#x27;100px&#x27;</span>,</span><br><span class="line">    <span class="attr">height</span>: <span class="string">&#x27;100px&#x27;</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnInit</span>(): <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>[NgClass]</code> 用于添加和删除一组 CSS 类。绑定的值必须是一个对象！对象属性就是<code>CSS class</code>名，属性值为<code>true/false</code>，<code>true</code> 的话该<code>class</code>就出现；否则该<code>class</code>不出现</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.btn</span>&#123;</span><br><span class="line">    <span class="attribute">padding</span>:<span class="number">8px</span> <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">border-width</span>: <span class="number">1px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.btn-danger</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#a55</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#833</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.btn-success</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#5a5</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#5a5</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> [<span class="attr">ngClass</span>]=<span class="string">&quot;myClassObj&quot;</span>&gt;</span>样式绑定<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">  myClassObj = &#123;</span><br><span class="line">    <span class="attr">bth</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// 带-的写法</span></span><br><span class="line">    <span class="string">&#x27;btn-danger&#x27;</span>: <span class="literal">false</span>,  <span class="comment">// 不显示</span></span><br><span class="line">    <span class="string">&#x27;btn-success&#x27;</span>: <span class="literal">true</span>,  <span class="comment">// 显示</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnInit</span>(): <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h2><ul>
+<li>使用命令创建指令。比如创建一个自定义的样式指令<code>mystyle</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g directive directive/mystyle</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>app</code>父组件中使用自定义的指令</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> [<span class="attr">appMystyle</span>]=<span class="string">&quot;&#x27;msg&#x27;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>首先在创建的自定义指令导入<code>Input</code>和<code>ElementRef</code>模块</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">MystyleDirective</span> &#123;</span><br><span class="line">  <span class="meta">@Input</span>() <span class="attr">appMystyle</span>: <span class="built_in">any</span>;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">public</span> ref: ElementRef</span>) &#123;&#125;</span><br><span class="line">  <span class="title function_">ngOnChanges</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">appMystyle</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">ref</span>);</span><br><span class="line">    <span class="comment">// 获取h1的DOM修改类名</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">ref</span>.<span class="property">nativeElement</span>.<span class="property">className</span> = <span class="variable language_">this</span>.<span class="property">appMystyle</span>;</span><br><span class="line">    <span class="comment">// 修改内容</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">ref</span>.<span class="property">nativeElement</span>.<span class="property">innerHTML</span> = <span class="variable language_">this</span>.<span class="property">appMystyle</span>;</span><br><span class="line">    <span class="comment">// 绑定事件,需要匿名函数才能保证this不改变</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">ref</span>.<span class="property">nativeElement</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">ref</span>.<span class="property">nativeElement</span>.<span class="property">style</span>.<span class="property">backgroundColor</span> = <span class="string">&#x27;skyblue&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="2312057536@qq.com">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/12bccc4c.html">http://xiaoliblog.cn/posts/12bccc4c.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/c9530e4e.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Angular路由模块及编程式导航</div>
+      <div class="prev-desc">路由路由配置
+专门有一个独立模块来配置相关路由，这个模块类的名字叫做AppRoutingModule，位于src/app下的app-routing.module.ts文件中
+使用命令安装路由
+
+1ng generate module app-routing --flat --module=app
+
+
+改写文件如下...</div>
+    </a>
+    
+    
+    <a href="/posts/59d444ee.html">
+      <div class="next-title">Angular异步请求及自定义服务<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">依赖注入服务对象
+Angular认为组件是与用户交互的一种对象，其中的内容都应该与用户操作有关系；而与用户操作无关的都应该剥离出去，放在服务对象中，为组件服务；例如：日志记录、计时统计、数据库的访问…
+
+12345&amp;lt;p&amp;gt;home works!&amp;lt;/p&amp;gt;&amp;lt;h2&amp;gt;商品管理&amp;lt;/h...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">组件生命周期</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4"><span class="toc-text">指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93"><span class="toc-text">条件渲染</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E6%B8%B2%E6%9F%93"><span class="toc-text">循环渲染</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93"><span class="toc-text">多条件渲染</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B7%E5%BC%8F%E5%B1%9E%E6%80%A7%E6%8C%87%E4%BB%A4"><span class="toc-text">样式属性指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4"><span class="toc-text">自定义指令</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>
