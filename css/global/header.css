@@ -46,7 +46,7 @@
 }
 .header-description .header-icon * {
   color: var(--text-color);
-  font-size: 12px;
+  font-size: 14px;
   margin: 20px 2px 0;
 }
 .header-description .header-icon * i:hover {

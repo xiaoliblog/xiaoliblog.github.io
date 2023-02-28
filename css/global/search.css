@@ -9,7 +9,7 @@
 }
 #local-search .search-result-list {
   overflow-y: auto;
-  max-height: 200px;
+  max-height: 420px;
   overflow-x: hidden;
   padding: 0 10px;
 }
@@ -42,9 +42,9 @@
 }
 #local-search {
   top: 5rem;
-  left: 50%;
+  left: 40%;
   z-index: 1;
-  width: 30rem;
+  width: 50rem;
   display: none;
   padding: 1rem;
   margin-left: -15rem;
