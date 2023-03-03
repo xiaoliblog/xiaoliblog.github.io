@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="content-language" content="zh-CN">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-<title>Vue3简介及Vite构建工程 | 小李博客</title>
+<title>19-Vue3简介及Vite构建工程 | 小李博客</title>
 <meta name="author" content="小李博客">
 <meta name="copyright" content="小李博客">
 
@@ -23,14 +23,14 @@
 
 <meta name="description" content="Vue3Vue3简介 2020年9月18日，Vue.js发布3.0版本, 代号：One Piece （海贼王）  耗时2年多、2600+次提交、30+个RFC、600+次PR、99位贡献者  github.上的tags地址：https:&#x2F;&#x2F;github.com&#x2F;vuejs&#x2F;vue-next&#x2F;releases&#x2F;tag&#x2F;v3.0.0  Vue3带来了什么  性能的提升：打包大小减少41%，初次渲染快5">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue3简介及Vite构建工程">
+<meta property="og:title" content="19-Vue3简介及Vite构建工程">
 <meta property="og:url" content="http://xiaoliblog.cn/posts/762a323a.html">
 <meta property="og:site_name" content="小李博客">
 <meta property="og:description" content="Vue3Vue3简介 2020年9月18日，Vue.js发布3.0版本, 代号：One Piece （海贼王）  耗时2年多、2600+次提交、30+个RFC、600+次PR、99位贡献者  github.上的tags地址：https:&#x2F;&#x2F;github.com&#x2F;vuejs&#x2F;vue-next&#x2F;releases&#x2F;tag&#x2F;v3.0.0  Vue3带来了什么  性能的提升：打包大小减少41%，初次渲染快5">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
-<meta property="article:published_time" content="2023-02-22T04:53:10.550Z">
-<meta property="article:modified_time" content="2023-02-22T12:20:02.874Z">
+<meta property="article:published_time" content="2023-01-19T10:19:20.000Z">
+<meta property="article:modified_time" content="2023-03-03T11:04:08.459Z">
 <meta property="article:author" content="小李博客">
 <meta property="article:tag" content="小李博客">
 <meta name="twitter:card" content="summary">
@@ -114,20 +114,20 @@
             <article id="post">
   <div class="post-info">
     <div class="post-title">
-      <h1>Vue3简介及Vite构建工程</h1>
+      <h1>19-Vue3简介及Vite构建工程</h1>
     </div>
     <div class="post-meta">
       <div class="post-date">
         <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
         <span class="post-meta-label">
           发表于
-          2023-02-22 |
+          2023-01-19 |
         </span>
 
         <i class="fas fa-history fa-fw post-meta-icon"></i>
         <span class="post-meta-label">
           更新于
-          2023-02-22
+          2023-03-03
         </span>
       </div>
       <div class="post-meta-wordcount">
@@ -189,6 +189,7 @@
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 查看@vue/cli版本，确保@vue/cli版本在4.5.0以上</span></span><br><span class="line">vue --version</span><br><span class="line"><span class="comment">## 如果不是4.5.0以上，请安装或者升级你的@vue/cli</span></span><br><span class="line">npm install -g @vue/cli</span><br><span class="line"><span class="comment">## 创建，注意要选择Vue3</span></span><br><span class="line">vue create &lt;project-name&gt;</span><br></pre></td></tr></table></figure>
 
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210801144306.png"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 启动</span></span><br><span class="line"><span class="built_in">cd</span> &lt;project-name&gt;</span><br><span class="line">npm run serve</span><br></pre></td></tr></table></figure>
 
 <h2 id="Vite创建"><a href="#Vite创建" class="headerlink" title="Vite创建"></a>Vite创建</h2><ul>
@@ -203,10 +204,12 @@
 </li>
 <li>传统构建 与 vite构建对比图</li>
 </ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210801142011.png"></p>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210801142027.png"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 创建工程</span></span><br><span class="line">npm init vite-app &lt;project-name&gt;</span><br><span class="line"><span class="comment">## 进入工程目录</span></span><br><span class="line"><span class="built_in">cd</span> &lt;project-name&gt;</span><br><span class="line"><span class="comment">## 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"><span class="comment">## 运行</span></span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
 
-
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210801143808.png"></p>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210801143826.png"></p>
 <h2 id="工程结构"><a href="#工程结构" class="headerlink" title="工程结构"></a>工程结构</h2><ul>
 <li>以Vue-CLI创建的工程结构为例进行分析。以入口文件<code>main.js</code>为例</li>
 </ul>
@@ -217,18 +220,27 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> vm = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>:<span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  <span class="attr">render</span>: <span class="function"><span class="params">h</span> =&gt;</span> <span class="title function_">h</span>(<span class="title class_">App</span>)</span><br><span class="line">&#125;)</span><br><span class="line">vm.$mount(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
-<h2 id="开发者工具"><a href="#开发者工具" class="headerlink" title="开发者工具"></a>开发者工具</h2><ul>
-<li><p>Vue2的开发者工具是不支持Vue3的，所以重新配置Vue3开发工具。下载地址：<a target="_blank" rel="noopener" href="https://www.crx4chrome.com/crx/107268/">https://www.crx4chrome.com/crx/107268/</a></p>
-</li>
-<li><p>安装好后重启一下项目</p>
-</li>
-<li><p>再推荐几个VSCode的Vue3插件，首先是<code>Volar</code>，可以理解为<code>Vue3</code>版本的<code>Vetur</code></p>
-</li>
-<li><p><code>Volar</code>可以进行编辑器分离，点击右上角的图标，可以把<code>template</code>、<code>script</code>、<code>style</code>分成三个不同的窗口</p>
-</li>
-<li><p>另一个就是<code>Vue 3 Snippets</code>，只需输入<code>&lt;v</code>就自动生成代码结构</p>
-</li>
+<h2 id="开发者工具"><a href="#开发者工具" class="headerlink" title="开发者工具"></a>开发者工具</h2><p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210801151746.png"></p>
+<ul>
+<li>Vue2的开发者工具是不支持Vue3的，所以重新配置Vue3开发工具。下载地址：<a target="_blank" rel="noopener" href="https://www.crx4chrome.com/crx/107268/">https://www.crx4chrome.com/crx/107268/</a></li>
 </ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210801151832.png"></p>
+<ul>
+<li>安装好后重启一下项目</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210801152031.png"></p>
+<ul>
+<li>再推荐几个VSCode的Vue3插件，首先是<code>Volar</code>，可以理解为<code>Vue3</code>版本的<code>Vetur</code></li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210801152505.png"></p>
+<ul>
+<li><code>Volar</code>可以进行编辑器分离，点击右上角的图标，可以把<code>template</code>、<code>script</code>、<code>style</code>分成三个不同的窗口</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210801152607.png"></p>
+<ul>
+<li>另一个就是<code>Vue 3 Snippets</code>，只需输入<code>&lt;v</code>就自动生成代码结构</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210801152816.png"></p>
 
   </div>
   
@@ -258,27 +270,27 @@
   
   <div class="pagination-post">
     
-    <a href="/posts/ed728a44.html">
-      <div class="prev-title"><i class="fas fa-chevron-left"></i>微信小程序封装请求功能函数</div>
-      <div class="prev-desc">项目搭建引入IconFont
-在官网https://www.iconfont.cn/选择图标加入购物车，然后新建项目，生成在线代码链接
-
-复制链接里的代码，在微信项目中新建static/iconfont/iconfong.wxss，复制进去保存
-
-然后在app.wxss中全局引入
-
-
-1@import &amp;quot...</div>
+    <a href="/posts/f971e316.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>20-Vue3常用Composition API</div>
+      <div class="prev-desc">常用Composition APIsetup函数
+setup是Vue3.0中一个新的配置项，值为一个函数。是所有Composition API（组合API）表演的舞台 。组件中所用到的数据、方法等等，均要配置在setup中
+setup函数的两种返回值：
+若返回一个对象，则对象中的属性、方法，在模板中均可以直接使用...</div>
     </a>
     
     
-    <a href="/posts/c81a6c45.html">
-      <div class="next-title">Vue3新的组件及其他改变<i class="fas fa-chevron-right"></i></div>
-      <div class="next-desc">新的组件Fragment
-在Vue2中组件必须有一个根标签，在Vue3中组件可以没有根标签，内部会将多个标签包含在一个Fragment虚拟元素中
-好处：减少标签层级，减小内存占用
+    <a href="/posts/a853674b.html">
+      <div class="next-title">18-Vue组件库Element-UI<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">Element-UI基本使用
+Element-Ui官网：https://element.eleme.cn
+安装Element-Ui
 
-1234&amp;lt;template&amp;gt;  &amp;lt;h3&amp;gt;我是App组件（祖）&amp;lt;/h3&amp;gt;  &amp;lt;Child&amp;g...</div>
+1npm i element-ui -S
+
+
+在main.js中引入
+
+1234567891011121314import Vue from &amp;#x27;vue&amp;#x27;;// ...</div>
     </a>
     
   </div>

@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="content-language" content="zh-CN">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-<title>Vue3其他CompositionAPI | 小李博客</title>
+<title>22-Vue3其他CompositionAPI | 小李博客</title>
 <meta name="author" content="小李博客">
 <meta name="copyright" content="小李博客">
 
@@ -23,14 +23,14 @@
 
 <meta name="description" content="其它CompositionAPItoRef与toRefs toRef用于创建一个ref对象，其value值指向另一个对象中的某个属性，语法如下  12&#x2F;&#x2F; 参数为(对象，属性)const name &#x3D; toRef(person,&amp;#x27;name&amp;#x27;)   应用：要将响应式对象中的某个属性单独提供给外部使用时 扩展：toRefs 与toRef功能一致，但可以批量创建多个 ref 对象，语">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue3其他CompositionAPI">
+<meta property="og:title" content="22-Vue3其他CompositionAPI">
 <meta property="og:url" content="http://xiaoliblog.cn/posts/49aa12fb.html">
 <meta property="og:site_name" content="小李博客">
 <meta property="og:description" content="其它CompositionAPItoRef与toRefs toRef用于创建一个ref对象，其value值指向另一个对象中的某个属性，语法如下  12&#x2F;&#x2F; 参数为(对象，属性)const name &#x3D; toRef(person,&amp;#x27;name&amp;#x27;)   应用：要将响应式对象中的某个属性单独提供给外部使用时 扩展：toRefs 与toRef功能一致，但可以批量创建多个 ref 对象，语">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
-<meta property="article:published_time" content="2023-02-22T04:53:10.547Z">
-<meta property="article:modified_time" content="2023-02-22T12:20:35.583Z">
+<meta property="article:published_time" content="2023-01-22T10:19:20.000Z">
+<meta property="article:modified_time" content="2023-03-03T11:09:30.180Z">
 <meta property="article:author" content="小李博客">
 <meta property="article:tag" content="小李博客">
 <meta name="twitter:card" content="summary">
@@ -114,20 +114,20 @@
             <article id="post">
   <div class="post-info">
     <div class="post-title">
-      <h1>Vue3其他CompositionAPI</h1>
+      <h1>22-Vue3其他CompositionAPI</h1>
     </div>
     <div class="post-meta">
       <div class="post-date">
         <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
         <span class="post-meta-label">
           发表于
-          2023-02-22 |
+          2023-01-22 |
         </span>
 
         <i class="fas fa-history fa-fw post-meta-icon"></i>
         <span class="post-meta-label">
           更新于
-          2023-02-22
+          2023-03-03
         </span>
       </div>
       <div class="post-meta-wordcount">
@@ -205,6 +205,7 @@
 </li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;demo&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h4</span>&gt;</span>当前的x值是：&#123;&#123; x &#125;&#125;<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;x++&quot;</span>&gt;</span>点我x++<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>姓名：&#123;&#123; name &#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>年龄：&#123;&#123; age &#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>薪资：&#123;&#123; job.codemonkey.salary &#125;&#125;K<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span> <span class="attr">v-show</span>=<span class="string">&quot;person.car&quot;</span>&gt;</span>汽车：&#123;&#123; person.car &#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;name += &#x27;~&#x27;&quot;</span>&gt;</span>修改姓名<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;age++&quot;</span>&gt;</span>增长年龄<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;job.codemonkey.salary++&quot;</span>&gt;</span>涨薪<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;showRawPerson&quot;</span>&gt;</span>输出最原始的person<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;addCar&quot;</span>&gt;</span>给人添加一台车<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;person.car.name=&#x27;宝马&#x27;&quot;</span>&gt;</span>修改车名<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 引入计算属性</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; reactive, ref, toRefs, toRaw, markRaw &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">name</span>: <span class="string">&quot;Demo&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="title function_">setup</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">let</span> x = <span class="title function_">ref</span>(<span class="number">0</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">let</span> person = <span class="title function_">reactive</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">name</span>: <span class="string">&quot;张三&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">age</span>: <span class="number">18</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">job</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">codemonkey</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="attr">salary</span>: <span class="number">20</span>,</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">      &#125;,</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">addCar</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">let</span> car = &#123; <span class="attr">name</span>: <span class="string">&quot;奔驰&quot;</span>, <span class="attr">price</span>: <span class="string">&quot;40w&quot;</span> &#125;;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 自动为响应式的，但是特定需求下不能是响应式的，只供展示</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 适用markRaw标记一个对象，使其永远不会再成为响应式对象</span></span></span><br><span class="line"><span class="language-javascript">      person.<span class="property">car</span> = <span class="title function_">markRaw</span>(car);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">showRawPerson</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 转为原始数据，非响应式Proxy，只适用于reactive定义的数据</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> p = <span class="title function_">toRaw</span>(person);</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">console</span>.<span class="title function_">log</span>(p);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 使用toRefs返回：批量创建多个ref对象</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      x,</span></span><br><span class="line"><span class="language-javascript">      person,</span></span><br><span class="line"><span class="language-javascript">      ...<span class="title function_">toRefs</span>(person),</span></span><br><span class="line"><span class="language-javascript">      showRawPerson,</span></span><br><span class="line"><span class="language-javascript">      addCar,</span></span><br><span class="line"><span class="language-javascript">    &#125;;</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">&#125;;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210807102448.png"></p>
 <h2 id="customRef"><a href="#customRef" class="headerlink" title="customRef"></a>customRef</h2><ul>
 <li>作用：创建一个自定义的 <code>ref</code>，并对其依赖项跟踪和更新触发进行显式控制</li>
 <li>实现防抖效果，输入框内容延迟展示出来</li>
@@ -216,10 +217,15 @@
 </li>
 <li><p>套路：父组件有一个 <code>provide</code> 选项来提供数据，后代组件有一个 <code>inject</code> 选项来开始使用这些数据</p>
 </li>
-<li><p>实现如下祖孙间通信</p>
-</li>
-<li><p>祖先组件<code>App.vue</code>中</p>
-</li>
+</ul>
+<img src="/img/load.gif" data-src="https://v3.cn.vuejs.org/images/components_provide.png" style="width:400px" />
+
+<ul>
+<li>实现如下祖孙间通信</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210807111146.png"></p>
+<ul>
+<li>祖先组件<code>App.vue</code>中</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>我是App组件（祖），&#123;&#123; name &#125;&#125;--&#123;&#123; price &#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Child</span>&gt;</span><span class="tag">&lt;/<span class="name">Child</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> <span class="title class_">Child</span> <span class="keyword">from</span> <span class="string">&quot;./components/Child.vue&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; reactive, toRefs, provide &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">name</span>: <span class="string">&quot;App&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">components</span>: &#123; <span class="title class_">Child</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">  <span class="title function_">setup</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">let</span> car = <span class="title function_">reactive</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">name</span>: <span class="string">&quot;奔驰&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">price</span>: <span class="string">&quot;40w&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 传递给后代组件数据,第一参数为数据别名，第二参数为真实数据</span></span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">provide</span>(<span class="string">&quot;car&quot;</span>, car);</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">return</span> &#123; ...<span class="title function_">toRefs</span>(car) &#125;;</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">&#125;;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.app</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">padding</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -276,17 +282,18 @@
   
   <div class="pagination-post">
     
-    <a href="/posts/f971e316.html">
-      <div class="prev-title"><i class="fas fa-chevron-left"></i>Vue3常用Composition API</div>
-      <div class="prev-desc">常用Composition APIsetup函数
-setup是Vue3.0中一个新的配置项，值为一个函数。是所有Composition API（组合API）表演的舞台 。组件中所用到的数据、方法等等，均要配置在setup中
-setup函数的两种返回值：
-若返回一个对象，则对象中的属性、方法，在模板中均可以直接使用...</div>
+    <a href="/posts/c81a6c45.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>23-Vue3新的组件及其他改变</div>
+      <div class="prev-desc">新的组件Fragment
+在Vue2中组件必须有一个根标签，在Vue3中组件可以没有根标签，内部会将多个标签包含在一个Fragment虚拟元素中
+好处：减少标签层级，减小内存占用
+
+1234&amp;lt;template&amp;gt;  &amp;lt;h3&amp;gt;我是App组件（祖）&amp;lt;/h3&amp;gt;  &amp;lt;Child&amp;g...</div>
     </a>
     
     
     <a href="/posts/25ba76c5.html">
-      <div class="next-title">Vue3计算属性与监视及生命周期<i class="fas fa-chevron-right"></i></div>
+      <div class="next-title">21-Vue3计算属性与监视及生命周期<i class="fas fa-chevron-right"></i></div>
       <div class="next-desc">计算属性与监视computed
 与Vue2.x中computed配置功能一致
 
