@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>前端三剑客之显示与隐藏 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="元素显示模式 元素显示模式就是元素(标签)以什么方式进行显示，比如div自己占一行，比如一行可以放多个span HTML元素一般分块元素和行内元素  块元素常见的块元素有&lt;h1&gt;~&lt;h6&gt;、&lt;p&gt;、&lt;div&gt;、&lt;ul&gt;、&lt;ol&gt;、&lt;li&gt;等，其中&lt;div&gt;是最典型的块元素 块元素的特点  独占一行 可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端三剑客之显示与隐藏">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/410b2601.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="元素显示模式 元素显示模式就是元素(标签)以什么方式进行显示，比如div自己占一行，比如一行可以放多个span HTML元素一般分块元素和行内元素  块元素常见的块元素有&lt;h1&gt;~&lt;h6&gt;、&lt;p&gt;、&lt;div&gt;、&lt;ul&gt;、&lt;ol&gt;、&lt;li&gt;等，其中&lt;div&gt;是最典型的块元素 块元素的特点  独占一行 可以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.111Z">
+<meta property="article:modified_time" content="2023-03-03T03:53:17.254Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="HTML+CSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>前端三剑客之显示与隐藏</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">1.9k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>7分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="元素显示模式"><a href="#元素显示模式" class="headerlink" title="元素显示模式"></a>元素显示模式</h1><ul>
+<li>元素显示模式就是元素(标签)以什么方式进行显示，比如div自己占一行，比如一行可以放多个span</li>
+<li>HTML元素一般分<code>块元素</code>和<code>行内元素</code></li>
+</ul>
+<h2 id="块元素"><a href="#块元素" class="headerlink" title="块元素"></a>块元素</h2><p>常见的块元素有&lt;h1&gt;~&lt;h6&gt;、&lt;p&gt;、&lt;div&gt;、&lt;ul&gt;、&lt;ol&gt;、&lt;li&gt;等，其中<code>&lt;div&gt;</code>是最典型的块元素</p>
+<p>块元素的特点</p>
+<ul>
+<li>独占一行</li>
+<li>可以控制高度、宽度、外边距以及内边距</li>
+<li>宽度默认是容器（父级容器）的100%</li>
+<li>是一个容器以及盒子，里面可以放行内或者块级元素</li>
+</ul>
+<p>文字类的元素内不能使用块级元素</p>
+<h2 id="行内元素"><a href="#行内元素" class="headerlink" title="行内元素"></a>行内元素</h2><p>常见的行内元素有&lt;a&gt;、&lt;strong&gt;、&lt;b&gt;、&lt;em&gt;、&lt;i&gt;、&lt;del&gt;、&lt;s&gt;、&lt;ins&gt;、&lt;u&gt;、&lt;span&gt;等，其中<code>&lt;span&gt;</code>是最典型的<code>行内元素</code>，也叫<code>内联元素</code></p>
+<p>行内元素的特点</p>
+<ul>
+<li>相邻行内元素在一行上，一行可以显示多个</li>
+<li>高、宽度直接设置是无效的</li>
+<li>默认宽度就是它本身内容的宽度</li>
+<li>行内元素只能容纳文本或其他行内元素</li>
+</ul>
+<p>链接里面不能放链接<br>特殊情况下链接&lt;a&gt;里面可以放块级元素，但是给&lt;a&gt;转换以下块级模式最安全</p>
+<h2 id="行内块元素"><a href="#行内块元素" class="headerlink" title="行内块元素"></a>行内块元素</h2><p>在行内元素中有几个特殊的标签——&lt;img&#x2F;&gt;、&lt;input&#x2F;&gt;、&lt;td&gt;，它们<code>同时具有块元素和行内元素的特点</code>，称为<code>行内块元素</code></p>
+<p>行内块元素的特点</p>
+<ul>
+<li>和相邻行内元素（行内块）在一行上，但是它们之间会有空白缝隙。一行可以显示多个（行内元素的特点）</li>
+<li>默认宽度就是它本身内容的宽度（行内元素的特点）</li>
+<li>高度、行高、外边距以及内边距都可以控制（块级元素的特点）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">元素模式</th>
+<th align="center">元素排列</th>
+<th align="center">设置样式</th>
+<th align="center">默认宽度</th>
+<th align="center">包含</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">块级元素</td>
+<td align="center">一行只能放一个块级元素</td>
+<td align="center">可以设置宽度高度</td>
+<td align="center">容器的100%</td>
+<td align="center">容器级可以包含任何标签</td>
+</tr>
+<tr>
+<td align="center">行内元素</td>
+<td align="center">一行可以放多个行内元素</td>
+<td align="center">不可以直接设置宽度</td>
+<td align="center">它本身内容的宽度</td>
+<td align="center">容纳文本或其他行内元素</td>
+</tr>
+<tr>
+<td align="center">行内块元素</td>
+<td align="center">一行可以放多个行内块元素</td>
+<td align="center">可以设置宽度和高度</td>
+<td align="center">它本身内容的宽度</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h1 id="小米侧边栏案例"><a href="#小米侧边栏案例" class="headerlink" title="小米侧边栏案例"></a>小米侧边栏案例</h1><p>实现步骤</p>
+<ul>
+<li>把链接a转换为块级元素，这样链接就可以单独占一行，并且有宽度和高度</li>
+<li>鼠标经过a给链接设置背景颜色</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/20/518eb3adb7ef2f94cd8ccf2c259fc709.png"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;ie=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">       <span class="selector-tag">a</span>&#123;</span></span><br><span class="line"><span class="language-css">           <span class="attribute">display</span>: block;</span></span><br><span class="line"><span class="language-css">           <span class="attribute">width</span>: <span class="number">230px</span>;</span></span><br><span class="line"><span class="language-css">           <span class="attribute">height</span>: <span class="number">40px</span>;</span></span><br><span class="line"><span class="language-css">           <span class="attribute">background-color</span>: <span class="number">#535758</span>;</span></span><br><span class="line"><span class="language-css">           <span class="attribute">font-size</span>: <span class="number">14px</span>;</span></span><br><span class="line"><span class="language-css">           <span class="attribute">color</span>:white;</span></span><br><span class="line"><span class="language-css">           <span class="attribute">text-decoration</span>: none;</span></span><br><span class="line"><span class="language-css">           <span class="attribute">text-indent</span>: <span class="number">2em</span>;</span></span><br><span class="line"><span class="language-css">           <span class="attribute">line-height</span>: <span class="number">40px</span>; </span></span><br><span class="line"><span class="language-css">       &#125;</span></span><br><span class="line"><span class="language-css">       <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span>&#123;</span></span><br><span class="line"><span class="language-css">           <span class="attribute">background-color</span>: <span class="number">#ff6700</span>;</span></span><br><span class="line"><span class="language-css">       &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>手机 电话卡<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>电视 盒子<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>笔记本 平板<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>出行 穿戴<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>智能 路由器<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>健康 儿童<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>耳机 音箱<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>单行文字垂直居中的方法</p>
+<ul>
+<li><code>让文字的行高等于盒子的高度</code>就可以让文字在当前盒子内垂直居中<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/20/25cadf6f838c39b87efd303e9bce90d7.png"></li>
+</ul>
+<h1 id="显示与隐藏"><a href="#显示与隐藏" class="headerlink" title="显示与隐藏"></a>显示与隐藏</h1><h2 id="display"><a href="#display" class="headerlink" title="display"></a>display</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">display</span>:none;</span><br></pre></td></tr></table></figure>
+<p>这种方式将元素设置隐藏后，<strong>该元素不会占用空间，并且不会占用原来的位置</strong>。</p>
+<p>设置为以下属性时，会取消 <code>display</code>的隐藏。</p>
+<ul>
+<li><code>block </code>将元素设置为块级元素</li>
+<li><code>inline </code>将元素设置为内联元素</li>
+<li><code>inline-block</code> 将元素设置为行内块级元素</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.one&#123;</span><br><span class="line">   display:none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;one&quot;</span>&gt;</span>盒子1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;two&quot;</span>&gt;</span>盒子2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/21/2b50815849243d76e4ea5a1555663585.png"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.one&#123;</span><br><span class="line">   display:block;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;one&quot;</span>&gt;</span>盒子1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;two&quot;</span>&gt;</span>盒子2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/21/e0e244e730bf3a5b76c77649a3840684.png"></p>
+<h2 id="visibility"><a href="#visibility" class="headerlink" title="visibility"></a>visibility</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">visibility</span>: hidden;</span><br></pre></td></tr></table></figure>
+<p>这种方式设置元素为隐藏后，<code>该元素依旧占有页面空间</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.one&#123;</span><br><span class="line">   visibility:hidden;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;one&quot;</span>&gt;</span>盒子1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;two&quot;</span>&gt;</span>盒子2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/21/6e4b80ce88fa3140a568fda64230c41e.png"></p>
+<ul>
+<li>通过将<code>visibility</code>属性值设置为<code>visible</code>将元素显示</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.one&#123;</span><br><span class="line">   visibility:visible;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;one&quot;</span>&gt;</span>盒子1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;two&quot;</span>&gt;</span>盒子2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/21/e0e244e730bf3a5b76c77649a3840684.png"></p>
+<h1 id="内容溢出"><a href="#内容溢出" class="headerlink" title="内容溢出"></a>内容溢出</h1><p>盒子放不下时内容就会超出盒子。内容是文本内容、一张图片和其他元素，超出指定容器元素的范围。如图</p>
+<ul>
+<li><p>情况一（容器元素 div 内容是文本）<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/bab893e380bd5fc3598a191b60ee6b34.png"></p>
+</li>
+<li><p>情况二（指定元素中的图片超出元素范围）<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/c01e532fcc301dcdf483ec49532bc69b.png"></p>
+</li>
+<li><p>情况三（指定元素中子级元素超出范围）<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/b759dab915a0b9ad341e506d96f0bbe6.png"></p>
+</li>
+</ul>
+<p>解决方案：<code>overflow</code></p>
+<ul>
+<li><p><code>visible</code>：默认值。内容不会被修建，会显示在父级容器之外</p>
+</li>
+<li><p><code>hidden</code>: 内容会被修剪，并且其余内容不可见。<br>隐藏的部分不会被看到</p>
+</li>
+<li><p><code>scroll</code>: 内容会被修剪，浏览器会显示滚动条以便查看其余内容。<br>始终提示滚动条，效果不好</p>
+</li>
+<li><p><code>auto</code>：浏览器决定<br>如果内容溢出，提供相应的滚动条；没有溢出不做任何处理</p>
+</li>
+</ul>
+<h2 id="overflow-x-属性"><a href="#overflow-x-属性" class="headerlink" title="overflow-x 属性"></a>overflow-x 属性</h2><p>水平方向上的溢出</p>
+<ul>
+<li>visible: 默认值。内容不会被修剪，会显示在父级容器之外。</li>
+<li>hidden: 内容会被修剪，并且其余内容不可见。.</li>
+<li>scroll: 内容会被修剪，浏览器会显示滚动条以便查看其余内容。</li>
+<li>auto: 由浏览器决定，如果内容被修剪，就会显示滚动条。</li>
+</ul>
+<p>overflow-y 相似。</p>
+<h2 id="text-overflow属性"><a href="#text-overflow属性" class="headerlink" title="text-overflow属性"></a>text-overflow属性</h2><p>text-overflow 属性确定如何向用户发出未显示的溢出内容信号。它可以被剪切，显示一个省略号 (…) 或显示一个自定义字符串。该属性具有以下几个值:</p>
+<ul>
+<li>clip: 将文本内容超出父级容器的部分隐藏。</li>
+<li>ellipsis: 将文本内容超出父级容器的部分使用省略号 (…) 表示。.</li>
+<li>sting: 将文本内容超出父级容器的部分使用指定文本内容表示，例如 “.” 等</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://tva1.sinaimg.cn/large/005B3XPgly1gbp1uslp6oj30vx03kdh7.jpg"><br>设置此属性必须先设置<code>overflow</code>属性。无法单独使用。</p>
+<h1 id="显示遮罩实例"><a href="#显示遮罩实例" class="headerlink" title="显示遮罩实例"></a>显示遮罩实例</h1><ul>
+<li>核心原理：原先半透明的黑色遮罩看不见，鼠标经过大盒子，就显示出来</li>
+<li>遮罩的盒子不有位置，就需要用绝对定位和display配合使用</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.tudou</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">444px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">320px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: pink;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">30px</span> auto;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.tudou</span> <span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.mask</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* 隐藏遮罩层 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">display</span>: none;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">top</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">left</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, .<span class="number">4</span>) <span class="built_in">url</span>(<span class="string">images/arr.png</span>) no-repeat center;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 当我们鼠标经过了 土豆这个盒子，就让里面遮罩层显示出来 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.tudou</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.mask</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* 而是显示元素 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">display</span>: block;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;tudou&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mask&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/img.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/21/e88f6732b928650d63ecfe97499ba82e.png"></p>
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/410b2601.html">http://xiaoliblog.cn/posts/410b2601.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/4ed42931.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>前端三剑客之网页背景</div>
+      <div class="prev-desc">网页背景背景颜色一般情况下元素背景色是tansparent(透明)
+1background-color:transparent | color颜色值
+
+背景图片1background-image:none | url(url)
+
+背景平铺默认情况下，背景图片是平铺的
+1backgound-repeat: repe...</div>
+    </a>
+    
+    
+    <a href="/posts/23d1c970.html">
+      <div class="next-title">前端三剑客之文本样式<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">结构化元素结构化元素就是指 HTML 元素中具有明确含义和作用的元素，例如元素表示段落。相对于 HTML 4.01 版本而言，HTML5 版本新增了一系列结构化元素
+
+
+
+名称
+代码
+
+
+
+标题元素
+&amp;lt;h1&amp;gt;~&amp;lt;h6&amp;gt;
+
+
+段落元素
+&amp;lt;p&amp;gt;
+
+
+粗体元素
+&amp;lt;b&amp;gt;
+
+...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F"><span class="toc-text">元素显示模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%97%E5%85%83%E7%B4%A0"><span class="toc-text">块元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0"><span class="toc-text">行内元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0"><span class="toc-text">行内块元素</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%8F%E7%B1%B3%E4%BE%A7%E8%BE%B9%E6%A0%8F%E6%A1%88%E4%BE%8B"><span class="toc-text">小米侧边栏案例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9A%90%E8%97%8F"><span class="toc-text">显示与隐藏</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#display"><span class="toc-text">display</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#visibility"><span class="toc-text">visibility</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E6%BA%A2%E5%87%BA"><span class="toc-text">内容溢出</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#overflow-x-%E5%B1%9E%E6%80%A7"><span class="toc-text">overflow-x 属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#text-overflow%E5%B1%9E%E6%80%A7"><span class="toc-text">text-overflow属性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E9%81%AE%E7%BD%A9%E5%AE%9E%E4%BE%8B"><span class="toc-text">显示遮罩实例</span></a></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

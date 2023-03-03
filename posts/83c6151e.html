@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>JavaScript中的数组 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="数组创建数组1234567891011&#x2F;&#x2F; 元素值类型为字符串var area &#x3D; new Array(&amp;#x27;Beijing&amp;#x27;, &amp;#x27;Shanghai&amp;#x27;, &amp;#x27;Shenzhen&amp;#x27;);&#x2F;&#x2F; 元素值类型为数值型var score &#x3D; new Array(56, 68, 98, 44);&#x2F;&#x2F; 元素值类型为混合型var mix &#x3D; new Array(1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript中的数组">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/83c6151e.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="数组创建数组1234567891011&#x2F;&#x2F; 元素值类型为字符串var area &#x3D; new Array(&amp;#x27;Beijing&amp;#x27;, &amp;#x27;Shanghai&amp;#x27;, &amp;#x27;Shenzhen&amp;#x27;);&#x2F;&#x2F; 元素值类型为数值型var score &#x3D; new Array(56, 68, 98, 44);&#x2F;&#x2F; 元素值类型为混合型var mix &#x3D; new Array(1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.133Z">
+<meta property="article:modified_time" content="2023-03-03T04:00:41.514Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>JavaScript中的数组</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">1.7k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>7分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 元素值类型为字符串</span></span><br><span class="line"><span class="keyword">var</span> area = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="string">&#x27;Beijing&#x27;</span>, <span class="string">&#x27;Shanghai&#x27;</span>, <span class="string">&#x27;Shenzhen&#x27;</span>);</span><br><span class="line"><span class="comment">// 元素值类型为数值型</span></span><br><span class="line"><span class="keyword">var</span> score = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="number">56</span>, <span class="number">68</span>, <span class="number">98</span>, <span class="number">44</span>);</span><br><span class="line"><span class="comment">// 元素值类型为混合型</span></span><br><span class="line"><span class="keyword">var</span> mix = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="number">123</span>, <span class="string">&#x27;abc&#x27;</span>, <span class="literal">null</span>, <span class="literal">true</span>, <span class="literal">undefined</span>);</span><br><span class="line"><span class="comment">// 空数组</span></span><br><span class="line"><span class="keyword">var</span> arr1 = <span class="keyword">new</span> <span class="title class_">Array</span>();   或    <span class="keyword">var</span> arr2 = <span class="keyword">new</span> <span class="title class_">Array</span>;</span><br><span class="line"><span class="comment">//使用“[]”创建数组</span></span><br><span class="line"><span class="keyword">var</span> weather = [<span class="string">&#x27;wind&#x27;</span>, <span class="string">&#x27;fine&#x27;</span>]; </span><br><span class="line"><span class="keyword">var</span> empty = [];       </span><br></pre></td></tr></table></figure>
+
+<h2 id="获取数组长度"><a href="#获取数组长度" class="headerlink" title="获取数组长度"></a>获取数组长度</h2><p>JavaScript数组长度可以动态改变</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取数组长度</span></span><br><span class="line"><span class="keyword">var</span> area = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="string">&#x27;Beijing&#x27;</span>, <span class="string">&#x27;Shanghai&#x27;</span>, <span class="string">&#x27;Shenzhen&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(area.<span class="property">length</span>);</span><br><span class="line"><span class="comment">// 修改数组长度</span></span><br><span class="line"><span class="keyword">var</span> area = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="string">&#x27;Beijing&#x27;</span>, <span class="string">&#x27;Shanghai&#x27;</span>, <span class="string">&#x27;Shenzhen&#x27;</span>);</span><br><span class="line">area.<span class="property">length</span> = <span class="number">5</span>;     <span class="variable language_">console</span>.<span class="title function_">log</span>(area);</span><br><span class="line">area.<span class="property">length</span> = <span class="number">1</span>;      <span class="variable language_">console</span>.<span class="title function_">log</span>(area);</span><br></pre></td></tr></table></figure>
+
+<h2 id="数组的遍历"><a href="#数组的遍历" class="headerlink" title="数组的遍历"></a>数组的遍历</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 元素值类型为字符串</span></span><br><span class="line"><span class="keyword">var</span> area = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="string">&#x27;Beijing&#x27;</span>, <span class="string">&#x27;Shanghai&#x27;</span>, <span class="string">&#x27;Shenzhen&#x27;</span>);</span><br><span class="line"><span class="comment">// 遍历</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;area.<span class="property">length</span>;i++)&#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(area[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span>  i  <span class="keyword">in</span> area)&#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(area[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数组元素的添加与删除"><a href="#数组元素的添加与删除" class="headerlink" title="数组元素的添加与删除"></a>数组元素的添加与删除</h2><ul>
+<li><strong>添加数组元素</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">&#x27;Asa&#x27;</span>,<span class="string">&#x27;Taylor&#x27;</span>];</span><br><span class="line">arr[<span class="number">2</span>] = <span class="string">&#x27;Tom&#x27;</span>;</span><br><span class="line">arr[<span class="number">3</span>] =  <span class="string">&#x27;Jack&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr); </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>修改数组元素</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>];</span><br><span class="line">arr[<span class="number">2</span>] = <span class="number">123</span>;</span><br><span class="line">arr[<span class="number">3</span>] = <span class="number">456</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>元素的删除</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stu = [<span class="string">&#x27;Tom&#x27;</span>, <span class="string">&#x27;Jimmy&#x27;</span>, <span class="string">&#x27;Lucy&#x27;</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(stu);	</span><br><span class="line"><span class="comment">// 输出结果：(3) [&quot;Tom&quot;, &quot;Jimmy&quot;, &quot;Lucy&quot;]</span></span><br><span class="line"><span class="keyword">delete</span> stu[<span class="number">1</span>];  <span class="comment">// 删除数组中第2个元素</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(stu);	</span><br><span class="line"><span class="comment">// 输出结果：(3) [&quot;Tom&quot;, empty, &quot;Lucy&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h2><ul>
+<li><strong>创建二维数组</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用Array对象创建数组</span></span><br><span class="line"><span class="keyword">var</span> info = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="keyword">new</span> <span class="title class_">Array</span>(<span class="string">&#x27;Tom&#x27;</span>, <span class="number">13</span>, <span class="number">155</span>),<span class="keyword">new</span> <span class="title class_">Array</span>(<span class="string">&#x27;Lucy&#x27;</span>, <span class="number">11</span>, <span class="number">152</span>)  );</span><br><span class="line"><span class="comment">// 使用“[]”创建数组</span></span><br><span class="line"><span class="keyword">var</span> num = [[<span class="number">1</span>, <span class="number">3</span>], [<span class="number">2</span>, <span class="number">4</span>]];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>遍历二维数组</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用“[]”创建数组</span></span><br><span class="line"><span class="keyword">var</span> num = [[<span class="number">1</span>, <span class="number">3</span>], [<span class="number">2</span>, <span class="number">4</span>]];</span><br><span class="line"><span class="comment">//遍历数组</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i  <span class="keyword">in</span> num)&#123;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">var</span>  j  <span class="keyword">in</span>   num[i])&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(num[i][j]));</span><br><span class="line">   &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="常见数组方法"><a href="#常见数组方法" class="headerlink" title="常见数组方法"></a>常见数组方法</h2><h3 id="栈和队列方法"><a href="#栈和队列方法" class="headerlink" title="栈和队列方法"></a>栈和队列方法</h3><p>| 方法名称  | 功能描述                                                    |<br>| :——— :|: ———————————————————– :|<br>| <code>push()</code>   | 将一个或多个元素添加到数组的末尾，并返回数组的新长度。      |<br>| <code>unshift()</code> | 将一个或多个元素添加到数组的开头，并返回数组的新长度。      |<br>| <code>pop()</code>     | 从数组的末尾移出并返回一个元素，若是空数组则返回undefined。 |<br>| <code>shift()</code>   | 从数组的开头移出并返回一个元素，若是空数组则返回undefined。 |</p>
+<p><code>push()</code>和<code>unshift()</code>方法的返回值是新数组的长度。<br><code>pop()</code>和<code>shift()</code>方法返回的是移出的数组元素。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;原数组：&quot;</span> + arr);</span><br><span class="line"><span class="keyword">var</span> last = arr.<span class="title function_">pop</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;末尾元素：&quot;</span> + last + <span class="string">&quot;,移除后数组：&quot;</span> + arr);</span><br><span class="line"><span class="keyword">var</span> first = arr.<span class="title function_">shift</span>();</span><br><span class="line">arr.<span class="title function_">push</span>(<span class="number">5</span>);</span><br><span class="line">arr.<span class="title function_">unshift</span>(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="检索方法"><a href="#检索方法" class="headerlink" title="检索方法"></a>检索方法</h3><p>| 方法名称        | 功能描述                                                     |<br>| :————— :|: ————————————————————: |<br>| <code>includes()</code>      | 用于确定数组中是否含有某个元素，含有返回true，否则返回false。 |<br>| <code>Array.isArray()</code> | 用于确定传递的值是否是一个 Array，是返回true，不是返回false。 |<br>| <code>indexOf()</code>       | 返回在数组中可以找到给定值的第一个索引，如果不存在，则返回-1 |<br>| <code>lastIndexOf()</code>   | 返回指定元素在数组中的最后一个的索引，如果不存在则返回 -1    |</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;</span> <span class="string">&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/1999/xhtml&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html; charset=utf-8&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>无标题文档<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--首先：编写HTML页面，准备3个下拉菜单--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;sheng&quot;</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;-1&quot;</span>&gt;</span>请选择<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;shi&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">      select id=&quot;qu&quot;&gt;<span class="tag">&lt;/<span class="name">select</span>&gt;</span>        </span><br><span class="line">   <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//省份数组</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> shengArr=[<span class="string">&#x27;上海&#x27;</span>, <span class="string">&#x27;江苏&#x27;</span>, <span class="string">&#x27;河北&#x27;</span>];</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//市数组</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> shiArr = [</span></span><br><span class="line"><span class="language-javascript">         [<span class="string">&#x27;上海市&#x27;</span>],</span></span><br><span class="line"><span class="language-javascript">         [<span class="string">&#x27;苏州市&#x27;</span>, <span class="string">&#x27;南京市&#x27;</span>, <span class="string">&#x27;扬州市&#x27;</span>],</span></span><br><span class="line"><span class="language-javascript">         [<span class="string">&#x27;石家庄&#x27;</span>, <span class="string">&#x27;秦皇岛&#x27;</span>, <span class="string">&#x27;张家口&#x27;</span>]];</span></span><br><span class="line"><span class="language-javascript">         <span class="comment">//区数组 </span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> quArr=[</span></span><br><span class="line"><span class="language-javascript">         [</span></span><br><span class="line"><span class="language-javascript">            [<span class="string">&#x27;黄浦区&#x27;</span>, <span class="string">&#x27;静安区&#x27;</span>, <span class="string">&#x27;长宁区&#x27;</span>, <span class="string">&#x27;浦东区&#x27;</span>]</span></span><br><span class="line"><span class="language-javascript">         ], [</span></span><br><span class="line"><span class="language-javascript">            [<span class="string">&#x27;虎丘区&#x27;</span>, <span class="string">&#x27;吴中区&#x27;</span>, <span class="string">&#x27;相城区&#x27;</span>, <span class="string">&#x27;姑苏区&#x27;</span>, <span class="string">&#x27;吴江区&#x27;</span>],</span></span><br><span class="line"><span class="language-javascript">            [<span class="string">&#x27;玄武区&#x27;</span>, <span class="string">&#x27;秦淮区&#x27;</span>, <span class="string">&#x27;建邺区&#x27;</span>, <span class="string">&#x27;鼓楼区&#x27;</span>, <span class="string">&#x27;浦口区&#x27;</span>],</span></span><br><span class="line"><span class="language-javascript">            [<span class="string">&#x27;邗江区&#x27;</span>, <span class="string">&#x27;广陵区&#x27;</span>, <span class="string">&#x27;江都区&#x27;</span>]</span></span><br><span class="line"><span class="language-javascript">         ], [</span></span><br><span class="line"><span class="language-javascript">            [<span class="string">&#x27;长安区&#x27;</span>, <span class="string">&#x27;桥西区&#x27;</span>, <span class="string">&#x27;新华区&#x27;</span>, <span class="string">&#x27;井陉矿区&#x27;</span>],</span></span><br><span class="line"><span class="language-javascript">            [<span class="string">&#x27;海港区&#x27;</span>, <span class="string">&#x27;山海关区&#x27;</span>, <span class="string">&#x27;北戴河区&#x27;</span>, <span class="string">&#x27;抚宁区&#x27;</span>],</span></span><br><span class="line"><span class="language-javascript">            [<span class="string">&#x27;桥东区&#x27;</span>, <span class="string">&#x27;桥西区&#x27;</span>, <span class="string">&#x27;宣化区&#x27;</span>, <span class="string">&#x27;下花园区&#x27;</span>]</span></span><br><span class="line"><span class="language-javascript">            ]</span></span><br><span class="line"><span class="language-javascript">         ];</span></span><br><span class="line"><span class="language-javascript">       <span class="comment">//1. 定义函数，将data数组中的值，添加到obj这个select中</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">function</span> <span class="title function_">createOption</span>(<span class="params">obj,data</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">         <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> data)&#123;  <span class="comment">//遍历数组</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">var</span> op = <span class="keyword">new</span> <span class="title class_">Option</span>(data[i],i); <span class="comment">//创建Option，data[i]为显示的文本，i为value</span></span></span><br><span class="line"><span class="language-javascript">            obj.<span class="property">options</span>.<span class="title function_">add</span>(op); <span class="comment">//将Option（op）添加到Select（obj）</span></span></span><br><span class="line"><span class="language-javascript">         &#125; </span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//2.调用函数，设置省份下拉菜单的值</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> sheng = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;sheng&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">createOption</span>(sheng,shengArr);</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//3.调用函数，设置市下拉菜单的值 -- 联动</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> shi = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;shi&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">      sheng.<span class="property">onchange</span>=<span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">         <span class="comment">//清空市原有数据</span></span></span><br><span class="line"><span class="language-javascript">         shi.<span class="property">options</span>.<span class="property">length</span> = <span class="number">0</span>;</span></span><br><span class="line"><span class="language-javascript">         <span class="comment">//调用函数，设置市下拉菜单，注意下标为当前省的value</span></span></span><br><span class="line"><span class="language-javascript">         <span class="title function_">createOption</span>(shi,shiArr[sheng.<span class="property">value</span>]); </span></span><br><span class="line"><span class="language-javascript">         <span class="comment">//5.省修改时，市修改（代码如上），区也应该随着修改，即需要调用第四步的函数</span></span></span><br><span class="line"><span class="language-javascript">         <span class="keyword">if</span>(sheng.<span class="property">value</span>!=-<span class="number">1</span>)&#123;  <span class="comment">//编码严谨，考虑省选择的“请选择”，此时：区清空</span></span></span><br><span class="line"><span class="language-javascript">            shi.<span class="title function_">onchange</span>();</span></span><br><span class="line"><span class="language-javascript">         &#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="language-javascript">            qu.<span class="property">options</span>.<span class="property">length</span>=<span class="number">0</span>;</span></span><br><span class="line"><span class="language-javascript">         &#125;</span></span><br><span class="line"><span class="language-javascript">			</span></span><br><span class="line"><span class="language-javascript">         &#125;</span></span><br><span class="line"><span class="language-javascript">       <span class="comment">//4.调用函数，设置区下拉菜单的值 -- 联动</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> qu = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;qu&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">      shi.<span class="property">onchange</span>=<span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">         <span class="comment">//清空区原有数据</span></span></span><br><span class="line"><span class="language-javascript">         qu.<span class="property">options</span>.<span class="property">length</span> = <span class="number">0</span>;</span></span><br><span class="line"><span class="language-javascript">         <span class="comment">//调用函数，设置区下拉菜单，注意下标为：一维sheng.value，二维shi.value</span></span></span><br><span class="line"><span class="language-javascript">         <span class="title function_">createOption</span>(qu,quArr[sheng.<span class="property">value</span>][shi.<span class="property">value</span>]); </span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">   </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2020/12/21/f6cf616aa5f5f1adb55466e6efc8449c.png"></p>
+<h1 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h1><h2 id="Map集合"><a href="#Map集合" class="headerlink" title="Map集合"></a>Map集合</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ES6 Map</span></span><br><span class="line"><span class="comment">//学生的成绩，学生的名字</span></span><br><span class="line"><span class="comment">//var name = [&quot;tom&quot;,&quot;jack&quot;,&quot;haha&quot;];</span></span><br><span class="line"><span class="comment">//var score = [100,90,80];</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"> &#x27;use strict&#x27;</span></span><br><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="title class_">Map</span>([<span class="string">&#x27;tom&#x27;</span>,<span class="number">100</span>],[<span class="string">&#x27;jack&#x27;</span>,<span class="number">90</span>],[<span class="string">&#x27;haha&#x27;</span>,<span class="number">80</span>])</span><br><span class="line"><span class="keyword">var</span> name = mapp.<span class="title function_">get</span>(<span class="string">&#x27;tom&#x27;</span>) <span class="comment">//通过key获得value</span></span><br><span class="line">map.<span class="title function_">set</span>(<span class="string">&#x27;admin&#x27;</span>,<span class="number">123</span>); <span class="comment">//增加一个值</span></span><br><span class="line">map.<span class="title function_">delete</span>(<span class="string">&quot;tom&quot;</span>); <span class="comment">//删除一个值</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(name); </span><br></pre></td></tr></table></figure>
+
+<h2 id="Set集合"><a href="#Set集合" class="headerlink" title="Set集合"></a>Set集合</h2><ul>
+<li>Set：无序不重复的集合</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span></span><br><span class="line"><span class="keyword">var</span> set = <span class="keyword">new</span> <span class="title function_">set</span>([<span class="number">3</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]); <span class="comment">//set可以去重</span></span><br><span class="line">set.<span class="title function_">add</span>(<span class="number">2</span>)  <span class="comment">//添加</span></span><br><span class="line">set.<span class="title function_">delete</span>(<span class="number">1</span>)  <span class="comment">//删除</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(set.<span class="title function_">has</span>(<span class="number">3</span>)) <span class="comment">//判断存在3</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h2><ul>
+<li>遍历数组</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"> &#x27;use strict&#x27;</span></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> x <span class="keyword">in</span> arr)&#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(x) <span class="comment">//打印出下标</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> x <span class="keyword">of</span> arr)&#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(x) <span class="comment">//打印出具体的值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/19/be1bb13cb4b2af477a97f0b11b92d691.png"></p>
+<ul>
+<li>遍历map</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"> &#x27;use strict&#x27;</span></span><br><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="title class_">Map</span>([<span class="string">&#x27;tom&#x27;</span>,<span class="number">100</span>],[<span class="string">&#x27;jack&#x27;</span>,<span class="number">90</span>],[<span class="string">&#x27;haha&#x27;</span>,<span class="number">80</span>])</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> x <span class="keyword">of</span> map)&#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>遍历set</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> set = <span class="keyword">new</span> <span class="title class_">Set</span>([<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>])</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> x <span class="keyword">of</span> set)&#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/83c6151e.html">http://xiaoliblog.cn/posts/83c6151e.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/3e46751c.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>JavaScript中的正则表达式</div>
+      <div class="prev-desc">正则表达式
+正则表达式查询网站I Hate Regex
+什么是正则表达式  正则表达式（Regular Expression，简称regexp）
+概念：是一种描述字符串结构的语法规则（描述字符串特征）
+作用：用于验证各种字符串是否匹配这个特征。
+应用：在项目开发中，手机号码指定位数的隐藏、数据采集、敏感词的过滤以...</div>
+    </a>
+    
+    
+    <a href="/posts/c669ec21.html">
+      <div class="next-title">JavaScript中的函数<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">函数
+函数封装一段完成特定功能的代码。
+
+12345678910function 函数名([参数1, 参数2, ……])&amp;#123;   函数体……&amp;#125;function maxNum(a, b) &amp;#123;   a =  parseInt(a);   b =  parseInt(b);   return...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E7%BB%84"><span class="toc-text">创建数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6"><span class="toc-text">获取数组长度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-text">数组的遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E6%B7%BB%E5%8A%A0%E4%B8%8E%E5%88%A0%E9%99%A4"><span class="toc-text">数组元素的添加与删除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="toc-text">二维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95"><span class="toc-text">常见数组方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E6%96%B9%E6%B3%95"><span class="toc-text">栈和队列方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E7%B4%A2%E6%96%B9%E6%B3%95"><span class="toc-text">检索方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-text">集合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Map%E9%9B%86%E5%90%88"><span class="toc-text">Map集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Set%E9%9B%86%E5%90%88"><span class="toc-text">Set集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%8D%E5%8E%86"><span class="toc-text">遍历</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

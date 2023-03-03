@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>使用PicGo搭建GitHub图床 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="GitHub图床 GitHub 图床是个不错的选择，利用 jsDelivr CDN 加速访问（jsDelivr 是一个免费开源的 CDN 解决方案），PicGo 工具一键上传，操作简单高效，GitHub 和 jsDelivr 都是大厂，不用担心跑路问题，不用担心速度和容量问题，而且完全免费，可以说是目前免费图床的最佳解决方案！  须知  需要绑定GitHub账户 需要将 token 信息上传给后台">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用PicGo搭建GitHub图床">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/e3be51ac.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="GitHub图床 GitHub 图床是个不错的选择，利用 jsDelivr CDN 加速访问（jsDelivr 是一个免费开源的 CDN 解决方案），PicGo 工具一键上传，操作简单高效，GitHub 和 jsDelivr 都是大厂，不用担心跑路问题，不用担心速度和容量问题，而且完全免费，可以说是目前免费图床的最佳解决方案！  须知  需要绑定GitHub账户 需要将 token 信息上传给后台">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:55.978Z">
+<meta property="article:modified_time" content="2023-03-03T03:30:26.335Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>使用PicGo搭建GitHub图床</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">453 | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>1分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="GitHub图床"><a href="#GitHub图床" class="headerlink" title="GitHub图床"></a>GitHub图床</h1><ul>
+<li><p>GitHub 图床是个不错的选择，利用 jsDelivr CDN 加速访问（jsDelivr 是一个免费开源的 CDN 解决方案），PicGo 工具一键上传，操作简单高效，GitHub 和 jsDelivr 都是大厂，不用担心跑路问题，不用担心速度和容量问题，而且完全免费，可以说是目前免费图床的最佳解决方案！</p>
+</li>
+<li><p>须知</p>
+<ul>
+<li>需要绑定GitHub账户</li>
+<li>需要将 token 信息上传给后台</li>
+</ul>
+</li>
+</ul>
+<h2 id="创建图片仓库"><a href="#创建图片仓库" class="headerlink" title="创建图片仓库"></a>创建图片仓库</h2><ul>
+<li>登录&#x2F;注册GitHub，新建一个仓库，填写好仓库名（我创建的是<code>image</code>仓库名，与图片不符），仓库描述，根据需求选择是否为仓库初始化一个README.md描述文件</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20210704161837.png"></p>
+<ul>
+<li>生成一个有 repo 权限的 GitHub Token</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/25/73af184774df3678594d35ea2a2ec5a1.png"></p>
+<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20210704161926.png"></p>
+<h2 id="PicGo图床配置"><a href="#PicGo图床配置" class="headerlink" title="PicGo图床配置"></a>PicGo图床配置</h2><ul>
+<li><p>GitHub项目请戳<a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo">这里</a>，图床工具的下载链接可以在 <code>README </code>中获取。</p>
+</li>
+<li><p>因为国内下载速度很慢，不限速蓝奏云链接戳<a target="_blank" rel="noopener" href="https://wws.lanzous.com/i9rmAkd54jg">密码:hvdu</a></p>
+</li>
+<li><p>配置参数如下</p>
+</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20210704162237.png"></p>
+<h2 id="Typora配置"><a href="#Typora配置" class="headerlink" title="Typora配置"></a>Typora配置</h2><ul>
+<li>Typora配置好PicGo图床后，方便图片在线存储</li>
+<li>点击软件工具栏，文件 –&gt; 偏好设置 –&gt; 图像 –&gt; 配置picgo</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image@0cf5100c69450926ca96de1b0166e204bb96bca6/2021/04/25/b574ca28eacb28d8c252f5212d1a7c49.png"></p>
+<ul>
+<li>可以看到127.0.0.1后面有个端口号36677，这个端口号一定要和picgo里面设置的端口号要一致！否则上传不成功！</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image@ec1dd9983822278eab43717f0023111b2afa6e68/2021/04/25/8e05f1f272c28e76d9dbf59972eb0f08.png"></p>
+<h1 id="其他图床"><a href="#其他图床" class="headerlink" title="其他图床"></a>其他图床</h1><ul>
+<li>我个人使用的是阿里云对象存储OSS搭建的图床，其上传速度更快，详情参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43571641/article/details/126534731">https://blog.csdn.net/weixin_43571641/article/details/126534731</a></li>
+<li>如果不想下PicGO软件，也可以通过配置网上在线图床。推荐：<a target="_blank" rel="noopener" href="https://picx.xpoet.cn/">https://picx.xpoet.cn/</a> ，只需创建GitHub参考和获取Token即可在线上传。可以生成并复制Jsdelive加速的CDN链接</li>
+<li>还有其他图床网站<ul>
+<li>在线免费图床：<a target="_blank" rel="noopener" href="https://sm.ms/">https://sm.ms/</a></li>
+<li>图壳图床：<a target="_blank" rel="noopener" href="https://imgkr.com/">https://imgkr.com/</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/e3be51ac.html">http://xiaoliblog.cn/posts/e3be51ac.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/71de2b5a.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Hexo博客部署到阿里云服务器</div>
+      <div class="prev-desc">前言
+最近学Linux特意搞了一个阿里云轻量级服务器，服务器购买及宝塔配置
+虽然只有三个月到期，就想着把博客部署到服务器试试，新手部署服务器最常见的方法就是：直接把本地生成的public中的文件，直接ftp到服务器www根目录，简单粗暴
+还有一种更优雅地方式，那就是直接在服务器上搭建git仓库，hexo三连直接d...</div>
+    </a>
+    
+    
+    <a href="/posts/d7965b48.html">
+      <div class="next-title">Hexo+GitHub搭建个人博客<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">背景知识
+什么是GitHub？
+
+GitHub Pages 是由 GitHub 官方提供的一种免费的静态站点托管服务，让我们可以在 GitHub 仓库里托管和发布自己的静态网站页面。
+About GitHub Pages
+
+
+什么是Hexo？
+
+Hexo 是一个快速、简洁且高效的静态博客框架，它基于 Node.j...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#GitHub%E5%9B%BE%E5%BA%8A"><span class="toc-text">GitHub图床</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9B%BE%E7%89%87%E4%BB%93%E5%BA%93"><span class="toc-text">创建图片仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PicGo%E5%9B%BE%E5%BA%8A%E9%85%8D%E7%BD%AE"><span class="toc-text">PicGo图床配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Typora%E9%85%8D%E7%BD%AE"><span class="toc-text">Typora配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%9B%BE%E5%BA%8A"><span class="toc-text">其他图床</span></a></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

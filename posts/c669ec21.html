@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>JavaScript中的函数 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="函数 函数封装一段完成特定功能的代码。  12345678910function 函数名([参数1, 参数2, ……])&amp;#123;   函数体……&amp;#125;function maxNum(a, b) &amp;#123;   a &#x3D;  parseInt(a);   b &#x3D;  parseInt(b);   return a &gt;&#x3D; b ? a : b;&amp;#125;  1234567891011121">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript中的函数">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/c669ec21.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="函数 函数封装一段完成特定功能的代码。  12345678910function 函数名([参数1, 参数2, ……])&amp;#123;   函数体……&amp;#125;function maxNum(a, b) &amp;#123;   a &#x3D;  parseInt(a);   b &#x3D;  parseInt(b);   return a &gt;&#x3D; b ? a : b;&amp;#125;  1234567891011121">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.132Z">
+<meta property="article:modified_time" content="2023-03-03T03:59:03.633Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>JavaScript中的函数</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">806 | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>3分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><ul>
+<li>函数封装一段完成特定功能的代码。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> 函数名([参数<span class="number">1</span>, 参数<span class="number">2</span>, ……])</span><br><span class="line">&#123;</span><br><span class="line">   函数体……</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">maxNum</span>(<span class="params">a, b</span>) </span><br><span class="line">&#123;</span><br><span class="line">   a =  <span class="built_in">parseInt</span>(a);</span><br><span class="line">   b =  <span class="built_in">parseInt</span>(b);</span><br><span class="line">   <span class="keyword">return</span> a &gt;= b ? a : b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>大小写转换<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>大小写转换<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>原数据:<span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">&quot;old&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>操<span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;nbsp;</span>作<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;转大写&quot;</span> <span class="attr">onClick</span>=<span class="string">&quot;deal(&#x27;upper&#x27;)&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;转小写&quot;</span> <span class="attr">onClick</span>=<span class="string">&quot;deal(&#x27;lower&#x27;)&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>新数据:<span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">&quot;new&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">function</span> <span class="title function_">deal</span>(<span class="params">opt</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">   <span class="keyword">var</span> str=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;old&#x27;</span>).<span class="property">value</span>; <span class="comment">//取元数据的值</span></span></span><br><span class="line"><span class="language-javascript">   <span class="keyword">switch</span>(opt)&#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">case</span> <span class="string">&#x27;upper&#x27;</span>:</span></span><br><span class="line"><span class="language-javascript">         str=str.<span class="title function_">toUpperCase</span>();</span></span><br><span class="line"><span class="language-javascript">         <span class="keyword">break</span>;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">case</span> <span class="string">&#x27;lower&#x27;</span>:</span></span><br><span class="line"><span class="language-javascript">         str=str.<span class="title function_">toLowerCase</span>();</span></span><br><span class="line"><span class="language-javascript">         <span class="keyword">break</span>;</span></span><br><span class="line"><span class="language-javascript">   &#125;</span></span><br><span class="line"><span class="language-javascript">   <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;new&#x27;</span>).<span class="property">value</span>=str;</span></span><br><span class="line"><span class="language-javascript">   &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2020/12/21/966bae02db2b5af925719320b9082bfd.png"></p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><ul>
+<li>开发时若不能确定函数的形参个数，可以不设置形参；之后通过<code>arguments</code>对象获取调用时传递的实参。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>);</span><br><span class="line">   <span class="keyword">var</span> sum=<span class="number">0</span>;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> <span class="variable language_">arguments</span>)&#123;</span><br><span class="line">      sum+=<span class="variable language_">arguments</span>[i];</span><br><span class="line">   &#125;</span><br><span class="line">      <span class="keyword">return</span> sum;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="variable language_">document</span>.<span class="title function_">write</span>(<span class="title function_">sum</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h2><ul>
+<li><code>全局变量</code>：函数外声明，或者函数内省略var声明；</li>
+<li><code>局部变量</code>：函数体内用var声明。</li>
+<li><code>块级变量</code>：ES6提供的let关键字声明，仅在”{}”内有效。</li>
+</ul>
+<h1 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h1><ul>
+<li>匿名函数指没有函数名称的函数，可以避免全局变量的污染以及函数名的冲突问题。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方式1：函数表达式中省略函数名</span></span><br><span class="line"><span class="keyword">var</span> fn=<span class="keyword">function</span>(<span class="params">num1,num2</span>)</span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">return</span> num1+num2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="title function_">fn</span>(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//方式2：自调用方式</span></span><br><span class="line">(<span class="keyword">function</span> (<span class="params">num1,num2</span>)&#123;</span><br><span class="line">   <span class="keyword">return</span> num1+num2;</span><br><span class="line">&#125;)(<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//方式3：处理事件</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">onclick</span>=<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="title function_">alert</span>(<span class="string">&#x27;Hi&#x27;</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h1><ul>
+<li>回调函数指一个函数A作为参数传递给一个函数B，然后在B的函数体内调用函数A，称A为回调函数。其中，匿名函数常作为函数的参数传递，实现回调函数。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">   <span class="keyword">function</span> <span class="title function_">cal</span>(<span class="params">num1,num2,fn</span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">fn</span>(num1,num2);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">cal</span>(<span class="number">10</span>,<span class="number">20</span>,<span class="keyword">function</span>(<span class="params">a,b</span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> a+b;</span><br><span class="line">      &#125;)</span><br><span class="line">   );</span><br><span class="line"></span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">cal</span>(<span class="number">10</span>,<span class="number">20</span>,<span class="keyword">function</span>(<span class="params">a,b</span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> a*b;</span><br><span class="line">      &#125;)</span><br><span class="line">   );</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="闭包函数"><a href="#闭包函数" class="headerlink" title="闭包函数"></a>闭包函数</h1><ul>
+<li>JavaScript中内部函数可引用外部函数的变量，但是在函数外部则不能访问函数的内部变量和嵌套函数，此时就需要使用”闭包“。</li>
+<li>”闭包“指有权访问另一函数作用域内变量(局部变量)的函数。它主要的用途是以下两点：<ol>
+<li>可以在函数外部读取函数内部的变量</li>
+<li>可以让变量的值始终保持在内存中</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="keyword">var</span> times=<span class="number">0</span>;</span><br><span class="line">   <span class="keyword">var</span> c=<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> ++times;</span><br><span class="line">   &#125;;</span><br><span class="line">      <span class="keyword">return</span> c;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">var</span> count=<span class="title function_">fn</span>();  <span class="comment">//保存fn()返回的函数，此时count就是一个闭包</span></span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">count</span>());</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">count</span>());</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">count</span>());</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">count</span>());</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">count</span>());</span><br><span class="line"><span class="comment">//使用闭包函数实现了在全局作用域中访问局部变量times，并让其始终存储在内存中</span></span><br><span class="line"><span class="comment">//运行结果：1，2，3，4，5</span></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/c669ec21.html">http://xiaoliblog.cn/posts/c669ec21.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/83c6151e.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>JavaScript中的数组</div>
+      <div class="prev-desc">数组创建数组1234567891011// 元素值类型为字符串var area = new Array(&amp;#x27;Beijing&amp;#x27;, &amp;#x27;Shanghai&amp;#x27;, &amp;#x27;Shenzhen&amp;#x27;);// 元素值类型为数值型var score = new Array(56, 68...</div>
+    </a>
+    
+    
+    <a href="/posts/297cf3ed.html">
+      <div class="next-title">JavaScript中的对象<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">对象
+面向对象的特征主要可以概括为封装性、继承性、多态性。
+
+自定义对象字面量{}创建对象1234567891011 var o1=&amp;#123;&amp;#125;; var o2=&amp;#123;name:&amp;#x27;Jim&amp;#x27;&amp;#125;; var o3=&amp;#123;name:&amp;#x27;Jim&amp;#x27;,ag...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0"><span class="toc-text">参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">变量的作用域</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="toc-text">匿名函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-text">回调函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AD%E5%8C%85%E5%87%BD%E6%95%B0"><span class="toc-text">闭包函数</span></a></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

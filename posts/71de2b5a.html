@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Hexo博客部署到阿里云服务器 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="前言 最近学Linux特意搞了一个阿里云轻量级服务器，服务器购买及宝塔配置 虽然只有三个月到期，就想着把博客部署到服务器试试，新手部署服务器最常见的方法就是：直接把本地生成的public中的文件，直接ftp到服务器www根目录，简单粗暴 还有一种更优雅地方式，那就是直接在服务器上搭建git仓库，hexo三连直接deploy上去（跟搭建在github pages上的方式一样）&#96; 详情请参考《">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客部署到阿里云服务器">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/71de2b5a.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="前言 最近学Linux特意搞了一个阿里云轻量级服务器，服务器购买及宝塔配置 虽然只有三个月到期，就想着把博客部署到服务器试试，新手部署服务器最常见的方法就是：直接把本地生成的public中的文件，直接ftp到服务器www根目录，简单粗暴 还有一种更优雅地方式，那就是直接在服务器上搭建git仓库，hexo三连直接deploy上去（跟搭建在github pages上的方式一样）&#96; 详情请参考《">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:55.990Z">
+<meta property="article:modified_time" content="2023-03-03T03:28:29.657Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Hexo博客部署到阿里云服务器</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">1.8k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>7分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>最近学Linux特意搞了一个阿里云轻量级服务器，服务器购买及宝塔配置</li>
+<li>虽然只有三个月到期，就想着把博客部署到服务器试试，新手部署服务器最常见的方法就是：直接把本地生成的<code>public</code>中的文件，直接ftp到服务器<code>www</code>根目录，简单粗暴</li>
+<li>还有一种更优雅地方式，那就是直接在服务器上搭建<code>git</code>仓库，hexo三连直接<code>deploy</code>上去（跟搭建在github pages上的方式一样）&#96;</li>
+<li>详情请参考《Hexo 部署至云服务器（宝塔面板） 》：<a target="_blank" rel="noopener" href="https://www.heson10.com/posts/51315.html">https://www.heson10.com/posts/51315.html</a></li>
+</ul>
+<h1 id="部署教程"><a href="#部署教程" class="headerlink" title="部署教程"></a>部署教程</h1><ul>
+<li>服务器安装宝塔面板</li>
+<li>创建git仓库，并配置git钩子，自动同步文件到网站目录</li>
+<li>配置网站访问设置</li>
+<li>本地<code>git deploy</code>设置</li>
+</ul>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>云服务安装宝塔面板：<a href="https://xiaoliblog.cn/page/server.html">https://xiaoliblog.cn/page/server.html</a></li>
+<li>本地生成ssh密钥备用，已有可忽略</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;GitHub用户名&quot;</span><br><span class="line">git config --global user.email &quot;GitHub的邮箱&quot;</span><br><span class="line">ssh-keygen -t rsa -C &quot;GitHub的邮箱&quot;</span><br><span class="line">git config --global core.autocrlf false  # 禁用自动转换，这个不设置后面上传时会出现警告</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>id_ras.pub</code>存放路径在Win10下是<code>C:\Users\电脑自定义名\.ssh</code>下</p>
+</blockquote>
+<h2 id="连接服务器终端"><a href="#连接服务器终端" class="headerlink" title="连接服务器终端"></a>连接服务器终端</h2><ul>
+<li>宝塔面板用户可直接左侧导航栏终端登录</li>
+<li>也可以使用XShell远程连接服务器</li>
+<li>切换到<code>root</code>账号·</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su root</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装<code>git</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git --version # 没有就安装</span><br><span class="line">yum install git</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建Git账户"><a href="#创建Git账户" class="headerlink" title="创建Git账户"></a>创建Git账户</h2><ul>
+<li>创建Git账户并赋予权限</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adduser git</span><br><span class="line">chmod 740 /etc/sudoers</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编辑<code>/etc/sudoers/</code>文件·</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sudoers</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>按<code>i</code>进入编辑模式，找到<code>root ALL=(ALL) ALL</code>，在其下方加入：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git ALL=(ALL) ALL</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image@723c636ea666a4fe8cf3bd13adeff2fab7f207e0/2021/04/25/6da48715c63de61d7cb0042f1cc6d3aa.png"></p>
+<ul>
+<li>输入完成后按<code>esc</code>，再输入<code>:wq</code>，保存退出。</li>
+<li>更改<code>/etc/sudoers</code>权限</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 400 /etc/sudoers</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置git账户密码 <pwd>li19991112</pwd></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd git</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>输入密码，输入的时候是看不到任何显示的，输完回车即可。</li>
+<li>切换至 <code>git 用户</code>，创建 <code>~/.ssh</code> 文件夹和 <code>~/.ssh/authorized_keys</code> 文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su git</span><br><span class="line">mkdir ~/.ssh</span><br><span class="line">vim ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>同样<code>i</code>进入编辑模式，把之前本地准备的<code>id_rsa.pub</code>文件中的公钥复制进去，按<code>esc</code>后，输入<code>:wq</code>保存</li>
+<li>更改权限</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 /home/git/.ssh/authorized_keys</span><br><span class="line">chmod 700 /home/git/.ssh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>本地右击桌面输入git Bash测试</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -v git@服务器ip地址或域名</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/blog/20210704105924.png"></p>
+<blockquote>
+<p>注：此时的 ssh 登录 git 用户输入设置的密码后不报错就可以！</p>
+</blockquote>
+<h2 id="创建git仓库"><a href="#创建git仓库" class="headerlink" title="创建git仓库"></a>创建git仓库</h2><ul>
+<li>切换为<code>root</code>用户</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su root</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建<code>repo</code>作为仓库目录，并加权限</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /var/repo</span><br><span class="line">chown -R git:git /var/repo</span><br><span class="line">chmod -R 755 /var/repo</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建 <code>hexo</code> 目录作为网站根目录</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /var/hexo</span><br><span class="line">chown -R git:git /var/hexo</span><br><span class="line">chmod -R 755 /var/hexo</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建一个空白的 git 仓库</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/repo</span><br><span class="line">git init --bare hexo.git</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编辑一个<code> Git 钩子</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /var/repo/hexo.git/hooks/post-receive</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>按<code>i</code>进入编辑模式，添加下面的代码，按<code>esc</code>输入<code>:wq </code>保存</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">git --work-tree=/var/hexo --git-dir=/var/repo/hexo.git checkout -f</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>更改权限</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown -R git:git /var/repo/hexo.git/hooks/post-receive</span><br><span class="line">chmod +x /var/repo/hexo.git/hooks/post-receive</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="宝塔网站配置"><a href="#宝塔网站配置" class="headerlink" title="宝塔网站配置"></a>宝塔网站配置</h2><ul>
+<li>创建一个网站</li>
+</ul>
+<img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image@abec0893d2a7df7affe4685c1a678cd7db275d53/2021/04/25/a4483b90b74e9f9456dcf0310927bbc1.png" width=70%>
+
+<h2 id="本地Hexo设置"><a href="#本地Hexo设置" class="headerlink" title="本地Hexo设置"></a>本地Hexo设置</h2><ul>
+<li>安装git部署插件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在博客根目录配置</li>
+</ul>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@服务器ip或域名:/var/repo/hexo.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置完成后，可直接hexo三连到自己的服务器。简单快捷</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo cl</span><br><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20210709191755.png"></p>
+<ul>
+<li>如果出现权限问题，在服务器终端输入</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chown</span> -R git:git /var/repo/</span><br><span class="line"><span class="built_in">chown</span> -R git:git /var/hexo/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最后可以看到部署到服务器上了</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/blog/20210704113432.png"></p>
+<h1 id="安全防护"><a href="#安全防护" class="headerlink" title="安全防护"></a>安全防护</h1><ul>
+<li>一般网站遭遇的攻击类型有CC、DDOS、SQL注入、DNS劫持等。那么我遭遇攻击恶搞时就需要采取一些措施</li>
+<li>首先最直接的方法就是购买高防服务器，但价格都比较贵</li>
+<li>或者可以给网站套CDN，达到隐藏IP的效果，这样别人就找不到你的服务器IP自然就攻击不到了，同时CDN还可以加速网站的访问速度。但是启用CDN后应注意合理的设置流量和请求阈值。如果不设置阈值的话，遭遇恶意请求刷流量等，可能会造成流量费用。一般大点的网站遭遇严重的后果，可能会损失一套房</li>
+<li>所以介绍以下比较实用而又不烧钱的方法</li>
+</ul>
+<h2 id="证书配置"><a href="#证书配置" class="headerlink" title="证书配置"></a>证书配置</h2><ul>
+<li>记得域名DNS解析IP地址要指向服务器IP</li>
+<li>可以在阿里云申请免费证书，然后在宝塔面板【网站】-&gt;【设置】-&gt;【其他证书】，复制证书的key和pem即可</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/blog/20210704113842.png"></p>
+<h2 id="Nginx防火墙"><a href="#Nginx防火墙" class="headerlink" title="Nginx防火墙"></a>Nginx防火墙</h2><ul>
+<li>在宝塔面板开启NGINX防火墙，可以在软件商店搜索下载</li>
+<li>安装后找到NGINX防火墙并打开站点配置</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20210709191601.png"></p>
+<ul>
+<li>然后打开防火墙开关并点击cc防御设置</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20210709191641.png"></p>
+<ul>
+<li>根据实际情况配置参数</li>
+</ul>
+<img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20210709191658.png" width=50%>
+
+<h2 id="禁止ping-IP"><a href="#禁止ping-IP" class="headerlink" title="禁止ping IP"></a>禁止ping IP</h2><ul>
+<li>禁止ping IP也可以提高网站的安全性</li>
+<li>登录Linux服务器运行下面的指令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 禁止ping IP</span></span><br><span class="line"><span class="built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all</span><br><span class="line"><span class="comment"># 恢复</span></span><br><span class="line"><span class="built_in">echo</span> 0 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>或者在宝塔面板也可以直接设置</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20210709190638.png"></p>
+<ul>
+<li>试着ping一下发现ping不通了，出现请求超时</li>
+</ul>
+<h2 id="禁止IP访问"><a href="#禁止IP访问" class="headerlink" title="禁止IP访问"></a>禁止IP访问</h2><ul>
+<li>意识到可以直接通过IP地址访问网站，这很容易被人恶意解析。恶意解析是指有人通过域名 A 记录直接解析自己 IP 地址，从而得到一个在访问者眼中完全相同网站，也会造成搜索引擎收录别人的域名</li>
+<li>原理是什么呢？简单解释就是，你的网站可以通过 IP 直接访问，本来这没什么问题，但是如果被人恶意用别的域名解析到你的 IP 的话，那么你的网站就能通过别人的域名来访问了</li>
+<li>VPS 服务器的 IP 如果被别人恶意绑定，流量就会被劫持到别的域名，从而遭到广告联盟的封杀。因为广告联盟肯定也是跟域名绑定的，被人这么一搞，时间一长肯定会被发现域名不符，于是就 GG 了</li>
+<li>首先在宝塔面板点击【网站】，然后点击【默认站点】，绑定一个默认站点，也就是找一个空闲不用的站点，所有未在面板绑定的域名都会访问到这个默认站点</li>
+</ul>
+<img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20210709194538.png" width=50%>
+
+<ul>
+<li>添加好默认站点以后，修改站点的Nginx配置文件。新版宝塔的网站配置文件不是Nginx了，其配置文件在<code>/www/server/panel/vhost/nginx</code>下</li>
+<li>在<code>server</code>中模块下进行判断，修改成以下代码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server</span><br><span class="line">&#123;</span><br><span class="line">    listen 80 default_server;</span><br><span class="line">    server_name 网站域名;</span><br><span class="line">    if ($host = &#x27;你的网站IP地址&#x27;)&#123;</span><br><span class="line">        return 403;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20210709195039.png"></p>
+<ul>
+<li>配置以后通过IP地址访问就会报403错误</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://cdn.jsdelivr.net/gh/xiaoliblog/image/BlogImage/20210709195103.png"></p>
+<h2 id="404页面配置"><a href="#404页面配置" class="headerlink" title="404页面配置"></a>404页面配置</h2><ul>
+<li>Nginx默认配置了404页面，但比较丑，我们可以自定义一个404页面放在网站根目录下</li>
+<li>然后修改Nginx的配置文件，找到以下语句。如果被注释了请删掉注释，如果没有请添加</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error_page 404 /404.html;</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/71de2b5a.html">http://xiaoliblog.cn/posts/71de2b5a.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/23d1c970.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>前端三剑客之文本样式</div>
+      <div class="prev-desc">结构化元素结构化元素就是指 HTML 元素中具有明确含义和作用的元素，例如元素表示段落。相对于 HTML 4.01 版本而言，HTML5 版本新增了一系列结构化元素
+
+
+
+名称
+代码
+
+
+
+标题元素
+&amp;lt;h1&amp;gt;~&amp;lt;h6&amp;gt;
+
+
+段落元素
+&amp;lt;p&amp;gt;
+
+
+粗体元素
+&amp;lt;b&amp;gt;
+
+...</div>
+    </a>
+    
+    
+    <a href="/posts/e3be51ac.html">
+      <div class="next-title">使用PicGo搭建GitHub图床<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">GitHub图床
+GitHub 图床是个不错的选择，利用 jsDelivr CDN 加速访问（jsDelivr 是一个免费开源的 CDN 解决方案），PicGo 工具一键上传，操作简单高效，GitHub 和 jsDelivr 都是大厂，不用担心跑路问题，不用担心速度和容量问题，而且完全免费，可以说是目前免费图床的...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B"><span class="toc-text">部署教程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BB%88%E7%AB%AF"><span class="toc-text">连接服务器终端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAGit%E8%B4%A6%E6%88%B7"><span class="toc-text">创建Git账户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAgit%E4%BB%93%E5%BA%93"><span class="toc-text">创建git仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9D%E5%A1%94%E7%BD%91%E7%AB%99%E9%85%8D%E7%BD%AE"><span class="toc-text">宝塔网站配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0Hexo%E8%AE%BE%E7%BD%AE"><span class="toc-text">本地Hexo设置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4"><span class="toc-text">安全防护</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%81%E4%B9%A6%E9%85%8D%E7%BD%AE"><span class="toc-text">证书配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-text">Nginx防火墙</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%81%E6%AD%A2ping-IP"><span class="toc-text">禁止ping IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%81%E6%AD%A2IP%E8%AE%BF%E9%97%AE"><span class="toc-text">禁止IP访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#404%E9%A1%B5%E9%9D%A2%E9%85%8D%E7%BD%AE"><span class="toc-text">404页面配置</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

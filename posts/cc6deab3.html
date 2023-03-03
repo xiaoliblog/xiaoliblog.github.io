@@ -21,16 +21,16 @@
 
 
 
-<meta name="description" content="Vue简介 Vue是一个渐进式的JavaScript框架，只注重视图层，结合了HTML+CSS+JS，非常的易用，并且有很好的生态系统。而且Vue体积很小，速度很快，优化很到位  可以用来简化Dom操作和响应式数据驱动。采用组件化模式，提高代码复用率、且让代码更好维护  声明式编码，让编码人员无需直接操作DOM，提高开发效率  官方文档：https:&#x2F;&#x2F;cn.vuejs.org&#x2F;  民间文档：ht">
+<meta name="description" content="Vue简介 Vue是一个渐进式的JavaScript框架，只注重视图层，结合了HTML+CSS+JS，非常的易用，并且有很好的生态系统。而且Vue体积很小，速度很快，优化很到位 可以用来简化Dom操作和响应式数据驱动。采用组件化模式，提高代码复用率、且让代码更好维护 声明式编码，让编码人员无需直接操作DOM，提高开发效率    官方文档：https:&#x2F;&#x2F;cn.vuejs.org&#x2F; 民间文档：htt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="01-Vue简介及其核心特性">
 <meta property="og:url" content="http://xiaoliblog.cn/posts/cc6deab3.html">
 <meta property="og:site_name" content="小李博客">
-<meta property="og:description" content="Vue简介 Vue是一个渐进式的JavaScript框架，只注重视图层，结合了HTML+CSS+JS，非常的易用，并且有很好的生态系统。而且Vue体积很小，速度很快，优化很到位  可以用来简化Dom操作和响应式数据驱动。采用组件化模式，提高代码复用率、且让代码更好维护  声明式编码，让编码人员无需直接操作DOM，提高开发效率  官方文档：https:&#x2F;&#x2F;cn.vuejs.org&#x2F;  民间文档：ht">
+<meta property="og:description" content="Vue简介 Vue是一个渐进式的JavaScript框架，只注重视图层，结合了HTML+CSS+JS，非常的易用，并且有很好的生态系统。而且Vue体积很小，速度很快，优化很到位 可以用来简化Dom操作和响应式数据驱动。采用组件化模式，提高代码复用率、且让代码更好维护 声明式编码，让编码人员无需直接操作DOM，提高开发效率    官方文档：https:&#x2F;&#x2F;cn.vuejs.org&#x2F; 民间文档：htt">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
 <meta property="article:published_time" content="2023-01-01T10:19:20.000Z">
-<meta property="article:modified_time" content="2023-02-28T13:02:06.424Z">
+<meta property="article:modified_time" content="2023-03-03T03:18:24.554Z">
 <meta property="article:author" content="小李博客">
 <meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
@@ -127,7 +127,7 @@
         <i class="fas fa-history fa-fw post-meta-icon"></i>
         <span class="post-meta-label">
           更新于
-          2023-02-28
+          2023-03-03
         </span>
       </div>
       <div class="post-meta-wordcount">
@@ -145,23 +145,21 @@
   
   <div class="post-content">
     <h1 id="Vue简介"><a href="#Vue简介" class="headerlink" title="Vue简介"></a>Vue简介</h1><ul>
-<li><p><code>Vue</code>是一个<strong>渐进式的JavaScript框架</strong>，<strong>只注重视图层</strong>，结合了HTML+CSS+JS，非常的易用，并且有很好的生态系统。而且Vue体积很小，速度很快，优化很到位</p>
-</li>
-<li><p>可以用来简化Dom操作和响应式数据驱动。采用<code>组件化模式</code>，提高代码复用率、且让代码更好维护</p>
-</li>
-<li><p><code>声明式编码</code>，让编码人员无需直接操作DOM，提高开发效率</p>
-</li>
-<li><p>官方文档：<a target="_blank" rel="noopener" href="https://cn.vuejs.org/">https://cn.vuejs.org/</a></p>
-</li>
-<li><p>民间文档：<a target="_blank" rel="noopener" href="https://www.yuque.com/cessstudy/kak11d/hfeef2">https://www.yuque.com/cessstudy/kak11d/hfeef2</a></p>
-</li>
+<li><code>Vue</code>是一个<strong>渐进式的JavaScript框架</strong>，<strong>只注重视图层</strong>，结合了HTML+CSS+JS，非常的易用，并且有很好的生态系统。而且Vue体积很小，速度很快，优化很到位</li>
+<li>可以用来简化Dom操作和响应式数据驱动。采用<code>组件化模式</code>，提高代码复用率、且让代码更好维护</li>
+<li><code>声明式编码</code>，让编码人员无需直接操作DOM，提高开发效率</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210719152117.png"></p>
+<ul>
+<li>官方文档：<a target="_blank" rel="noopener" href="https://cn.vuejs.org/">https://cn.vuejs.org/</a></li>
+<li>民间文档：<a target="_blank" rel="noopener" href="https://www.yuque.com/cessstudy/kak11d/hfeef2">https://www.yuque.com/cessstudy/kak11d/hfeef2</a></li>
 </ul>
 <h2 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h2><ul>
 <li><p><code>MVVM</code>模式即双向数据绑定模式</p>
 <ul>
 <li><code>Model</code>：模型层，在这里表示JavaScript对象，对应data中的数据</li>
 <li><code>View</code>：视图层，在这是表示DOM（HTML操作的元素）</li>
-<li><code>ViewModel</code>：连接视图和数据的中间件，即Vue实例，<strong>Vue.js技术MVVM中的ViewModel层的实现者</strong></li>
+<li><code>ViewModel</code>：连接视图和数据的中间件，即Vue实例，<strong>Vue.js技术MVVM中的ViewModel层的实现者</strong><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/14/1e6185dac9611144442d818ce8a49923.png"></li>
 </ul>
 </li>
 <li><p>在MVVM架构中，是不允许<strong>数据</strong>和<strong>视图</strong>直接通信的，只能通过<code>ViewModel</code>来通信，而ViewModel就是定义了一个<code>Observer</code>观察者</p>
@@ -174,7 +172,7 @@
 </li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--VSCode生成页面骨架结构:输入! 按下 Tab 键！--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--这里就是MVVM中的View--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">text</span>=<span class="string">&quot;text&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;message&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">   <span class="comment">//这里就是MVVM中的View Model</span></span></span><br><span class="line"><span class="language-javascript">   <span class="keyword">var</span> vm = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">       <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">       <span class="comment">//这里就是MVVM中的Model</span></span></span><br><span class="line"><span class="language-javascript">       <span class="attr">data</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">           <span class="attr">message</span>: <span class="string">&#x27;Hello Vue!&#x27;</span></span></span><br><span class="line"><span class="language-javascript">       &#125;</span></span><br><span class="line"><span class="language-javascript">   &#125;)</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/13/e73260fe48a0cdcadf8e0af3ce32ba45.png"></p>
 <blockquote>
 <p>Vue中数据的单向传递就是把数据交给Vue实例对象，实例对象再将数据交给界面</p>
 </blockquote>
@@ -193,10 +191,7 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数据代理：通过一个对象代理对另一个对象中属性的操作（读/写）</span></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    <span class="attr">x</span>:<span class="number">100</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> obj2 = &#123;</span><br><span class="line">    <span class="attr">y</span>:<span class="number">200</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(obj2, <span class="string">&quot;x&quot;</span>,&#123;</span><br><span class="line">    <span class="title function_">get</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> obj.<span class="property">x</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">set</span>(<span class="params">value</span>)&#123;</span><br><span class="line">        obj.<span class="property">x</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-
-
-
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/14/b92142fae0207d64e0e024c657a9241c.png"></p>
 <ul>
 <li><p>当你把一个普通的 JavaScript 对象传给 Vue 实例的 <code>data</code> 选项，Vue 将遍历此对象所有的属性，并使用 <code>Object.defineProperty</code> 把这些属性全部转为 <code>getter/setter</code>。<strong>Object.defineProperty 是 ES5 中一个无法 shim 的特性，这也就是为什么 Vue 不支持 IE8 以及更低版本浏览器</strong>。</p>
 </li>
@@ -206,12 +201,12 @@
 </li>
 <li><p>每一个Vue实例中的<code>data</code>，在实例对象中但是封装在<code>_data</code>里面，可以通过<code>&#123;&#123;_data.name&#125;&#125;</code>取值，但是这样比较麻烦，Vue使用<code>getter/setter</code>进行数据代理，增加了<code>data</code>里的属性</p>
 </li>
-<li><p>Vue中的数据代理<br>  通过vm对象来代理data对象中属性的操作（读&#x2F;写）</p>
-</li>
-<li><p>Vue中数据代理的好处<br>  更加方便的操作data中的数据</p>
-</li>
-<li><p>基本原理</p>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210720125105.png"></p>
 <ul>
+<li>Vue中的数据代理<br>  通过vm对象来代理data对象中属性的操作（读&#x2F;写）</li>
+<li>Vue中数据代理的好处<br>  更加方便的操作data中的数据</li>
+<li>基本原理<ul>
 <li>通过<code>Object.defineProperty()</code>把<code>data</code>对象中所有属性添加到<code>vm</code>上</li>
 <li>为每个添加到<code>vm</code>上的属性，都指定个<code>getter/setter</code></li>
 <li>在<code>getter/setter</code>内部去操作（读&#x2F;写）<code>data</code>中对应的属性</li>
@@ -223,16 +218,20 @@
 <li>每个组件对应一个工程目录，组件所需的各种资源在这个目录下就近维护</li>
 <li>页面不过是组件的容器，组件可以嵌套自由组合（复用）形成完整的页面</li>
 </ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/05/09/ad308f842e9f7b7a65c09050ed3638d0.png"></p>
 <h2 id="虚拟DOM和DIFF算法"><a href="#虚拟DOM和DIFF算法" class="headerlink" title="虚拟DOM和DIFF算法"></a>虚拟DOM和DIFF算法</h2><ul>
-<li><p>vue的高效的核心，就是虚拟的<code>dom</code>和<code>diff</code>算法，vue不通过修改<code>dom</code>树来达到修改的效果，而是直接在页面上改那个元素，此时这个元素就是一个虚拟的<code>dom</code></p>
-</li>
-<li><p>那么vue怎么去改呢？ 通过<code>diff</code>算法，计算出虚拟的<code>dom</code>修改后和修改前的区别，然后在虚拟<code>dom</code>的原基础上进行修改，这样的效率就大大提升了</p>
-</li>
-<li><p>比如实现通过数据生成列表，元素JavaScript通过拼接实现。但是当原数据发生变化时，会直接替换原来页面的DOM数据</p>
-</li>
-<li><p>而通过Vue的虚拟DOM和DIFF算法，可以对比数据是否变化，未变的数据就不会改动。比如新增赵六数据，其它的不会改变，实现复用</p>
-</li>
+<li>vue的高效的核心，就是虚拟的<code>dom</code>和<code>diff</code>算法，vue不通过修改<code>dom</code>树来达到修改的效果，而是直接在页面上改那个元素，此时这个元素就是一个虚拟的<code>dom</code></li>
+<li>那么vue怎么去改呢？ 通过<code>diff</code>算法，计算出虚拟的<code>dom</code>修改后和修改前的区别，然后在虚拟<code>dom</code>的原基础上进行修改，这样的效率就大大提升了</li>
 </ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/15/ab357f651d85ae602255df0b6d38980e.png"></p>
+<ul>
+<li>比如实现通过数据生成列表，元素JavaScript通过拼接实现。但是当原数据发生变化时，会直接替换原来页面的DOM数据</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210719152340.png"></p>
+<ul>
+<li>而通过Vue的虚拟DOM和DIFF算法，可以对比数据是否变化，未变的数据就不会改动。比如新增赵六数据，其它的不会改变，实现复用</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210719152535.png"></p>
 <h2 id="Vue调试工具"><a href="#Vue调试工具" class="headerlink" title="Vue调试工具"></a>Vue调试工具</h2><ul>
 <li><p>Vue Devtools调试工具项目地址：<a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-devtools/tree/v5.1.1">https://github.com/vuejs/vue-devtools/tree/v5.1.1</a>、</p>
 </li>
@@ -244,8 +243,10 @@
 </li>
 <li><p>打开调试工具可以看到多了一个Vue选项</p>
 </li>
-<li><p>关于Devtools调试工具不亮、不出现的问题，在扩展应用开发者工具中打开下列两个选项</p>
-</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/05/09/84e3fffada5ea349081f97a5ec08a263.png"></p>
+<ul>
+<li>关于Devtools调试工具不亮、不出现的问题，在扩展应用开发者工具中打开下列两个选项</li>
 </ul>
 <p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/blog/20230228200330.png"></p>
 <h1 id="Vue入门"><a href="#Vue入门" class="headerlink" title="Vue入门"></a>Vue入门</h1><h2 id="Vue快速开始"><a href="#Vue快速开始" class="headerlink" title="Vue快速开始"></a>Vue快速开始</h2><ul>
@@ -263,7 +264,7 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">//创建一个Vue的实例对象</span></span><br><span class="line">   <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">      <span class="comment">//告诉Vue的实例对象，将来需要控制界面上的哪个区域</span></span><br><span class="line">      <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">      <span class="attr">data</span>: &#123;  <span class="comment">//以后，数据就是通过发送ajax请求，来获得的</span></span><br><span class="line">         <span class="attr">message</span>: <span class="string">&#x27;Hello Vue!&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">   &#125;)<span class="comment">//json格式的对象  使用大括号包裹，里面放了键值对，在js中键可以没有引号,多个键值对之间使用‘,’分隔</span></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/25/0ccb8f1957db0826b15289bb655f94c6.png"></p>
 <ul>
 <li>引入开发版本会在控制台出现官方提示，可以通过以下脚本关闭</li>
 </ul>
@@ -324,7 +325,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   &#123;&#123; message &#125;&#125;</span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span>&gt;</span>&#123;&#123; school.name &#125;&#125; &#123;&#123; school.mobile &#125;&#125; <span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123; campus[0] &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123; campus[1] &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">   <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>, <span class="comment">//推荐ID选择器，只支持单标签</span></span><br><span class="line">   <span class="attr">data</span>: &#123;</span><br><span class="line">      <span class="attr">message</span>: <span class="string">&#x27;Hello Vue!&#x27;</span>,</span><br><span class="line">      <span class="attr">school</span>: &#123;   <span class="comment">//对象</span></span><br><span class="line">         <span class="attr">name</span>: <span class="string">&quot;xiaoli&quot;</span>,</span><br><span class="line">         <span class="attr">mobile</span>: <span class="string">&quot;123456&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">campus</span>: [<span class="string">&quot;北京&quot;</span>, <span class="string">&quot;上海&quot;</span>]  <span class="comment">//数组</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/25/c258d47cbd684dcef8e6111fd4290607.png"></p>
 <ul>
 <li>除了以上的对象式写法，还有一个函数式写法，其在组件开发中经常使用。<strong>函数必须返回一个对象</strong></li>
 </ul>
