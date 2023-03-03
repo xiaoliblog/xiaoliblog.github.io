@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
 <meta property="article:published_time" content="2023-02-22T04:53:10.507Z">
-<meta property="article:modified_time" content="2023-02-22T11:29:02.703Z">
+<meta property="article:modified_time" content="2023-03-03T09:53:02.323Z">
 <meta property="article:author" content="小李博客">
 <meta property="article:tag" content="小李博客">
 <meta name="twitter:card" content="summary">
@@ -127,7 +127,7 @@
         <i class="fas fa-history fa-fw post-meta-icon"></i>
         <span class="post-meta-label">
           更新于
-          2023-02-22
+          2023-03-03
         </span>
       </div>
       <div class="post-meta-wordcount">
@@ -150,6 +150,7 @@
 <li>参考阮一峰《ECMAScript 6入门》：<a target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/">https://es6.ruanyifeng.com/</a></li>
 <li>ECMAScript的快速发展</li>
 </ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/18/b4f352719961026633968827bdd358db.png"></p>
 <h2 id="let声明变量"><a href="#let声明变量" class="headerlink" title="let声明变量"></a>let声明变量</h2><ul>
 <li><code>let</code>声明变量有如下特性<ul>
 <li>防止出现变量穿透</li>
@@ -165,24 +166,27 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这里就会造成变量穿透 i = 5</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>运行结果，5的出现不符合规范</p>
-</li>
-<li><p>如果<code>var</code>改为<code>let</code>，就会报错，提醒我们出现变量穿透</p>
-</li>
+<li>运行结果，5的出现不符合规范</li>
 </ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/18/eddc21ca469a65b21088d0fd00cf69e3.png"></p>
+<ul>
+<li>如果<code>var</code>改为<code>let</code>，就会报错，提醒我们出现变量穿透</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/18/20689dd2e32b2caf9d9cb6b96dda9939.png"></p>
 <h2 id="const声明常量"><a href="#const声明常量" class="headerlink" title="const声明常量"></a>const声明常量</h2><ul>
 <li><code>const</code>声明常量可以防止常量被修改。但是对于数组和对象的元素修改，不算做对常量的修改，不会报错</li>
 <li>如下使用<code>var</code>定义常量，常量可以被修改</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="variable constant_">PI</span> = <span class="title class_">Math</span>.<span class="property">PI</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable constant_">PI</span>);</span><br><span class="line"><span class="comment">//常量被修改</span></span><br><span class="line"><span class="variable constant_">PI</span> = <span class="number">100</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable constant_">PI</span>);</span><br></pre></td></tr></table></figure>
 
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/18/84f7d2ed1db2392dacb83b61ca668378.png"></p>
 <ul>
-<li><p>修改为<code>const</code>定义，修改就会报错</p>
-</li>
-<li><p>在实际开发中，如果是小程序，uniapp或者一些脚手架中，可以大胆的去使用<code>let</code>和<code>const</code></p>
-</li>
-<li><p>但是如果是web开发，建议函数使用<code>var</code>，因为一些低版本浏览器并不支持<code>let</code>和<code>const</code></p>
-</li>
+<li>修改为<code>const</code>定义，修改就会报错</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/18/ab1d3308b1084fd32c78e7bfa4dc3805.png"></p>
+<ul>
+<li>在实际开发中，如果是小程序，uniapp或者一些脚手架中，可以大胆的去使用<code>let</code>和<code>const</code></li>
+<li>但是如果是web开发，建议函数使用<code>var</code>，因为一些低版本浏览器并不支持<code>let</code>和<code>const</code></li>
 </ul>
 <h2 id="变量解构赋值"><a href="#变量解构赋值" class="headerlink" title="变量解构赋值"></a>变量解构赋值</h2><ul>
 <li>ES6允许按照一定模式从数组和对象中提取值，对变量进行赋值，称为解构赋值</li>
@@ -194,12 +198,14 @@
 <li>对对象的解构赋值，常用于对请求数据的属性获取</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> info = &#123;</span><br><span class="line">   <span class="attr">name</span>: <span class="string">&#x27;张三&#x27;</span>,</span><br><span class="line">   <span class="attr">age</span>: <span class="number">36</span>,</span><br><span class="line">   <span class="title function_">go</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;走路&quot;</span>);</span><br><span class="line">   &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 属性可以通过.和[]获取，也可以通过解构赋值获取</span></span><br><span class="line"><span class="comment">// 相当于声明了三个变量：name,age,go 。并赋值对象对应的属性值</span></span><br><span class="line"><span class="keyword">let</span> &#123; name, age, go &#125; = info</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(name)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(age)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(go)</span><br><span class="line"><span class="title function_">go</span>()</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210817164136.png"></p>
 <h2 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h2><ul>
 <li>以前：都是使用单引号<code>&#39;</code>或者双引号<code>&quot; &quot;</code>来进行字符串拼接，内容中可以直接出现换行符</li>
 <li>现在：使用反引号进行字符串拼接，通过<code>$&#123;value&#125;</code>区别值</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//字符串会牵涉到动态部分</span></span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">   name : <span class="string">&quot;小李&quot;</span>,</span><br><span class="line">   address : <span class="string">&quot;长沙&quot;</span>,</span><br><span class="line">   link : <span class="string">&quot;https://xiaoliblog.cn&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> address = <span class="string">&quot;我是&quot;</span>  + person.<span class="property">name</span> + <span class="string">&quot;,现居&quot;</span> + person.<span class="property">address</span> + <span class="string">&quot;,我的博客网站:&quot;</span> + person.<span class="property">link</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;传统&quot;</span>+address);</span><br><span class="line"></span><br><span class="line"><span class="comment">//ES6的语法模板字符串</span></span><br><span class="line"><span class="keyword">let</span> address1 = <span class="string">`我是<span class="subst">$&#123;person.name&#125;</span>,现居<span class="subst">$&#123;person.address&#125;</span>,我的博客网站:<span class="subst">$&#123;person.link&#125;</span>`</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ES6&quot;</span>+address1);</span><br></pre></td></tr></table></figure>
 
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/18/46b2018518e2b7fcf1056ddb80b698a1.png"></p>
 <h2 id="对象简化"><a href="#对象简化" class="headerlink" title="对象简化"></a>对象简化</h2><ul>
 <li>ES6允许在大括号里面，直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁<ul>
 <li>因为对象是<code>key：value</code>存在，如果<code>key</code>和变量的名字一致，可以只定义一次即可</li>
@@ -215,12 +221,13 @@
 <li>比如以下函数，我只传单个参数或者不传，控制台就会输出<code>NaN</code></li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不传参数，默认为undefined</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params">a,b</span>)&#123;</span><br><span class="line">   <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> result = <span class="title function_">sum</span>(<span class="number">100</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;result=&quot;</span>+result)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/18/5d7f7e1844491dae27542b40dbcf51ae.png"></p>
 <ul>
 <li>这个时候可以使用默认参数，可以不用传值，手动传值优先级更高</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数默认参数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params">a=<span class="number">100</span>,b=<span class="number">100</span></span>)&#123;</span><br><span class="line">   <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> result = <span class="title function_">sum</span>(<span class="number">100</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;result=&quot;</span>+result)</span><br></pre></td></tr></table></figure>
 
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/18/f0920de7fdbf1ac2146228a90d77e950.png"></p>
 <h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><ul>
 <li>箭头函数简化有以下规律<ul>
 <li>去掉<code>function</code></li>
@@ -237,10 +244,12 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getName</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">getName1</span> = (<span class="params"></span>) =&gt;&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 设置window对象的name属性</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">name</span> = <span class="string">&#x27;张三&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> school = &#123; </span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;zhangsan&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 直接调用</span></span><br><span class="line"><span class="title function_">getName</span>(); </span><br><span class="line"><span class="title function_">getName1</span>();</span><br><span class="line"><span class="comment">// call方法调用：会改变函数内部this的值</span></span><br><span class="line">getName.<span class="title function_">call</span>(school) <span class="comment">// this指向shcool对象</span></span><br><span class="line">getName1.<span class="title function_">call</span>(school)</span><br></pre></td></tr></table></figure>
 
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210817165620.png"></p>
 <ul>
 <li>箭头函数不能作为构造函数实例化对象</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">Person</span> = (<span class="params">name, age</span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> me = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;张三&quot;</span>, <span class="number">24</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(me);</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210817165902.png"></p>
 <ul>
 <li>箭头函数不能使用<code>arguments</code>变量，不然会报错</li>
 </ul>
@@ -250,22 +259,23 @@
 <li>ES6引入<code>rest</code> 参数，用于获取函数的实参，用来代替<code>arguments</code></li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传统的获取参数的方法</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">date</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="comment">// arguments为一个对象</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">date</span>(<span class="string">&#x27;年&#x27;</span>,<span class="string">&#x27;月&#x27;</span>,<span class="string">&#x27;日&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210817172924.png"></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//rest参数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">date</span>(<span class="params">...args</span>)&#123;</span><br><span class="line">    <span class="comment">// args为一个数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(args)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">date</span>(<span class="string">&#x27;年&#x27;</span>,<span class="string">&#x27;月&#x27;</span>,<span class="string">&#x27;日&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210817173032.png"></p>
 <p>多个参数时，<code>rest</code>参数必须要放在参数最后</p>
 <h2 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a>扩展运算符</h2><ul>
 <li><code>...</code>扩展运算符能将「数组」转换为逗号分隔的「参数序列」</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明一个数组</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="string">&#x27;张三&#x27;</span>,<span class="string">&#x27;李四&#x27;</span>,<span class="string">&#x27;王五&#x27;</span>,<span class="string">&#x27;赵六&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">person</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 扩展对象,相当于把arr扩展成 &#x27;张三&#x27;,&#x27;李四&#x27;,&#x27;王五&#x27;,&#x27;赵六&#x27;</span></span><br><span class="line"><span class="title function_">person</span>(...arr)</span><br></pre></td></tr></table></figure>
 
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210817180913.png"></p>
 <ul>
 <li>扩展运算符可以用于数组合并、数组克隆和将伪数组转为真正的数组</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数组合并</span></span><br><span class="line"><span class="keyword">const</span> star = [<span class="string">&#x27;沈腾&#x27;</span>,<span class="string">&#x27;王宝强&#x27;</span>]</span><br><span class="line"><span class="keyword">const</span> singer = [<span class="string">&#x27;周杰伦&#x27;</span>,<span class="string">&#x27;许嵩&#x27;</span>]</span><br><span class="line"><span class="keyword">const</span> newStar = [...star,...singer]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newStar)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数组克隆</span></span><br><span class="line"><span class="keyword">const</span> word = [<span class="string">&#x27;L&#x27;</span>,<span class="string">&#x27;O&#x27;</span>,<span class="string">&#x27;V&#x27;</span>,<span class="string">&#x27;E&#x27;</span>]</span><br><span class="line"><span class="keyword">const</span> newWord = [...word]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newWord)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将伪数组转为真正的数组</span></span><br><span class="line"><span class="keyword">const</span> divs = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> divArr = [...divs]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(divArr)</span><br></pre></td></tr></table></figure>
 
-
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210817181518.png"></p>
 <h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ul>
 <li>ES6提供了新的数据结构<code>Set</code> （集合）。它类似于数组，但成员的值都是唯一的，集合实现了<code>iterator</code>接口，所以可以使用「扩展运算符」和<code>for...of</code>进行遍历</li>
 </ul>
@@ -300,7 +310,7 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>];</span><br><span class="line"><span class="keyword">let</span> arr2 = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 数组去重</span></span><br><span class="line"><span class="keyword">let</span> result = [...<span class="keyword">new</span> <span class="title class_">Set</span>(arr)]; <span class="comment">// 通过扩展运算符转为数组</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 交集</span></span><br><span class="line"><span class="comment">// let result2 = [...new Set(arr)].filter((item) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   let s2 = new Set(arr2); // 4,5,6</span></span><br><span class="line"><span class="comment">//   if (s2.has(item)) &#123;</span></span><br><span class="line"><span class="comment">//     return true;</span></span><br><span class="line"><span class="comment">//   &#125; else &#123;</span></span><br><span class="line"><span class="comment">//     return false;</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">// &#125;);</span></span><br><span class="line"><span class="comment">// 简化版</span></span><br><span class="line"><span class="keyword">let</span> result2 = [...<span class="keyword">new</span> <span class="title class_">Set</span>(arr)].<span class="title function_">filter</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> <span class="keyword">new</span> <span class="title class_">Set</span>(arr2).<span class="title function_">has</span>(item));</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 并集</span></span><br><span class="line"><span class="keyword">let</span> union = [...<span class="keyword">new</span> <span class="title class_">Set</span>([...arr,...arr2])]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(union);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 差集</span></span><br><span class="line"><span class="keyword">let</span> diff = [...<span class="keyword">new</span> <span class="title class_">Set</span>(arr)].<span class="title function_">filter</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> !(<span class="keyword">new</span> <span class="title class_">Set</span>(arr2).<span class="title function_">has</span>(item)));</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(diff);</span><br></pre></td></tr></table></figure>
 
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210822121136.png"></p>
 <h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><ul>
 <li>ES6提供了<code>Map</code>数据结构。它类似于对象，也是键值对的集合。但是键的范围不限于字符串，各种类型的值（包括对象）都可以当作键。Map也实现了<code>iterator</code> 接口，所以可以使用[扩展运算符」和<code>for...of</code>进行遍历</li>
 <li>Map的属性和方法</li>
@@ -377,16 +387,13 @@ Symbol 定义的对象属性不能使...</div>
     </a>
     
     
-    <a href="/posts/c9530e4e.html">
-      <div class="next-title">Angular路由模块及编程式导航<i class="fas fa-chevron-right"></i></div>
-      <div class="next-desc">路由路由配置
-专门有一个独立模块来配置相关路由，这个模块类的名字叫做AppRoutingModule，位于src/app下的app-routing.module.ts文件中
-使用命令安装路由
+    <a href="/posts/e6724303.html">
+      <div class="next-title">Angular管道及父子组件数据传递<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">管道内置管道
+Angular的管道可以看作成是一个数据格式化展示的工具。管道可以将数据格式化显示，而不改变源数据。获取数据可能简单到创建一个局部变量就行，也可能复杂到从WebSocket中获取数据流
+使用管道运算符|实现
 
-1ng generate module app-routing --flat --module=app
-
-
-改写文件如下...</div>
+12345678export class AppComponent &amp;#123;  msg...</div>
     </a>
     
   </div>

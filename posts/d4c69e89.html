@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Web移动开发基础 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="移动端基础移动端浏览器 国内的UC和QQ ，百度等手机浏览器都是根据Webkit修改过来的内核,国内尚无自主研发的内核，就像国内的手机操作系统都是基于Android修改开发的一样  总结：兼容移动端主流浏览器,处理Webkit内核浏览器即可   手机屏幕 移动端设备屏幕尺寸非常多 ,碎片化严重。 Android设备有多 种分辨率: 480x800, 480x854, 540x960, 720x12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web移动开发基础">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/d4c69e89.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="移动端基础移动端浏览器 国内的UC和QQ ，百度等手机浏览器都是根据Webkit修改过来的内核,国内尚无自主研发的内核，就像国内的手机操作系统都是基于Android修改开发的一样  总结：兼容移动端主流浏览器,处理Webkit内核浏览器即可   手机屏幕 移动端设备屏幕尺寸非常多 ,碎片化严重。 Android设备有多 种分辨率: 480x800, 480x854, 540x960, 720x12">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.175Z">
+<meta property="article:modified_time" content="2023-03-03T09:28:52.962Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="Web移动开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Web移动开发基础</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">2.2k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>8分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="移动端基础"><a href="#移动端基础" class="headerlink" title="移动端基础"></a>移动端基础</h1><h2 id="移动端浏览器"><a href="#移动端浏览器" class="headerlink" title="移动端浏览器"></a>移动端浏览器</h2><ul>
+<li><p>国内的UC和QQ ，百度等手机浏览器都是根据Webkit修改过来的内核,国内尚无自主研发的内核，就像国内的手机操作系统都是基于Android修改开发的一样</p>
+</li>
+<li><p>总结：兼容移动端主流浏览器,处理<code>Webkit内核浏览器</code>即可</p>
+</li>
+</ul>
+<h2 id="手机屏幕"><a href="#手机屏幕" class="headerlink" title="手机屏幕"></a>手机屏幕</h2><ul>
+<li>移动端设备屏幕尺寸非常多 ,碎片化严重。</li>
+<li>Android设备有多 种分辨率: 480x800, 480x854, 540x960, 720x1280 ,1080x1920等 ,还有传说中的2K ,4k屏。</li>
+<li>近年来iPhone的碎片化也加剧了 ,其设备的主要分辨率有: 640x960, 640x1 136, 750x1334, 1242x2208等。</li>
+<li>作为开发者无需关注这些分辨率 ,因为我们常用的尺寸单位是<code>px</code>.</li>
+</ul>
+<h2 id="移动端调试方法"><a href="#移动端调试方法" class="headerlink" title="移动端调试方法"></a>移动端调试方法</h2><ul>
+<li><p>Chrome DevTools (谷歌浏览器)的模拟手机调试</p>
+<img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/28/a1270a312e91a73aa06beed93edfd066.png" width=80%>
+</li>
+<li><p>搭建本地web服务器 ,手机和服务器个局域网内 ,通过手机访问服务器</p>
+</li>
+<li><p>使用外网服务器 ,直接IP或域名访问</p>
+</li>
+</ul>
+<h1 id="视口"><a href="#视口" class="headerlink" title="视口"></a>视口</h1><p><code>视口( viewport )</code>就是浏览器显示页面内容的屏幕区域。视口可以分为布局视口、视觉视口和理想视口</p>
+<h2 id="布局视口layout-viewport"><a href="#布局视口layout-viewport" class="headerlink" title="布局视口layout viewport"></a>布局视口layout viewport</h2><ul>
+<li>一般移动设备的浏览器都默认设置了 一个布局视口，用于解决早期的PC端页面在手机上显示的问题。</li>
+<li>iOS， Android基本都将这个视口分辨率设置为<code>983px</code> ，所以PC上的网页大多都能在手机上呈现，只不过元素看上去很小，一般默认可以通过手动缩放网页。</li>
+</ul>
+<h2 id="视觉视口visual-viewport"><a href="#视觉视口visual-viewport" class="headerlink" title="视觉视口visual viewport"></a>视觉视口visual viewport</h2><ul>
+<li>字面意思， 它是用户正在看到的网站的区域注意：<code>是网站的区域</code>。</li>
+<li>我们可以通过缩放去操作视觉视口 ,但不会影响布局视口,布局视口仍保持原来的宽度。</li>
+</ul>
+<img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/28/2affc3384b8dfb63f78b0150f00ca59b.png" width=60%>
+
+<h2 id="理想视口ideal-viewport"><a href="#理想视口ideal-viewport" class="headerlink" title="理想视口ideal viewport"></a>理想视口ideal viewport</h2><ul>
+<li>为了 使网站在移动端有最理想的浏览和阅读宽度而设定</li>
+<li>理想视口，对设备来讲是最理想的视口尺寸</li>
+<li>需要手动添写meta视口标签通知浏览器操作</li>
+<li><code>meta视口标签</code>的主要目的 :布局视口的宽度应该与理想视口的宽度一致，简单理解就是设备有多宽，我们布局的视口就多宽</li>
+</ul>
+<h1 id="meat视口标签"><a href="#meat视口标签" class="headerlink" title="meat视口标签"></a>meat视口标签</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>= <span class="string">&quot;width=device-width, user-scalable=no,</span></span></span><br><span class="line"><span class="string"><span class="tag">initial-scale=1.0, maximum-scale=1.0, minimum-scale =1.0&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">解释说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>width</code></td>
+<td align="center">宽度设置的是viewport宽度，可以设置device-width特殊值</td>
+</tr>
+<tr>
+<td align="center"><code>initial- scale</code></td>
+<td align="center">初始缩放比，大于0的数字</td>
+</tr>
+<tr>
+<td align="center"><code>maximum-scale</code></td>
+<td align="center">最大缩放比，大于0的数字</td>
+</tr>
+<tr>
+<td align="center"><code>minimum-scale</code></td>
+<td align="center">最小缩放比，大于0的数字</td>
+</tr>
+<tr>
+<td align="center"><code>user-scalable</code></td>
+<td align="center">用户是否可以缩放，yes或no ( 1或0)</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>加了视口标签效果<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/28/98734d8e7b0c0d0ee44a531f1c68080f.png"></p>
+</li>
+<li><p>未加视口标签效果<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/28/8b4354ff3c31cbb89f19d51dc850134c.png"></p>
+</li>
+</ul>
+<h2 id="标准viewport设置"><a href="#标准viewport设置" class="headerlink" title="标准viewport设置"></a>标准viewport设置</h2><ul>
+<li>视口宽度和设备保持一 致</li>
+<li>视口的默认缩放比例1.0</li>
+<li>不允许用户自行缩放</li>
+<li>最大允许的缩放比例1.0</li>
+<li>最小允许的缩放比例1.0</li>
+</ul>
+<h1 id="二倍图"><a href="#二倍图" class="headerlink" title="二倍图"></a>二倍图</h1><h2 id="物理像素-amp-物理像素比"><a href="#物理像素-amp-物理像素比" class="headerlink" title="物理像素&amp;物理像素比"></a>物理像素&amp;物理像素比</h2><ul>
+<li><strong>物理像素点</strong>指的是<code>屏幕显示的最小颗粒</code>，是物理真实存在的。这是厂商在出厂时就设置好了,比如苹果6\7\8是750 * 1334</li>
+<li>我们开发时候的1px不是一 定等于1个物理像素的</li>
+<li>PC端页面，1个px等于1个物理像素的，但是移动端就不尽相同</li>
+<li><code>一个px的能显示的物理像素点的个数</code> ,称为<strong>物理像素比或屏幕像素比</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">设备</th>
+<th align="center">尺寸(英寸)</th>
+<th align="center">开发尺寸(px)</th>
+<th align="center">物理像素比(dpr)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">iphone3G</td>
+<td align="center">3.5</td>
+<td align="center">320*480</td>
+<td align="center">1.0</td>
+</tr>
+<tr>
+<td align="center">iphone4&#x2F;4s</td>
+<td align="center">3.5</td>
+<td align="center">320*480</td>
+<td align="center">2.0</td>
+</tr>
+<tr>
+<td align="center">iphone5&#x2F;s&#x2F;5c</td>
+<td align="center">4.0</td>
+<td align="center">320*568</td>
+<td align="center">2.0</td>
+</tr>
+<tr>
+<td align="center">HTC One M8</td>
+<td align="center">4.5</td>
+<td align="center">360*640</td>
+<td align="center">3.0</td>
+</tr>
+<tr>
+<td align="center">iphone6</td>
+<td align="center">4.7</td>
+<td align="center">375*667</td>
+<td align="center">2.0</td>
+</tr>
+<tr>
+<td align="center">Nexus 4</td>
+<td align="center">4.7</td>
+<td align="center">384*640</td>
+<td align="center">2.0</td>
+</tr>
+<tr>
+<td align="center">Nexus 5x</td>
+<td align="center">5.2</td>
+<td align="center">411*731</td>
+<td align="center">2.6</td>
+</tr>
+<tr>
+<td align="center">iphone6 Plus</td>
+<td align="center">5.5</td>
+<td align="center">414*736</td>
+<td align="center">3.0</td>
+</tr>
+<tr>
+<td align="center">Samsung Galaxy Note 4</td>
+<td align="center">5.7</td>
+<td align="center">480*853</td>
+<td align="center">3.0</td>
+</tr>
+<tr>
+<td align="center">Sony Xperia Z Ultra</td>
+<td align="center">6.4</td>
+<td align="center">540*960</td>
+<td align="center">2.0</td>
+</tr>
+<tr>
+<td align="center">Nexus 7 (‘12)</td>
+<td align="center">7.0</td>
+<td align="center">600*960</td>
+<td align="center">1.3</td>
+</tr>
+<tr>
+<td align="center">iPad Mini</td>
+<td align="center">7.9</td>
+<td align="center">768*1024</td>
+<td align="center">1.0</td>
+</tr>
+</tbody></table>
+<p>物理像素就是我们说的分辨率，比如iPhone8的物理像素是750<br>在iPhone8里面 <code>1px 开发像素 = 2 个物理像素</code></p>
+<ul>
+<li>PC端 和早前的手机屏幕&#x2F;普通手机屏幕: 1CSS像素&#x3D; 1.物理像素的</li>
+<li><code>Retina</code>(视网膜屏幕)是一种显示技术，可以将把更多的物理像素点压缩至一块屏幕里，从而达到更高的分辨率，并提高屏幕显示的细腻程度<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/29/e7f79e8e70d84a662613a00efa21e5ba.png"></li>
+</ul>
+<h2 id="多倍图"><a href="#多倍图" class="headerlink" title="多倍图"></a>多倍图</h2><ul>
+<li><p>对于一张50px* 50px的图片,在手机Retina屏中打开,按照刚才的物理像素比会放大倍数,这样会造成图片模糊</p>
+</li>
+<li><p>在标准的viewport设置中,使用<code>倍图</code>来提高图片质量,解决在高清设备中的模糊问题</p>
+</li>
+<li><p>通常使用<code>二倍图</code>，因为iPhone 6\7\8的影响,但是现在还存在3倍图4倍图的情况这个看实际开发公司需求</p>
+</li>
+<li><p><code>背景图片注意缩放问题</code></p>
+</li>
+<li><p>比如我们我们需要一个50*50像素(css像素)的图片，但直接放到我们的iphone8里面会放大2倍100* 100就会模糊，所以我们采取的是放一个100* 100 图片然后手动的把这个图片缩小为50*50(css像素)</p>
+</li>
+<li><p>我们准备的图片比实际大小大2倍，这就叫做两倍图</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">title</span>&gt;</span>Web移动端开发<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, user-scalable=no,initial-scale=1.0, maximum-scale=1.0, minimum-scale =1.0&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">      <span class="selector-tag">img</span><span class="selector-pseudo">:nth-child</span>(<span class="number">2</span>)&#123;</span></span><br><span class="line"><span class="language-css">         <span class="attribute">width</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">         <span class="attribute">height</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">      &#125;</span></span><br><span class="line"><span class="language-css">   </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--模糊的--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img/img.jpg&quot;</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--采取2倍图--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img/img.jpg&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/29/ca234123abcaf86d5cba29e03b0959a9.png"></p>
+<h2 id="背景缩放background-size"><a href="#背景缩放background-size" class="headerlink" title="背景缩放background-size"></a>背景缩放background-size</h2><p><code>background-size</code>属性规定背景图像的尺寸</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-size</span>:width height;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>单位：长度|百分比|cover|contain</li>
+<li><code>cover</code>把背景图像扩展至足够大，以使背景图像完全覆盖背景区域，先拉伸宽度，宽度足够再拉伸高度</li>
+<li><code>contain</code>把图像扩展至最大尺寸，以使其宽度和宽度完全适应内容区域，宽度和高度等比例拉伸，宽度或高度其中一个足够（达到父盒子宽或高）就不再拉伸，可能有空白区域</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-size</span>: <span class="number">100px</span> <span class="number">50px</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/29/322d25aa862e1ca02fd89cfc87c84032.png"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-size</span>: <span class="number">100px</span>; <span class="comment">/*只写一个参数，等比例缩放*/</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/29/c2bb7eb1a75a0a5ca07a4d471e3f3a0d.png"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-size</span>: <span class="number">50%</span> <span class="number">30%</span>; <span class="comment">/*百分比是相对于父盒子宽高*/</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/29/1a48b348cd6d8f001b29201c00396515.png"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-size</span>: cover;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/29/18abe481e0416b942b5bc0e11ff1a06d.png"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-size</span>: contain;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/29/01dddf70a151b001d8cb90350d715b7f.png"></p>
+<h1 id="移动端开发选择"><a href="#移动端开发选择" class="headerlink" title="移动端开发选择"></a>移动端开发选择</h1><ul>
+<li><p>单独制作移动端页面（主流）</p>
+<ul>
+<li>通常情况下,网址域名前面加<code>m(mobile)</code>可以打开移动端。通过判断设备,如果是移动设备打开,则跳到<code>移动端页面</code>，（移动端和PC端分开制作），比如淘宝移动端：<a target="_blank" rel="noopener" href="https://www.m.taobao.com/">https://www.m.taobao.com/</a></li>
+</ul>
+</li>
+<li><p>响应式页面兼容移动端（其次）</p>
+<ul>
+<li>通过判断屏幕宽度来改变样式，以适应不同终端，比如三星电子官网：<a target="_blank" rel="noopener" href="https://www.samsung.com/cn/">https://www.samsung.com/cn/</a></li>
+<li>制作麻烦，需要花很多精力去调<code>兼容性</code>问题</li>
+</ul>
+</li>
+</ul>
+<h1 id="移动端技术解决方案"><a href="#移动端技术解决方案" class="headerlink" title="移动端技术解决方案"></a>移动端技术解决方案</h1><ul>
+<li>移动端浏览器基本以<code>webkit内核</code>为主，主要考虑webkt兼容性问题，私有前缀只需要考虑添加webkit即可<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/29/2d1cfb7cc686183cd11b3fd922221307.png"></li>
+</ul>
+<h2 id="CSS初始化normalize-css"><a href="#CSS初始化normalize-css" class="headerlink" title="CSS初始化normalize.css"></a>CSS初始化normalize.css</h2><ul>
+<li>移动端CSS初始化推荐使用<code>normalize.css/</code><ul>
+<li>Normalize.css :保护了有价值的默认值</li>
+<li>Normalize.css :修复了浏览器的bug</li>
+<li>Normalize.css :是模块化的</li>
+<li>Normalize.css :拥有详细的文档</li>
+<li>官网地址: <a target="_blank" rel="noopener" href="http://necolas.github.io/normalize.css/">http://necolas.github.io/normalize.css/</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="CSS3盒子模型-box-sizing"><a href="#CSS3盒子模型-box-sizing" class="headerlink" title="CSS3盒子模型 box-sizing"></a>CSS3盒子模型 box-sizing</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">   <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>传统模式宽度计算 ：盒子的宽度&#x3D; CSS中设置的width + border + padding</li>
+<li>CSS3盒子模型 ： 盒子的宽度&#x3D; CSS中设置的宽度width里面包含了border和padding</li>
+<li>也就是说,我们的CSS3中的盒子模型，<code>padding 和border不会撑大盒子了</code></li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:nth-child</span>(<span class="number">1</span>)&#123;</span><br><span class="line">   <span class="comment">/*传统盒子模型=width+border+padding*/</span></span><br><span class="line">   <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">   <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">   <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">   <span class="attribute">border</span>:<span class="number">10px</span> solid red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:nth-child</span>(<span class="number">2</span>)&#123;</span><br><span class="line">   <span class="comment">/*padding 和border不会撑大盒子了*/</span></span><br><span class="line">   <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">   <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">   <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">   <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">   <span class="attribute">border</span>:<span class="number">10px</span> solid red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/29/412bd7a557ffc61b34976acca2dfd8ed.png"></p>
+<h2 id="特殊样式"><a href="#特殊样式" class="headerlink" title="特殊样式"></a>特殊样式</h2><ul>
+<li>CSS3盒子模型</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">   <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">   -webkit-<span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>点击高亮我们需要清除设置为<code>transparent</code> 为透明<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/29/e35b63748a54f50faba6b4a7e992e706.png"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span>&#123;</span><br><span class="line">   -webkit-tap-highlight-<span class="attribute">color</span>: transparent ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ios上加下列属性去掉默认外观，才能给按钮和输入框<code>自定义样式</code></p>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span>&#123;</span><br><span class="line">   -webkit-appearance: none ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>禁用长按页面时的弹出菜单</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span>,<span class="selector-tag">a</span> &#123; </span><br><span class="line">   -webkit-touch-callout: none; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/d4c69e89.html">http://xiaoliblog.cn/posts/d4c69e89.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/f3f74fdb.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Webpack安装及使用</div>
+      <div class="prev-desc">Webpack
+Webpack是一个前端资源加载&amp;#x2F;打包工具。它将根据模块的依赖关系进行静态分享，然后将这些模块按照指定的规则生成对应的静态资源
+Webpack官方文档：https://webpack.docschina.org/
+从图中我们可以看出，Webpack可以将多种静态资源js、css、less...</div>
+    </a>
+    
+    
+    <a href="/posts/9155e02e.html">
+      <div class="next-title">Web移动端流式+flex布局<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">移动端技术选型
+单独制作移动端页面(主流)
+流式布局(百分比布局)
+flex 弹性布局(强烈推荐)
+less+ rem+媒体查询布局
+混合布局
+
+
+响应式页面兼容移动端(其次)
+媒体查询
+bootstarp
+
+
+
+流式布局
+流式布局， 就是百分比布局,也称非固定像素布局。
+
+通过盒子的宽度设置成百分比来根据屏幕的...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%9F%BA%E7%A1%80"><span class="toc-text">移动端基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="toc-text">移动端浏览器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%8B%E6%9C%BA%E5%B1%8F%E5%B9%95"><span class="toc-text">手机屏幕</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95"><span class="toc-text">移动端调试方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E5%8F%A3"><span class="toc-text">视口</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%83%E5%B1%80%E8%A7%86%E5%8F%A3layout-viewport"><span class="toc-text">布局视口layout viewport</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E8%A7%86%E5%8F%A3visual-viewport"><span class="toc-text">视觉视口visual viewport</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E6%83%B3%E8%A7%86%E5%8F%A3ideal-viewport"><span class="toc-text">理想视口ideal viewport</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#meat%E8%A7%86%E5%8F%A3%E6%A0%87%E7%AD%BE"><span class="toc-text">meat视口标签</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86viewport%E8%AE%BE%E7%BD%AE"><span class="toc-text">标准viewport设置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E5%80%8D%E5%9B%BE"><span class="toc-text">二倍图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%83%8F%E7%B4%A0-amp-%E7%89%A9%E7%90%86%E5%83%8F%E7%B4%A0%E6%AF%94"><span class="toc-text">物理像素&amp;物理像素比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%80%8D%E5%9B%BE"><span class="toc-text">多倍图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%BC%A9%E6%94%BEbackground-size"><span class="toc-text">背景缩放background-size</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E9%80%89%E6%8B%A9"><span class="toc-text">移动端开发选择</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%8A%80%E6%9C%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">移动端技术解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS%E5%88%9D%E5%A7%8B%E5%8C%96normalize-css"><span class="toc-text">CSS初始化normalize.css</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS3%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B-box-sizing"><span class="toc-text">CSS3盒子模型 box-sizing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E6%A0%B7%E5%BC%8F"><span class="toc-text">特殊样式</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

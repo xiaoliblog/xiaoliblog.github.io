@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Vue项目——电商管理系统之商品分类管理 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="商品分类创建分支 创建一个goods_cate分支用于开发商品分类功能  12345git branch# 创建分支git checkout -b goods_cate# 初次推送分支到云端git push -u origin goods_cate  分类路由 创建Categories组件，并配置路由  12345678910111213141516import Categories from &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue项目——电商管理系统之商品分类管理">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/a377bf34.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="商品分类创建分支 创建一个goods_cate分支用于开发商品分类功能  12345git branch# 创建分支git checkout -b goods_cate# 初次推送分支到云端git push -u origin goods_cate  分类路由 创建Categories组件，并配置路由  12345678910111213141516import Categories from &amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.249Z">
+<meta property="article:modified_time" content="2023-03-03T10:17:22.766Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Vue项目——电商管理系统之商品分类管理</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">2.3k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>11分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="商品分类"><a href="#商品分类" class="headerlink" title="商品分类"></a>商品分类</h1><h2 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h2><ul>
+<li>创建一个<code>goods_cate</code>分支用于开发商品分类功能</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br><span class="line"><span class="comment"># 创建分支</span></span><br><span class="line">git checkout -b goods_cate</span><br><span class="line"><span class="comment"># 初次推送分支到云端</span></span><br><span class="line">git push -u origin goods_cate</span><br></pre></td></tr></table></figure>
+
+<h2 id="分类路由"><a href="#分类路由" class="headerlink" title="分类路由"></a>分类路由</h2><ul>
+<li>创建<code>Categories</code>组件，并配置路由</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Categories</span> <span class="keyword">from</span> <span class="string">&#x27;../components/goods/Categories&#x27;</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;</span><br><span class="line">  <span class="attr">routes</span>: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">redirect</span>: <span class="string">&#x27;/login&#x27;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/login&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Login</span> &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">path</span>: <span class="string">&#x27;/home&#x27;</span>,</span><br><span class="line">      <span class="attr">component</span>: <span class="title class_">Home</span>,</span><br><span class="line">      <span class="attr">redirect</span>: <span class="string">&#x27;/welcome&#x27;</span>,</span><br><span class="line">      <span class="attr">children</span>: [</span><br><span class="line">        <span class="comment">//....</span></span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;/categories&#x27;</span>,<span class="attr">component</span>: <span class="title class_">Categories</span>&#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后发送请求获取分类数据</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Categories&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">          <span class="comment">// 查询分页条件</span></span><br><span class="line">          <span class="attr">queryInfo</span>: &#123;</span><br><span class="line">              <span class="attr">type</span>: <span class="number">3</span>,</span><br><span class="line">              <span class="attr">pagenum</span>: <span class="number">1</span>,</span><br><span class="line">              <span class="attr">pagesize</span>: <span class="number">5</span>,</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="comment">// 商品分类的数据列表，默认为空</span></span><br><span class="line">          <span class="attr">cateList</span>: [],</span><br><span class="line">          <span class="comment">// 总数据条数</span></span><br><span class="line">          <span class="attr">total</span>: <span class="number">0</span>,</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">getCateList</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>:&#123;</span><br><span class="line">      <span class="comment">// 获取商品分类数据</span></span><br><span class="line">      <span class="keyword">async</span> <span class="title function_">getCateList</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(<span class="string">&#x27;categories&#x27;</span>,&#123;<span class="attr">params</span>:<span class="variable language_">this</span>.<span class="property">queryInfo</span>&#125;)</span><br><span class="line">        <span class="keyword">if</span>(res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取分类数据失败&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 把数据列表数据赋值给cateList</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">cateList</span> = res.<span class="property">data</span>.<span class="property">result</span></span><br><span class="line">        <span class="comment">// 为总条数赋值</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">total</span> = res.<span class="property">data</span>.<span class="property">total</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="树形表格组件"><a href="#树形表格组件" class="headerlink" title="树形表格组件"></a>树形表格组件</h2><ul>
+<li>需要使用第三方插件，在Vue可视化工具【依赖】中，搜索<code>vue-table-with-tree-grid</code>安装依赖</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210811102818.png"></p>
+<ul>
+<li>其项目地址：<a target="_blank" rel="noopener" href="https://github.com/MisterTaki/vue-table-with-tree-grid">https://github.com/MisterTaki/vue-table-with-tree-grid</a></li>
+<li>在<code>main.js</code>中导入，并注册为全局可用的组件</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">TreeTable</span> <span class="keyword">from</span> <span class="string">&#x27;vue-table-with-tree-grid&#x27;</span></span><br><span class="line"><span class="comment">// 使用&lt;tree-table&gt;即可使用，可用自定义</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&#x27;tree-table&#x27;</span>,<span class="title class_">TreeTable</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用方法查看官方API文档添加属性即可</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--表格--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tree-table</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:data</span>=<span class="string">&quot;cateList&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:columns</span>=<span class="string">&quot;columns&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:selection-type</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:expand-type</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:show-index</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">index-text</span>=<span class="string">&quot;#&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">border</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line">&lt;/tree-table</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Categories&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// 商品分类的数据列表，默认为空</span></span><br><span class="line">      <span class="attr">cateList</span>: [],</span><br><span class="line">      <span class="comment">// 总数据条数</span></span><br><span class="line">      <span class="attr">total</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="comment">// 树形组件指定列的定义</span></span><br><span class="line">      <span class="attr">columns</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">label</span>: <span class="string">&#x27;分类名称&#x27;</span>, <span class="comment">// 列名</span></span><br><span class="line">          <span class="attr">prop</span>: <span class="string">&#x27;cat_name&#x27;</span>, <span class="comment">//具体的值</span></span><br><span class="line">        &#125;,</span><br><span class="line">      ],</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210811104408.png"></p>
+<ul>
+<li>使用自定义模板列渲染表格数据</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--表格--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tree-table</span> <span class="attr">:data</span>=<span class="string">&quot;cateList&quot;</span> <span class="attr">:columns</span>=<span class="string">&quot;columns&quot;</span> <span class="attr">:selection-type</span>=<span class="string">&quot;false&quot;</span> <span class="attr">:expand-type</span>=<span class="string">&quot;false&quot;</span> <span class="attr">:show-index</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">index-text</span>=<span class="string">&quot;#&quot;</span> <span class="attr">border</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--是否有效--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">&quot;isok&quot;</span> <span class="attr">slot-scope</span>=<span class="string">&quot;scope&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;el-icon-success&quot;</span> <span class="attr">v-if</span>=<span class="string">&quot;scope.row.cat_deleted === false&quot;</span> <span class="attr">style</span>=<span class="string">&quot;color:lightgreen;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;el-icon-error&quot;</span> <span class="attr">v-else</span> <span class="attr">style</span>=<span class="string">&quot;color:red;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--排序--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">&quot;order&quot;</span> <span class="attr">slot-scope</span>=<span class="string">&quot;scope&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-tag</span> <span class="attr">size</span>=<span class="string">&quot;mini&quot;</span> <span class="attr">v-if</span>=<span class="string">&quot;scope.row.cat_level === 0&quot;</span>&gt;</span>一级<span class="tag">&lt;/<span class="name">el-tag</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-tag</span> <span class="attr">type</span>=<span class="string">&quot;success&quot;</span> <span class="attr">size</span>=<span class="string">&quot;mini&quot;</span> <span class="attr">v-else-if</span>=<span class="string">&quot;scope.row.cat_level === 1&quot;</span>&gt;</span>二级<span class="tag">&lt;/<span class="name">el-tag</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-tag</span> <span class="attr">type</span>=<span class="string">&quot;warning&quot;</span> <span class="attr">size</span>=<span class="string">&quot;mini&quot;</span> <span class="attr">v-else</span>&gt;</span>三级<span class="tag">&lt;/<span class="name">el-tag</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--操作--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">&quot;opt&quot;</span> <span class="attr">slot-scope</span>=<span class="string">&quot;scope&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> <span class="attr">icon</span>=<span class="string">&quot;el-icon-edit&quot;</span> <span class="attr">size</span>=<span class="string">&quot;mini&quot;</span>&gt;</span>编辑<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;danger&quot;</span> <span class="attr">icon</span>=<span class="string">&quot;el-icon-delete&quot;</span> <span class="attr">size</span>=<span class="string">&quot;mini&quot;</span>&gt;</span>删除<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tree-table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Categories&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// 商品分类的数据列表，默认为空</span></span><br><span class="line">      <span class="attr">cateList</span>: [],</span><br><span class="line">      <span class="comment">// 总数据条数</span></span><br><span class="line">      <span class="attr">total</span>: <span class="number">0</span>,</span><br><span class="line">     <span class="comment">// 树形组件指定列的定义</span></span><br><span class="line">      <span class="attr">columns</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">label</span>: <span class="string">&#x27;分类名称&#x27;</span>, <span class="comment">// 列名</span></span><br><span class="line">          <span class="attr">prop</span>: <span class="string">&#x27;cat_name&#x27;</span>, <span class="comment">//具体的值</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">label</span>: <span class="string">&#x27;是否有效&#x27;</span>, <span class="comment">// 列名</span></span><br><span class="line">          <span class="attr">type</span>: <span class="string">&#x27;template&#x27;</span>, <span class="comment">// 表示当前列定义为模板列</span></span><br><span class="line">          <span class="attr">template</span>: <span class="string">&#x27;isok&#x27;</span>, <span class="comment">// 使用的模板名称</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">label</span>: <span class="string">&#x27;排序&#x27;</span>,</span><br><span class="line">            <span class="attr">type</span>:<span class="string">&#x27;template&#x27;</span>,</span><br><span class="line">            <span class="attr">template</span>:<span class="string">&#x27;order&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">label</span>: <span class="string">&#x27;操作&#x27;</span>,</span><br><span class="line">            <span class="attr">type</span>:<span class="string">&#x27;template&#x27;</span>,</span><br><span class="line">            <span class="attr">template</span>:<span class="string">&#x27;opt&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210811110135.png"></p>
+<h2 id="分页功能"><a href="#分页功能" class="headerlink" title="分页功能"></a>分页功能</h2><ul>
+<li>分页功能组件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--分页--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-pagination</span></span></span><br><span class="line"><span class="tag">   @<span class="attr">size-change</span>=<span class="string">&quot;handleSizeChange&quot;</span></span></span><br><span class="line"><span class="tag">   @<span class="attr">current-change</span>=<span class="string">&quot;handleCurrentChange&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:current-page</span>=<span class="string">&quot;queryInfo.pagenum&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:page-sizes</span>=<span class="string">&quot;[3, 5, 10, 15]&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:page-size</span>=<span class="string">&quot;queryInfo.pagesize&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">layout</span>=<span class="string">&quot;total, sizes, prev, pager, next, jumper&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:total</span>=<span class="string">&quot;total&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-pagination</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后重新回调函数，当<code>pagesize</code>和<code>pagenum</code>发生变化时重新获取数据。前提是后台已经做好了分页</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Categories&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// 查询分页条件</span></span><br><span class="line">      <span class="attr">queryInfo</span>: &#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="number">3</span>,</span><br><span class="line">        <span class="attr">pagenum</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">pagesize</span>: <span class="number">5</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 商品分类的数据列表，默认为空</span></span><br><span class="line">      <span class="attr">cateList</span>: [],</span><br><span class="line">      <span class="comment">// 总数据条数</span></span><br><span class="line">      <span class="attr">total</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="comment">// 树形组件指定列的定义</span></span><br><span class="line">      <span class="attr">columns</span>: [</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">      ],</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getCateList</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="comment">// 获取商品分类数据</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">getCateList</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(<span class="string">&#x27;categories&#x27;</span>, &#123;</span><br><span class="line">        <span class="attr">params</span>: <span class="variable language_">this</span>.<span class="property">queryInfo</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取分类数据失败&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 把数据列表数据赋值给cateList</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">cateList</span> = res.<span class="property">data</span>.<span class="property">result</span></span><br><span class="line">      <span class="comment">// 为总条数赋值</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">total</span> = res.<span class="property">data</span>.<span class="property">total</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 监听pagesize改变的事件</span></span><br><span class="line">    <span class="title function_">handleSizeChange</span>(<span class="params">newSize</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">queryInfo</span>.<span class="property">pagesize</span> = newSize</span><br><span class="line">      <span class="comment">// 重新查询获取数据</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">getCateList</span>()</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 监听pagenum的改变</span></span><br><span class="line">    <span class="title function_">handleCurrentChange</span>(<span class="params">newPage</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">queryInfo</span>.<span class="property">pagenum</span> = newPage</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">getCateList</span>()</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210811111016.png"></p>
+<h2 id="添加分类实现"><a href="#添加分类实现" class="headerlink" title="添加分类实现"></a>添加分类实现</h2><ul>
+<li>使用到了对话框组件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--添加分类的对话框--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> <span class="attr">title</span>=<span class="string">&quot;添加分类&quot;</span> <span class="attr">:visible.sync</span>=<span class="string">&quot;addCateDialogVisible&quot;</span> <span class="attr">width</span>=<span class="string">&quot;50%&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--添加分类的表单--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-form</span> <span class="attr">:model</span>=<span class="string">&quot;addCateForm&quot;</span> <span class="attr">:rules</span>=<span class="string">&quot;addCateFormRules&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;addCateFormRef&quot;</span> <span class="attr">label-width</span>=<span class="string">&quot;100px&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;分类名称&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;cat_name&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;addCateForm.cat_name&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;父级分类&quot;</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--级联选择框--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-form</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--底部按钮--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">slot</span>=<span class="string">&quot;footer&quot;</span> <span class="attr">class</span>=<span class="string">&quot;dialog-footer&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-button</span> @<span class="attr">click</span>=<span class="string">&quot;addCateDialogVisible = false&quot;</span>&gt;</span>取 消<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;addCateDialogVisible = false&quot;</span>&gt;</span>确 定<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-dialog</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Categories&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// 查询分页条件</span></span><br><span class="line">      <span class="attr">queryInfo</span>: &#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="number">3</span>,</span><br><span class="line">        <span class="attr">pagenum</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">pagesize</span>: <span class="number">5</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">      <span class="comment">// 控制添加分类对话框的显示与隐藏</span></span><br><span class="line">      <span class="attr">addCateDialogVisible</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="comment">// 添加分类表单对象</span></span><br><span class="line">      <span class="attr">addCateForm</span>: &#123;</span><br><span class="line">        <span class="attr">cat_name</span>: <span class="string">&#x27;&#x27;</span>, <span class="comment">//将要添加的分类的名称</span></span><br><span class="line">        <span class="attr">cat_pid</span>: <span class="number">0</span>, <span class="comment">// 父级分类的ID</span></span><br><span class="line">        <span class="attr">cat_level</span>: <span class="number">0</span>, <span class="comment">//当前分类的等级，默认一级分类</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">addCateFormRules</span>: &#123;</span><br><span class="line">        <span class="attr">cat_name</span>: [</span><br><span class="line">          &#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&#x27;请输入分类名称&#x27;</span>, <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span> &#125;,</span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 父级分类列表数据</span></span><br><span class="line">      <span class="attr">parentCateList</span>:[]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getCateList</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="comment">// ..</span></span><br><span class="line">    <span class="title function_">showAddCateDialog</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// 获取父级分类数据列表</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">getParentCateList</span>()</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">addCateDialogVisible</span> = <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 获取父级分类的数据列表</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">getParentCateList</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(<span class="string">&#x27;categories&#x27;</span>, &#123;</span><br><span class="line">        <span class="attr">params</span>: &#123; <span class="attr">type</span>: <span class="number">2</span> &#125;,</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取父级父类数据失败&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">parentCateList</span> = res.<span class="property">data</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="级联选择器"><a href="#级联选择器" class="headerlink" title="级联选择器"></a>级联选择器</h2><ul>
+<li>使用到了Cascader 级联选择器组件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;父级分类&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--options指定数据源,props指定配置对象--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-cascader</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-model</span>=<span class="string">&quot;selectedKeys&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:options</span>=<span class="string">&quot;parentCateList&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">expand-trigger</span>=<span class="string">&quot;hover&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:props</span>=<span class="string">&quot;cascaderProps&quot;</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">change</span>=<span class="string">&quot;parentCateChanged&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">clearable</span></span></span><br><span class="line"><span class="tag">  &gt;</span><span class="tag">&lt;/<span class="name">el-cascader</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Categories&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// 查询分页条件</span></span><br><span class="line">      <span class="attr">queryInfo</span>: &#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="number">3</span>,</span><br><span class="line">        <span class="attr">pagenum</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">pagesize</span>: <span class="number">5</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 商品分类的数据列表，默认为空</span></span><br><span class="line">      <span class="attr">cateList</span>: [],</span><br><span class="line">      <span class="comment">// 总数据条数</span></span><br><span class="line">      <span class="attr">total</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="comment">// 树形组件指定列的定义</span></span><br><span class="line">      <span class="attr">columns</span>: [</span><br><span class="line">      ],</span><br><span class="line">      <span class="comment">// 控制添加分类对话框的显示与隐藏</span></span><br><span class="line">      <span class="attr">addCateDialogVisible</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="comment">// 添加分类表单对象</span></span><br><span class="line">      <span class="attr">addCateForm</span>: &#123;</span><br><span class="line">        <span class="attr">cat_name</span>: <span class="string">&#x27;&#x27;</span>, <span class="comment">//将要添加的分类的名称</span></span><br><span class="line">        <span class="attr">cat_pid</span>: <span class="number">0</span>, <span class="comment">// 父级分类的ID</span></span><br><span class="line">        <span class="attr">cat_level</span>: <span class="number">0</span>, <span class="comment">//当前分类的等级，默认一级分类</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">addCateFormRules</span>: &#123;</span><br><span class="line">        <span class="attr">cat_name</span>: [</span><br><span class="line">          &#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&#x27;请输入分类名称&#x27;</span>, <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span> &#125;,</span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 父级分类列表数据</span></span><br><span class="line">      <span class="attr">parentCateList</span>: [],</span><br><span class="line">      <span class="comment">// 指定级联选择器的配置对象</span></span><br><span class="line">      <span class="attr">cascaderProps</span>: &#123;</span><br><span class="line">        <span class="attr">value</span>: <span class="string">&#x27;cat_id&#x27;</span>, <span class="comment">// 所选择的值，为ID值</span></span><br><span class="line">        <span class="attr">label</span>: <span class="string">&#x27;cat_name&#x27;</span>, <span class="comment">// 分类名</span></span><br><span class="line">        <span class="attr">children</span>: <span class="string">&#x27;children&#x27;</span>, <span class="comment">// 嵌套的值</span></span><br><span class="line">        <span class="attr">checkStrictly</span>: <span class="literal">true</span>, <span class="comment">// 是否可用选择任一项</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 选中的父级分类的ID数组</span></span><br><span class="line">      <span class="attr">selectedKeys</span>: [],</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getCateList</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="comment">// 获取商品分类数据</span></span><br><span class="line">    <span class="comment">// 监听pagesize改变的事件</span></span><br><span class="line">    <span class="comment">// 监听pagenum的改变</span></span><br><span class="line">    <span class="comment">// 点击按钮打开对话框</span></span><br><span class="line">    <span class="title function_">showAddCateDialog</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// 获取父级分类数据列表</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">getParentCateList</span>()</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">addCateDialogVisible</span> = <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 获取父级分类的数据列表</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">getParentCateList</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(<span class="string">&#x27;categories&#x27;</span>, &#123;</span><br><span class="line">        <span class="attr">params</span>: &#123; <span class="attr">type</span>: <span class="number">2</span> &#125;,</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取父级父类数据失败&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">parentCateList</span> = res.<span class="property">data</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 选择项发生变化触发</span></span><br><span class="line">    <span class="title function_">parentCateChanged</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// 如果selectKeys数组中的length&gt;0 证明选中了父级分类，反正没有选中</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">selectedKeys</span>.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 父级分类的ID</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">addCateForm</span>.<span class="property">cat_pid</span> =</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">selectedKeys</span>[<span class="variable language_">this</span>.<span class="property">selectedKeys</span>.<span class="property">length</span> - <span class="number">1</span>]</span><br><span class="line">        <span class="comment">// 为当前分类的等级赋值</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">addCateForm</span>.<span class="property">cat_level</span> = <span class="variable language_">this</span>.<span class="property">selectedKeys</span>.<span class="property">length</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 父级分类的ID</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">addCateForm</span>.<span class="property">cat_pid</span> = <span class="number">0</span></span><br><span class="line">        <span class="comment">// 为当前分类的等级赋值</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">addCateForm</span>.<span class="property">cat_level</span> = <span class="number">0</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 点击按钮添加新的分类</span></span><br><span class="line">    <span class="title function_">addCate</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">addCateFormRef</span>.<span class="title function_">validate</span>(<span class="keyword">async</span> (valid) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (!valid) &#123;</span><br><span class="line">          <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">post</span>(</span><br><span class="line">          <span class="string">&#x27;categories&#x27;</span>,</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">addCateForm</span></span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">201</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;添加分类失败&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">success</span>(<span class="string">&#x27;添加分类成功&#x27;</span>)</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">getCateList</span>()</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">addCateDialogVisible</span> = <span class="literal">false</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 监听对话框的关闭事件</span></span><br><span class="line">    <span class="title function_">addCateDialogClosed</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">addCateFormRef</span>.<span class="title function_">resetFields</span>()</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">selectedKeys</span> = []</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">addCateForm</span>.<span class="property">cat_level</span> = <span class="number">0</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">addCateForm</span>.<span class="property">cat_pid</span> = <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="上传码云"><a href="#上传码云" class="headerlink" title="上传码云"></a>上传码云</h2><ul>
+<li>把<code>goods_cate</code>分支提交到码云并合并</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;完成了分类管理&quot;</span></span><br><span class="line">git push</span><br><span class="line">git branch</span><br><span class="line">git checkout master</span><br><span class="line">git merge goods_cate</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/a377bf34.html">http://xiaoliblog.cn/posts/a377bf34.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/9e2f2d4b.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Vue项目——电商管理系统之商品列表管理</div>
+      <div class="prev-desc">商品列表创建分支
+开发新功能，创建goods_list分支
+
+123git branchgit checkout -b goods_listgit push -u origin goods_list
+
+商品路由
+创建Goods.vue组件，并配置好路由。发送请求获取商品数据
+
+123456789101112131...</div>
+    </a>
+    
+    
+    <a href="/posts/f44d8b0f.html">
+      <div class="next-title">Vue项目——电商管理系统之主页布局实现<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">主页实现主页布局
+
+使用ElementUI的布局容器组件，在配置文件中按需引入。注意出现-需要转为大写字母代替
+
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%95%86%E5%93%81%E5%88%86%E7%B1%BB"><span class="toc-text">商品分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF"><span class="toc-text">创建分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%B1%BB%E8%B7%AF%E7%94%B1"><span class="toc-text">分类路由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E5%BD%A2%E8%A1%A8%E6%A0%BC%E7%BB%84%E4%BB%B6"><span class="toc-text">树形表格组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD"><span class="toc-text">分页功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E5%AE%9E%E7%8E%B0"><span class="toc-text">添加分类实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A7%E8%81%94%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">级联选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E7%A0%81%E4%BA%91"><span class="toc-text">上传码云</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

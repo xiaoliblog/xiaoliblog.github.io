@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Angular项目——网易音乐之Resolve守卫及播放器 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="入驻歌手封装服务 首先定义请求返回的入驻歌手数据格式  1234567&#x2F;&#x2F; 定义入驻歌手列表数据export type Singer &#x3D; &amp;#123;    id: number;    name: string;    picUrl: string;    albumSize: number&amp;#125;   在service文件夹下新建singer.service.ts，用于请求歌手信息  12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular项目——网易音乐之Resolve守卫及播放器">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/aff90e07.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="入驻歌手封装服务 首先定义请求返回的入驻歌手数据格式  1234567&#x2F;&#x2F; 定义入驻歌手列表数据export type Singer &#x3D; &amp;#123;    id: number;    name: string;    picUrl: string;    albumSize: number&amp;#125;   在service文件夹下新建singer.service.ts，用于请求歌手信息  12">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.241Z">
+<meta property="article:modified_time" content="2023-03-03T10:07:22.774Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Angular项目——网易音乐之Resolve守卫及播放器</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">2.6k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>14分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="入驻歌手"><a href="#入驻歌手" class="headerlink" title="入驻歌手"></a>入驻歌手</h1><h2 id="封装服务"><a href="#封装服务" class="headerlink" title="封装服务"></a>封装服务</h2><ul>
+<li>首先定义请求返回的入驻歌手数据格式</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义入驻歌手列表数据</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> <span class="title class_">Singer</span> = &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">picUrl</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">albumSize</span>: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>service</code>文件夹下新建<code>singer.service.ts</code>，用于请求歌手信息</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HttpClient</span>, <span class="title class_">HttpParams</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/common/http&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Inject</span>, <span class="title class_">Injectable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Singer</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./data-types/common.types&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="variable constant_">API_CONFIG</span>, <span class="title class_">ServicesModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./services.module&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs/internal/operators&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">SingerParams</span> = &#123;</span><br><span class="line">  <span class="attr">offset</span>: <span class="built_in">number</span>; <span class="comment">// 分页索引</span></span><br><span class="line">  <span class="attr">limit</span>: <span class="built_in">number</span>; <span class="comment">//每页多少条</span></span><br><span class="line">  cat?: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 默认参数</span></span><br><span class="line"><span class="keyword">const</span> <span class="attr">defaultParams</span>: <span class="title class_">SingerParams</span> = &#123;</span><br><span class="line">  <span class="attr">offset</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">limit</span>: <span class="number">9</span>,</span><br><span class="line">  <span class="attr">cat</span>: <span class="string">&quot;5001&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  <span class="attr">providedIn</span>: <span class="title class_">ServicesModule</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">SingerService</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> http: HttpClient,</span></span><br><span class="line"><span class="params">    <span class="meta">@Inject</span>(API_CONFIG) <span class="keyword">private</span> uri: <span class="built_in">string</span></span></span><br><span class="line"><span class="params">  </span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取入驻歌手信息</span></span><br><span class="line">  <span class="title function_">getEnterSinger</span>(<span class="attr">args</span>: <span class="title class_">SingerParams</span> = defaultParams): <span class="title class_">Observable</span>&lt;<span class="title class_">Singer</span>[]&gt; &#123;</span><br><span class="line">    <span class="comment">// 传参数</span></span><br><span class="line">    <span class="keyword">const</span> str = <span class="string">`offset=<span class="subst">$&#123;args.offset&#125;</span>&amp;limit=<span class="subst">$&#123;args.limit&#125;</span>&amp;cat=<span class="subst">$&#123;args.cat&#125;</span>`</span>;</span><br><span class="line">    <span class="keyword">const</span> params = <span class="keyword">new</span> <span class="title class_">HttpParams</span>(&#123;</span><br><span class="line">      <span class="comment">// 序列化:args是对象需要转为字符串</span></span><br><span class="line">      <span class="attr">fromString</span>: str,</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">http</span></span><br><span class="line">      .<span class="title function_">get</span>(<span class="variable language_">this</span>.<span class="property">uri</span> + <span class="string">&quot;artist/list&quot;</span>, &#123; params &#125;)</span><br><span class="line">      .<span class="title function_">pipe</span>(<span class="title function_">map</span>(<span class="function">(<span class="params">res: &#123; artists: Singer[] &#125;</span>) =&gt;</span> res.<span class="property">artists</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>home.component.ts</code>中使用</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnInit</span>, <span class="title class_">ViewChild</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Singer</span>&#125; <span class="keyword">from</span> <span class="string">&quot;src/app/services/data-types/common.types&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">SingerService</span> &#125; <span class="keyword">from</span> <span class="string">&quot;src/app/services/singer.service&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&quot;app-home&quot;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&quot;./home.component.html&quot;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&quot;./home.component.less&quot;</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line">  <span class="comment">// 前端遍历即可</span></span><br><span class="line">  singers : <span class="title class_">Singer</span>[]</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 依赖注入服务</span></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> singerService: SingerService</span>) &#123;</span><br><span class="line">    <span class="comment">// 获取数据</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getEnterSinger</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 获取入驻歌手信息</span></span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">getEnterSinger</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">singerService</span>.<span class="title function_">getEnterSinger</span>().<span class="title function_">subscribe</span>((<span class="function"><span class="params">singer</span>=&gt;</span>&#123;</span><br><span class="line">     <span class="variable language_">this</span>.<span class="property">singers</span> = singer</span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;singer&#x27;</span>,<span class="variable language_">this</span>.<span class="property">singers</span>)</span><br><span class="line">    &#125;))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="封装组件"><a href="#封装组件" class="headerlink" title="封装组件"></a>封装组件</h2><ul>
+<li>把登陆界面封装成一个组件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g c pages/home/components/member-card</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;member&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;login&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>登陆网易云音乐，可以享受无限收藏的乐趣，并且无限同步到手机<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">nz-button</span> <span class="attr">class</span>=<span class="string">&quot;btn&quot;</span>&gt;</span>用户登陆<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>home.component.html</code>中使用即可</li>
+</ul>
+<h2 id="Resolve守卫"><a href="#Resolve守卫" class="headerlink" title="Resolve守卫"></a>Resolve守卫</h2><ul>
+<li><code>Resolve</code>守卫的作用就是写一个类实现<code>Resolve</code>，然后实现相应的方法，在该方法中，提前把数据请求等工作做好，然后在路由跳转（如跳转到A组件）的时候把这些数据传过去，这样A组件中要展示的数据就会及时展示出来</li>
+<li>如果没有<code>Resolve</code>守卫这种机制的话，就只能在A组件显示再从服务器请求数据，则会导致页面展示不及时的问题</li>
+<li>在<code>home</code>文件夹下新建<code>home-resolve.service.ts</code>，输入获取数据的服务，在这个文件里把所有数据获取到</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Injectable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Resolve</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/router&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; forkJoin, <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; first &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs/internal/operators&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Banner</span>, <span class="title class_">HotTag</span>, <span class="title class_">Singer</span>, <span class="title class_">SongSheet</span> &#125; <span class="keyword">from</span> <span class="string">&quot;src/app/services/data-types/common.types&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HomeService</span> &#125; <span class="keyword">from</span> <span class="string">&quot;src/app/services/home.service&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">SingerService</span> &#125; <span class="keyword">from</span> <span class="string">&quot;src/app/services/singer.service&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">HomeDataType</span> = [<span class="title class_">Banner</span>[],<span class="title class_">HotTag</span>[],<span class="title class_">SongSheet</span>[],<span class="title class_">Singer</span>[]]</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  <span class="attr">providedIn</span>: <span class="string">&quot;root&quot;</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeResolverService</span> <span class="keyword">implements</span> <span class="title class_">Resolve</span>&lt;<span class="title class_">HomeDataType</span>&gt; &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> homeService: HomeService,</span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> singerService: SingerService</span></span><br><span class="line"><span class="params">  </span>) &#123;&#125;</span><br><span class="line">  <span class="title function_">resolve</span>(): <span class="title class_">Observable</span>&lt;<span class="title class_">HomeDataType</span>&gt; &#123;</span><br><span class="line">      <span class="comment">// 会对每一个流完全完成后，把最新值返回</span></span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">forkJoin</span>([</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">homeService</span>.<span class="title function_">getBanners</span>(),</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">homeService</span>.<span class="title function_">getHotTags</span>(),</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">homeService</span>.<span class="title function_">getPersonalSheetList</span>(),</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">singerService</span>.<span class="title function_">getEnterSinger</span>()</span><br><span class="line">      ]).<span class="title function_">pipe</span>(<span class="title function_">first</span>())</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>home-routing.module.ts</code>中使用</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Routes</span>, <span class="title class_">RouterModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/router&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HomeResolverService</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./home-resolve.service&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HomeComponent</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./home.component&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">routes</span>: <span class="title class_">Routes</span> = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;home&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">HomeComponent</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">      <span class="attr">title</span>: <span class="string">&quot;发现&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">resolve</span>: &#123;</span><br><span class="line">      <span class="attr">homeDatas</span>: <span class="title class_">HomeResolverService</span>, <span class="comment">// 使用，homeDatas包含了请求的所有数据</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">imports</span>: [<span class="title class_">RouterModule</span>.<span class="title function_">forChild</span>(routes)],</span><br><span class="line">  <span class="attr">exports</span>: [<span class="title class_">RouterModule</span>],</span><br><span class="line">  <span class="attr">providers</span>: [<span class="title class_">HomeResolverService</span>], <span class="comment">// 提供</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeRoutingModule</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>然后<code>home.component.ts</code>中就可以简化，不需要服务请求就得到数据</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnInit</span>, <span class="title class_">ViewChild</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ActivatedRoute</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/router&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs/internal/operators&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  <span class="title class_">Banner</span>,</span><br><span class="line">  <span class="title class_">HotTag</span>,</span><br><span class="line">  <span class="title class_">Singer</span>,</span><br><span class="line">  <span class="title class_">SongSheet</span>,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;src/app/services/data-types/common.types&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&quot;app-home&quot;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&quot;./home.component.html&quot;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&quot;./home.component.less&quot;</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="attr">banners</span>: <span class="title class_">Banner</span>[];</span><br><span class="line">  <span class="attr">hotTags</span>: <span class="title class_">HotTag</span>[];</span><br><span class="line">  <span class="attr">songSheetList</span>: <span class="title class_">SongSheet</span>[];</span><br><span class="line">  <span class="attr">singers</span>: <span class="title class_">Singer</span>[];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 轮播图组件实例</span></span><br><span class="line">  <span class="meta">@ViewChild</span>(<span class="title class_">NzCarouselComponent</span>, &#123; <span class="attr">static</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">  <span class="keyword">private</span> <span class="attr">nzCarousel</span>: <span class="title class_">NzCarouselComponent</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 依赖注入服务</span></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> route: ActivatedRoute</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">route</span>.<span class="property">data</span></span><br><span class="line">      .<span class="title function_">pipe</span>(<span class="title function_">map</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> res.<span class="property">homeDatas</span>))</span><br><span class="line">      .<span class="title function_">subscribe</span>(<span class="function">(<span class="params">[banners, tags, sheets, singer]</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">banners</span> = banners;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">hotTags</span> = tags;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">songSheetList</span> = sheets;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">singers</span> = singer;</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="歌单详情"><a href="#歌单详情" class="headerlink" title="歌单详情"></a>歌单详情</h1><h2 id="封装服务-1"><a href="#封装服务-1" class="headerlink" title="封装服务"></a>封装服务</h2><ul>
+<li>根据歌单ID获取其包含的每个歌曲URL，首先定义数据类型</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 歌曲</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> <span class="title class_">Song</span> = &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">url</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">ar</span>: <span class="title class_">Singer</span>[];</span><br><span class="line">    <span class="attr">al</span>: &#123;</span><br><span class="line">        <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">        <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">        picUrl : <span class="built_in">string</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="attr">dt</span>:<span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 歌单</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> <span class="title class_">SongSheet</span> = &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">picUrl</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">playCount</span>: <span class="built_in">number</span>;</span><br><span class="line">    <span class="attr">tracks</span>: <span class="title class_">Song</span>[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>service</code>文件夹下新建<code>sheet.service.ts</code>封装服务</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HttpClient</span>, <span class="title class_">HttpParams</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/common/http&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Inject</span>, <span class="title class_">Injectable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs/internal/operators&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">SongSheet</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./data-types/common.types&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="variable constant_">API_CONFIG</span>, <span class="title class_">ServicesModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./services.module&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  <span class="attr">providedIn</span>: <span class="title class_">ServicesModule</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">SheetService</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> http: HttpClient,</span></span><br><span class="line"><span class="params">    <span class="meta">@Inject</span>(API_CONFIG) <span class="keyword">private</span> uri: <span class="built_in">string</span></span></span><br><span class="line"><span class="params">  </span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取歌单详情</span></span><br><span class="line">  <span class="title function_">getSongSheetDetail</span>(<span class="attr">id</span>: <span class="built_in">number</span>): <span class="title class_">Observable</span>&lt;<span class="title class_">SongSheet</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> params = <span class="keyword">new</span> <span class="title class_">HttpParams</span>().<span class="title function_">set</span>(<span class="string">&quot;id&quot;</span>, id.<span class="title function_">toString</span>());</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">http</span></span><br><span class="line">      .<span class="title function_">get</span>(<span class="variable language_">this</span>.<span class="property">uri</span> + <span class="string">&quot;playlist/detail&quot;</span>, &#123; params &#125;)</span><br><span class="line">      .<span class="title function_">pipe</span>(<span class="title function_">map</span>(<span class="function">(<span class="params">res: &#123; playlist: SongSheet &#125;</span>) =&gt;</span> res.<span class="property">playlist</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>歌单是一个小组件，点击播放按钮，把歌单ID传出去</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;icon play&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;playSheet(sheet.id)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ChangeDetectionStrategy</span>, <span class="title class_">Component</span>, <span class="title class_">EventEmitter</span>, <span class="title class_">Input</span>, <span class="title class_">OnInit</span>, <span class="title class_">Output</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">SongSheet</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;src/app/services/data-types/common.types&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-single-sheet&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./single-sheet.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./single-sheet.component.less&#x27;</span>],</span><br><span class="line">  <span class="comment">// 简单组件都推荐改变一下显示策略</span></span><br><span class="line">  <span class="attr">changeDetection</span>: <span class="title class_">ChangeDetectionStrategy</span>.<span class="property">OnPush</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">SingleSheetComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line">  <span class="meta">@Input</span>() <span class="attr">sheet</span>:<span class="title class_">SongSheet</span></span><br><span class="line">  <span class="comment">// 声明事件</span></span><br><span class="line">  <span class="meta">@Output</span>() onPlay = <span class="keyword">new</span> <span class="title class_">EventEmitter</span>&lt;<span class="built_in">number</span>&gt;();</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 把id发送出去</span></span><br><span class="line">  <span class="title function_">playSheet</span>(<span class="params">id: <span class="built_in">number</span></span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">onPlay</span>.<span class="title function_">emit</span>(id)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在父组件声明接收并触发</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--使用歌单组件，传数据进去--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-single-sheet</span> (<span class="attr">onPlay</span>)=<span class="string">&quot;onPlaySheet($event)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-single-sheet</span>&gt;</span>`</span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>,  <span class="title class_">OnInit</span>, <span class="title class_">ViewChild</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ActivatedRoute</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/router&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&quot;app-home&quot;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&quot;./home.component.html&quot;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&quot;./home.component.less&quot;</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 依赖注入服务</span></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 播放歌单的事件</span></span><br><span class="line">  <span class="title function_">onPlaySheet</span>(<span class="params">id: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">sheetService</span>.<span class="title function_">playSheet</span>(id).<span class="title function_">subscribe</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(res);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="处理数据"><a href="#处理数据" class="headerlink" title="处理数据"></a>处理数据</h2><ul>
+<li>每个表单中有多首歌曲，需要获取它们的播放地址，首先定义数据类型</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 歌曲Url</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> <span class="title class_">SongUrl</span> = &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">    <span class="attr">url</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改<code>sheet.service.ts</code></li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HttpClient</span>, <span class="title class_">HttpParams</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/common/http&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Inject</span>, <span class="title class_">Injectable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map, pluck, switchMap &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs/internal/operators&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Song</span>, <span class="title class_">SongSheet</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./data-types/common.types&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="variable constant_">API_CONFIG</span>, <span class="title class_">ServicesModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./services.module&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">SongService</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./song.service&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  <span class="attr">providedIn</span>: <span class="title class_">ServicesModule</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">SheetService</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> http: HttpClient,</span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> songService: SongService,</span></span><br><span class="line"><span class="params">    <span class="meta">@Inject</span>(API_CONFIG) <span class="keyword">private</span> uri: <span class="built_in">string</span></span></span><br><span class="line"><span class="params">  </span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取歌单详情</span></span><br><span class="line">  <span class="title function_">getSongSheetDetail</span>(<span class="attr">id</span>: <span class="built_in">number</span>): <span class="title class_">Observable</span>&lt;<span class="title class_">SongSheet</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> params = <span class="keyword">new</span> <span class="title class_">HttpParams</span>().<span class="title function_">set</span>(<span class="string">&quot;id&quot;</span>, id.<span class="title function_">toString</span>());</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">http</span></span><br><span class="line">      .<span class="title function_">get</span>(<span class="variable language_">this</span>.<span class="property">uri</span> + <span class="string">&quot;playlist/detail&quot;</span>, &#123; params &#125;)</span><br><span class="line">      .<span class="title function_">pipe</span>(<span class="title function_">map</span>(<span class="function">(<span class="params">res: &#123; playlist: SongSheet &#125;</span>) =&gt;</span> res.<span class="property">playlist</span>));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取tracks</span></span><br><span class="line">  <span class="title function_">playSheet</span>(<span class="attr">id</span>: <span class="built_in">number</span>): <span class="title class_">Observable</span>&lt;<span class="title class_">Song</span>[]&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">getSongSheetDetail</span>(id)</span><br><span class="line">        <span class="comment">// 筛选</span></span><br><span class="line">        .<span class="title function_">pipe</span>(</span><br><span class="line">          <span class="title function_">pluck</span>(<span class="string">&quot;tracks&quot;</span>),</span><br><span class="line">          <span class="title function_">switchMap</span>(<span class="function">(<span class="params">tracks</span>) =&gt;</span> <span class="variable language_">this</span>.<span class="property">songService</span>.<span class="title function_">getSongList</span>(tracks))</span><br><span class="line">        )</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后封装服务，新建<code>song.service.ts</code></li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HttpClient</span>, <span class="title class_">HttpParams</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/common/http&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Inject</span>, <span class="title class_">Injectable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs/internal/operators&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Song</span>, <span class="title class_">SongSheet</span>, <span class="title class_">SongUrl</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./data-types/common.types&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="variable constant_">API_CONFIG</span>, <span class="title class_">ServicesModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./services.module&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  <span class="attr">providedIn</span>: <span class="title class_">ServicesModule</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">SongService</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> http: HttpClient,</span></span><br><span class="line"><span class="params">    <span class="meta">@Inject</span>(API_CONFIG) <span class="keyword">private</span> uri: <span class="built_in">string</span></span></span><br><span class="line"><span class="params">  </span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取歌曲Url</span></span><br><span class="line">  <span class="title function_">getSongUrl</span>(<span class="attr">ids</span>: <span class="built_in">string</span>): <span class="title class_">Observable</span>&lt;<span class="title class_">SongUrl</span>[]&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> params = <span class="keyword">new</span> <span class="title class_">HttpParams</span>().<span class="title function_">set</span>(<span class="string">&quot;id&quot;</span>, ids);</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">http</span></span><br><span class="line">      .<span class="title function_">get</span>(<span class="variable language_">this</span>.<span class="property">uri</span> + <span class="string">&quot;song/url&quot;</span>, &#123; params &#125;)</span><br><span class="line">      .<span class="title function_">pipe</span>(<span class="title function_">map</span>(<span class="function">(<span class="params">res: &#123; data: SongUrl[] &#125;</span>) =&gt;</span> res.<span class="property">data</span>));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">getSongList</span>(<span class="attr">songs</span>: <span class="title class_">Song</span> | <span class="title class_">Song</span>[]): <span class="title class_">Observable</span>&lt;<span class="title class_">Song</span>[]&gt; &#123;</span><br><span class="line">    <span class="comment">// 转为数组形式</span></span><br><span class="line">    <span class="keyword">const</span> songArr = <span class="title class_">Array</span>.<span class="title function_">isArray</span>(songs) ? songs.<span class="title function_">slice</span>() : [songs];</span><br><span class="line">    <span class="keyword">const</span> ids = songArr.<span class="title function_">map</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> item.<span class="property">id</span>).<span class="title function_">join</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Observable</span>.<span class="title function_">create</span>(<span class="function">(<span class="params">observer</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">getSongUrl</span>(ids).<span class="title function_">subscribe</span>(<span class="function">(<span class="params">urls</span>) =&gt;</span> &#123;</span><br><span class="line">        observer.<span class="title function_">next</span>(<span class="variable language_">this</span>.<span class="title function_">generateSongList</span>(songArr, urls));</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 拼接转变形式</span></span><br><span class="line">  <span class="title function_">generateSongList</span>(<span class="attr">songs</span>: <span class="title class_">Song</span>[], <span class="attr">urls</span>: <span class="title class_">SongUrl</span>[]): <span class="title class_">Song</span>[] &#123;</span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    songs.<span class="title function_">forEach</span>(<span class="function">(<span class="params">song</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> url = urls.<span class="title function_">find</span>(<span class="function">(<span class="params">url</span>) =&gt;</span> url.<span class="property">id</span> === song.<span class="property">id</span>).<span class="property">url</span>;</span><br><span class="line">      <span class="keyword">if</span> (url) &#123;</span><br><span class="line">        result.<span class="title function_">push</span>(&#123; ...song, url &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="底部播放器"><a href="#底部播放器" class="headerlink" title="底部播放器"></a>底部播放器</h1><h2 id="创建模块"><a href="#创建模块" class="headerlink" title="创建模块"></a>创建模块</h2><ul>
+<li>播放器也是一个公共的组件，可以创建一个模块</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ng g m share/wy-ui/wy-player</span><br><span class="line">ng g c share/wy-ui/wy-player</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>wy-player.module.ts</code>模块中需要导出去</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">WyPlayerComponent</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./wy-player.component&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [<span class="title class_">WyPlayerComponent</span>],</span><br><span class="line">  <span class="attr">imports</span>: [],</span><br><span class="line">  <span class="comment">// 导出模块</span></span><br><span class="line">  <span class="attr">exports</span>: [</span><br><span class="line">    <span class="title class_">WyPlayerComponent</span></span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">WyPlayerModule</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>wy-ui.module.ts</code>主模块中导入导出</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">SingleSheetComponent</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./single-sheet/single-sheet.component&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">PlayCountPipe</span> &#125; <span class="keyword">from</span> <span class="string">&quot;../play-count.pipe&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">WyPlayerModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./wy-player/wy-player.module&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [<span class="title class_">SingleSheetComponent</span>, <span class="title class_">PlayCountPipe</span>],</span><br><span class="line">  <span class="attr">imports</span>: [<span class="title class_">WyPlayerModule</span>],</span><br><span class="line">  <span class="attr">exports</span>: [<span class="title class_">SingleSheetComponent</span>, <span class="title class_">PlayCountPipe</span>, <span class="title class_">WyPlayerModule</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">WyUiModule</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;m-player&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;lock&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;head&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;btns&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;prev&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;toggle&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;next&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;head&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;mask&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;play&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;words clearfix&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;ellipsis&quot;</span>&gt;</span>歌名<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;songs clearfix&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">a</span>&gt;</span>歌手1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>/</span><br><span class="line">                        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">a</span>&gt;</span>歌手1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;bar&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;slider-wrap&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span>&gt;</span>进度条<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;time&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">em</span>&gt;</span>02:11<span class="tag">&lt;/<span class="name">em</span>&gt;</span> / 04:35</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;oper&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;like&quot;</span> <span class="attr">title</span>=<span class="string">&quot;收藏&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;share&quot;</span> <span class="attr">title</span>=<span class="string">&quot;分享&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;ctrl&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;volume&quot;</span> <span class="attr">title</span>=<span class="string">&quot;音量&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;loop&quot;</span> <span class="attr">title</span>=<span class="string">&quot;循环&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;open&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/aff90e07.html">http://xiaoliblog.cn/posts/aff90e07.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/2fb4ef3d.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Angular项目——网易音乐之项目初始化</div>
+      <div class="prev-desc">初始化创建项目
+安装Angular脚手架，使用的是8.0版本，需要进行降级处理
+
+123npm uninstall -g angular-clinpm cache cleannpm install -g @angular/cli@8.3.0
+
+
+创建项目，安装需要的模块。-S表示不生成单元测试
+
+1ng new ...</div>
+    </a>
+    
+    
+    <a href="/posts/949defeb.html">
+      <div class="next-title">Angular项目——网易音乐之轮播及推荐歌单<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">轮播图服务封装
+出现端口被占用，打开CMD窗口，输入netstat -ano
+
+然后找到相应端口对应的PID，打开任务管理员，点击详细信息关闭即可
+
+调用网易云API接口获取轮播图数据：https://binaryify.github.io/NeteaseCloudMusicApi/#/
+
+首先创建HomeSer...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%A5%E9%A9%BB%E6%AD%8C%E6%89%8B"><span class="toc-text">入驻歌手</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85%E6%9C%8D%E5%8A%A1"><span class="toc-text">封装服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6"><span class="toc-text">封装组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Resolve%E5%AE%88%E5%8D%AB"><span class="toc-text">Resolve守卫</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%8C%E5%8D%95%E8%AF%A6%E6%83%85"><span class="toc-text">歌单详情</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85%E6%9C%8D%E5%8A%A1-1"><span class="toc-text">封装服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE"><span class="toc-text">处理数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%95%E9%83%A8%E6%92%AD%E6%94%BE%E5%99%A8"><span class="toc-text">底部播放器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9D%97"><span class="toc-text">创建模块</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

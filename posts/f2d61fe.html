@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Ajax进阶操作 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="nodemon nodemon是一种工具，可以自动检测到目录中的文件更改时通过重新启动应用程序来调试基于node.js的应用程序 nodemon官方地址：https:&#x2F;&#x2F;www.npmjs.com&#x2F;package&#x2F;nodemon  使用nodemon工具后当修改了服务器代码就不需要手动重启服务器了 安装nodemon 输入一下命令安装  1npm install -g nodemon  使用nod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ajax进阶操作">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/f2d61fe.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="nodemon nodemon是一种工具，可以自动检测到目录中的文件更改时通过重新启动应用程序来调试基于node.js的应用程序 nodemon官方地址：https:&#x2F;&#x2F;www.npmjs.com&#x2F;package&#x2F;nodemon  使用nodemon工具后当修改了服务器代码就不需要手动重启服务器了 安装nodemon 输入一下命令安装  1npm install -g nodemon  使用nod">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.094Z">
+<meta property="article:modified_time" content="2023-03-03T10:03:18.118Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Ajax进阶操作</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">2k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>9分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="nodemon"><a href="#nodemon" class="headerlink" title="nodemon"></a>nodemon</h1><ul>
+<li><code>nodemon</code>是一种工具，可以自动检测到目录中的文件更改时通过重新启动应用程序来调试基于node.js的应用程序</li>
+<li><code>nodemon</code>官方地址：<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/nodemon">https://www.npmjs.com/package/nodemon</a></li>
+</ul>
+<p>使用<code>nodemon</code>工具后当修改了服务器代码就不需要手动重启服务器了</p>
+<h2 id="安装nodemon"><a href="#安装nodemon" class="headerlink" title="安装nodemon"></a>安装nodemon</h2><ul>
+<li>输入一下命令安装</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g nodemon</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用nodemon"><a href="#使用nodemon" class="headerlink" title="使用nodemon"></a>使用nodemon</h2><ul>
+<li>不再使用node运行服务器脚本，而是使用如下命令</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nodemon xxx.js</span><br></pre></td></tr></table></figure>
+
+<h1 id="Ajax进阶"><a href="#Ajax进阶" class="headerlink" title="Ajax进阶"></a>Ajax进阶</h1><h2 id="IE缓存问题"><a href="#IE缓存问题" class="headerlink" title="IE缓存问题"></a>IE缓存问题</h2><ul>
+<li>IE浏览器会对Ajax请求的结果进行缓存，因此下一次访问时访问到的是本地缓存的数据，而不是页面更新的数据</li>
+<li>修改服务器端</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//针对IE缓存</span></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/server-ie&#x27;</span>, <span class="function">(<span class="params">request, response</span>) =&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//设置响应头,设置允许跨域，解决跨域问题</span></span><br><span class="line">    response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>,<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">    <span class="comment">//设置响应体</span></span><br><span class="line">    response.<span class="title function_">send</span>(<span class="string">&#x27;Hello IE - 1&#x27;</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>前端方式Ajax请求</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//2. 初始化，设置请求方法和URL</span></span><br><span class="line">xhr.<span class="title function_">open</span>(<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;http://localhost:8000/server-ie&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>此时IE浏览器结果为第一次Ajax的结果</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/05/04/56c7b022049dc784a16091e0c920d467.png"></p>
+<ul>
+<li>修改服务器端响应体，再访问IE发现结果还是第一次Ajax的结果，这就是IE缓存问题</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.<span class="title function_">send</span>(<span class="string">&#x27;Hello IE - 1&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>那如何解决呢？只需要在前端Ajax请求URL加一个时间戳参数，让浏览器认为是两次不同的请求</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取当前时间戳，时间戳不一样浏览器就会认为是两次不不同的请求</span></span><br><span class="line">xhr.<span class="title function_">open</span>(<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;http://localhost:8000/server-ie?t=&quot;</span>+<span class="title class_">Date</span>.<span class="title function_">now</span>());</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>此时刷新IE浏览器</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/05/04/737e2e53f23e19def791ec4742948649.png"></p>
+<h2 id="请求超时处理"><a href="#请求超时处理" class="headerlink" title="请求超时处理"></a>请求超时处理</h2><ul>
+<li>当出现由于网络等其他问题出现请求超时时，Ajax需要对这种请求进行处理</li>
+<li>服务器延迟设置</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//延时响应</span></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/server-delay&#x27;</span>, <span class="function">(<span class="params">request, response</span>) =&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//设置响应头,设置允许跨域，解决跨域问题</span></span><br><span class="line">    response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>,<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">         response.<span class="title function_">send</span>(<span class="string">&#x27;延时响应&#x27;</span>)</span><br><span class="line">    &#125;,<span class="number">3000</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>前端发送Ajax时，对请求超时和网络异常的处理</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 创建对象</span></span><br><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line"><span class="comment">//超时设置</span></span><br><span class="line">xhr.<span class="property">timeout</span> = <span class="number">2000</span>; <span class="comment">//2s之内没有收到结果就把请求取消，认为超时</span></span><br><span class="line"><span class="comment">//超时回调</span></span><br><span class="line">xhr.<span class="property">ontimeout</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="title function_">alert</span>(<span class="string">&quot;网络异常，请稍后重新！&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//网络异常回调</span></span><br><span class="line">xhr.<span class="property">onerror</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="title function_">alert</span>(<span class="string">&quot;你的网络出现了问题！&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">xhr.<span class="title function_">open</span>(<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;http://localhost:8000/server-delay&quot;</span>);</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="取消请求"><a href="#取消请求" class="headerlink" title="取消请求"></a>取消请求</h2><ul>
+<li>调用<code>abort()</code>方法即可</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Ajax 取消请求<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span>&gt;</span>点击发送<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span>&gt;</span>点击取消<span class="tag">&lt;/<span class="name">button</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//获取button元素</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> btns = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;button&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">let</span> xhr =<span class="literal">null</span>;</span></span><br><span class="line"><span class="language-javascript">      btns[<span class="number">0</span>].<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">        xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span></span><br><span class="line"><span class="language-javascript">        xhr.<span class="title function_">open</span>(<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;http://localhost:8000/server-delay&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">        xhr.<span class="title function_">send</span>();</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">      btns[<span class="number">1</span>].<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="comment">//取消请求</span></span></span><br><span class="line"><span class="language-javascript">          xhr.<span class="title function_">abort</span>();</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="请求重复发送"><a href="#请求重复发送" class="headerlink" title="请求重复发送"></a>请求重复发送</h2><ul>
+<li>每点击一次发送按钮就发送一次Ajax请求，如果服务器响应慢，用户频繁发同一个请求就会加大服务器的压力</li>
+<li>可以判断是否为同一次请求，如果是就取消掉</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Ajax 取消请求<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span>&gt;</span>点击发送<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//获取button元素</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> btns = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;button&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">let</span> xhr =<span class="literal">null</span>;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//标识变量</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">let</span> isSending = <span class="literal">false</span>; <span class="comment">//是否正在发送Ajax请求</span></span></span><br><span class="line"><span class="language-javascript">      btns[<span class="number">0</span>].<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="comment">//判断标识变量</span></span></span><br><span class="line"><span class="language-javascript">          <span class="keyword">if</span>(isSending)&#123;</span></span><br><span class="line"><span class="language-javascript">              <span class="comment">//如果正在发送，则取消该请求，创建一个新的请求</span></span></span><br><span class="line"><span class="language-javascript">              xhr.<span class="title function_">abort</span>();</span></span><br><span class="line"><span class="language-javascript">          &#125;</span></span><br><span class="line"><span class="language-javascript">        xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">//修改标识变量的值</span></span></span><br><span class="line"><span class="language-javascript">        isSending = <span class="literal">true</span>;</span></span><br><span class="line"><span class="language-javascript">        xhr.<span class="title function_">open</span>(<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;http://localhost:8000/server-delay&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">        xhr.<span class="title function_">send</span>();</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">//请求完成后</span></span></span><br><span class="line"><span class="language-javascript">        xhr.<span class="property">onreadystatechange</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="comment">//4表示请求完成，不论成功还是失败</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span>(xhr.<span class="property">readyState</span> === <span class="number">4</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="comment">//修改标识变量</span></span></span><br><span class="line"><span class="language-javascript">                isSending = <span class="literal">false</span>;</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/05/04/a2c95a1e7a418b4db6ef719b0647e973.png"></p>
+<h1 id="jQuery发送Ajax"><a href="#jQuery发送Ajax" class="headerlink" title="jQuery发送Ajax"></a>jQuery发送Ajax</h1><h2 id="发送单个请求"><a href="#发送单个请求" class="headerlink" title="发送单个请求"></a>发送单个请求</h2><ul>
+<li>服务器端设置</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">all</span>(<span class="string">&#x27;/server-jQuery&#x27;</span>, <span class="function">(<span class="params">request, response</span>) =&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//设置响应头,设置允许跨域，解决跨域问题</span></span><br><span class="line">    response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>,<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> data = &#123;</span><br><span class="line">        <span class="attr">name</span>:<span class="string">&quot;李白&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    response.<span class="title function_">send</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(data)) </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过jQuery发送Ajax请求，注意它的四个参数</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取第一个按钮绑定点击事件</span></span><br><span class="line"> $(<span class="string">&#x27;button&#x27;</span>).<span class="title function_">eq</span>(<span class="number">0</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">   <span class="comment">//(URL,参数,回调函数，响应的类型)</span></span><br><span class="line">   $.<span class="title function_">get</span>(<span class="string">&#x27;http://localhost:8000/server-jQuery&#x27;</span>,</span><br><span class="line">      &#123; <span class="attr">a</span>: <span class="number">100</span>, <span class="attr">b</span>: <span class="number">200</span> &#125;,</span><br><span class="line">      <span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(data) <span class="comment">//打印服务器返回的结果</span></span><br><span class="line">      &#125;,<span class="string">&#x27;json&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//获取第二个按钮绑定点击事件</span></span><br><span class="line"> $(<span class="string">&#x27;button&#x27;</span>).<span class="title function_">eq</span>(<span class="number">1</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">   <span class="comment">//(URL,参数,回调函数，响应的类型)</span></span><br><span class="line">   $.<span class="title function_">post</span>(<span class="string">&#x27;http://localhost:8000/server-jQuery&#x27;</span>,</span><br><span class="line">      &#123; <span class="attr">a</span>: <span class="number">100</span>, <span class="attr">b</span>: <span class="number">200</span> &#125;,</span><br><span class="line">      <span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(data)</span><br><span class="line">      &#125;,<span class="string">&#x27;json&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/05/04/417d3a4c67b2b6012bf3c770d79181f8.png"></p>
+<h2 id="发送通用型请求"><a href="#发送通用型请求" class="headerlink" title="发送通用型请求"></a>发送通用型请求</h2><ul>
+<li>推荐使用通用型，参数为一个对象，由属性来控制</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取第三个按钮绑定点击事件</span></span><br><span class="line">$(<span class="string">&#x27;button&#x27;</span>).<span class="title function_">eq</span>(<span class="number">2</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">   <span class="comment">//参数为一个对象，由属性来设置</span></span><br><span class="line">   $.<span class="title function_">ajax</span>(&#123;</span><br><span class="line">       <span class="comment">//请求类型</span></span><br><span class="line">      <span class="attr">type</span>:<span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">      <span class="comment">//url请求地址</span></span><br><span class="line">      <span class="attr">url</span>:<span class="string">&#x27;http://localhost:8000/server-jQuery&#x27;</span>,</span><br><span class="line">      <span class="comment">//参数</span></span><br><span class="line">      <span class="attr">data</span>:&#123;<span class="attr">a</span>:<span class="number">100</span>,<span class="attr">b</span>:<span class="number">200</span>&#125;,</span><br><span class="line">      <span class="comment">//响应体结果</span></span><br><span class="line">      <span class="attr">dataType</span>: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">      <span class="comment">//成功的回调函数</span></span><br><span class="line">      <span class="attr">success</span>:<span class="keyword">function</span>(<span class="params">data</span>)&#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(data)</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">//超时时间，超过2s就调用error失败回调函数</span></span><br><span class="line">      <span class="attr">timeout</span>: <span class="number">2000</span>,</span><br><span class="line">      <span class="comment">//失败的回调</span></span><br><span class="line">      <span class="attr">error</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">         consloe.<span class="title function_">log</span>(<span class="string">&#x27;出错啦!&#x27;</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">//头信息</span></span><br><span class="line">     <span class="attr">header</span>:&#123;</span><br><span class="line">         <span class="attr">name</span>:<span class="string">&#x27;李白&#x27;</span>,</span><br><span class="line">         <span class="attr">age</span>: <span class="number">21</span></span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">//自定义的头信息，服务器端需要添加以下头</span></span><br><span class="line">     <span class="comment">// response.setHeader(&#x27;Access-Control-Allow-Headers&#x27;,&#x27;*&#x27;);</span></span><br><span class="line">   &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Axios发送Ajax"><a href="#Axios发送Ajax" class="headerlink" title="Axios发送Ajax"></a>Axios发送Ajax</h1><ul>
+<li>Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中</li>
+<li>Axios中文文档：<a target="_blank" rel="noopener" href="http://www.axios-js.com/zh-cn/docs/">http://www.axios-js.com/zh-cn/docs/</a></li>
+<li>引入在线CDN</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="发送单个请求-1"><a href="#发送单个请求-1" class="headerlink" title="发送单个请求"></a>发送单个请求</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">const</span> btns = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;button&#x27;</span>);</span><br><span class="line">        </span><br><span class="line"><span class="comment">//配置baseURL</span></span><br><span class="line">axios.<span class="property">defaults</span>.<span class="property">baseURL</span> = <span class="string">&#x27;http://localhost:8000&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//GET请求</span></span><br><span class="line">btns[<span class="number">0</span>].<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="comment">//GET请求 配置了baseURL，就不需要写IP:端口，以下等价于http://localhost:8000/server-axios</span></span><br><span class="line">   axios.<span class="title function_">get</span>(<span class="string">&#x27;/server-axios&#x27;</span>,&#123;</span><br><span class="line">      <span class="comment">//url参数</span></span><br><span class="line">      <span class="attr">params</span>:&#123;</span><br><span class="line">         <span class="attr">id</span>:<span class="number">1</span>,</span><br><span class="line">         <span class="attr">age</span>:<span class="number">21</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">//请求头信息</span></span><br><span class="line">      <span class="attr">headers</span>:&#123;</span><br><span class="line">         <span class="attr">name</span>:<span class="number">123</span></span><br><span class="line">      &#125;</span><br><span class="line">   &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">value</span> =&gt;</span>&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(value);</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//POST请求</span></span><br><span class="line">btns[<span class="number">1</span>].<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="comment">//(url,请求体,其他配置)</span></span><br><span class="line">   axios.<span class="title function_">post</span>(<span class="string">&#x27;/server-axios&#x27;</span>,&#123;</span><br><span class="line">      <span class="attr">username</span>:<span class="string">&#x27;admin&#x27;</span>,</span><br><span class="line">      <span class="attr">password</span>:<span class="string">&#x27;admin&#x27;</span></span><br><span class="line">   &#125;,&#123;</span><br><span class="line">   <span class="comment">//url参数</span></span><br><span class="line">   <span class="attr">params</span>:&#123;</span><br><span class="line">      <span class="attr">id</span>:<span class="number">2</span>,</span><br><span class="line">      <span class="attr">age</span>:<span class="number">22</span></span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="comment">//请求头信息</span></span><br><span class="line">   <span class="attr">headers</span>:&#123;</span><br><span class="line">      <span class="attr">height</span>:<span class="number">100</span>,</span><br><span class="line">      <span class="attr">wight</span>:<span class="number">200</span></span><br><span class="line">   &#125;</span><br><span class="line">   &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">value</span> =&gt;</span>&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(value);</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="发送通用型请求-1"><a href="#发送通用型请求-1" class="headerlink" title="发送通用型请求"></a>发送通用型请求</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">btns[<span class="number">2</span>].<span class="property">onclick</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">   <span class="title function_">axios</span>(&#123;</span><br><span class="line">      <span class="comment">//请求方法</span></span><br><span class="line">      <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">      <span class="comment">//url</span></span><br><span class="line">      <span class="attr">url</span>: <span class="string">&#x27;server-axios&#x27;</span>,</span><br><span class="line">      <span class="comment">//url参数</span></span><br><span class="line">      <span class="attr">params</span>: &#123;</span><br><span class="line">         <span class="attr">id</span>: <span class="number">3</span>,</span><br><span class="line">         <span class="attr">age</span>: <span class="number">23</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">//头信息</span></span><br><span class="line">      <span class="attr">headers</span>: &#123;</span><br><span class="line">         <span class="attr">a</span>: <span class="number">100</span>,</span><br><span class="line">         <span class="attr">b</span>: <span class="number">100</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">//请求体参数</span></span><br><span class="line">      <span class="attr">data</span>: &#123;</span><br><span class="line">         <span class="attr">username</span>: <span class="string">&#x27;admin&#x27;</span>,</span><br><span class="line">         <span class="attr">password</span>: <span class="string">&#x27;admin&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">   &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span><br><span class="line">      <span class="comment">//响应状态码</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">status</span>);</span><br><span class="line">      <span class="comment">//响应状态字符串</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">statusText</span>);</span><br><span class="line">      <span class="comment">//响应头信息</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">headers</span>);</span><br><span class="line">      <span class="comment">//响应体</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>);</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="fetch函数发送Ajax"><a href="#fetch函数发送Ajax" class="headerlink" title="fetch函数发送Ajax"></a>fetch函数发送Ajax</h1><ul>
+<li><code>fetch()</code>具体查看<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/WindowOrWorkerGlobalScope/fetch">MDN Web Docs文档</a></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span>&gt;</span>Ajax请求<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> btn = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;button&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        btn.<span class="property">onclick</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">fetch</span>(<span class="string">&#x27;http:localhost:8000/server-fetch&#x27;</span>, &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="comment">//请求方法</span></span></span><br><span class="line"><span class="language-javascript">                <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">                <span class="comment">//请求头</span></span></span><br><span class="line"><span class="language-javascript">                <span class="attr">headers</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="attr">name</span>: <span class="string">&#x27;xiaoliblog&#x27;</span></span></span><br><span class="line"><span class="language-javascript">                &#125;,</span></span><br><span class="line"><span class="language-javascript">                <span class="comment">//请求体</span></span></span><br><span class="line"><span class="language-javascript">                <span class="attr">body</span>: <span class="string">&#x27;username=admin&amp;password=admin&#x27;</span></span></span><br><span class="line"><span class="language-javascript">            &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">return</span> response.<span class="title function_">text</span>();</span></span><br><span class="line"><span class="language-javascript">                <span class="comment">//return response.json;</span></span></span><br><span class="line"><span class="language-javascript">            &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="variable language_">console</span>.<span class="title function_">log</span>(response)</span></span><br><span class="line"><span class="language-javascript">            &#125;)</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/f2d61fe.html">http://xiaoliblog.cn/posts/f2d61fe.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/2fdc8582.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Ajax基本操作</div>
+      <div class="prev-desc">Ajax
+Ajax：Asynchronous JavaScript And XML，即异步JavaScript和XML技术。
+
+描述：不是一门新的语言或技术，是由JavaScript、XML、DOM、CSS等多种已有技术组合而成的一种浏览器端技术。
+
+功能：用于实现与服务器进行异步交互的功能。
+
+传统Web工作流...</div>
+    </a>
+    
+    
+    <a href="/posts/71de2b5a.html">
+      <div class="next-title">Hexo博客部署到阿里云服务器<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">前言
+最近学Linux特意搞了一个阿里云轻量级服务器，服务器购买及宝塔配置
+虽然只有三个月到期，就想着把博客部署到服务器试试，新手部署服务器最常见的方法就是：直接把本地生成的public中的文件，直接ftp到服务器www根目录，简单粗暴
+还有一种更优雅地方式，那就是直接在服务器上搭建git仓库，hexo三连直接d...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#nodemon"><span class="toc-text">nodemon</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85nodemon"><span class="toc-text">安装nodemon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8nodemon"><span class="toc-text">使用nodemon</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ajax%E8%BF%9B%E9%98%B6"><span class="toc-text">Ajax进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#IE%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98"><span class="toc-text">IE缓存问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E8%B6%85%E6%97%B6%E5%A4%84%E7%90%86"><span class="toc-text">请求超时处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%96%E6%B6%88%E8%AF%B7%E6%B1%82"><span class="toc-text">取消请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E9%87%8D%E5%A4%8D%E5%8F%91%E9%80%81"><span class="toc-text">请求重复发送</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jQuery%E5%8F%91%E9%80%81Ajax"><span class="toc-text">jQuery发送Ajax</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E5%8D%95%E4%B8%AA%E8%AF%B7%E6%B1%82"><span class="toc-text">发送单个请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E9%80%9A%E7%94%A8%E5%9E%8B%E8%AF%B7%E6%B1%82"><span class="toc-text">发送通用型请求</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Axios%E5%8F%91%E9%80%81Ajax"><span class="toc-text">Axios发送Ajax</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E5%8D%95%E4%B8%AA%E8%AF%B7%E6%B1%82-1"><span class="toc-text">发送单个请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E9%80%9A%E7%94%A8%E5%9E%8B%E8%AF%B7%E6%B1%82-1"><span class="toc-text">发送通用型请求</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fetch%E5%87%BD%E6%95%B0%E5%8F%91%E9%80%81Ajax"><span class="toc-text">fetch函数发送Ajax</span></a></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

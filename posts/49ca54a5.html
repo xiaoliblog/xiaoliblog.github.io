@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Vue项目——电商管理系统之用户的增删改查 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="添加用户对话框表单 对话框使用到了Dialog 对话框组件，里面再嵌套表单组件。对话框的关闭采用点击事件控制  12&#x2F;&#x2F; Dialog的属性，data中定义addDialogVisible布尔值:visible.sync&#x3D;&quot;addDialogVisible&quot;  1234567891011121314151617181920212223&lt;!---添加用户的对话框--&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue项目——电商管理系统之用户的增删改查">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/49ca54a5.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="添加用户对话框表单 对话框使用到了Dialog 对话框组件，里面再嵌套表单组件。对话框的关闭采用点击事件控制  12&#x2F;&#x2F; Dialog的属性，data中定义addDialogVisible布尔值:visible.sync&#x3D;&quot;addDialogVisible&quot;  1234567891011121314151617181920212223&lt;!---添加用户的对话框--&gt;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.253Z">
+<meta property="article:modified_time" content="2023-03-03T10:20:46.360Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Vue项目——电商管理系统之用户的增删改查</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">2.2k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>10分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h1><h2 id="对话框表单"><a href="#对话框表单" class="headerlink" title="对话框表单"></a>对话框表单</h2><ul>
+<li>对话框使用到了Dialog 对话框组件，里面再嵌套表单组件。对话框的关闭采用点击事件控制</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Dialog的属性，data中定义addDialogVisible布尔值</span></span><br><span class="line">:visible.<span class="property">sync</span>=<span class="string">&quot;addDialogVisible&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!---添加用户的对话框--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> <span class="attr">title</span>=<span class="string">&quot;添加用户&quot;</span> <span class="attr">:visible.sync</span>=<span class="string">&quot;addDialogVisible&quot;</span> <span class="attr">width</span>=<span class="string">&quot;30%&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--内容读取区--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-form</span> <span class="attr">:model</span>=<span class="string">&quot;addForm&quot;</span> <span class="attr">:rules</span>=<span class="string">&quot;addFormRules&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;addFormRef&quot;</span> <span class="attr">label-width</span>=<span class="string">&quot;70px&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;用户名&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;addForm.username&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;密码&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;password&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;addForm.password&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;邮箱&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;email&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;addForm.email&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;电话&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;mobile&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;addForm.mobile&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-form</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--底部区域--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">slot</span>=<span class="string">&quot;footer&quot;</span> <span class="attr">class</span>=<span class="string">&quot;dialog-footer&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-button</span> @<span class="attr">click</span>=<span class="string">&quot;addDialogVisible = false&quot;</span>&gt;</span>取 消<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;addDialogVisible = false&quot;</span>&gt;</span>确 定<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-dialog</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Users&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// 获取用户列表的参数对象</span></span><br><span class="line">      <span class="attr">queryInfo</span>: &#123;</span><br><span class="line">        <span class="attr">query</span>: <span class="string">&#x27;&#x27;</span>, <span class="comment">// 查询参数</span></span><br><span class="line">        <span class="attr">pagenum</span>: <span class="number">1</span>, <span class="comment">// 当前页码</span></span><br><span class="line">        <span class="attr">pagesize</span>: <span class="number">2</span>, <span class="comment">// 每页显示条数</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 保存用户列表数据</span></span><br><span class="line">      <span class="attr">userList</span>: [],</span><br><span class="line">      <span class="attr">total</span>: <span class="number">0</span>, <span class="comment">// 总数据条数</span></span><br><span class="line">      <span class="attr">addDialogVisible</span>: <span class="literal">false</span>, <span class="comment">// 控制对话框的显示与隐藏</span></span><br><span class="line">      <span class="comment">// 添加用户的表单数据</span></span><br><span class="line">      <span class="attr">addForm</span>: &#123;</span><br><span class="line">        <span class="attr">username</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="attr">password</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="attr">email</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="attr">mobile</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 添加用户表单的验证规则</span></span><br><span class="line">      <span class="attr">addFormRules</span>: &#123;</span><br><span class="line">        <span class="attr">username</span>: [</span><br><span class="line">          &#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&#x27;请输入用户名&#x27;</span>, <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span> &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">min</span>: <span class="number">3</span>,</span><br><span class="line">            <span class="attr">max</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">message</span>: <span class="string">&#x27;长度在 3 到 10 个字符&#x27;</span>,</span><br><span class="line">            <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span>,</span><br><span class="line">          &#125;,</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">password</span>: [</span><br><span class="line">          &#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&#x27;请输入密码&#x27;</span>, <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span> &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">min</span>: <span class="number">6</span>,</span><br><span class="line">            <span class="attr">max</span>: <span class="number">15</span>,</span><br><span class="line">            <span class="attr">message</span>: <span class="string">&#x27;长度在 6 到 15 个字符&#x27;</span>,</span><br><span class="line">            <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span>,</span><br><span class="line">          &#125;,</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">email</span>: [&#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&#x27;请输入邮箱&#x27;</span>, <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span> &#125;],</span><br><span class="line">        <span class="attr">mobile</span>: [&#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&#x27;请输入电话&#x27;</span>, <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span> &#125;],</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ,...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义校验规则"><a href="#自定义校验规则" class="headerlink" title="自定义校验规则"></a>自定义校验规则</h2><ul>
+<li>需要自定义电话和邮箱的校验规则，首先在<code>data</code>中定义校验规则</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="comment">// 定义校验规则</span></span><br><span class="line">   <span class="keyword">var</span> <span class="title function_">checkEmail</span> = (<span class="params">rule, value, callback</span>) =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> regEmail = <span class="regexp">/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/</span></span><br><span class="line">      <span class="keyword">if</span> (regEmail.<span class="title function_">test</span>(value)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">callback</span>()</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="title function_">callback</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;请输入合法有效的邮箱&#x27;</span>))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> <span class="title function_">checkMobile</span> = (<span class="params">rule, value, callback</span>) =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> regMobile =</span><br><span class="line">        <span class="regexp">/^(0|86|17951)?(13[0-9]|15[0123456789]|17[678]|18[0-9]|14[57])[0-9]&#123;8&#125;$/</span></span><br><span class="line">      <span class="keyword">if</span> (regMobile.<span class="title function_">test</span>(value)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">callback</span>()</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="title function_">callback</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;请输入合法有效的号码&#x27;</span>))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// xxx rules</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>rules</code>规则中使用<code>validator: checkMobile</code>指定使用的规则</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210809145439.png"></p>
+<h2 id="完善表单"><a href="#完善表单" class="headerlink" title="完善表单"></a>完善表单</h2><ul>
+<li>实现表单的重置功能，每次关闭再打开对话框需要是重置后的表单<ul>
+<li>首先给对话框添加<code>close</code>事件</li>
+<li>在<code>close</code>事件对应的函数中调用表单引用对象的<code>resetFields</code>方法重置表单</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span>  @<span class="attr">close</span>=<span class="string">&quot;addDialogClosed&quot;</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--内容读取区--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">el-form</span> <span class="attr">ref</span>=<span class="string">&quot;addFormRef&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-dialog</span>&gt;</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 监听添加对话框的关闭事件</span></span><br><span class="line"><span class="title function_">addDialogClosed</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">addFormRef</span>.<span class="title function_">resetFields</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后实现表单提交按钮点击后预校验的功能，所有表单正确填写后才提交<ul>
+<li>给按钮绑定事件，在事件中调用 本地引用对象的<code>validate</code>方法</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;addUser&quot;</span>&gt;</span>确 定<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加之前对表单进行预校验</span></span><br><span class="line"><span class="title function_">addUser</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">addFormRef</span>.<span class="title function_">validate</span>(<span class="function"><span class="params">valid</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(!valid) <span class="keyword">return</span></span><br><span class="line">      <span class="comment">// 发送添加用户的请求</span></span><br><span class="line">   &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h2><ul>
+<li>当表单预校验成功后就发送请求添加用户。请求路径：<code>users</code>，请求方法：<code>post</code>，请求参数直接用<code>data</code>中定义的数据表单对象即可</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">参数名</th>
+<th align="center">参数说明</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">username</td>
+<td align="center">用户名称</td>
+<td align="center">不能为空</td>
+</tr>
+<tr>
+<td align="center">password</td>
+<td align="center">用户密码</td>
+<td align="center">不能为空</td>
+</tr>
+<tr>
+<td align="center">email</td>
+<td align="center">邮箱</td>
+<td align="center">可以为空</td>
+</tr>
+<tr>
+<td align="center">mobile</td>
+<td align="center">手机号</td>
+<td align="center">可以为空</td>
+</tr>
+</tbody></table>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加之前对表单进行预校验</span></span><br><span class="line"><span class="title function_">addUser</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">addFormRef</span>.<span class="title function_">validate</span>( <span class="keyword">async</span> (valid) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (!valid) <span class="keyword">return</span></span><br><span class="line">      <span class="comment">// 发送添加用户的请求</span></span><br><span class="line">      <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">post</span>(<span class="string">&#x27;users&#x27;</span>, <span class="variable language_">this</span>.<span class="property">addForm</span>)</span><br><span class="line">      <span class="keyword">if</span>(res.<span class="property">meta</span>.<span class="property">status</span> !=<span class="number">201</span>)&#123;</span><br><span class="line">         <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;添加用户失败&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">success</span>(<span class="string">&#x27;添加用户成功&#x27;</span>)</span><br><span class="line">       <span class="comment">// 关闭对话框</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">addDialogVisible</span> = <span class="literal">false</span></span><br><span class="line">      <span class="comment">// 刷新用户列表</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">getUserList</span>()</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="修改用户"><a href="#修改用户" class="headerlink" title="修改用户"></a>修改用户</h1><h2 id="修改对话框"><a href="#修改对话框" class="headerlink" title="修改对话框"></a>修改对话框</h2><ul>
+<li>其对话框和添加对话框大致一样，给修改按钮添加事件。然后在<code>data</code>中补充<code>editForm</code>和<code>editFormRules</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">slot-scope</span>=<span class="string">&quot;scope&quot;</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!-- 修改按钮--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">el-tooltip</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> @<span class="attr">click</span>=<span class="string">&quot;showEditDialog(scope.row.id)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">el-tooltip</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--修改用户的对话框--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> <span class="attr">title</span>=<span class="string">&quot;修改用户&quot;</span> <span class="attr">:visible.sync</span>=<span class="string">&quot;editDialogVisible&quot;</span> <span class="attr">width</span>=<span class="string">&quot;50%&quot;</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--内容读取区--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">el-form</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:model</span>=<span class="string">&quot;editForm&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:rules</span>=<span class="string">&quot;editFormRules&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">ref</span>=<span class="string">&quot;editFormRef&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">label-width</span>=<span class="string">&quot;70px&quot;</span></span></span><br><span class="line"><span class="tag">   &gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;用户名&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;editForm.username&quot;</span> <span class="attr">disabled</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;邮箱&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;email&quot;</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;editForm.email&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;电话&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;mobile&quot;</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;editForm.mobile&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">el-form</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">span</span> <span class="attr">slot</span>=<span class="string">&quot;footer&quot;</span> <span class="attr">class</span>=<span class="string">&quot;dialog-footer&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> @<span class="attr">click</span>=<span class="string">&quot;editDialogVisible = false&quot;</span>&gt;</span>取 消<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;editDialogVisible = false&quot;</span>&gt;</span>确 定<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-dialog</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 展示编辑用户的对话框</span></span><br><span class="line"><span class="keyword">async</span> <span class="title function_">showEditDialog</span>(<span class="params">id</span>) &#123;</span><br><span class="line">   <span class="comment">// 展示对话框</span></span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">editDialogVisible</span> = <span class="literal">true</span></span><br><span class="line">   <span class="comment">// 通过id获取用户信息</span></span><br><span class="line">   <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(<span class="string">`users/<span class="subst">$&#123;id&#125;</span>`</span>)</span><br><span class="line">   <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>)</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取用户信息失败&#x27;</span>)</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">editForm</span> = res.<span class="property">data</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>实现重置的方法也是一杨的，给对话框添加<code>close</code>事件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> @<span class="attr">close</span>=<span class="string">&quot;editDialogClosed&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">el-dialog</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听修改对话框的关闭事件</span></span><br><span class="line"><span class="title function_">editDialogClosed</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">editFormRef</span>.<span class="title function_">resetFields</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="发送请求-1"><a href="#发送请求-1" class="headerlink" title="发送请求"></a>发送请求</h2><ul>
+<li>点击确定按钮后，需要表单预校验然后发送请求</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;editUser&quot;</span> &gt;</span>确 定<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>请求路径：<code>users/:id</code>，请求方法：<code>put</code>，请求参数如下</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">参数名</th>
+<th align="center">参数说明</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">id</td>
+<td align="center">用户 id</td>
+<td align="center">不能为空 参数是url参数:id</td>
+</tr>
+<tr>
+<td align="center">email</td>
+<td align="center">邮箱</td>
+<td align="center">可以为空</td>
+</tr>
+<tr>
+<td align="center">mobile</td>
+<td align="center">手机号</td>
+<td align="center">可以为空</td>
+</tr>
+</tbody></table>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 修改之前对表单进行预校验</span></span><br><span class="line"><span class="title function_">editUser</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">editFormRef</span>.<span class="title function_">validate</span>(<span class="keyword">async</span> (valid) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!valid) <span class="keyword">return</span></span><br><span class="line">  <span class="comment">// 发送修改用户的请求</span></span><br><span class="line">  <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">put</span>(<span class="string">`users/<span class="subst">$&#123;<span class="variable language_">this</span>.editForm.id&#125;</span>`</span>, &#123;</span><br><span class="line">      <span class="attr">email</span>: <span class="variable language_">this</span>.<span class="property">editForm</span>.<span class="property">email</span>,</span><br><span class="line">      <span class="attr">mobile</span>: <span class="variable language_">this</span>.<span class="property">editForm</span>.<span class="property">mobile</span></span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> != <span class="number">200</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;编辑用户失败&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">success</span>(<span class="string">&#x27;编辑用户成功&#x27;</span>)</span><br><span class="line">  <span class="comment">// 关闭对话框</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">editDialogVisible</span> = <span class="literal">false</span></span><br><span class="line">  <span class="comment">// 刷新用户列表</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">getUserList</span>()</span><br><span class="line"> &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h1><h2 id="删除提示框"><a href="#删除提示框" class="headerlink" title="删除提示框"></a>删除提示框</h2><ul>
+<li>使用到了MessageBox 弹框UI组件，需要挂载的VM实例上才能使用，在<code>element.js</code>中按需导入</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">MessageBox</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;element-ui&#x27;</span>;</span><br><span class="line"><span class="comment">// 全局挂载</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$confirm</span> = <span class="title class_">MessageBox</span>.<span class="property">confirm</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>给删除按钮添加点击事件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--插槽传入数据对象--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-button</span> @<span class="attr">click</span>=<span class="string">&quot;removeUserByID(scope.row)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意：用户确认返回字符串<code>confirm</code>，用户取消返回字符串<code>cancel</code>，删除用户的请求路径：<code>users/:id</code>，请求方法：<code>delete</code>， 请求参数为<code>id</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 根据id删除用户</span></span><br><span class="line"> <span class="keyword">async</span> <span class="title function_">removeUserByID</span>(<span class="params">userInfo</span>) &#123;</span><br><span class="line">  <span class="comment">// 弹窗提示是否删除数据</span></span><br><span class="line">  <span class="keyword">const</span> confirmResult = <span class="keyword">await</span> <span class="variable language_">this</span>.$confirm(</span><br><span class="line">    <span class="string">`是否删除用户<span class="subst">$&#123;userInfo.username&#125;</span>？`</span>,</span><br><span class="line">    <span class="string">&#x27;确认信息&#x27;</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">confirmButtonText</span>: <span class="string">&#x27;删除&#x27;</span>,</span><br><span class="line">      <span class="attr">cancelButtonText</span>: <span class="string">&#x27;取消&#x27;</span>,</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;warning&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ).<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="comment">// 用户确认返回字符串confirm</span></span><br><span class="line">  <span class="comment">// 用户取消返回字符串cancel</span></span><br><span class="line">  <span class="keyword">if</span>(confirmResult !== <span class="string">&#x27;confirm&#x27;</span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">info</span>(<span class="string">&#x27;已取消删除&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 发送请求删除用户</span></span><br><span class="line">  <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">delete</span>(<span class="string">`users/<span class="subst">$&#123;userInfo.id&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">if</span>(res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;删除失败&#x27;</span>)</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">success</span>(<span class="string">&#x27;删除用户成功&#x27;</span>)</span><br><span class="line">  <span class="comment">// 重新获取用户信息</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">getUserList</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="推送码云"><a href="#推送码云" class="headerlink" title="推送码云"></a>推送码云</h2><ul>
+<li>用户列表的功能已经开发完了，需要把代码分到<code>user</code>分支，首先创建<code>user</code>分支</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建并切换到user分支</span></span><br><span class="line">git checkout -b user</span><br><span class="line"><span class="comment"># 查看当前分支</span></span><br><span class="line">git branch</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后添加到暂存区，并推送到<code>user</code>分支上，这样本地<code>user</code>分支的代码是最新的</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;完成用户列表功能的开发&quot;</span></span><br><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后把本地的<code>user</code>分支推送到码云</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin user</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>但是<code>master</code>分支代码还是旧的，就需要把<code>user</code>分支合并</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换到master分支</span></span><br><span class="line">git checkout master</span><br><span class="line">git branch</span><br><span class="line"><span class="comment"># 本地user分支合并到master分支</span></span><br><span class="line">git merge user</span><br><span class="line"><span class="comment"># 推送到远程仓库，远程master分支也更新</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/49ca54a5.html">http://xiaoliblog.cn/posts/49ca54a5.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/d144496e.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Vue项目——电商管理系统之订单列表及数据统计</div>
+      <div class="prev-desc">订单列表创建分支
+创建分支order用于开发新功能
+
+123git checkout -b ordergit branchgit push -u origin order
+
+订单路由
+创建order/Order.vue订单组件，并配置路由
+
+123456789101112131415const router = ...</div>
+    </a>
+    
+    
+    <a href="/posts/f51c795d.html">
+      <div class="next-title">Vue项目——电商管理系统之登录注销功能<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">登录功能登录流程
+登录业务流程
+在登录页面输入用户名和密码
+调用后台接口进行验证
+通过验证之后，根据后台的响应状态跳转到项目主页
+
+
+登录业务的相关技术点
+http是无状态的
+通过cookie在客户端记录状态
+通过session在服务器端记录状态
+通过token方式维持状态【存在跨域推荐使用token】
+
+
+to...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7"><span class="toc-text">添加用户</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%AF%9D%E6%A1%86%E8%A1%A8%E5%8D%95"><span class="toc-text">对话框表单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%A1%E9%AA%8C%E8%A7%84%E5%88%99"><span class="toc-text">自定义校验规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E5%96%84%E8%A1%A8%E5%8D%95"><span class="toc-text">完善表单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82"><span class="toc-text">发送请求</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7"><span class="toc-text">修改用户</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%AF%B9%E8%AF%9D%E6%A1%86"><span class="toc-text">修改对话框</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82-1"><span class="toc-text">发送请求</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7"><span class="toc-text">删除用户</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%8F%90%E7%A4%BA%E6%A1%86"><span class="toc-text">删除提示框</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E9%80%81%E7%A0%81%E4%BA%91"><span class="toc-text">推送码云</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

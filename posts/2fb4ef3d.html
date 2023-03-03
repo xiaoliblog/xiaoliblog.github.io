@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Angular项目——网易音乐之项目初始化 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="初始化创建项目 安装Angular脚手架，使用的是8.0版本，需要进行降级处理  123npm uninstall -g angular-clinpm cache cleannpm install -g @angular&#x2F;cli@8.3.0   创建项目，安装需要的模块。-S表示不生成单元测试  1ng new NeteaseCloudMusic --style&#x3D;less --routing -S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular项目——网易音乐之项目初始化">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/2fb4ef3d.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="初始化创建项目 安装Angular脚手架，使用的是8.0版本，需要进行降级处理  123npm uninstall -g angular-clinpm cache cleannpm install -g @angular&#x2F;cli@8.3.0   创建项目，安装需要的模块。-S表示不生成单元测试  1ng new NeteaseCloudMusic --style&#x3D;less --routing -S">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.242Z">
+<meta property="article:modified_time" content="2023-03-03T10:05:49.408Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Angular项目——网易音乐之项目初始化</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">1.5k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>7分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h1><h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><ul>
+<li>安装Angular脚手架，使用的是8.0版本，需要进行降级处理</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall -g angular-cli</span><br><span class="line">npm cache clean</span><br><span class="line">npm install -g @angular/cli@8.3.0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建项目，安装需要的模块。<code>-S</code>表示不生成单元测试</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng new NeteaseCloudMusic --style=less --routing -S</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装UI库<code>Ant Design of Angular</code>，参考官方文档：<a target="_blank" rel="noopener" href="http://ng.ant.design/docs/introduce/zh">http://ng.ant.design/docs/introduce/zh</a></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng add ng-zorro-antd</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建模块"><a href="#创建模块" class="headerlink" title="创建模块"></a>创建模块</h2><ul>
+<li>总体模块结构如下</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">|--src</span><br><span class="line">   |-- app</span><br><span class="line">     |-- core // 管理核心模块</span><br><span class="line">       |-- core.module.ts</span><br><span class="line">     |--pages // 管理页面模块</span><br><span class="line">       |-- pages.module.ts</span><br><span class="line">     |--services // 管理服务模块</span><br><span class="line">       |-- services.module.ts</span><br><span class="line">     |--share  // 管理共享模块</span><br><span class="line">       |-- share.module.ts</span><br><span class="line">   |-- app.module.ts  // 主模块</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>所有组件放在<code>AppModule</code>上会导致难以维护，所以需要创建另一个模块<code>core</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g m core</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>把一些非全局的模块放在<code>core</code>模块里，然后在主模块中导入<code>core</code>即可。设置此模块只能被<code>app</code>主模块引用，其它模块不能引入</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; registerLocaleData &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/common&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">BrowserModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/platform-browser&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AppRoutingModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;../app-routing.module&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HttpClientModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/common/http&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">BrowserAnimationsModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/platform-browser/animations&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ServicesModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;../services/services.module&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">PagesModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;../pages/pages.module&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ShareModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;../share/share.module&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> zh <span class="keyword">from</span> <span class="string">&#x27;@angular/common/locales/zh&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="variable constant_">NZ_I18N</span>, zh_CN &#125; <span class="keyword">from</span> <span class="string">&#x27;ng-zorro-antd&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 配置语言</span></span><br><span class="line"><span class="title function_">registerLocaleData</span>(zh);</span><br><span class="line"><span class="comment">// 管理模块组件</span></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [],</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    <span class="title class_">BrowserModule</span>,</span><br><span class="line">    <span class="title class_">HttpClientModule</span>,</span><br><span class="line">    <span class="title class_">BrowserAnimationsModule</span>,</span><br><span class="line">    <span class="title class_">ServicesModule</span>,  <span class="comment">// 服务模块</span></span><br><span class="line">    <span class="title class_">PagesModule</span>   <span class="comment">// 页面模块</span></span><br><span class="line">    <span class="title class_">ShareModule</span>,   <span class="comment">// 共享模块</span></span><br><span class="line">    <span class="title class_">AppRoutingModule</span>,  <span class="comment">// 路由模块 放最后面比较好</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">exports</span>: [</span><br><span class="line">    <span class="title class_">ShareModule</span>,</span><br><span class="line">    <span class="title class_">AppRoutingModule</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">providers</span>: [&#123; <span class="attr">provide</span>: <span class="variable constant_">NZ_I18N</span>, <span class="attr">useValue</span>: zh_CN &#125;],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CoreModule</span> &#123; </span><br><span class="line">  <span class="comment">// 引入其它模块就会执行</span></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="meta">@SkipSelf</span>() <span class="meta">@Optional</span>() parentModule:CoreModule</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(parentModule)&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;CoreModule 只能被appModule引入&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>再创建一个共享模块<code>share</code>用于存放一些全局使用的模块，并且引入到<code>core</code>模块中</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">CommonModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/common&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgZorroAntdModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;ng-zorro-antd&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">FormsModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/forms&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 管理全局组件</span></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [],</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    <span class="title class_">CommonModule</span>,</span><br><span class="line">    <span class="title class_">NgZorroAntdModule</span>,</span><br><span class="line">    <span class="title class_">FormsModule</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="comment">// 共享模块 需要导出</span></span><br><span class="line">  <span class="attr">exports</span>: [</span><br><span class="line">    <span class="title class_">CommonModule</span>,</span><br><span class="line">    <span class="title class_">NgZorroAntdModule</span>,</span><br><span class="line">    <span class="title class_">FormsModule</span></span><br><span class="line">  ],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ShareModule</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>再创建一个<code>pages</code>模块，用于管理页面模块。并且引入到<code>core</code>模块中</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">CommonModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/common&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ShareModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;../share/share.module&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 只需引入Share模块  有了页面管理模块，那么就不需要每个页面都导模块</span></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [],</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    <span class="title class_">CommonModule</span>,</span><br><span class="line">    <span class="title class_">ShareModule</span></span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">PagesModule</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>再创建一个<code>services</code>模块，用于管理HTTP模块。并将此模块引入到<code>core</code>模块中</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HTTP服务模块</span></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [],</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    </span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ServicesModule</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>app</code>的主模块就比较简洁了，只需引入<code>core</code>模块，其内容如下</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AppComponent</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./app.component&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">CoreModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./core/core.module&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ShareModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./share/share.module&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入子模块</span></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [</span><br><span class="line">    <span class="title class_">AppComponent</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    <span class="title class_">CoreModule</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">bootstrap</span>: [<span class="title class_">AppComponent</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppModule</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="首页视图"><a href="#首页视图" class="headerlink" title="首页视图"></a>首页视图</h1><h2 id="首页布局"><a href="#首页布局" class="headerlink" title="首页布局"></a>首页布局</h2><ul>
+<li>在<code>app.component.html</code>中编写头部和底部结构，中间内容使用路由。使用<a target="_blank" rel="noopener" href="https://ng.ant.design/docs/introduce/zh"><a target="_blank" rel="noopener" href="https://ng.ant.design/"><strong>NG-ZORRO</strong></a></a></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">nz-layout</span> <span class="attr">class</span>=<span class="string">&quot;layout&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--头部--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nz-header</span> <span class="attr">class</span>=<span class="string">&quot;header&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Music<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">nz-menu</span> <span class="attr">nzTheme</span>=<span class="string">&quot;dark&quot;</span> <span class="attr">nzMode</span>=<span class="string">&quot;horizontal&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">li</span> <span class="attr">nz-menu-item</span>&gt;</span>发现<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">li</span> <span class="attr">nz-menu-item</span>&gt;</span>歌单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;search&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">nz-input-group</span> [<span class="attr">nzSuffix</span>]=<span class="string">&quot;suffixIconSearch&quot;</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;search&quot;</span> <span class="attr">nz-input</span> <span class="attr">placeholder</span>=<span class="string">&quot;歌单/歌手/歌曲&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">nz-input-group</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">ng-template</span> #<span class="attr">suffixIconSearch</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">i</span> <span class="attr">nz-icon</span> <span class="attr">type</span>=<span class="string">&quot;search&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;member&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;no-login&quot;</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">ul</span> <span class="attr">nz-menu</span> <span class="attr">nzTheme</span>=<span class="string">&quot;dark&quot;</span> <span class="attr">nzMode</span>=<span class="string">&quot;horizontal&quot;</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">li</span> <span class="attr">nz-submenu</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">div</span> <span class="attr">title</span>&gt;</span></span><br><span class="line">                                        <span class="tag">&lt;<span class="name">span</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                                        <span class="tag">&lt;<span class="name">i</span> <span class="attr">nz-icon</span> <span class="attr">type</span>=<span class="string">&quot;down&quot;</span> <span class="attr">nzTheme</span>=<span class="string">&quot;outline&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">                                        <span class="tag">&lt;<span class="name">li</span> <span class="attr">nz-menu-item</span>&gt;</span></span><br><span class="line">                                            <span class="tag">&lt;<span class="name">i</span> <span class="attr">nz-icon</span> <span class="attr">type</span>=<span class="string">&quot;mobile&quot;</span> <span class="attr">nzTheme</span>=<span class="string">&quot;outline&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                                            手机登陆</span><br><span class="line">                                        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                                        <span class="tag">&lt;<span class="name">li</span> <span class="attr">nz-menu-item</span>&gt;</span></span><br><span class="line">                                            <span class="tag">&lt;<span class="name">i</span> <span class="attr">nz-icon</span> <span class="attr">type</span>=<span class="string">&quot;user-add&quot;</span> <span class="attr">nzTheme</span>=<span class="string">&quot;outline&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                                            注册</span><br><span class="line">                                        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">nz-header</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--中心内容--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nz-content</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">nz-content</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--底部--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nz-footer</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span>&gt;</span></span><br><span class="line">            Ant Design @2021 Implement By Angular</span><br><span class="line">        <span class="tag">&lt;/<span class="name">nz-footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">nz-layout</span>&gt;</span>   </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="创建首页"><a href="#创建首页" class="headerlink" title="创建首页"></a>创建首页</h2><ul>
+<li>使用命令行创建<code>home</code>组件模块</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g m pages/home --routing</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改主页模块<code>home.module.ts</code></li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HomeRoutingModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./home-routing.module&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ShareModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;src/app/share/share.module&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HomeComponent</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./home.component&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [<span class="title class_">HomeComponent</span>],</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    <span class="title class_">HomeRoutingModule</span>,</span><br><span class="line">    <span class="title class_">ShareModule</span>,  <span class="comment">// 引入共享模块</span></span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeModule</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>pages.module.ts</code>总页面模块中导入主页模块</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HomeModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./home/home.module&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 管理所有页面</span></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [],</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    <span class="title class_">HomeModule</span>,  <span class="comment">// Home页面组件</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">exports</span>: [</span><br><span class="line">    <span class="title class_">HomeModule</span></span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">PagesModule</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>再创建<code>home</code>组件</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g c pages/home</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>在<code>home-routing.module.ts</code>配置路由</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Routes</span>, <span class="title class_">RouterModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/router&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HomeComponent</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./home.component&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">routes</span>: <span class="title class_">Routes</span> = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;home&#x27;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">HomeComponent</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">      title : <span class="string">&#x27;发现&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">imports</span>: [<span class="title class_">RouterModule</span>.<span class="title function_">forChild</span>(routes)],</span><br><span class="line">  <span class="attr">exports</span>: [<span class="title class_">RouterModule</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeRoutingModule</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>然后在<code>app-routing.module.ts</code>，根路由中配置空路由重定向</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Routes</span>, <span class="title class_">RouterModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/router&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">routes</span>: <span class="title class_">Routes</span> = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="attr">redirectTo</span>: <span class="string">&quot;/home&quot;</span>,</span><br><span class="line">    <span class="attr">pathMatch</span>: <span class="string">&quot;full&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">imports</span>: [<span class="title class_">RouterModule</span>.<span class="title function_">forRoot</span>(routes)],</span><br><span class="line">  <span class="attr">exports</span>: [<span class="title class_">RouterModule</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppRoutingModule</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/2fb4ef3d.html">http://xiaoliblog.cn/posts/2fb4ef3d.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/274134a4.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>前端实例——响应式网站首页</div>
+      <div class="prev-desc">项目准备JS库
+本项目采用了animejs库：https://www.animejs.cn/，用于JS控制HTML动画
+
+轮播组件使用glidejs库：https://glidejs.com/
+
+用于排列和筛选使用Isotope库&amp;#96;：https://isotope.metafizzy.co/
+
+当页面滑动...</div>
+    </a>
+    
+    
+    <a href="/posts/aff90e07.html">
+      <div class="next-title">Angular项目——网易音乐之Resolve守卫及播放器<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">入驻歌手封装服务
+首先定义请求返回的入驻歌手数据格式
+
+1234567// 定义入驻歌手列表数据export type Singer = &amp;#123;    id: number;    name: string;    picUrl: string;    albumSize: number&amp;#125;
+
+
+在...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9D%97"><span class="toc-text">创建模块</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A6%96%E9%A1%B5%E8%A7%86%E5%9B%BE"><span class="toc-text">首页视图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A6%96%E9%A1%B5%E5%B8%83%E5%B1%80"><span class="toc-text">首页布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A6%96%E9%A1%B5"><span class="toc-text">创建首页</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

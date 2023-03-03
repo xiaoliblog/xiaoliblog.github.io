@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Node模块化及CommonJS规范 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="CommonJS规范的由来 JS的表现能力取决于宿主环境提供的API，在web1.0时代， W3C组织提供了浏览器的规范支持，在web2.0时代，随着HTML5的发展，更多的标准API出现在了浏览器中，但是，在后端JS中标准的制定纹丝不动 由Mozilla工程师Kevin Dangoor于2009年1月提出名为Server JS的规范; 2009年8月，更名为CommonJS ，以显示API的更广">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node模块化及CommonJS规范">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/ae9eb770.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="CommonJS规范的由来 JS的表现能力取决于宿主环境提供的API，在web1.0时代， W3C组织提供了浏览器的规范支持，在web2.0时代，随着HTML5的发展，更多的标准API出现在了浏览器中，但是，在后端JS中标准的制定纹丝不动 由Mozilla工程师Kevin Dangoor于2009年1月提出名为Server JS的规范; 2009年8月，更名为CommonJS ，以显示API的更广">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.137Z">
+<meta property="article:modified_time" content="2023-03-03T09:40:54.797Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="Node.js">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Node模块化及CommonJS规范</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">1.1k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>4分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="CommonJS规范的由来"><a href="#CommonJS规范的由来" class="headerlink" title="CommonJS规范的由来"></a>CommonJS规范的由来</h1><ul>
+<li>JS的表现能力取决于宿主环境提供的API，在web1.0时代， W3C组织提供了浏览器的规范支持，在web2.0时代，随着HTML5的发展，更多的标准API出现在了浏览器中，但是，在后端JS中标准的制定纹丝不动</li>
+<li>由Mozilla工程师Kevin Dangoor于2009年1月提出名为<code>Server JS</code>的规范; 2009年8月，更名为<code>CommonJS</code> ，以显示API的更广泛适用性</li>
+</ul>
+<blockquote>
+<p>我在这里描述的不是技术问题。这是一个人们聚在一起并决定前进并开始建立更大和更冷的东西的问题    —–  Kevin Dangoor</p>
+</blockquote>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/03/01/4dd195ce9ea0fd488a38f5dba90f0623.png"></p>
+<h1 id="CommonJS的模块规范"><a href="#CommonJS的模块规范" class="headerlink" title="CommonJS的模块规范"></a>CommonJS的模块规范</h1><ul>
+<li><strong>模块引用</strong><ul>
+<li>使用<code>require()</code>方法引入一个模块API</li>
+</ul>
+</li>
+<li><strong>模块定义</strong><ul>
+<li>在模块中使用<code>exports</code>对象导出当前模块数据或方法;</li>
+<li>在模块中还存在一个<code>module</code>对象 ，它代表模块自身， module对象有一个exports 属性，用于数据导出;</li>
+<li>其实exports对象就是module.exports的引用; <code> exports === module . exports</code></li>
+</ul>
+</li>
+<li><strong>模块标识</strong><ul>
+<li>其实就是<strong>模块的文件名</strong>，必须符合小驼峰法命名规则，使用<code>require()</code>引入时使用<code>.</code>或<code>..</code> 开头的相对路径或<code>/</code>开头的绝对路径，引入时可以不写文件后缀名</li>
+<li><strong>重点注意</strong>：模块中的方法和变量的作用域仅在模块内部，每个模块具有独立的空间，互不干扰;</li>
+<li>CommonJS构建的模块机制中的引入与导出是我们完全不用考虑变量污染或者替换的问题，相比与<strong>命名空间</strong>的机制，简直就是天才和菜鸟的区别;</li>
+</ul>
+</li>
+</ul>
+<h1 id="自定义模块导出和引入"><a href="#自定义模块导出和引入" class="headerlink" title="自定义模块导出和引入"></a>自定义模块导出和引入</h1><ul>
+<li>自定义一个<code>b.js</code>文件模块</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">4</span>;</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">data</span> = a; <span class="comment">//exports对象导出数据，data为自定义的属性 </span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>自定义一个<code>a.js</code>文件模块，并且引入b模块</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用b.js模块,可以不带后缀名，但要使用.开头的路径</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">&#x27;./b&#x27;</span>);  <span class="comment">//导入模块</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> y = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> z = x+y+b.<span class="property">data</span>;  <span class="comment">//1+2+4</span></span><br><span class="line"><span class="comment">//exports === module.exports;  </span></span><br><span class="line"><span class="comment">//导出模块</span></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">data</span>=z;  <span class="comment">//exports对象导出数据，data为自定义的属性</span></span><br><span class="line"><span class="comment">//不能使用exports = z; </span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>自定义一个<code>c.js</code>文件，引入a模块</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">&#x27;./a&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a.<span class="property">data</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最后运行<code>c.js</code><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/03/01/9e681b281566204b81ec07a33a66fa70.png"></li>
+</ul>
+<p><code>module.exports</code> 可以直接赋值，值会被导出<br><code>exports</code>直接赋值不能导出；必须使用<code>exports.xxx</code></p>
+<h1 id="模块加载的顺序和规则"><a href="#模块加载的顺序和规则" class="headerlink" title="模块加载的顺序和规则"></a>模块加载的顺序和规则</h1><ul>
+<li><p>在CommonJS规范中，使用<code>require()</code> 加载(引入)模块时，模块标识必须使用相对路径或绝对路径指明模块位置，但是在node的实现中，我们可以不指明模块路径;如: <code>require(&#39;fs&#39;)、require(&#39;moment&#39;)</code>;</p>
+</li>
+<li><p>如果没有指明路径，那就是加载<strong>核心模块</strong>或<strong>第三方模块</strong>，指明加载路径一般就是加载<strong>自定义模块</strong>;</p>
+</li>
+<li><p>不管加载什么模块，都是优先从<strong>缓存中</strong>加载:</p>
+<blockquote>
+<p>Node 加载模块时，如果这个模块已经被加载过了，则会直接缓存起来，将来再次引用时不会再次加加载这个模块( 即：如果一个模块被加载两次，则模块中的代码只会被执行一次)</p>
+</blockquote>
+</li>
+<li><p>而核心模块和第三方模块的的加载顺序就是:</p>
+<blockquote>
+<p>先加载核心模块，核心模块的内容都是在安装node时已经编译好的可执行的二进制代码，加载执行的速度，仅次于缓存加载，如果核心模块中没有，则加载第三方模块</p>
+</blockquote>
+</li>
+<li><p><strong>第三方模块的加载规则:</strong></p>
+<ul>
+<li>先在当前文件的模块所属目录去找node. modules目录</li>
+<li>如果找到，则去该目录中找模块名的目录如: moment</li>
+<li>如果找到moment目录，则找该目录中的package.json文件</li>
+<li>如果找到package.json文件，则找该文件中的main属性</li>
+<li>如果找到main属性，则拿到该属性对应的文件</li>
+<li>如果找到moment目录之后<ul>
+<li>没有package.json</li>
+<li>或者有package.json 没有 main属性</li>
+<li>或者有main属性，但是指向的路径不存在</li>
+<li>则node会默认去看一下moment自录中有没有index.js –&gt; index.json–&gt; index.node文件</li>
+</ul>
+</li>
+<li>如果找不到 index 或者找不到 moment 或者找不到 node. modules</li>
+<li>则进入上一级目录找 node_moudles 查找(规则同上)</li>
+<li>如果上一级还找不到，继续向上，一直到当前文件所属磁盘的根目录</li>
+<li>如果到磁盘概目录还没有找到，直接报错</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/ae9eb770.html">http://xiaoliblog.cn/posts/ae9eb770.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/3bd29720.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Node.jS操作MySQL数据库</div>
+      <div class="prev-desc">连接 MySQL
+官方文档地址：https://www.npmjs.com/package/mysql
+新建一个项目文件夹node_mysql，右击终端打开输入命令进行项目初始化
+
+1$ npm init
+
+
+安装 mysql 包
+
+1$ npm install mysql
+
+
+引入 mysql 包
+
+1var ...</div>
+    </a>
+    
+    
+    <a href="/posts/37edca23.html">
+      <div class="next-title">Node.js包管理器NPM<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">npm命令
+npm是node中自带的包(模块)管理工具;
+借助NPM可以帮助我们快速安装和管理依赖包，使Node与第三方模块之间形成了一个良好的生态系统
+
+npm命令的使用
+直接输入npm可以查看命令
+
+
+
+123npm &amp;lt;command&amp;gt; -h  #查看单个命令npm install xxx   #...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CommonJS%E8%A7%84%E8%8C%83%E7%9A%84%E7%94%B1%E6%9D%A5"><span class="toc-text">CommonJS规范的由来</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CommonJS%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83"><span class="toc-text">CommonJS的模块规范</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%87%BA%E5%92%8C%E5%BC%95%E5%85%A5"><span class="toc-text">自定义模块导出和引入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%92%8C%E8%A7%84%E5%88%99"><span class="toc-text">模块加载的顺序和规则</span></a></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Vue项目——电商管理系统之商品添加模块 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="商品添加编程式导航 点击添加按钮前往商品添加页面  1&lt;el-button type&#x3D;&quot;primary&quot; @click&#x3D;&quot;goAddpage&quot;&gt;添加商品&lt;&#x2F;el-button&gt;   处理函数  1234&#x2F;&#x2F; 前往商品添加页面goAddpage()&amp;#123;   this.$router.push(&amp;#x27;&#x2F;goods&#x2F;add&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue项目——电商管理系统之商品添加模块">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/f978d8db.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="商品添加编程式导航 点击添加按钮前往商品添加页面  1&lt;el-button type&#x3D;&quot;primary&quot; @click&#x3D;&quot;goAddpage&quot;&gt;添加商品&lt;&#x2F;el-button&gt;   处理函数  1234&#x2F;&#x2F; 前往商品添加页面goAddpage()&amp;#123;   this.$router.push(&amp;#x27;&#x2F;goods&#x2F;add&amp;#">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.251Z">
+<meta property="article:modified_time" content="2023-03-03T10:19:01.171Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Vue项目——电商管理系统之商品添加模块</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">3.1k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>15分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="商品添加"><a href="#商品添加" class="headerlink" title="商品添加"></a>商品添加</h1><h2 id="编程式导航"><a href="#编程式导航" class="headerlink" title="编程式导航"></a>编程式导航</h2><ul>
+<li>点击添加按钮前往商品添加页面</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;goAddpage&quot;</span>&gt;</span>添加商品<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>处理函数</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前往商品添加页面</span></span><br><span class="line"><span class="title function_">goAddpage</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">$router</span>.<span class="title function_">push</span>(<span class="string">&#x27;/goods/add&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后创建<code>Add.vue</code>组件，配置路由</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;</span><br><span class="line">  <span class="attr">routes</span>: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">redirect</span>: <span class="string">&#x27;/login&#x27;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/login&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Login</span> &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">path</span>: <span class="string">&#x27;/home&#x27;</span>,</span><br><span class="line">      <span class="attr">component</span>: <span class="title class_">Home</span>,</span><br><span class="line">      <span class="attr">redirect</span>: <span class="string">&#x27;/welcome&#x27;</span>,</span><br><span class="line">      <span class="attr">children</span>: [</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;/goods&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Goods</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;/goods/add&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Add</span> &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="渲染步骤条"><a href="#渲染步骤条" class="headerlink" title="渲染步骤条"></a>渲染步骤条</h2><ul>
+<li>使用到了Steps 步骤条组件，记得按需引入。实现Tag和步骤条的联动，同样一个<code>activeIndex</code>索引即可，但是一个是数值型一个是字符串型，注意转换</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-card</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--提示区--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-alert</span> <span class="attr">title</span>=<span class="string">&quot;添加商品信息&quot;</span> <span class="attr">type</span>=<span class="string">&quot;success&quot;</span> <span class="attr">center</span> <span class="attr">show-icon</span> <span class="attr">:closable</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-alert</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--步骤条 activeIndex-0表示字符串转为数值型 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-steps</span> <span class="attr">:space</span>=<span class="string">&quot;200&quot;</span> <span class="attr">:active</span>=<span class="string">&quot;activeIndex-0&quot;</span> <span class="attr">finish-status</span>=<span class="string">&quot;success&quot;</span> <span class="attr">align-center</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-step</span> <span class="attr">title</span>=<span class="string">&quot;基本信息&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-step</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-step</span> <span class="attr">title</span>=<span class="string">&quot;商品参数&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-step</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-step</span> <span class="attr">title</span>=<span class="string">&quot;商品属性&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-step</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-step</span> <span class="attr">title</span>=<span class="string">&quot;商品图片&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-step</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-step</span> <span class="attr">title</span>=<span class="string">&quot;商品内容&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-step</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-step</span> <span class="attr">title</span>=<span class="string">&quot;完成&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-step</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-steps</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--标签--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-tabs</span> <span class="attr">v-model</span>=<span class="string">&quot;activeIndex&quot;</span> <span class="attr">:tab-position</span>=<span class="string">&quot;&#x27;left&#x27;&quot;</span> <span class="attr">style</span>=<span class="string">&quot;height: 200px&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;基本信息&quot;</span> <span class="attr">name</span>=<span class="string">&quot;0&quot;</span>&gt;</span>基本信息<span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;商品参数&quot;</span> <span class="attr">name</span>=<span class="string">&quot;1&quot;</span>&gt;</span>商品参数<span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;商品属性&quot;</span> <span class="attr">name</span>=<span class="string">&quot;2&quot;</span>&gt;</span>商品属性<span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;商品图片&quot;</span> <span class="attr">name</span>=<span class="string">&quot;3&quot;</span>&gt;</span>商品图片<span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;商品内容&quot;</span> <span class="attr">name</span>=<span class="string">&quot;4&quot;</span>&gt;</span>商品内容<span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-tabs</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-card</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Add&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">activeIndex</span>: <span class="number">0</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;&#125;,</span><br><span class="line">  <span class="title function_">methods</span>(<span class="params"></span>) &#123;&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在全局样式表<code>global.css</code>中自定义样式</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.el-steps</span>&#123;</span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.el-step__title</span>&#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">13px</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210812205450.png"></p>
+<h2 id="基本信息面板"><a href="#基本信息面板" class="headerlink" title="基本信息面板"></a>基本信息面板</h2><ul>
+<li><code>el-form</code>要包裹标签页，因为数据全部提交才能添加。其中通过标签页的<code>:before-leave=&quot;beforeTabLeave&quot;</code>属性指定回调函数，判断是否切换下一页标签</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">&lt;!--由于数据必须全部填写才行，所以需要包裹tag---&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-form</span> <span class="attr">:model</span>=<span class="string">&quot;addForm&quot;</span> <span class="attr">:rules</span>=<span class="string">&quot;addFormRules&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;addFormRef&quot;</span> <span class="attr">label-width</span>=<span class="string">&quot;100px&quot;</span> <span class="attr">label-position</span>=<span class="string">&quot;top&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--标签 定义name并绑定activeIndex实现联动--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-tabs</span> <span class="attr">v-model</span>=<span class="string">&quot;activeIndex&quot;</span> <span class="attr">:tab-position</span>=<span class="string">&quot;&#x27;left&#x27;&quot;</span> <span class="attr">:before-leave</span>=<span class="string">&quot;beforeTabLeave&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;基本信息&quot;</span> <span class="attr">name</span>=<span class="string">&quot;0&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;商品名称&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;goods_name&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;addForm.goods_name&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;商品价格&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;goods_price&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;addForm.goods_price&quot;</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;商品重量&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;goods_weight&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;addForm.goods_weight&quot;</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;商品数量&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;goods_number&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;addForm.goods_number&quot;</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;商品分类&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;goods_cat&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-cascader</span> <span class="attr">v-model</span>=<span class="string">&quot;addForm.goods_cat&quot;</span> <span class="attr">:options</span>=<span class="string">&quot;cateList&quot;</span> <span class="attr">:props</span>=<span class="string">&quot;cateProps&quot;</span> @<span class="attr">change</span>=<span class="string">&quot;handleChange&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-cascader</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;商品参数&quot;</span> <span class="attr">name</span>=<span class="string">&quot;1&quot;</span>&gt;</span>商品参数<span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;商品属性&quot;</span> <span class="attr">name</span>=<span class="string">&quot;2&quot;</span>&gt;</span>商品属性<span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;商品图片&quot;</span> <span class="attr">name</span>=<span class="string">&quot;3&quot;</span>&gt;</span>商品图片<span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;商品内容&quot;</span> <span class="attr">name</span>=<span class="string">&quot;4&quot;</span>&gt;</span>商品内容<span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-tabs</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Add&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">activeIndex</span>: <span class="string">&#x27;0&#x27;</span>,</span><br><span class="line">      <span class="comment">// 商品分类列表</span></span><br><span class="line">      <span class="attr">cateList</span>: [],</span><br><span class="line">      <span class="comment">// 添加商品表单数据对象</span></span><br><span class="line">      <span class="attr">addForm</span>: &#123;</span><br><span class="line">        <span class="attr">goods_name</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="attr">goods_price</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">goods_weight</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">goods_number</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="comment">// 商品所属分类</span></span><br><span class="line">        <span class="attr">goods_cat</span>: [],</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">addFormRules</span>: &#123;</span><br><span class="line">        <span class="attr">goods_name</span>: [</span><br><span class="line">          &#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&#x27;请输入商品名称&#x27;</span>, <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span> &#125;,</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">goods_price</span>: [</span><br><span class="line">          &#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&#x27;请输入商品价格&#x27;</span>, <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span> &#125;,</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">goods_weight</span>: [</span><br><span class="line">          &#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&#x27;请输入商品重量&#x27;</span>, <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span> &#125;,</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">goods_number</span>: [</span><br><span class="line">          &#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&#x27;请输入商品数量&#x27;</span>, <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span> &#125;,</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">goods_cat</span>: [</span><br><span class="line">          &#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&#x27;请选择商品分类&#x27;</span>, <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span> &#125;,</span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">cateProps</span>: &#123;</span><br><span class="line">        <span class="attr">expandTrigger</span>: <span class="string">&#x27;hover&#x27;</span>,</span><br><span class="line">        <span class="attr">label</span>: <span class="string">&#x27;cat_name&#x27;</span>,</span><br><span class="line">        <span class="attr">value</span>: <span class="string">&#x27;cat_id&#x27;</span>,</span><br><span class="line">        <span class="attr">children</span>: <span class="string">&#x27;children&#x27;</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">selectedKeys</span>: [],</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getCateList</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="comment">// 获取分类信息</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">getCateList</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(<span class="string">&#x27;categories&#x27;</span>)</span><br><span class="line">      <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取分类信息失败&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">cateList</span> = res.<span class="property">data</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 级联选择器选项变化触发</span></span><br><span class="line">    <span class="title function_">handleChange</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">addForm</span>.<span class="property">goods_cat</span>.<span class="property">length</span> !== <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">addForm</span>.<span class="property">goods_cat</span> = []</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 切换标签页时的钩子</span></span><br><span class="line">    <span class="title function_">beforeTabLeave</span>(<span class="params">activeName,oldActiveName</span>)&#123;</span><br><span class="line">        <span class="comment">// 处于第一个面板标签分类未选择三级时 不允许切换</span></span><br><span class="line">        <span class="keyword">if</span>(oldActiveName === <span class="string">&#x27;0&#x27;</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">addForm</span>.<span class="property">goods_cat</span>.<span class="property">length</span> !== <span class="number">3</span>)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;请先选择商品分类&#x27;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210812214250.png"></p>
+<h2 id="商品参数面板"><a href="#商品参数面板" class="headerlink" title="商品参数面板"></a>商品参数面板</h2><ul>
+<li>当切换到下一个标签时发送请求，获取数据。通过标签的属性<code>@tab-click=&quot;tabClicked&quot;</code>绑定标签切换的点击事件。注意是根据第一个面板的三级分类里的数据进行展示</li>
+<li>使用到了<code>el-checkbox-group</code>复选框组，其接收一个数组。使用需要把数据拆分从字符串数组</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;商品参数&quot;</span> <span class="attr">name</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">:label</span>=<span class="string">&quot;item.attr_name&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;item in manyTableData&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item.attr_id&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-checkbox-group</span> <span class="attr">v-model</span>=<span class="string">&quot;item.attr_vals&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-checkbox</span> <span class="attr">:label</span>=<span class="string">&quot;item1&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item1,index) in item.attr_vals&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span> <span class="attr">border</span>&gt;</span><span class="tag">&lt;/<span class="name">el-checkbox</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-checkbox-group</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Add&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">      <span class="attr">manyTableData</span>: [], <span class="comment">// 动态参数列表数据</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getCateList</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">computed</span>: &#123;</span><br><span class="line">    <span class="title function_">cateId</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">addForm</span>.<span class="property">goods_cat</span>.<span class="property">length</span> === <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">addForm</span>.<span class="property">goods_cat</span>[<span class="number">2</span>]</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// 切换标签页时的点击事件</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">tabClicked</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">activeIndex</span> === <span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// 商品参数面板，发送请求获取数据</span></span><br><span class="line">        <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(</span><br><span class="line">          <span class="string">`categories/<span class="subst">$&#123;<span class="variable language_">this</span>.cateId&#125;</span>/attributes`</span>,</span><br><span class="line">          &#123; <span class="attr">params</span>: &#123; <span class="attr">sel</span>: <span class="string">&#x27;many&#x27;</span> &#125; &#125;</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取参数信息失败&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 字符串拆分成数组</span></span><br><span class="line">        res.<span class="property">data</span>.<span class="title function_">forEach</span>(<span class="function"><span class="params">item</span>=&gt;</span>&#123;</span><br><span class="line">            item.<span class="property">attr_vals</span> = item.<span class="property">attr_vals</span>.<span class="property">length</span> === <span class="number">0</span> ? [] : item.<span class="property">attr_vals</span>.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(res.<span class="property">data</span>)</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">manyTableData</span> = res.<span class="property">data</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210812221005.png"></p>
+<h2 id="商品属性面板"><a href="#商品属性面板" class="headerlink" title="商品属性面板"></a>商品属性面板</h2><ul>
+<li>点击切换商品属性面板需要发送请求获取数据</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="title function_">tabClicked</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">activeIndex</span> === <span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">      <span class="comment">//..</span></span><br><span class="line">    &#125;</span><br><span class="line">   <span class="keyword">else</span> <span class="keyword">if</span>(<span class="variable language_">this</span>.<span class="property">activeIndex</span> === <span class="string">&#x27;2&#x27;</span>)&#123;</span><br><span class="line">      <span class="comment">// 访问商品属性面板</span></span><br><span class="line">      <span class="comment">// 商品参数面板，发送请求获取数据</span></span><br><span class="line">      <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(</span><br><span class="line">         <span class="string">`categories/<span class="subst">$&#123;<span class="variable language_">this</span>.cateId&#125;</span>/attributes`</span>,</span><br><span class="line">         &#123; <span class="attr">params</span>: &#123; <span class="attr">sel</span>: <span class="string">&#x27;only&#x27;</span> &#125; &#125;</span><br><span class="line">      )</span><br><span class="line">      <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">         <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取参数信息失败&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">onlyTableData</span> = res.<span class="property">data</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后遍历获取表单</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;商品属性&quot;</span> <span class="attr">name</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">:label</span>=<span class="string">&quot;item.attr_name&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;item in onlyTableData&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item.attr_id&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;item.attr_vals&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210813095908.png"></p>
+<h2 id="图片上传面板"><a href="#图片上传面板" class="headerlink" title="图片上传面板"></a>图片上传面板</h2><ul>
+<li>使用到了Upload上传组件，由于Upload内部封装并没有携带<code>token</code>会导致上传失败。需要手动为<code>Headers</code>添加<code>token</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;商品图片&quot;</span> <span class="attr">name</span>=<span class="string">&quot;3&quot;</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--action:表示图片上传的API地址--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">el-upload</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:action</span>=<span class="string">&quot;uploadUrl&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:on-preview</span>=<span class="string">&quot;handlePreview&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:on-remove</span>=<span class="string">&quot;handleRemove&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:on-success</span>=<span class="string">&quot;handleSuccess&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">list-type</span>=<span class="string">&quot;picture&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:headers</span>=<span class="string">&quot;headerObj&quot;</span></span></span><br><span class="line"><span class="tag">   &gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">size</span>=<span class="string">&quot;small&quot;</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span>&gt;</span>点击上传<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">slot</span>=<span class="string">&quot;tip&quot;</span> <span class="attr">class</span>=<span class="string">&quot;el-upload__tip&quot;</span>&gt;</span></span><br><span class="line">      只能上传jpg/png文件，且不超过500kb</span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-upload</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--对话框，用于预览图片--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span></span></span><br><span class="line"><span class="tag">   <span class="attr">title</span>=<span class="string">&quot;图片预览&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:visible.sync</span>=<span class="string">&quot;previewDialogVisible&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">width</span>=<span class="string">&quot;50%&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">&quot;previewPath&quot;</span> <span class="attr">class</span>=<span class="string">&quot;previewImg&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-dialog</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编写图片上传组件的回调函数</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Add&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">       <span class="comment">// 添加商品表单数据对象</span></span><br><span class="line">      <span class="attr">addForm</span>: &#123;</span><br><span class="line">        <span class="attr">goods_name</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="attr">goods_price</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">goods_weight</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">goods_number</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="comment">// 商品所属分类</span></span><br><span class="line">        <span class="attr">goods_cat</span>: [],</span><br><span class="line">        <span class="comment">// 图片数组</span></span><br><span class="line">        <span class="attr">pics</span>: [],</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 上传图片的URL地址</span></span><br><span class="line">      <span class="attr">uploadUrl</span>: <span class="string">&#x27;http://127.0.0.1:8888/api/private/v1/upload&#x27;</span>,</span><br><span class="line">      <span class="comment">// 图片上传组件的对象</span></span><br><span class="line">      <span class="attr">headerObj</span>: &#123;</span><br><span class="line">        <span class="title class_">Authorization</span>: <span class="variable language_">window</span>.<span class="property">sessionStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;token&#x27;</span>),</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 预览的图片地址</span></span><br><span class="line">      <span class="attr">previewPath</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      <span class="attr">previewDialogVisible</span>: <span class="literal">false</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">     <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// 处理图片预览的效果</span></span><br><span class="line">    <span class="title function_">handlePreview</span>(<span class="params">file</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">previewPath</span> = file.<span class="property">response</span>.<span class="property">data</span>.<span class="property">url</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">previewDialogVisible</span> = <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 处理移除图片的操作</span></span><br><span class="line">    <span class="title function_">handleRemove</span>(<span class="params">file</span>) &#123;</span><br><span class="line">      <span class="comment">// 1. 获取将要删除的图片的临时路径</span></span><br><span class="line">      <span class="keyword">const</span> filePath = file.<span class="property">response</span>.<span class="property">data</span>.<span class="property">tmp_path</span></span><br><span class="line">      <span class="comment">// 2. 从pics数组中找到这个图片对应的索引值</span></span><br><span class="line">      <span class="keyword">const</span> index = <span class="variable language_">this</span>.<span class="property">addForm</span>.<span class="property">pics</span>.<span class="title function_">findIndex</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> &#123;</span><br><span class="line">        x.<span class="property">pic</span> === filePath</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="comment">// 3. 调用数组的splice方法，把图片信息对象，从pics数组中删除</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">addForm</span>.<span class="property">pics</span>.<span class="title function_">splice</span>(index, <span class="number">1</span>)</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">success</span>(<span class="string">&#x27;移除成功&#x27;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 上传图片成功的钩子函数</span></span><br><span class="line">    <span class="title function_">handleSuccess</span>(<span class="params">response</span>) &#123;</span><br><span class="line">      <span class="comment">// 1. 拼接得到一个图片信息对象</span></span><br><span class="line">      <span class="keyword">const</span> picInfo = &#123;</span><br><span class="line">        <span class="attr">pic</span>: response.<span class="property">data</span>.<span class="property">tmp_path</span>,</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 2. 将图片信息对象push到pics数组中</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">addForm</span>.<span class="property">pics</span>.<span class="title function_">push</span>(picInfo)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210813105227.png"></p>
+<h2 id="商品内容面板"><a href="#商品内容面板" class="headerlink" title="商品内容面板"></a>商品内容面板</h2><ul>
+<li>需要安装<code>vue-quill-editor</code>富文本编辑器，在【依赖】中搜索安装，且为运行依赖</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210813105341.png"></p>
+<ul>
+<li>插件项目地址：<a target="_blank" rel="noopener" href="https://github.com/surmon-china/vue-quill-editor">https://github.com/surmon-china/vue-quill-editor</a></li>
+<li>在项目入口文件<code>main.js</code>中注册并导入</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">VueQuillEditor</span> <span class="keyword">from</span> <span class="string">&#x27;vue-quill-editor&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;quill/dist/quill.core.css&#x27;</span> <span class="comment">// import styles</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;quill/dist/quill.snow.css&#x27;</span> <span class="comment">// for snow theme</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;quill/dist/quill.bubble.css&#x27;</span> <span class="comment">// fo</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注册为全局可用的组件</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">VueQuillEditor</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在页面中使用</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;商品内容&quot;</span> <span class="attr">name</span>=<span class="string">&quot;4&quot;</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--富文本编辑器组件--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">quill-editor</span> <span class="attr">v-model</span>=<span class="string">&quot;addForm.goods_introduce&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">quill-editor</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> <span class="attr">class</span>=<span class="string">&quot;btnAdd&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;add&quot;</span>&gt;</span>添加商品<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Add&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// 添加商品表单数据对象</span></span><br><span class="line">      <span class="attr">addForm</span>: &#123;</span><br><span class="line">        <span class="attr">goods_name</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="attr">goods_price</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">goods_weight</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">goods_number</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="comment">// 商品所属分类</span></span><br><span class="line">        <span class="attr">goods_cat</span>: [],</span><br><span class="line">        <span class="comment">// 图片数组</span></span><br><span class="line">        <span class="attr">pics</span>: [],</span><br><span class="line">        <span class="comment">// 商品详情描述</span></span><br><span class="line">        <span class="attr">goods_introduce</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">// 处理添加商品</span></span><br><span class="line">    <span class="title function_">add</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">addForm</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210813110815.png"></p>
+<ul>
+<li>点击添加按钮后发现表单双向绑定了内容值</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210813110846.png"></p>
+<h2 id="添加商品完善"><a href="#添加商品完善" class="headerlink" title="添加商品完善"></a>添加商品完善</h2><ul>
+<li>在对数据处理中需要使用到深拷贝，这里要用到一个<code>lodash</code>包，在【依赖】中下载</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210813111917.png"></p>
+<ul>
+<li>然后在使用的组件中导入即可，注意 是在组件中导入</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">&quot;lodash&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>把数组<code>goods_cat</code>转成逗号分隔的字符串，通过深拷贝出一个全新的对象来操作，防止页面显示出现问题</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 处理添加商品</span></span><br><span class="line"><span class="title function_">add</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">addFormRef</span>.<span class="title function_">validate</span>(<span class="function"><span class="params">valid</span>=&gt;</span>&#123;</span><br><span class="line">   <span class="comment">// 表单预验证</span></span><br><span class="line">   <span class="keyword">if</span>(!valid)&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;请填写必要的表单项!&#x27;</span>)</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 执行添加的业务逻辑</span></span><br><span class="line">   <span class="comment">// 把goods_cat从数组转为字符串</span></span><br><span class="line">   <span class="comment">// lodash包中的cloneDeep(obj)方法 进行深拷贝出一个全新的对象</span></span><br><span class="line">   <span class="keyword">const</span> form = _.<span class="title function_">cloneDeep</span>(<span class="variable language_">this</span>.<span class="property">addForm</span>)</span><br><span class="line">   form.<span class="property">goods_cat</span> = form.<span class="property">goods_cat</span>.<span class="title function_">join</span>(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(form)</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210813112436.png"></p>
+<ul>
+<li>继续把静态属性和动态参数修改后，发送请求</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 处理添加商品</span></span><br><span class="line"><span class="title function_">add</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">addFormRef</span>.<span class="title function_">validate</span>( <span class="keyword">async</span> (valid) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (!valid) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;请填写必要的表单项!&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> form = _.<span class="title function_">cloneDeep</span>(<span class="variable language_">this</span>.<span class="property">addForm</span>)</span><br><span class="line">    form.<span class="property">goods_cat</span> = form.<span class="property">goods_cat</span>.<span class="title function_">join</span>(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    <span class="comment">// 处理动态参数</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">manyTableData</span>.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> newInfo = &#123;</span><br><span class="line">        <span class="attr">attr_id</span>: item.<span class="property">attr_id</span>,</span><br><span class="line">        <span class="attr">attr_value</span>: item.<span class="property">attr_vals</span>.<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>),</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">addForm</span>.<span class="property">attrs</span>.<span class="title function_">push</span>(newInfo)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// 处理静态属性</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">onlyTableData</span>.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> newInfo = &#123;</span><br><span class="line">        <span class="attr">attr_id</span>: item.<span class="property">attr_id</span>,</span><br><span class="line">        <span class="attr">attr_value</span>: item.<span class="property">attr_vals</span>,</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">addForm</span>.<span class="property">attrs</span>.<span class="title function_">push</span>(newInfo)</span><br><span class="line">    &#125;)</span><br><span class="line">    form.<span class="property">attrs</span> = <span class="variable language_">this</span>.<span class="property">addForm</span>.<span class="property">attrs</span></span><br><span class="line">    <span class="comment">// 发送请求添加商品</span></span><br><span class="line">    <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">post</span>(<span class="string">&#x27;goods&#x27;</span>,form)</span><br><span class="line">    <span class="keyword">if</span>(res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">201</span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;添加商品失败&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">success</span>(<span class="string">&#x27;添加商品成功&#x27;</span>)</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">$router</span>.<span class="title function_">push</span>(<span class="string">&#x27;/goods&#x27;</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="提交码云"><a href="#提交码云" class="headerlink" title="提交码云"></a>提交码云</h2><ul>
+<li>把<code>goods_list</code>分支更新提交到码云</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br><span class="line">git status </span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;完成了商品添加功能&quot;</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>master</code>分支合并<code>goods_list</code>分支并推送到码云</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git branch</span><br><span class="line">git merge goods_list</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/f978d8db.html">http://xiaoliblog.cn/posts/f978d8db.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/4af0bced.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Vue项目——电商管理系统之用户列表实现</div>
+      <div class="prev-desc">用户列表路由展示
+实现点击左侧用户列表选项，展示用户列表组件。创建Users.vue组件
+
+1234567891011121314&amp;lt;template&amp;gt;  &amp;lt;div&amp;gt;      &amp;lt;h3&amp;gt;用户列表&amp;lt;/h3&amp;gt;  &amp;lt;/div&amp;gt;&amp;lt;/template&amp;gt;&amp;...</div>
+    </a>
+    
+    
+    <a href="/posts/609635d2.html">
+      <div class="next-title">Vue项目——电商管理系统之权限管理模块<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">权限列表创建分支
+由于要开发一个新的功能模块，需要创建一个新的分支rights
+
+12git checkout -b rightsgit branch
+
+
+然后推送到云端，由于是第一次推送，需要-u参数
+
+1git push -u origin rights
+
+权限路由
+创建power/Rights.vue组件，...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%95%86%E5%93%81%E6%B7%BB%E5%8A%A0"><span class="toc-text">商品添加</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E5%BC%8F%E5%AF%BC%E8%88%AA"><span class="toc-text">编程式导航</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E6%AD%A5%E9%AA%A4%E6%9D%A1"><span class="toc-text">渲染步骤条</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF%E9%9D%A2%E6%9D%BF"><span class="toc-text">基本信息面板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%95%86%E5%93%81%E5%8F%82%E6%95%B0%E9%9D%A2%E6%9D%BF"><span class="toc-text">商品参数面板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%95%86%E5%93%81%E5%B1%9E%E6%80%A7%E9%9D%A2%E6%9D%BF"><span class="toc-text">商品属性面板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E9%9D%A2%E6%9D%BF"><span class="toc-text">图片上传面板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%95%86%E5%93%81%E5%86%85%E5%AE%B9%E9%9D%A2%E6%9D%BF"><span class="toc-text">商品内容面板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%95%86%E5%93%81%E5%AE%8C%E5%96%84"><span class="toc-text">添加商品完善</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E7%A0%81%E4%BA%91"><span class="toc-text">提交码云</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

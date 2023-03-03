@@ -115,19 +115,19 @@
   
   <div class="post-item">
     <div class="post-item-info">
-      <a class="post-title" href="/posts/211ab908.html" title="Flex弹性盒子模型">
+      <a class="post-title" href="/posts/c81a6c45.html" title="Vue3新的组件及其他改变">
         
-        Flex弹性盒子模型
+        Vue3新的组件及其他改变
         
       </a>
       <div class="post-description">
         
-        弹性盒子模型CSS3新增了弹性盒子模型（FlexibleBox或FlexBox），是一种新的用于在HTML页面实现布局的方式。使得当HTML页面适应不同尺寸的屏幕和不同的设备时，元素是可预测地运行。弹性盒子模型实现HTML页面布局是与方向无关的。不类似于块级布局侧重垂直方向，内联布局侧重水平方向。弹性盒子模型主要...
+        新的组件Fragment在Vue2中组件必须有一个根标签，在Vue3中组件可以没有根标签，内部会将多个标签包含在一个Fragment虚拟元素中好处：减少标签层级，减小内存占用&amp;lt;template&amp;gt;&amp;lt;h3&amp;gt;我是App组件（祖）&amp;lt;/h3&amp;gt;&amp;lt;Child&amp;gt;&amp;lt;/Child...
       </div>
       <div class="post-meta-wrap">
         <span class="post-meta-date">
           <i class="far fa-calendar-alt"></i>
-          <span> 2022.05.04</span>
+          <span> 2023.02.22</span>
         </span>
       </div>
     </div>
@@ -137,19 +137,19 @@
   
   <div class="post-item">
     <div class="post-item-info">
-      <a class="post-title" href="/posts/db6d3d10.html" title="CSS样式常用小技巧">
+      <a class="post-title" href="/posts/f971e316.html" title="Vue3常用Composition API">
         
-        CSS样式常用小技巧
+        Vue3常用Composition API
         
       </a>
       <div class="post-description">
         
-        Sprites为了有效地减少服务器接收和发送请求的次数，提高页面的加载速度，,出现了CSS精灵技术(也称CSSSprites、css雪碧)。核心原理：将网页中的一些小背景图像整合到一张大图中，这样服务器只需要一次请求就可以了*Sprites使用精灵技术主要针对于背景图片使用，技术把多个小背景图片整合到一张大图片中...
+        常用CompositionAPIsetup函数setup是Vue3.0中一个新的配置项，值为一个函数。是所有CompositionAPI（组合API）表演的舞台。组件中所用到的数据、方法等等，均要配置在setup中setup函数的两种返回值：若返回一个对象，则对象中的属性、方法，在模板中均可以直接使用。（重点关注...
       </div>
       <div class="post-meta-wrap">
         <span class="post-meta-date">
           <i class="far fa-calendar-alt"></i>
-          <span> 2022.05.04</span>
+          <span> 2023.02.22</span>
         </span>
       </div>
     </div>
@@ -159,19 +159,63 @@
   
   <div class="post-item">
     <div class="post-item-info">
-      <a class="post-title" href="/posts/e1d88301.html" title="BackUp博客备份及恢复">
+      <a class="post-title" href="/posts/49aa12fb.html" title="Vue3其他CompositionAPI">
         
-        BackUp博客备份及恢复
+        Vue3其他CompositionAPI
         
       </a>
       <div class="post-description">
         
-        博客备份备份对于静态博客来说是及其重要的，本文章介绍一种hexo-git-backup插件备份的办法来实现hexo博客备份GitHub项目地址：https://github.com/coneycode/hexo-git-backup官方文档地址：https://github.com/coneycode/hexo-...
+        其它CompositionAPItoRef与toRefstoRef用于创建一个ref对象，其value值指向另一个对象中的某个属性，语法如下//参数为(对象，属性)constname=toRef(person,&amp;#x27;name&amp;#x27;)应用：要将响应式对象中的某个属性单独提供给外部使用时扩展：toRefs...
       </div>
       <div class="post-meta-wrap">
         <span class="post-meta-date">
           <i class="far fa-calendar-alt"></i>
-          <span> 2022.05.04</span>
+          <span> 2023.02.22</span>
+        </span>
+      </div>
+    </div>
+
+  </div>
+  
+  
+  <div class="post-item">
+    <div class="post-item-info">
+      <a class="post-title" href="/posts/25ba76c5.html" title="Vue3计算属性与监视及生命周期">
+        
+        Vue3计算属性与监视及生命周期
+        
+      </a>
+      <div class="post-description">
+        
+        计算属性与监视computed与Vue2.x中computed配置功能一致&amp;lt;template&amp;gt;&amp;lt;divclass=&amp;quot;demo&amp;quot;&amp;gt;&amp;lt;h1&amp;gt;个人信息&amp;lt;/h1&amp;gt;姓：&amp;lt;inputtype=&amp;quot;text&amp;quot;v-model=&amp;quot;...
+      </div>
+      <div class="post-meta-wrap">
+        <span class="post-meta-date">
+          <i class="far fa-calendar-alt"></i>
+          <span> 2023.02.22</span>
+        </span>
+      </div>
+    </div>
+
+  </div>
+  
+  
+  <div class="post-item">
+    <div class="post-item-info">
+      <a class="post-title" href="/posts/52fed56a.html" title="Axios应用及跨域问题">
+        
+        Axios应用及跨域问题
+        
+      </a>
+      <div class="post-description">
+        
+        AxiosAxios是一个开源的可以用在浏览器端和NodeJS的异步通信框架，她的主要作用就是实现AJAX异步通信GitHub：https://github.com/axios/axios中文文档：http://www.axios-js.com/zh-cn/docs/由于Vue.js是一个视图层框架并且作者（尤雨...
+      </div>
+      <div class="post-meta-wrap">
+        <span class="post-meta-date">
+          <i class="far fa-calendar-alt"></i>
+          <span> 2023.02.22</span>
         </span>
       </div>
     </div>
@@ -181,7 +225,7 @@
    
 
     <div class="pagination">
-        <a class="extend prev" rel="prev" href="/page/13/"><i class='fas fa-chevron-left fa-fw'></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span>
+        <a class="extend prev" rel="prev" href="/page/13/"><i class='fas fa-chevron-left fa-fw'></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/15/"><i class='fas fa-chevron-right fa-fw'></i></a>
     </div>
 
 </div>

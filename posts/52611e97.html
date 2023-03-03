@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>前端三剑客之动画 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="动画CSS3 新增 animation 属性使得仅通过 CSS 的样式属性实现动画效果成为可能。实现动画包括两个部分：  用于定义动画的样式规则  用于设置动画开始、结束以及中间点样式的关键帧相对于传统使用 JavaScript 实现的动画方式，CSS3 新增的 animation 属性具有以下三个优点:  能够非常容易地创建简单动画，甚至不需要掌握 JavaScript。 动画运行效果良好，可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端三剑客之动画">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/52611e97.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="动画CSS3 新增 animation 属性使得仅通过 CSS 的样式属性实现动画效果成为可能。实现动画包括两个部分：  用于定义动画的样式规则  用于设置动画开始、结束以及中间点样式的关键帧相对于传统使用 JavaScript 实现的动画方式，CSS3 新增的 animation 属性具有以下三个优点:  能够非常容易地创建简单动画，甚至不需要掌握 JavaScript。 动画运行效果良好，可以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.106Z">
+<meta property="article:modified_time" content="2023-03-03T04:45:37.939Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="HTML+CSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>前端三剑客之动画</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">3.3k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>16分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h1><p>CSS3 新增 animation 属性使得仅通过 CSS 的样式属性实现动画效果成为可能。实现动画包括两个部分：</p>
+<ul>
+<li><p>用于定义动画的样式规则</p>
+</li>
+<li><p>用于设置动画开始、结束以及中间点样式的关键帧相对于传统使用 JavaScript 实现的动画方式，CSS3 新增的 animation 属性具有以下三个优点:</p>
+<ul>
+<li>能够非常容易地创建简单动画，甚至不需要掌握 JavaScript。</li>
+<li>动画运行效果良好，可以在低性能的系统运行。性能以及流畅程度都优于 JavaScript 实现画效果。</li>
+<li>允许浏览器优化动画的性能和效果，让浏览器控制动画序列。</li>
+</ul>
+</li>
+<li><p><code>animation</code>实现动画主要由两个部分组成</p>
+<ul>
+<li>通过类似Flash 动画的 <strong>关键帧</strong>来声明一个动画</li>
+<li>在 在animation 属性中 <strong>调用关键帧</strong>声明的动画实现一个更为复杂的动画效果</li>
+</ul>
+</li>
+</ul>
+<h1 id="动画序列"><a href="#动画序列" class="headerlink" title="动画序列"></a>动画序列</h1><h2 id="声明动画"><a href="#声明动画" class="headerlink" title="声明动画"></a>声明动画</h2><p>通过使用 <code>@keyframes</code> 建立两个或两个以上关键帧来实现。每一个关键帧都描述了动画元素在给定的时间点上应该如何渲染</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> &lt;keyframes-name&gt;&#123;</span><br><span class="line">    &lt;keyframe-block-list&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>keyframes-name</code><br>用于设置当前动画的名称，以便通过 animation-name 属性调用</p>
+</li>
+<li><p><code>keyframe-block-list</code><br>用于设置动画执行过程中的关键帧</p>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> &lt;keyframes-name&gt;&#123;</span><br><span class="line">   <span class="number">0%</span>&#123;</span><br><span class="line">      <span class="attribute">width</span>:<span class="number">100px</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="number">100%</span>&#123;</span><br><span class="line">      <span class="attribute">height</span>:<span class="number">200px</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>0%是动画的<code>开始</code>，100%是动画的<code>完成</code>。这样的规则就是动画序列</li>
+<li>使用<code>@keyframes</code>中规定的某项CSS样式，就能创建由当前样式逐渐改变为新样式的动画效果</li>
+<li>动画是使元素从一种样式逐渐变化为另一种样式的效果。可以改变任意多的样式任意多的<code>次数</code></li>
+<li>用百分比来规定变化发生的时间，或用关键词“<code>from</code>”和“<code>to</code>”，等同于<code>0%</code>和<code>100%</code></li>
+</ul>
+<h2 id="实现动画"><a href="#实现动画" class="headerlink" title="实现动画"></a>实现动画</h2><p>动画执行完成后<code>自动回归原始状态</code>不需要触发条件</p>
+<ul>
+<li><strong>设置关键帧动画的名称</strong>（至少要包含两个 开始和结束）<br>其中过程的关键字 (<code>from</code>、<code>to</code>) 可用百分比（<code>0%</code>、<code>100%</code>）替换</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> animate&#123;</span><br><span class="line">    <span class="selector-tag">from</span>&#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">        <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-tag">to</span>&#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">        <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过<code>animation</code>相关属性实现动画效果</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">background</span>: lightcoral;</span><br><span class="line">    <span class="comment">/* 设置执行动画的名称 与关键帧对应 */</span></span><br><span class="line">    <span class="attribute">animation-name</span>: animate;</span><br><span class="line">    <span class="comment">/* 动画执行的时间 */</span></span><br><span class="line">    <span class="attribute">animation-duration</span>: <span class="number">2s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上两个子属性可简写为一个属性</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">animation</span>: animate <span class="number">2s</span>;</span><br></pre></td></tr></table></figure>
+<img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/1e36362a5b346079815b53fbb579b9f1.png" width=50%>
+
+<h2 id="多个状态"><a href="#多个状态" class="headerlink" title="多个状态"></a>多个状态</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;ie=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 动画序列 */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 1. 可以做多个状态的变化 keyframe 关键帧 */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 2. 里面的百分比要是整数 */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 3. 里面的百分比就是 总的时间（我们这个案例10s）的划分 25% * 10  =  2.5s */</span></span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">        <span class="keyword">@keyframes</span> move &#123;</span></span><br><span class="line"><span class="language-css">            <span class="number">0%</span> &#123;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">0</span>, <span class="number">0</span>);</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">            <span class="number">25%</span> &#123; <span class="comment">/*x移动，y不变*/</span></span></span><br><span class="line"><span class="language-css">                <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">1000px</span>, <span class="number">0</span>)</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">            <span class="number">50%</span> &#123;<span class="comment">/*x不变，y移动*/</span></span></span><br><span class="line"><span class="language-css">                <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">1000px</span>, <span class="number">500px</span>);</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">            <span class="number">75%</span> &#123; <span class="comment">/*x移动复原，y不动*/</span></span></span><br><span class="line"><span class="language-css">                <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">0</span>, <span class="number">500px</span>);</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">            <span class="number">100%</span> &#123; <span class="comment">/*复原*/</span></span></span><br><span class="line"><span class="language-css">                <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">0</span>, <span class="number">0</span>);</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: pink;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">animation-name</span>: move;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">animation-duration</span>: <span class="number">10s</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/27/0029a5a0228de51e1e9136657ea75031.png"></p>
+<h1 id="动画属性"><a href="#动画属性" class="headerlink" title="动画属性"></a>动画属性</h1><table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>@keyframes</code></td>
+<td align="center">规定动画</td>
+</tr>
+<tr>
+<td align="center"><code>animation</code></td>
+<td align="center">所有动画属性的简写属性，除了animation-play-state属性</td>
+</tr>
+<tr>
+<td align="center"><code>animation-name</code></td>
+<td align="center">[必选]规定@keyframes动画的名词</td>
+</tr>
+<tr>
+<td align="center"><code>animation-duration</code></td>
+<td align="center">[必选]规定动画完成一个周期所花费的秒或毫秒，默认为0</td>
+</tr>
+<tr>
+<td align="center"><code>animation-timing-function</code></td>
+<td align="center">规定动画的速度曲线,默认是”ease“</td>
+</tr>
+<tr>
+<td align="center"><code>animation-delay</code></td>
+<td align="center">规定动画何时开始，默认是0</td>
+</tr>
+<tr>
+<td align="center"><code>animation-iteration-count</code></td>
+<td align="center">规定动画被播放的次数，默认是1，还有infinite循环播放</td>
+</tr>
+<tr>
+<td align="center"><code>animation-direction</code></td>
+<td align="center">规定动画是否在下一周期逆向播放，默认是”normal”，alternate逆播放</td>
+</tr>
+<tr>
+<td align="center"><code>animation-play-state</code></td>
+<td align="center">规定动画是否正在运行或暂停，默认是”running”,还有”pause”</td>
+</tr>
+<tr>
+<td align="center"><code>animation-fill-mode</code></td>
+<td align="center">规定动画结束后状态，保持forwards，回到起始backwards</td>
+</tr>
+</tbody></table>
+<h2 id="基础属性"><a href="#基础属性" class="headerlink" title="基础属性"></a>基础属性</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> move &#123;</span><br><span class="line">    <span class="number">0%</span> &#123;</span><br><span class="line">         <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="number">100%</span> &#123;</span><br><span class="line">         <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">500px</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: pink;</span><br><span class="line">    <span class="comment">/* 动画名称 */</span></span><br><span class="line">    <span class="attribute">animation-name</span>: move;</span><br><span class="line">    <span class="comment">/* 持续时间 */</span></span><br><span class="line">    <span class="attribute">animation-duration</span>: <span class="number">2s</span>;</span><br><span class="line">    <span class="comment">/* 运动曲线 */</span></span><br><span class="line">    <span class="attribute">animation-timing-function</span>: ease; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/27/b7a5dc593b839e0ccddca047047e78e1.png"></p>
+<h2 id="动画何时开始"><a href="#动画何时开始" class="headerlink" title="动画何时开始"></a>动画何时开始</h2><p><code>animation-delay</code>属性控制</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> move &#123;</span><br><span class="line">    <span class="number">0%</span> &#123;</span><br><span class="line">         <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="number">100%</span> &#123;</span><br><span class="line">         <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">500px</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: pink;</span><br><span class="line">    <span class="comment">/* 动画名称 */</span></span><br><span class="line">    <span class="attribute">animation-name</span>: move;</span><br><span class="line">    <span class="comment">/* 持续时间 */</span></span><br><span class="line">    <span class="attribute">animation-duration</span>: <span class="number">2s</span>;</span><br><span class="line">    <span class="comment">/* 运动曲线 */</span></span><br><span class="line">    <span class="attribute">animation-timing-function</span>: ease; </span><br><span class="line">    <span class="comment">/*何时开始*/</span></span><br><span class="line">    <span class="attribute">animation-delay</span>: <span class="number">1s</span>; <span class="comment">/*1s后开始*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="动画速度曲线"><a href="#动画速度曲线" class="headerlink" title="动画速度曲线"></a>动画速度曲线</h2><p><code>animation-timing-function</code>：规定动画的速度曲线，默认是”ease“</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>linear</code></td>
+<td align="center">匀速</td>
+</tr>
+<tr>
+<td align="center"><code>ease</code></td>
+<td align="center">默认。动画以低速开始，然后加快，在结束前变慢</td>
+</tr>
+<tr>
+<td align="center"><code>ease-in</code></td>
+<td align="center">低速开始</td>
+</tr>
+<tr>
+<td align="center"><code>ease-out</code></td>
+<td align="center">低速结束</td>
+</tr>
+<tr>
+<td align="center"><code>ease-in-out</code></td>
+<td align="center">低速开始和结束</td>
+</tr>
+<tr>
+<td align="center"><code>steps()</code></td>
+<td align="center">指定了时间函数中的间隔数量（步长）</td>
+</tr>
+</tbody></table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">overflow</span>: hidden;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">font-size</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">30px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">89</span>, <span class="number">158</span>, <span class="number">214</span>);</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* 让我们的文字强制一行内显示 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">white-space</span>: nowrap;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* steps 就是分几步来完成我们的动画 有了steps 就不要在写 ease 或者linear 了 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">animation</span>: w <span class="number">4s</span> <span class="built_in">steps</span>(<span class="number">10</span>) forwards;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">        <span class="keyword">@keyframes</span> w &#123;</span></span><br><span class="line"><span class="language-css">            <span class="number">0%</span> &#123;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">width</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">            <span class="number">100%</span> &#123;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>小李博客我在这里等你<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/27/fb9dd1380941b20dea67c01b11305a91.png"></p>
+<h2 id="动画执行的次数"><a href="#动画执行的次数" class="headerlink" title="动画执行的次数"></a>动画执行的次数</h2><p><code>animation-iteration-count</code> 属性控制，有数值和infinite值</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> move &#123;</span><br><span class="line">    <span class="number">0%</span> &#123;</span><br><span class="line">         <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="number">100%</span> &#123;</span><br><span class="line">         <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">500px</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: pink;</span><br><span class="line">    <span class="comment">/* 动画名称 */</span></span><br><span class="line">    <span class="attribute">animation-name</span>: move;</span><br><span class="line">    <span class="comment">/* 持续时间 */</span></span><br><span class="line">    <span class="attribute">animation-duration</span>: <span class="number">2s</span>;</span><br><span class="line">    <span class="comment">/* 运动曲线 */</span></span><br><span class="line">    <span class="attribute">animation-timing-function</span>: ease; </span><br><span class="line">    <span class="comment">/*重复次数*/</span></span><br><span class="line">    <span class="attribute">animation-iteration-count</span>: infinite;<span class="comment">/*重复无限次*/</span></span><br><span class="line">    <span class="comment">/*animation-iteration-count: 2; /*重复两次*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="动画执行的方向"><a href="#动画执行的方向" class="headerlink" title="动画执行的方向"></a>动画执行的方向</h2><ul>
+<li><p>每个循环内动画向前循环 即<strong>动画循环结束后直接回到起点重新开始</strong> 默认值 </p>
+<ul>
+<li><code>animation-direction: normal</code>;</li>
+</ul>
+</li>
+<li><p>动画<strong>交替反向运行</strong>，反向运动时，动画起步后退，同时，带时间功能的函数也反向</p>
+<ul>
+<li><code>animation-direction: alternate</code>;</li>
+</ul>
+</li>
+<li><p>反向运动动画，每周期结束动画<strong>由尾到头运行</strong></p>
+<ul>
+<li><code>animation-direction: reverse</code>;</li>
+</ul>
+</li>
+<li><p>反向交替，反向开始交替 <strong>动画第一次运行时是反向的， 然后下一次是正向</strong>，后面依次循环</p>
+<ul>
+<li><code>animation-direction: alternate-reverse</code>;</li>
+</ul>
+</li>
+<li><p>测试的次数必须为<code>多次</code>或者<code>无限次</code>，一次没有效果</p>
+<ul>
+<li><code>animation-iteration-count: infinite</code>;</li>
+</ul>
+</li>
+<li><p><code>normal</code><br>默认值 <strong>动画循环结束后直接回到起点重新开始</strong><br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/27/b7a5dc593b839e0ccddca047047e78e1.png"></p>
+</li>
+<li><p><code>alternate</code><br>动画交替反向运行，反向运动时，动画起步后退，同时，带时间功能的函数也反向。<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/27/5013d35aff83fb5808661a5aafa7aeee.png"></p>
+</li>
+<li><p><code>reverse</code><br>反向运动动画，<strong>每周期结束动画由尾到头运行</strong><br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/27/9e1e6e097ce5eea63c61875679757172.png"></p>
+</li>
+<li><p><code>alternate-reverse</code><br>反向交替，反向开始交替 <strong>动画第一次运行时是反向的， 然后下一次是正向，后面依次循环</strong><br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/27/b16b1ffe6b1fd9fe3473e5d5d3c9d76c.png"></p>
+</li>
+</ul>
+<h2 id="动画执行的状态"><a href="#动画执行的状态" class="headerlink" title="动画执行的状态"></a>动画执行的状态</h2><ul>
+<li>动画运行<ul>
+<li><code>animation-play-state: running</code>;</li>
+</ul>
+</li>
+<li>动画暂停 <ul>
+<li><code>animation-play-state: paused</code>;</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> move &#123;</span><br><span class="line">   <span class="number">0%</span> &#123;</span><br><span class="line">      <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="number">100%</span> &#123;</span><br><span class="line">      <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">500px</span>, <span class="number">0</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">   <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">   <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">   <span class="attribute">background-color</span>: pink;</span><br><span class="line">   <span class="comment">/* 动画名称 */</span></span><br><span class="line">   <span class="attribute">animation-name</span>: move;</span><br><span class="line">   <span class="comment">/* 持续时间 */</span></span><br><span class="line">   <span class="attribute">animation-duration</span>: <span class="number">2s</span>;</span><br><span class="line">   <span class="comment">/* 运动曲线 */</span></span><br><span class="line">   <span class="attribute">animation-timing-function</span>: ease; </span><br><span class="line">   <span class="comment">/*动画次数*/</span></span><br><span class="line">   <span class="attribute">animation-iteration-count</span>: infinite;</span><br><span class="line">   <span class="comment">/*动画方向*/</span></span><br><span class="line">   <span class="attribute">animation-direction</span>: alternate;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:hover</span>&#123;</span><br><span class="line">    <span class="comment">/*鼠标经过div，暂停动画*/</span></span><br><span class="line">   <span class="attribute">animation-play-state</span>: paused;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/27/e46d8d91d680709592df4674a1e02cfa.png"></p>
+<h2 id="设置动画时间外属性"><a href="#设置动画时间外属性" class="headerlink" title="设置动画时间外属性"></a>设置动画时间外属性</h2><p><code>animation-fill-mode</code>: 属性用于设置动画执行之前和执行之后如何为动画的目标元素应用样式</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">animation-fill-mode</span>:backforwards;</span><br><span class="line"><span class="attribute">animation-fill-mode</span>:forwards;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>backwards</code><br>默认行为，回到起始位置<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/27/b7a5dc593b839e0ccddca047047e78e1.png"></p>
+</li>
+<li><p><code>forwards</code><br>停留在结束状态<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/27/78527df9988ed700bd9f91985d671871.png"></p>
+</li>
+</ul>
+<h2 id="动画简写属性"><a href="#动画简写属性" class="headerlink" title="动画简写属性"></a>动画简写属性</h2><ul>
+<li>动画简写属性<ul>
+<li><code>animation</code>: 动画名称 持续时间 运动曲线 何时开始 播放次数 是否反方向 动画起始或结束的状态;</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">   <span class="attribute">animation</span>:move  <span class="number">5s</span> liner <span class="number">2s</span> infinite alternate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>简写属性里面不包含<code>animation-play-state</code></li>
+<li>暂停动画：<code>animation-play-state: puased;</code> 经常和鼠标经过等其他配合使用</li>
+<li>想要动画走回来，而不是跳回来：<code>animation-direction:alternate</code></li>
+<li>盒子动画结束后，停在结束位置：<code>animation-fill-mode: forwards</code></li>
+</ul>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><h2 id="大数据热点图"><a href="#大数据热点图" class="headerlink" title="大数据热点图"></a>大数据热点图</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;ie=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/*指定颜色就可以显示图片*/</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">body</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: <span class="number">#333</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">        <span class="comment">/*背景透明图片*/</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.map</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">747px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">616px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">img/map.png</span>) no-repeat;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">0</span> auto;<span class="comment">/*居中*/</span></span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">        <span class="comment">/*北京大盒子*/</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.city</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">top</span>: <span class="number">227px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">right</span>: <span class="number">193px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        <span class="comment">/*台北大盒子*/</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.tb</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">top</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">right</span>: <span class="number">80px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">        <span class="comment">/*具体位置可以F12微调*/</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/*小蓝点*/</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.dotted</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">8px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">8px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: <span class="number">#09f</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">        <span class="comment">/*三个波纹*/</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.city</span> <span class="selector-tag">div</span><span class="selector-attr">[class^=<span class="string">&quot;pulse&quot;</span>]</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* 保证我们小波纹在父盒子里面水平垂直居中 放大之后就会中心向四周发散 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">top</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">left</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">50%</span>, -<span class="number">50%</span>);</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">8px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">8px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">12px</span> <span class="number">#009dfd</span>; <span class="comment">/*盒子阴影*/</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/*调用动画 liner匀速 infinite循环*/</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">animation</span>: pulse <span class="number">1.2s</span> linear infinite;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">        <span class="comment">/*定义波纹动画顺序*/</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.city</span> <span class="selector-tag">div</span><span class="selector-class">.pulse2</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">animation-delay</span>: <span class="number">0.4s</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.city</span> <span class="selector-tag">div</span><span class="selector-class">.pulse3</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">animation-delay</span>: <span class="number">0.8s</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">        <span class="comment">/*定义波纹动画*/</span></span></span><br><span class="line"><span class="language-css">        <span class="keyword">@keyframes</span> pulse &#123;</span></span><br><span class="line"><span class="language-css">            <span class="number">0%</span> &#123;&#125;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/*从8px-&gt;40px，透明度不变*/</span></span></span><br><span class="line"><span class="language-css">            <span class="number">70%</span> &#123;</span></span><br><span class="line"><span class="language-css">                <span class="comment">/* transform: scale(5);  我们不要用scale 因为他会让 阴影变大*/</span></span></span><br><span class="line"><span class="language-css">                <span class="attribute">width</span>: <span class="number">40px</span>;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">height</span>: <span class="number">40px</span>;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">opacity</span>: <span class="number">1</span>;<span class="comment">/*透明度*/</span></span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/*40px-&gt;70px，透明度0消失*/</span></span></span><br><span class="line"><span class="language-css">            <span class="number">100%</span> &#123;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">width</span>: <span class="number">70px</span>;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">height</span>: <span class="number">70px</span>;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">opacity</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;map&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--北京--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;city&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--小蓝点--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dotted&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--三个波纹--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;pulse1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;pulse2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;pulse3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--台北--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;city tb&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dotted&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;pulse1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;pulse2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;pulse3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/27/f921d7524cbc693da9205dad8dac8149.png" width=90%>
+
+<h2 id="奔跑的熊大"><a href="#奔跑的熊大" class="headerlink" title="奔跑的熊大"></a>奔跑的熊大</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">body</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: <span class="number">#ccc</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">img/bear.png</span>) no-repeat;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* 我们元素可以添加多个动画， 用逗号分隔 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">animation</span>: bear .<span class="number">4s</span> <span class="built_in">steps</span>(<span class="number">8</span>) infinite, move <span class="number">3s</span> forwards;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">        <span class="keyword">@keyframes</span> bear &#123;</span></span><br><span class="line"><span class="language-css">            <span class="number">0%</span> &#123;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">background-position</span>: <span class="number">0</span> <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">            <span class="number">100%</span> &#123;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">background-position</span>: -<span class="number">1600px</span> <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">        <span class="keyword">@keyframes</span> move &#123;</span></span><br><span class="line"><span class="language-css">            <span class="number">0%</span> &#123;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">left</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">            <span class="number">100%</span> &#123;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">left</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">                <span class="comment">/* margin-left: -100px; */</span></span></span><br><span class="line"><span class="language-css">                <span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">50%</span>);</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/27/10df74cd09192daac03212c763fffc33.png"></p>
+<h2 id="无缝滚动"><a href="#无缝滚动" class="headerlink" title="无缝滚动"></a>无缝滚动</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>无缝滚动<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">            * &#123;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">			<span class="selector-tag">nav</span>&#123;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">width</span>: <span class="number">1000px</span>;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">height</span>: <span class="number">150px</span>;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">border</span>: <span class="number">2px</span> solid white;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">margin</span>: <span class="number">100px</span> auto;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">overflow</span>: hidden;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			<span class="keyword">@keyframes</span> moving&#123;</span></span><br><span class="line"><span class="language-css">				<span class="selector-tag">from</span>&#123;</span></span><br><span class="line"><span class="language-css">					<span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">0px</span>);</span></span><br><span class="line"><span class="language-css">				&#125;</span></span><br><span class="line"><span class="language-css">				<span class="selector-tag">to</span>&#123;</span></span><br><span class="line"><span class="language-css">					<span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">1000px</span>);</span></span><br><span class="line"><span class="language-css">				&#125;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			<span class="selector-tag">nav</span> <span class="selector-tag">ul</span>&#123;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">list-style-type</span>: none;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">overflow</span>: hidden;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">animation</span>: moving <span class="number">7s</span> infinite linear;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">width</span>: <span class="number">200%</span>;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			<span class="selector-tag">img</span>&#123;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">height</span>: <span class="number">150px</span>;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">border</span>: <span class="number">4px</span> solid white;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			<span class="selector-tag">li</span>&#123;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">float</span><span class="selector-pseudo">:left</span>;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			<span class="selector-tag">body</span>&#123;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">background-color</span>:aliceblue;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			<span class="selector-tag">nav</span><span class="selector-pseudo">:hover</span> <span class="selector-tag">ul</span>&#123;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">animation-play-state</span>:paused;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--无缝滚动开始啦--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--第一组开始--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images1/a.jpg&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images1/b.jpg&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span> </span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images1/c.jpg&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images1/d.jpg&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images1/e.jpg&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--第一组结束--&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--第二组开始--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images1/a.jpg&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images1/b.jpg&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span> </span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images1/c.jpg&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images1/d.jpg&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images1/e.jpg&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--第二组结束--&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--无缝滚动结束啦--&gt;</span></span><br><span class="line">        </span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/03/71d8ea15b722d2c531e1755f6c0b1c40.png"></p>
+<h2 id="移动的方块"><a href="#移动的方块" class="headerlink" title="移动的方块"></a>移动的方块</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>案例4：动画<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">			<span class="selector-class">.aniation_div</span> &#123;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">margin</span>: <span class="number">100px</span> <span class="number">0</span> <span class="number">0</span> <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">width</span>: <span class="number">80px</span>;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">line-height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">color</span>: white;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">border-radius</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">background</span>: greenyellow;				</span></span><br><span class="line"><span class="language-css">				<span class="attribute">animation</span>: move <span class="number">4s</span>; <span class="comment">/* 动画效果，运行4s */</span></span></span><br><span class="line"><span class="language-css">				<span class="attribute">position</span>: relative; <span class="comment">/* 相对定位 */</span></span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			</span></span><br><span class="line"><span class="language-css">			</span></span><br><span class="line"><span class="language-css">			 <span class="keyword">@keyframes</span> move&#123; <span class="comment">/* 规定动画 */</span></span></span><br><span class="line"><span class="language-css">				<span class="number">0%</span> &#123;</span></span><br><span class="line"><span class="language-css">					<span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">0deg</span>);</span></span><br><span class="line"><span class="language-css">					<span class="attribute">left</span>: <span class="number">0px</span>;</span></span><br><span class="line"><span class="language-css">				&#125;</span></span><br><span class="line"><span class="language-css">				</span></span><br><span class="line"><span class="language-css">				<span class="number">25%</span> &#123;</span></span><br><span class="line"><span class="language-css">					<span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">20deg</span>);</span></span><br><span class="line"><span class="language-css">					<span class="attribute">left</span>: <span class="number">0px</span>;</span></span><br><span class="line"><span class="language-css">				&#125;</span></span><br><span class="line"><span class="language-css">				<span class="number">50%</span> &#123;</span></span><br><span class="line"><span class="language-css">					<span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">0deg</span>);</span></span><br><span class="line"><span class="language-css">					<span class="attribute">left</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="language-css">				&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">				<span class="number">70%</span> &#123;</span></span><br><span class="line"><span class="language-css">					<span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">0deg</span>);</span></span><br><span class="line"><span class="language-css">					<span class="attribute">left</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="language-css">					<span class="attribute">background</span>: <span class="number">#1ec7e6</span>;</span></span><br><span class="line"><span class="language-css">				&#125;</span></span><br><span class="line"><span class="language-css">				<span class="number">100%</span> &#123;</span></span><br><span class="line"><span class="language-css">					<span class="attribute">transform</span>: <span class="built_in">rotateX</span>(-<span class="number">360deg</span>); <span class="comment">/* 逆时针旋转360度 */</span></span></span><br><span class="line"><span class="language-css">					<span class="attribute">left</span>: <span class="number">0px</span>;</span></span><br><span class="line"><span class="language-css">				&#125;</span></span><br><span class="line"><span class="language-css">			</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">		</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		</span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;parent&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;aniation_div&quot;</span>&gt;</span></span><br><span class="line">				动画</span><br><span class="line">			<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/03/d081681599ac62a3fbe7ec64c01bc684.png"></p>
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/52611e97.html">http://xiaoliblog.cn/posts/52611e97.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/49038a03.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>前端三剑客之变形</div>
+      <div class="prev-desc">变形通过修改坐标，CSS transform 属性可以在不影响正常文档流的情况下改变作用内容的位置。CSStransform 包括一系列 CSS 属性，通过这些属性可以对 HTML 元素进行变形。可以进行的变形包括旋转，倾斜，缩放以及位移，同时适用于平面以及三维空间。在空间中实现 CSS 变形会稍微复杂一点。首先...</div>
+    </a>
+    
+    
+    <a href="/posts/90ee64ed.html">
+      <div class="next-title">前端三剑客之HTML基础<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">调试工具
+打开浏览器，按下F12键或者右击页面空白处-&amp;gt;检查
+左边是HTML元素结构，右边是CSS样式
+右边CSS样式可以改动数值，但只是调试，并不会影响源代码
+如果点击元素，发现右侧没有样式引入，极有可能是类名或者样式引入错误
+如果有样式，但是样式前面有黄色感叹号提示，则是样式属性书写错误
+
+Emmet语...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB"><span class="toc-text">动画</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E5%BA%8F%E5%88%97"><span class="toc-text">动画序列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E%E5%8A%A8%E7%94%BB"><span class="toc-text">声明动画</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB"><span class="toc-text">实现动画</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AA%E7%8A%B6%E6%80%81"><span class="toc-text">多个状态</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E5%B1%9E%E6%80%A7"><span class="toc-text">动画属性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%B1%9E%E6%80%A7"><span class="toc-text">基础属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E4%BD%95%E6%97%B6%E5%BC%80%E5%A7%8B"><span class="toc-text">动画何时开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E9%80%9F%E5%BA%A6%E6%9B%B2%E7%BA%BF"><span class="toc-text">动画速度曲线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E6%89%A7%E8%A1%8C%E7%9A%84%E6%AC%A1%E6%95%B0"><span class="toc-text">动画执行的次数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E6%89%A7%E8%A1%8C%E7%9A%84%E6%96%B9%E5%90%91"><span class="toc-text">动画执行的方向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E6%89%A7%E8%A1%8C%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-text">动画执行的状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%8A%A8%E7%94%BB%E6%97%B6%E9%97%B4%E5%A4%96%E5%B1%9E%E6%80%A7"><span class="toc-text">设置动画时间外属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7"><span class="toc-text">动画简写属性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%83%AD%E7%82%B9%E5%9B%BE"><span class="toc-text">大数据热点图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%94%E8%B7%91%E7%9A%84%E7%86%8A%E5%A4%A7"><span class="toc-text">奔跑的熊大</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E7%BC%9D%E6%BB%9A%E5%8A%A8"><span class="toc-text">无缝滚动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E7%9A%84%E6%96%B9%E5%9D%97"><span class="toc-text">移动的方块</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

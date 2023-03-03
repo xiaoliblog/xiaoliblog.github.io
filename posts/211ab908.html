@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="content-language" content="zh-CN">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-<title>Flex弹性盒子模型 | 小李博客</title>
+<title>详解弹性盒子模型 | 小李博客</title>
 <meta name="author" content="小李博客">
 <meta name="copyright" content="小李博客">
 
@@ -23,16 +23,16 @@
 
 <meta name="description" content="弹性盒子模型CSS3 新增了弹性盒子模型（Flexible Box 或 FlexBox），是一种新的用于在 HTML 页面实现布局的方式。使得当 HTML 页面适应不同尺寸的屏幕和不同的设备时，元素是可预测地运行。 弹性盒子模型实现 HTML 页面布局是与方向无关的。不类似于块级布局侧重垂直方向，内联布局侧重水平方向。 弹性盒子模型主要适用于 HTML 页面的组件以及小规模的布局，而并不适用于大规">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Flex弹性盒子模型">
+<meta property="og:title" content="详解弹性盒子模型">
 <meta property="og:url" content="http://xiaoliblog.cn/posts/211ab908.html">
 <meta property="og:site_name" content="小李博客">
 <meta property="og:description" content="弹性盒子模型CSS3 新增了弹性盒子模型（Flexible Box 或 FlexBox），是一种新的用于在 HTML 页面实现布局的方式。使得当 HTML 页面适应不同尺寸的屏幕和不同的设备时，元素是可预测地运行。 弹性盒子模型实现 HTML 页面布局是与方向无关的。不类似于块级布局侧重垂直方向，内联布局侧重水平方向。 弹性盒子模型主要适用于 HTML 页面的组件以及小规模的布局，而并不适用于大规">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
-<meta property="article:published_time" content="2022-05-04T09:05:36.177Z">
-<meta property="article:modified_time" content="2023-02-15T11:01:08.550Z">
+<meta property="article:published_time" content="2023-03-03T03:20:56.110Z">
+<meta property="article:modified_time" content="2023-03-03T04:51:06.839Z">
 <meta property="article:author" content="小李博客">
-<meta property="article:tag" content="小李博客">
+<meta property="article:tag" content="HTML+CSS">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
 
@@ -114,20 +114,20 @@
             <article id="post">
   <div class="post-info">
     <div class="post-title">
-      <h1>Flex弹性盒子模型</h1>
+      <h1>详解弹性盒子模型</h1>
     </div>
     <div class="post-meta">
       <div class="post-date">
         <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
         <span class="post-meta-label">
           发表于
-          2022-05-04 |
+          2023-03-03 |
         </span>
 
         <i class="fas fa-history fa-fw post-meta-icon"></i>
         <span class="post-meta-label">
           更新于
-          2023-02-15
+          2023-03-03
         </span>
       </div>
       <div class="post-meta-wordcount">
@@ -146,7 +146,7 @@
   <div class="post-content">
     <h1 id="弹性盒子模型"><a href="#弹性盒子模型" class="headerlink" title="弹性盒子模型"></a>弹性盒子模型</h1><p>CSS3 新增了弹性盒子模型（<code>Flexible Box</code> 或 <code>FlexBox</code>），是一种新的用于在 HTML 页面实现布局的方式。使得当 HTML 页面适应不同尺寸的屏幕和不同的设备时，元素是可预测地运行。</p>
 <p>弹性盒子模型实现 HTML 页面布局是<strong>与方向无关的</strong>。不类似于块级布局侧重垂直方向，内联布局侧重水平方向。</p>
-<p>弹性盒子模型主要<strong>适用于 HTML 页面的组件以及小规模的布局</strong>，而并<strong>不适用于大规模的布局</strong>，否则会影响 HTML 页面性能</p>
+<p>弹性盒子模型主要<strong>适用于 HTML 页面的组件以及小规模的布局</strong>，而并<strong>不适用于大规模的布局</strong>，否则会影响 HTML 页面性能<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/0568da4aab018362ff6eef848747febd.png"></p>
 <ul>
 <li><p>伸缩容器（flex container）：包裹伸缩项目的父元素。</p>
 </li>
@@ -169,12 +169,9 @@
 </ul>
 <h1 id="开启Flexbox布局"><a href="#开启Flexbox布局" class="headerlink" title="开启Flexbox布局"></a>开启Flexbox布局</h1><p>假设有下边这么一个 html 结构：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flexbox&quot;</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex1&quot;</span>&gt;</span>Flex1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex2&quot;</span>&gt;</span>Flex2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex3&quot;</span>&gt;</span>Flex3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>一个div 容器包含了三个 div 子元素，按照默认的布局方式进行排列。因为 div 是块级元素，每个 div 占了整个一行的空间：</p>
-<p>如果要开启容器的 flex 布局，只需要在 css 里边给父盒子设置 <code>display: flex </code>属性</p>
+<p>一个div 容器包含了三个 div 子元素，按照默认的布局方式进行排列。因为 div 是块级元素，每个 div 占了整个一行的空间：<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/d9a346232bdbf96690a487c88e2745a9.png"><br>如果要开启容器的 flex 布局，只需要在 css 里边给父盒子设置 <code>display: flex </code>属性</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">display</span>: flex;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到里边的三个元素自动变成了一行，因为 flex 默认是<strong>按行进行排列的</strong>。Flexbox 布局是<strong>一维布局方式，要么按行排列，要么按列排列</strong>。</p>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/e2bc29f618dca68924f240636cbc3496.png"><br>可以看到里边的三个元素自动变成了一行，因为 flex 默认是<strong>按行进行排列的</strong>。Flexbox 布局是<strong>一维布局方式，要么按行排列，要么按列排列</strong>。</p>
 <h1 id="定义弹性盒子模型"><a href="#定义弹性盒子模型" class="headerlink" title="定义弹性盒子模型"></a>定义弹性盒子模型</h1><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">display</span> : flex;</span><br><span class="line"><span class="attribute">display</span> : inline-flex;</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -184,7 +181,7 @@
 <p>样的，此属性存在浏览器兼容问题：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">display</span> : -webkit-flex;</span><br><span class="line"><span class="attribute">display</span>: -ms-flex;</span><br><span class="line"><span class="attribute">display</span>: -moz-flex;</span><br><span class="line"><span class="attribute">display</span>: -o-flex;</span><br></pre></td></tr></table></figure>
 
-<h1 id="对齐方式"><a href="#对齐方式" class="headerlink" title="对齐方式"></a>对齐方式</h1><p>Flex 布局有一个隐式的坐标空间，水平方向有一条<code>主轴(main-axis)</code>，垂直方向上有一条<code>交叉轴(cross-axis)</code>：</p>
+<h1 id="对齐方式"><a href="#对齐方式" class="headerlink" title="对齐方式"></a>对齐方式</h1><p>Flex 布局有一个隐式的坐标空间，水平方向有一条<code>主轴(main-axis)</code>，垂直方向上有一条<code>交叉轴(cross-axis)</code>：<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/13260509aface02ba5f89abb81d28b6d.png"></p>
 <h2 id="flex-direction-属性"><a href="#flex-direction-属性" class="headerlink" title="flex-direction 属性"></a>flex-direction 属性</h2><p><code>flex-direction</code> 属性适用于伸缩容器元素，用于创建主轴的方向。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">flex-direction</span>: row | row-reverse | column | column-reverse</span><br></pre></td></tr></table></figure>
 
@@ -194,7 +191,9 @@
 <li><code>column</code>：设置主轴是垂直方向。</li>
 <li><code>column-reverse</code>：与 column 的排列方向相反。</li>
 </ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.flexbox</span>&#123;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* 将当前元素设置为弹性盒子模型的伸缩容器 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* flex-direction设置主轴的方向 */</span></span></span><br><span class="line"><span class="language-css">            <span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="language-css">                row:默认值 表示水平方向 </span></span></span><br><span class="line"><span class="comment"><span class="language-css">                column：表示垂直方向</span></span></span><br><span class="line"><span class="comment"><span class="language-css">             */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">flex-direction</span>: column;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>:<span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>:<span class="number">300px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">255</span>, <span class="number">236</span>, <span class="number">220</span>);</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.flex</span>&#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>:<span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>:<span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">221</span>, <span class="number">103</span>, <span class="number">128</span>);</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flexbox&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: rgb(115, 226, 174);&quot;</span>&gt;</span>Flex1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: rgb(110, 226, 220);&quot;</span>&gt;</span>Flex2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: rgb(230, 189, 115);&quot;</span>&gt;</span>Flex3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/8f96ad1d1592771241d534040544c866.png"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.flexbox</span>&#123;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* 将当前元素设置为弹性盒子模型的伸缩容器 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* flex-direction设置主轴的方向 */</span></span></span><br><span class="line"><span class="language-css">            <span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="language-css">                row:默认值 表示水平方向 </span></span></span><br><span class="line"><span class="comment"><span class="language-css">                column：表示垂直方向</span></span></span><br><span class="line"><span class="comment"><span class="language-css">             */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">flex-direction</span>: column;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>:<span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>:<span class="number">300px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">255</span>, <span class="number">236</span>, <span class="number">220</span>);</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.flex</span>&#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>:<span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>:<span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">221</span>, <span class="number">103</span>, <span class="number">128</span>);</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flexbox&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: rgb(115, 226, 174);&quot;</span>&gt;</span>Flex1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: rgb(110, 226, 220);&quot;</span>&gt;</span>Flex2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: rgb(230, 189, 115);&quot;</span>&gt;</span>Flex3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 
 <h2 id="justify-content-属性"><a href="#justify-content-属性" class="headerlink" title="justify-content 属性"></a>justify-content 属性</h2><p>CSS justify-content 属性适用于伸缩容器元素，用于设置伸缩项目沿着主轴线(即水平方向)的对齐方式</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">justify-content</span>: center | flex-start | flex-end | space-between | space-around</span><br></pre></td></tr></table></figure>
@@ -203,83 +202,75 @@
 <li><code>flex-start</code><br>flex-start 是默认值，如果是从左到右的文字阅读习惯(LTR)，就是靠左对齐。</li>
 </ul>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">justify-content</span>: flex-start;</span><br></pre></td></tr></table></figure>
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/88923485ce92ce00a7027a6c4d9638c4.png"></p>
 <ul>
-<li><p><code>center</code><br>居中对齐，此时整个 flex 容器被居中到了页面中间：</p>
+<li><p><code>center</code><br>居中对齐，此时整个 flex 容器被居中到了页面中间：<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/cb9a95abe2d666adbc9f7ed33db15291.png"></p>
 </li>
-<li><p><code>flex-end</code><br>靠右对齐：</p>
+<li><p><code>flex-end</code><br>靠右对齐：<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/e5cc42c29476a7222665f0a72cdb1edb.png"></p>
 </li>
-<li><p><code>space-between</code><br>两端对齐，这种对齐方式是第一个和最后一个元素贴边，中间的元素平分剩余的空间：</p>
+<li><p><code>space-between</code><br>两端对齐，这种对齐方式是第一个和最后一个元素贴边，中间的元素平分剩余的空间：<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/929fd08e5daa50b94acc94a9936344cb.png"></p>
 </li>
-<li><p><code>space-evenly</code><br>分散对齐，所有的元素都平分空间：</p>
+<li><p><code>space-evenly</code><br>分散对齐，所有的元素都平分空间：<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/e46d346d75e8fd3e1d6606ac662e06fe.png"></p>
 </li>
-<li><p><code>space-around</code><br>跟space-evenly类似，但是左右两边的留白为平分空间的 1&#x2F;2.</p>
+<li><p><code>space-around</code><br>跟space-evenly类似，但是左右两边的留白为平分空间的 1&#x2F;2.<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/0fb6c4b66eb990e9f22e69edded41a5f.png"></p>
 </li>
 </ul>
 <h2 id="align-items属性"><a href="#align-items属性" class="headerlink" title="align-items属性"></a>align-items属性</h2><p>控制交叉轴方向（即垂直方向）上的对齐方式使用<code>align-items</code>属性</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">align-items</span>: center | flex-start | flex-end | baseline | stretch</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p><code>stretch</code><br>stretch 是 align-items 的默认值，它会自动把子元素拉伸成容器的高度(<code>前提子盒子没有设置宽高</code>)，所以之前的例子里子元素在垂直方向上都占满了容器，只要改变容器的align-items的值，它就会变成内容的高度。stretch 对齐效果如下</p>
+<li><p><code>stretch</code><br>stretch 是 align-items 的默认值，它会自动把子元素拉伸成容器的高度(<code>前提子盒子没有设置宽高</code>)，所以之前的例子里子元素在垂直方向上都占满了容器，只要改变容器的align-items的值，它就会变成内容的高度。stretch 对齐效果如下<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/6ed51b817a5aa3028b5c513413bd4194.png"></p>
 </li>
-<li><p><code>flex-start</code><br>靠上对齐，在交叉轴开始的最上方，可以看到子元素不再占满容器高度：</p>
+<li><p><code>flex-start</code><br>靠上对齐，在交叉轴开始的最上方，可以看到子元素不再占满容器高度：<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/16194fed7fa59849bc322a27a722c29b.png"></p>
 </li>
-<li><p><code>center</code><br>居中对齐</p>
+<li><p><code>center</code><br>居中对齐<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/64aef7caac898bd29d4929f9d21b6951.png"></p>
 </li>
-<li><p><code>flex-end</code><br>向下对齐</p>
+<li><p><code>flex-end</code><br>向下对齐<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/4402f036110097934681a33c212b811d.png"></p>
 </li>
 <li><p><code>baseline</code><br>基线对齐，如果子元素文字尺寸和行高不同，则子元素会按照文字的基线进行对齐：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span>&#123;</span><br><span class="line"><span class="attribute">display</span>: flex; </span><br><span class="line"><span class="attribute">align-items</span>: baseline;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.flex2</span> &#123;</span><br><span class="line"><span class="attribute">font-size</span>: <span class="number">24px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果是<code>flex-start</code> 对齐方式：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: flex; </span><br><span class="line">  <span class="attribute">align-items</span>: baseline;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.flex2</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">24px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/c0b11803392c60808e916def1549526b.png"><br>如果是<code>flex-start</code> 对齐方式：<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/cfe7b9391b555ad2a7e46a58f342d300.png"></p>
 </li>
 </ul>
 <h1 id="子元素覆盖对齐方式"><a href="#子元素覆盖对齐方式" class="headerlink" title="子元素覆盖对齐方式"></a>子元素覆盖对齐方式</h1><p>子元素可以通过设置 <code>align-self</code> 来控制自己在交叉轴上的对齐方式，例如把<code> .flex3</code> 子元素在垂直方向上靠下对齐：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">align-items</span>: flex-start;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.flex3</span> &#123;</span><br><span class="line">  <span class="attribute">align-self</span>: flex-end;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/9292783055bc636076b7c334f0329203.png"></p>
 <p>在水平方向上控制子元素对齐并没有<code>justify-self</code>属性，而是使用<code>margin</code>属性，通过把左或右边距设置为<code>auto</code>来控制水平对齐，比如把 flex3 放到最右边：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex3</span> &#123;</span><br><span class="line">  <span class="attribute">margin-left</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="排列方式"><a href="#排列方式" class="headerlink" title="排列方式"></a>排列方式</h1><p>flex 支持按行排布，也支持按列排布。按列排布时，主轴和交叉轴换了方向，但是 align-items 和 justify-content 控制的轴线不变，即 <code>align-items</code> 还是控制交叉轴，<code>justify-content</code> 控制主轴：</p>
-<p>所以说，在水平方向上对齐变成了使用<code>align-items</code>，垂直方向则用<code>justify-content</code>。</p>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/e315ba7441de940f0dc19d4800abad36.png"></p>
+<h1 id="排列方式"><a href="#排列方式" class="headerlink" title="排列方式"></a>排列方式</h1><p>flex 支持按行排布，也支持按列排布。按列排布时，主轴和交叉轴换了方向，但是 align-items 和 justify-content 控制的轴线不变，即 <code>align-items</code> 还是控制交叉轴，<code>justify-content</code> 控制主轴：<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/5b363ef2e605e43557f5eac27301dfff.png"><br>所以说，在水平方向上对齐变成了使用<code>align-items</code>，垂直方向则用<code>justify-content</code>。</p>
 <p>要使 flex 按列排布，只需要设置</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">flex-direction</span>: column;</span><br></pre></td></tr></table></figure>
 
 <h2 id="水平居中对齐"><a href="#水平居中对齐" class="headerlink" title="水平居中对齐"></a>水平居中对齐</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/6c0ddf482780bc5521e99f978f360672.png"></p>
 <h2 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/b15ad13e749744a11345d7bd58c5277d.png"></p>
 <h2 id="row-reverse"><a href="#row-reverse" class="headerlink" title="row-reverse"></a>row-reverse</h2><p>另外 flex 布局也可以支持反向按行和列布局，相当于按容器中心线进行 180 度翻转：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>: row-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/b046ec7ae6eedbf0a86c2d646f0ff755.png"></p>
 <h2 id="column-reverse"><a href="#column-reverse" class="headerlink" title="column-reverse"></a>column-reverse</h2><p>列模式下会垂直翻转：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/715667fbd2f99bb72b10f5baa657d3e5.png"></p>
 <h1 id="空间占比"><a href="#空间占比" class="headerlink" title="空间占比"></a>空间占比</h1><p>子元素可以通过设置<code>flex</code>属性来调整空间的占比，例如让<code> flex2</code> 在水平方向上占据其他子元素的 2 倍大小，可以设置:</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex1</span>,<span class="selector-class">.flex3</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.flex2</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/bfb97b81d8f784ef1372c2fce9398860.png"></p>
 <h1 id="Flex-basis"><a href="#Flex-basis" class="headerlink" title="Flex-basis"></a>Flex-basis</h1><p>在介绍 flex-basis 之前，先讲一个概念<code> main size</code>，即主轴方向的尺寸，那么，在行排布模式下，也就是水平方向的尺寸，其实就是子元素的宽度，而在列模式下，它是子元素的高度，相对应的也有<code>cross size</code>，即行模式下是子元素的高度，列模式下是宽度。 而<code>flex-basis</code>是用来设置<code>main size</code>的，它的优先级会高于<code>width</code>。它的默认值是<code>auto</code>，即在行模式下，如果子元素设置了宽度，它就取自这个宽度值，没有设置的话，就是内容的宽度。使用<code> flex-basis</code>，可以同时管理行模式下的宽度和列模式下的高度。</p>
 <p>来看一个例子，把之前的子元素改成固定宽度，比如 <code>50px</code>：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span> &gt; * &#123;</span><br><span class="line">  <span class="attribute">flex-basis</span>: <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/2d78cfb2e9614327188ca36b7725b60f.png"></p>
 <p>如果再添加<code> width</code> 属性，发现并不会生效：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span> &gt; * &#123;</span><br><span class="line">  <span class="attribute">flex-basis</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">100px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>但是，可以通过设置<code> min-width</code>来强制设置最小宽度：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span> &gt; * &#123;</span><br><span class="line">  <span class="attribute">flex-basis</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">min-width</span>:<span class="number">100px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>同理的，在列模式下，<code>flex-basis</code>变成了高度，因为容器高度为<code>100px</code>，这里把子元素高度设置成了<code>30px</code>总计 <code>90px</code>来效果：</p>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/4a641e50b4e79f2677c9f4c870fe271c.png"><br>同理的，在列模式下，<code>flex-basis</code>变成了高度，因为容器高度为<code>100px</code>，这里把子元素高度设置成了<code>30px</code>总计 <code>90px</code>来效果：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span>&#123;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.flexbox</span>&gt; * &#123;</span><br><span class="line">  <span class="attribute">flex-basis</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>同样的，也可以用<code>min-height</code>来控制最小高度</p>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/fe9cceecf235b99fb13b2e0de14f9138.png"><br>同样的，也可以用<code>min-height</code>来控制最小高度</p>
 <h1 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h1><p>（后续例子都假设是行模式）之前的小节简单说了一下 flex 子元素空间的占比，这里把缩放单独拿出来是为了说明：除了调整 flex 子元素的增长之外，也可以调整收缩，以及flex属性背后的原理（下一小节）。</p>
 <h2 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h2><p>先看一下增长，<code>flex-grow</code>，这个属性是说 flex 容器在有剩余空间的时候，子元素占据剩余空间的占比。例如，给<code>.flex2</code>子元素设置：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex2</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其它的元素保持默认的宽度（即内容的宽度，flex-basis 为 auto)，那么<code>.flex2</code>就会自动增长并占据整个剩余空间：</p>
-<p>如果把三个元素全部设置成 1，那么所有元素都会自动增长，并各自占据 1&#x2F;3 的空间：</p>
-<p>使用 <code>flex-grow</code>就能够自由的调整元素的空间占比了，非常适合一些浮动的布局。</p>
-<h2 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h2><p>子元素的收缩是说：当它们的宽度超过 flex 容器之后，该如何进行收缩。通过 <code>flex-shrink</code> 来设置一个数值，数值越大，收缩程度也越大，比如<code>flex-shrink: 2</code>的元素会比<code>flex-shrink:1</code>收缩的值大 2 倍：</p>
+<p>其它的元素保持默认的宽度（即内容的宽度，flex-basis 为 auto)，那么<code>.flex2</code>就会自动增长并占据整个剩余空间：<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/e333587bfa71cbfd969e38820e704879.png"><br>如果把三个元素全部设置成 1，那么所有元素都会自动增长，并各自占据 1&#x2F;3 的空间：<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/b3ed3e9c9c9b420f93d1c2976dbfa04a.png"><br>使用 <code>flex-grow</code>就能够自由的调整元素的空间占比了，非常适合一些浮动的布局。</p>
+<h2 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h2><p>子元素的收缩是说：当它们的宽度超过 flex 容器之后，该如何进行收缩。通过 <code>flex-shrink</code> 来设置一个数值，数值越大，收缩程度也越大，比如<code>flex-shrink: 2</code>的元素会比<code>flex-shrink:1</code>收缩的值大 2 倍：<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/2d82746b71dfcd89ca063792c97b306b.png"></p>
 <h1 id="flex属性"><a href="#flex属性" class="headerlink" title="flex属性"></a>flex属性</h1><p>说完<code>flex-grow</code>、<code>flex-shrink</code> 和 <code>flex-basis</code> 之后，再来看一下这个<code>flex</code>属性，它其实是前边三个属性的缩写，默认值是 <code>0 1 auto</code>，即不增长，但收缩，收缩比例为 1，flex-basis 为 auto，即取自用户定义的宽度或内容的宽度。</p>
 <p>flex 的值可以是下边几种：</p>
 <ul>
@@ -291,22 +282,21 @@
 <p>所以说，通过flex属性可以方便的同时设置<code>flex-grow</code>、<code>flex-shrink </code>和 <code>flex-basis</code> 这三个值。</p>
 <h1 id="折行"><a href="#折行" class="headerlink" title="折行"></a>折行</h1><p>如果子元素有固定宽度，并且超出了容器的宽度，还不允许收缩的话，那么可以使用<code>flex-wrap</code>属性来让元素进行折行排列，使得每行的元素都不超过容器的宽度。<strong>这里跟 css grid 布局的主要区别是，它无法控制单独控制行、列的占比，比如跨行、夸列，也不能自由定位元素到特定的位置</strong>。下边的示例新增了 2 个元素，一共 5 个，每个元素的 main size 为 300px，然后超出宽度后折行：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span>&#123;</span><br><span class="line">  <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.flexbox</span>&gt; * &#123;</span><br><span class="line">  <span class="attribute">flex-shrink</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">flex-basis</span>: <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/a4e7da4bcacedae14f0d6c33cc63b585.png"></p>
 <h2 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h2><p>如果 flex 容器开启了折行，那么两行及以上的内容可以通过<code>align-content</code>属性来控制各行之间在交叉轴上的排列规则，它的取值和<code> justify-content</code>基本相同，这里演示其中几个，还是使用之前三个元素的<code>flex</code>容器，每个容器宽度为 300px，超出后换行：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.flexbox</span> &gt; * &#123;</span><br><span class="line">  <span class="attribute">flex-basis</span>: <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p><code>center</code><br>居中对齐</p>
+<li><p><code>center</code><br>居中对齐<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/3d8d25e3cda9204c53dbaa86790f44a0.png"></p>
 </li>
-<li><p><code>space-between</code><br>两端对齐</p>
+<li><p><code>space-between</code><br>两端对齐<br><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/3f52ddd4734a25adf52a8d673a1ddc07.png"></p>
 </li>
 </ul>
 <h1 id="嵌套的-flex-容器的问题"><a href="#嵌套的-flex-容器的问题" class="headerlink" title="嵌套的 flex 容器的问题"></a>嵌套的 flex 容器的问题</h1><p>如果 HTML 结构复杂，有嵌套的 flex 容器，很有可能会遇到嵌套的 flex 容器并不能自动收缩的问题，即使设置了<code>flex-shrink</code>。比如有下边一个 html 结构：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex1&quot;</span>&gt;</span>Flex 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex2&quot;</span>&gt;</span>Flex 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex3&quot;</span>&gt;</span>Flex 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex4&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">      这是一段很长很长很长很长很长很长很长很长很长很长很长很长长很长很长很长很长很长长很长很长很长很长很长的文本</span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>这里给之前的 flex 容器添加了一个新的子元素.flex4，这 4 个子元素都设置成flex: 1来平分空间，但是 .flex4 自己本身也是一个flex布局的容器，里边有一长串文本，我想让它超长之后自动显示省略号，它的 CSS 代码：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flexbox</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.flexbox</span>&gt; * &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.flex4</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">min-width</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.flex4</span> &gt; <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">text-overflow</span>: ellipsis;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/01/19/9554bb946d96d3c3eb5cc049c865681d.png"></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
 <li>开启 flex 布局使用<code>display: flex</code>属性。</li>
 <li>flex 布局有主轴和交叉轴，分别使用<code>justify-content</code>和<code>align-items</code>控制对齐方式。</li>
@@ -344,21 +334,39 @@
   
   <div class="pagination-post">
     
-    <a href="/posts/406925fb.html">
-      <div class="prev-title"><i class="fas fa-chevron-left"></i>图片懒加载及defer和async</div>
-      <div class="prev-desc">图片懒加载
-一个页面会有许多的图片，浏览器的可视区域是有限的，当我们点进页面但没有滑动全部展示时，其实下面的图片是没有作用的，这个时候如果说加载了也相当于白加载，而且还降低了网页的加载速度
-而懒加载就是延迟加载，只有滚动到可视区域时才加载当前的图片，不是一次性加载所有的图片，从而在一程度减少服务端的请求及带宽;
-...</div>
+    <a href="/posts/410b2601.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>前端三剑客之显示与隐藏</div>
+      <div class="prev-desc">元素显示模式
+元素显示模式就是元素(标签)以什么方式进行显示，比如div自己占一行，比如一行可以放多个span
+HTML元素一般分块元素和行内元素
+
+块元素常见的块元素有&amp;lt;h1&amp;gt;~&amp;lt;h6&amp;gt;、&amp;lt;p&amp;gt;、&amp;lt;div&amp;gt;、&amp;lt;ul&amp;gt;、&amp;lt;ol&amp;gt;、&amp;lt;li...</div>
     </a>
     
     
-    <a href="/posts/db6d3d10.html">
-      <div class="next-title">CSS样式常用小技巧<i class="fas fa-chevron-right"></i></div>
-      <div class="next-desc">Sprites为了有效地减少服务器接收和发送请求的次数，提高页面的加载速度，,出现了CSS精灵技术(也称CSS Sprites、css雪碧)。
-核心原理：将网页中的一些小背景图像整合到一张大图中，这样服务器只需要一次请求就可以了*
-Sprites使用
-精灵技术主要针对于背景图片使用，技术把多个小背景图片整合到一张...</div>
+    <a href="/posts/23d1c970.html">
+      <div class="next-title">前端三剑客之文本样式<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">结构化元素结构化元素就是指 HTML 元素中具有明确含义和作用的元素，例如元素表示段落。相对于 HTML 4.01 版本而言，HTML5 版本新增了一系列结构化元素
+
+
+
+名称
+代码
+
+
+
+标题元素
+&amp;lt;h1&amp;gt;~&amp;lt;h6&amp;gt;
+
+
+段落元素
+&amp;lt;p&amp;gt;
+
+
+粗体元素
+&amp;lt;b&amp;gt;
+
+...</div>
     </a>
     
   </div>

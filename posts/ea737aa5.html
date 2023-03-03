@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Node.js核心模块的使用 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="Node基础 Node是一个基于Chrome V8引擎的JavaScript运行环境 Node不是一种独立的语言、Node 不是JavaScript 框架 Node是一个除了浏览器之外的，可以让JavaScript运行的环境 Node.js是一个让JavaScript运行在服务端的开发平台，是使用事件驱动，异步非阻塞I&#x2F;O ，单线程，跨平台的JS运行环境 Node官方文档：http:&#x2F;&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js核心模块的使用">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/ea737aa5.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="Node基础 Node是一个基于Chrome V8引擎的JavaScript运行环境 Node不是一种独立的语言、Node 不是JavaScript 框架 Node是一个除了浏览器之外的，可以让JavaScript运行的环境 Node.js是一个让JavaScript运行在服务端的开发平台，是使用事件驱动，异步非阻塞I&#x2F;O ，单线程，跨平台的JS运行环境 Node官方文档：http:&#x2F;&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.139Z">
+<meta property="article:modified_time" content="2023-03-03T09:43:36.402Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Node.js核心模块的使用</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">1.6k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>7分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="Node基础"><a href="#Node基础" class="headerlink" title="Node基础"></a>Node基础</h1><ul>
+<li><code>Node</code>是一个基于<code>Chrome V8</code>引擎的<code>JavaScript</code>运行环境</li>
+<li>Node不是一种独立的语言、Node 不是JavaScript 框架</li>
+<li><strong>Node是一个除了浏览器之外的，可以让JavaScript运行的环境</strong></li>
+<li>Node.js是一个让JavaScript运行在<strong>服务端</strong>的开发平台，<strong>是使用事件驱动，异步非阻塞I&#x2F;O ，单线程，跨平台的JS运行环境</strong></li>
+<li>Node官方文档：<a target="_blank" rel="noopener" href="http://nodejs.cn/learn">http://nodejs.cn/learn</a></li>
+</ul>
+<h2 id="Node运行JS"><a href="#Node运行JS" class="headerlink" title="Node运行JS"></a>Node运行JS</h2><ul>
+<li><p>官方网站下载地址：<a target="_blank" rel="noopener" href="http://nodejs.cn/download/">http://nodejs.cn/download/</a></p>
+</li>
+<li><p>安装路径推荐默认<code>C盘</code>即可，然后无脑下一步即可</p>
+</li>
+<li><p>使用Node环境运行JS，有以下几种方法</p>
+<ul>
+<li>直接找到安装路径双击<code>node.exe</code>文件即可输入JS代码</li>
+<li>找到cmd命令窗口，直接输入<code>node</code>命令，按两次<code>Ctrl+C</code>退出<img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/27/a34f2ae0449310c1f6c13472a43e5e63.png"></li>
+<li>创建<code>xxx.js</code>文件，在里面编写JS代码，然后在文件路径下使用<code>Node xxx.js</code>运行</li>
+<li>VsCode选择JS文件右击<strong>在集成终端中打开</strong>，然后运行<code>Node xxx.js</code><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/27/fa6872b4488b9e6c6e1b676b3a9f6259.png"></li>
+</ul>
+</li>
+<li><p>以上打开的Node能运行JS的环境被称为<code>REPL</code>环境，比如F12中Console下可以运行JS代码</p>
+</li>
+<li><p>扩展：如何在当前目录文件夹下直接使用cmd命令（以下只适用于Win10系统）</p>
+<ul>
+<li>在当前目录下<code>Shift+右键</code>选择<strong>打开Powershell窗口</strong>即可<img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/27/c4cb068642269147591bcae8744f65a5.png"></li>
+</ul>
+</li>
+</ul>
+<h1 id="FS模块"><a href="#FS模块" class="headerlink" title="FS模块"></a>FS模块</h1><h2 id="读取文件内容"><a href="#读取文件内容" class="headerlink" title="读取文件内容"></a>读取文件内容</h2><ul>
+<li><p>官方文档：<a target="_blank" rel="noopener" href="http://nodejs.cn/api/fs.html#fs_file_system">http://nodejs.cn/api/fs.html#fs_file_system</a></p>
+</li>
+<li><p><strong>异步读取文件内容</strong>用<code>fs.readFile(&#39;文件名&#39;, &#39;utf8&#39;, callback);</code>，相关操作可以参考<a target="_blank" rel="noopener" href="http://nodejs.cn/api/fs.html#fs_fs_readfile_path_options_callback">官方文档API</a></p>
+</li>
+<li><p>创建文本文件<code>test.txt</code>，内容为<code>hello node!</code>，创建<code>fs.js</code>文件，编写以下代码</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs=<span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>); <span class="comment">//引入fs模块</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//读取text.txt内容，调用redaFile方法，传入文件路径，编码，回调函数等参数</span></span><br><span class="line">fs.<span class="title function_">readFile</span>(<span class="string">&#x27;./test.txt&#x27;</span>,<span class="string">&#x27;utf-8&#x27;</span>,<span class="keyword">function</span>(<span class="params">err,data</span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(err);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;---------&#x27;</span>)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(data); <span class="comment">//data为数据，err为数据，是文件读取完后回调传入参数</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>右击<code>fs.js</code>文件，在集成终端中打开，输入<code>node fs.js</code>命令<img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/27/8beaa313a15a70633ae985f76ea37e59.png"></li>
+</ul>
+<p>异步的理解：引入fs后并调用方法js代码运行完成后才读取文本内容，然后内容做参数data传入回调函数，并不是同步的</p>
+<h2 id="写入文件内容"><a href="#写入文件内容" class="headerlink" title="写入文件内容"></a>写入文件内容</h2><ul>
+<li><strong>写文件</strong>使用<code>fs.writeFile(&#39;文件.txt&#39;, &#39;content&#39;, &#39;utf8&#39;, callback);</code>相关操作可以参考<a target="_blank" rel="noopener" href="http://nodejs.cn/api/fs.html#fs_fs_writefile_file_data_options_callback">官方文档API</a></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs=<span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>); <span class="comment">//引入fs模块</span></span><br><span class="line"><span class="comment">//写文件会覆盖用来的内容，可以使用追加内容</span></span><br><span class="line">fs.<span class="title function_">writeFile</span>(<span class="string">&#x27;./test.txt&#x27;</span>,<span class="string">&#x27;写入的内容&#x27;</span>,<span class="string">&#x27;utf-8&#x27;</span>,<span class="keyword">function</span>(<span class="params">err</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!err)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;写入成功！&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>追加内容写入</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs=<span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>); <span class="comment">//引入fs模块</span></span><br><span class="line"></span><br><span class="line">fs.<span class="title function_">readFile</span>(<span class="string">&#x27;./test.txt&#x27;</span>,<span class="string">&#x27;utf-8&#x27;</span>,<span class="keyword">function</span>(<span class="params">err,data</span>)&#123;</span><br><span class="line">    data += <span class="string">&#x27;,追加的内容&#x27;</span>;</span><br><span class="line">    fs.<span class="title function_">writeFile</span>(<span class="string">&#x27;./test.text&#x27;</span>,data,<span class="string">&#x27;utf-8&#x27;</span>,<span class="keyword">function</span>(<span class="params">err</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!err)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;追加成功！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/27/d447e6dffcb19253b11dfdb701fe602f.png"></p>
+<p>通过以上fs模块的演示，需要学会查找<a target="_blank" rel="noopener" href="http://nodejs.cn/api/">Node文档</a>使用其他模块</p>
+<h1 id="HTTP模块"><a href="#HTTP模块" class="headerlink" title="HTTP模块"></a>HTTP模块</h1><ul>
+<li>Node核心模块之一，用于搭建HTTP服务器</li>
+<li><a target="_blank" rel="noopener" href="http://nodejs.cn/api/http.html#http_http">官方文档API</a></li>
+<li>客户端<strong>发送请求</strong>给服务器，服务器需要<strong>接收并处理请求</strong>将结果返回给客户端</li>
+</ul>
+<h2 id="开启服务器"><a href="#开启服务器" class="headerlink" title="开启服务器"></a>开启服务器</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 引入http模块</span></span><br><span class="line"><span class="keyword">var</span> http=<span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>); </span><br><span class="line"></span><br><span class="line"><span class="comment">//2. 使用http模块中的createServer()创建一个服务器实例对象</span></span><br><span class="line"><span class="keyword">var</span> server=http.<span class="title function_">createServer</span>(); </span><br><span class="line"></span><br><span class="line"><span class="comment">//3. 绑定端口号，启动web服务器</span></span><br><span class="line">server.<span class="title function_">listen</span>(<span class="number">8080</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;   <span class="comment">//监听8080端口(0~65535)</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请访问 http://localhost:8080&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4. 为这个服务器实例对象注册 request 请求处理函数</span></span><br><span class="line"><span class="comment">//所有请求信息都包含在第一个参数request对象中</span></span><br><span class="line">server.<span class="title function_">on</span>(<span class="string">&#x27;request&#x27;</span>,<span class="keyword">function</span>(<span class="params">request,response</span>)&#123;  <span class="comment">//绑定请求事件处理函数</span></span><br><span class="line">    <span class="keyword">if</span>(request.<span class="property">method</span> == <span class="string">&#x27;GET&#x27;</span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;GET请求&#x27;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(request.<span class="property">method</span> == <span class="string">&#x27;POST&#x27;</span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;POST请求&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    response.<span class="title function_">write</span>(<span class="string">&#x27;hello!&#x27;</span>);  <span class="comment">//向响应的客户端写入内容(往流里面写内容，可以不断写入内容)</span></span><br><span class="line">    response.<span class="title function_">end</span>();</span><br><span class="line">&#125;); </span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/28/5b1461c524f1e9cb856c1d55c11a13e9.png"><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/28/1f623809bce090cd18d4c7757325d5cb.png"></p>
+<h2 id="设置响应信息"><a href="#设置响应信息" class="headerlink" title="设置响应信息"></a>设置响应信息</h2><h3 id="响应中文"><a href="#响应中文" class="headerlink" title="响应中文"></a>响应中文</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http=<span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>); </span><br><span class="line"><span class="keyword">var</span> server=http.<span class="title function_">createServer</span>(); </span><br><span class="line">server.<span class="title function_">on</span>(<span class="string">&#x27;request&#x27;</span>,<span class="keyword">function</span>(<span class="params">request,response</span>)&#123;  <span class="comment">//绑定请求事件处理函数</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(request.<span class="property">method</span>);</span><br><span class="line">    response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Content-type&#x27;</span>,<span class="string">&#x27;text/plain;charset=utf-8&#x27;</span>);</span><br><span class="line">    response.<span class="title function_">write</span>(<span class="string">&#x27;hello!&#x27;</span>);  <span class="comment">//向响应的客户端写入内容(往流里面写内容，可以不断写入内容)</span></span><br><span class="line">    response.<span class="title function_">write</span>(<span class="string">&#x27;中文&#x27;</span>);  <span class="comment">//响应中文要注意编码问题</span></span><br><span class="line">    response.<span class="title function_">end</span>(); </span><br><span class="line">&#125;); </span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/28/f76087c67c1dfd69b07922d77963c759.png"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.<span class="title function_">end</span>(<span class="string">&#x27;hello! 中文&#x27;</span>); <span class="comment">//可以直接写在end参数里</span></span><br></pre></td></tr></table></figure>
+<h3 id="响应HTML页面"><a href="#响应HTML页面" class="headerlink" title="响应HTML页面"></a>响应HTML页面</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http=<span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>); </span><br><span class="line"><span class="keyword">var</span> server=http.<span class="title function_">createServer</span>(); </span><br><span class="line">server.<span class="title function_">on</span>(<span class="string">&#x27;request&#x27;</span>,<span class="keyword">function</span>(<span class="params">request,response</span>)&#123;  <span class="comment">//绑定请求事件处理函数</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(request.<span class="property">method</span>);</span><br><span class="line">    response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Content-type&#x27;</span>,<span class="string">&#x27;text/html;charset=utf-8&#x27;</span>);</span><br><span class="line">    response.<span class="title function_">end</span>(<span class="string">&#x27;hello！中文 &lt;h1&gt;HTML&lt;/h1&gt;&#x27;</span>);</span><br><span class="line">&#125;); </span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/28/61236706b0a52819e407d13e2e698fb2.png"></p>
+<ul>
+<li><strong>配合FS模块读取整个HTML页面并响应返回</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs=<span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> http=<span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>); </span><br><span class="line"><span class="keyword">var</span> server=http.<span class="title function_">createServer</span>(); </span><br><span class="line">server.<span class="title function_">on</span>(<span class="string">&#x27;request&#x27;</span>,<span class="keyword">function</span>(<span class="params">request,response</span>)&#123;  <span class="comment">//绑定请求事件处理函数</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(request.<span class="property">method</span>);</span><br><span class="line">    response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Content-type&#x27;</span>,<span class="string">&#x27;text/html;charset=utf-8&#x27;</span>);</span><br><span class="line">    fs.<span class="title function_">readFile</span>(<span class="string">&#x27;./index.html&#x27;</span>,<span class="string">&#x27;utf-8&#x27;</span>,<span class="keyword">function</span>(<span class="params">err,data</span>)&#123;</span><br><span class="line">        response.<span class="title function_">end</span>(data);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;); </span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/28/1769595064be9cf27e07da4a4a6d73e2.png"></p>
+<h3 id="响应图片信息"><a href="#响应图片信息" class="headerlink" title="响应图片信息"></a>响应图片信息</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>HTML<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./img/logo.png&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>图片和HTML请求的资源路径不一样，所以需要改变路径判断进行读取</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs=<span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> http=<span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>); </span><br><span class="line"><span class="keyword">var</span> server=http.<span class="title function_">createServer</span>(); </span><br><span class="line">server.<span class="title function_">on</span>(<span class="string">&#x27;request&#x27;</span>, <span class="keyword">function</span> (<span class="params">request, response</span>) &#123;  <span class="comment">//绑定请求事件处理函数</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(request.<span class="property">url</span>);</span><br><span class="line">    <span class="keyword">var</span> urls = request.<span class="property">url</span>; <span class="comment">//url表示请求的内容资源路径</span></span><br><span class="line">    <span class="keyword">if</span> (urls == <span class="string">&#x27;/&#x27;</span>) &#123;</span><br><span class="line">        response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Content-type&#x27;</span>, <span class="string">&#x27;text/html;charset=utf-8&#x27;</span>);</span><br><span class="line">        fs.<span class="title function_">readFile</span>(<span class="string">&#x27;./index.html&#x27;</span>, <span class="string">&#x27;utf-8&#x27;</span>, <span class="keyword">function</span> (<span class="params">err, data</span>) &#123;</span><br><span class="line">            response.<span class="title function_">end</span>(data);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//组成./img/logo.png路径，表示当前路径下img里的图片</span></span><br><span class="line">        fs.<span class="title function_">readFile</span>(<span class="string">&#x27;.&#x27;</span>+urls,<span class="keyword">function</span>(<span class="params">err,data</span>)&#123;</span><br><span class="line">            response.<span class="title function_">end</span>(data);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;); </span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/28/ac084d5785fc8a1977d7cee29629f1cd.png"><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/28/11ca89779da639ec75a85a8f070dc521.png"></p>
+<h3 id="响应其他静态资源"><a href="#响应其他静态资源" class="headerlink" title="响应其他静态资源"></a>响应其他静态资源</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>HTML<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./img/logo.png&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;./index.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs=<span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> http=<span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>); </span><br><span class="line"><span class="keyword">var</span> server=http.<span class="title function_">createServer</span>(); </span><br><span class="line">server.<span class="title function_">on</span>(<span class="string">&#x27;request&#x27;</span>, <span class="keyword">function</span> (<span class="params">request, response</span>) &#123;  <span class="comment">//绑定请求事件处理函数</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(request.<span class="property">url</span>);</span><br><span class="line">    <span class="keyword">var</span> urls = request.<span class="property">url</span>; <span class="comment">//url表示请求的内容资源路径</span></span><br><span class="line">    <span class="keyword">if</span> (urls == <span class="string">&#x27;/&#x27;</span>) &#123;</span><br><span class="line">        response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Content-type&#x27;</span>, <span class="string">&#x27;text/html;charset=utf-8&#x27;</span>);</span><br><span class="line">        fs.<span class="title function_">readFile</span>(<span class="string">&#x27;./index.html&#x27;</span>, <span class="string">&#x27;utf-8&#x27;</span>, <span class="keyword">function</span> (<span class="params">err, data</span>) &#123;</span><br><span class="line">            response.<span class="title function_">end</span>(data);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">////读取.当前目录下的资源（包括图片和其他静态资源）</span></span><br><span class="line">        fs.<span class="title function_">readFile</span>(<span class="string">&#x27;.&#x27;</span>+urls,<span class="keyword">function</span>(<span class="params">err,data</span>)&#123;</span><br><span class="line">            response.<span class="title function_">end</span>(data);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;); </span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/02/28/574ade2960d122998e3e132f45c81e6f.png"></p>
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/ea737aa5.html">http://xiaoliblog.cn/posts/ea737aa5.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/e8fca847.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>less+rem+媒体查询布局</div>
+      <div class="prev-desc">rem基础
+页面布局文字能否随着屏幕大小变化而变化?
+流式布局和flex布局主要针对于宽度布局 ,那高度如何设置?
+怎么样让屏幕发生变化的时候元素高度和宽度等比例缩放?
+比如苏宁易购移动端页面：https://m.suning.com/
+
+rem单位
+rem (root em)是一个相对单位，rem的基准是相对于...</div>
+    </a>
+    
+    
+    <a href="/posts/3bd29720.html">
+      <div class="next-title">Node.jS操作MySQL数据库<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">连接 MySQL
+官方文档地址：https://www.npmjs.com/package/mysql
+新建一个项目文件夹node_mysql，右击终端打开输入命令进行项目初始化
+
+1$ npm init
+
+
+安装 mysql 包
+
+1$ npm install mysql
+
+
+引入 mysql 包
+
+1var ...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Node%E5%9F%BA%E7%A1%80"><span class="toc-text">Node基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Node%E8%BF%90%E8%A1%8CJS"><span class="toc-text">Node运行JS</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FS%E6%A8%A1%E5%9D%97"><span class="toc-text">FS模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-text">读取文件内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-text">写入文件内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP%E6%A8%A1%E5%9D%97"><span class="toc-text">HTTP模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">开启服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%93%8D%E5%BA%94%E4%BF%A1%E6%81%AF"><span class="toc-text">设置响应信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E4%B8%AD%E6%96%87"><span class="toc-text">响应中文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%8D%E5%BA%94HTML%E9%A1%B5%E9%9D%A2"><span class="toc-text">响应HTML页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF"><span class="toc-text">响应图片信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%85%B6%E4%BB%96%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90"><span class="toc-text">响应其他静态资源</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

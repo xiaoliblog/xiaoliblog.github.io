@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
 <meta property="article:published_time" content="2023-02-22T04:53:10.530Z">
-<meta property="article:modified_time" content="2023-02-22T11:56:55.526Z">
+<meta property="article:modified_time" content="2023-03-03T10:24:19.549Z">
 <meta property="article:author" content="小李博客">
 <meta property="article:tag" content="小李博客">
 <meta name="twitter:card" content="summary">
@@ -127,7 +127,7 @@
         <i class="fas fa-history fa-fw post-meta-icon"></i>
         <span class="post-meta-label">
           更新于
-          2023-02-22
+          2023-03-03
         </span>
       </div>
       <div class="post-meta-wordcount">
@@ -160,8 +160,7 @@
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-row</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span>&gt;</span>默认按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span>&gt;</span>主要按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;success&quot;</span>&gt;</span>成功按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;info&quot;</span>&gt;</span>信息按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;warning&quot;</span>&gt;</span>警告按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;danger&quot;</span>&gt;</span>危险按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-row</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">name</span>: <span class="string">&quot;App&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">&#125;;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210801110333.png"></p>
 <h2 id="按需引入"><a href="#按需引入" class="headerlink" title="按需引入"></a>按需引入</h2><ul>
 <li>如果引入全部ElementUI组件和样式会导致文件体积过大。所以需要按照需求选择性的引入，使用到一个蚂蚁金服开发的插件<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/babel-plugin-component/v/0.3.3">babel-plugin-component</a></li>
 <li>Github地址：<a target="_blank" rel="noopener" href="https://github.com/ElementUI/babel-plugin-component">https://github.com/ElementUI/babel-plugin-component</a></li>
@@ -197,34 +196,35 @@
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入项目目录</span></span><br><span class="line">cd vue-element-admin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">建议不要用 cnpm 安装  可以通过如下操作解决 npm 下载速度慢的问题</span></span><br><span class="line">npm install --registry=https://registry.npm.taobao.org</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">本地开发 启动项目</span></span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
 
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/18/dc2993840c6c8003b330526e86873f58.png"></p>
 <h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">├── build                      # 构建相关</span><br><span class="line">├── mock                       # 项目mock 模拟数据</span><br><span class="line">├── plop-templates             # 基本模板</span><br><span class="line">├── public                     # 静态资源</span><br><span class="line">│   │── favicon.ico            # favicon图标</span><br><span class="line">│   └── index.html             # html模板</span><br><span class="line">├── src                        # 源代码</span><br><span class="line">│   ├── api                    # 所有请求</span><br><span class="line">│   ├── assets                 # 主题 字体等静态资源</span><br><span class="line">│   ├── components             # 全局公用组件</span><br><span class="line">│   ├── directive              # 全局指令</span><br><span class="line">│   ├── filters                # 全局 filter</span><br><span class="line">│   ├── icons                  # 项目所有 svg icons</span><br><span class="line">│   ├── lang                   # 国际化 language</span><br><span class="line">│   ├── layout                 # 全局 layout</span><br><span class="line">│   ├── router                 # 路由</span><br><span class="line">│   ├── store                  # 全局 store管理</span><br><span class="line">│   ├── styles                 # 全局样式</span><br><span class="line">│   ├── utils                  # 全局公用方法</span><br><span class="line">│   ├── vendor                 # 公用vendor</span><br><span class="line">│   ├── views                  # views 所有页面</span><br><span class="line">│   ├── App.vue                # 入口页面</span><br><span class="line">│   ├── main.js                # 入口文件 加载组件 初始化等</span><br><span class="line">│   └── permission.js          # 权限管理</span><br><span class="line">├── tests                      # 测试</span><br><span class="line">├── .env.xxx                   # 环境变量配置</span><br><span class="line">├── .eslintrc.js               # eslint 配置项</span><br><span class="line">├── .babelrc                   # babel-loader 配置</span><br><span class="line">├── .travis.yml                # 自动化CI配置</span><br><span class="line">├── vue.config.js              # vue-cli 配置</span><br><span class="line">├── postcss.config.js          # postcss 配置</span><br><span class="line">└── package.json               # package.json</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>修改侧边栏参考官方文档<a target="_blank" rel="noopener" href="https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/essentials/router-and-nav.html#%E9%85%8D%E7%BD%AE%E9%A1%B9">路由||侧边栏</a></p>
-</li>
-<li><p>本项目侧边栏和路由是绑定在一起的，所以你只有在 <code>@/router/index.js</code> 下面配置对应的路由，侧边栏就能动态的生成了</p>
-</li>
-<li><p>其中的<code>@</code>就是<code>src</code>目录，你可以在<code>vue.config.js</code>中看到</p>
-</li>
-<li><p>一般侧边栏有两种形式即：<code>submenu</code> 和 直接 <code>el-menu-item</code>。 一个是嵌套子菜单，另一个则是直接一个链接。</p>
-</li>
-<li><p>在 Sidebar 中已经帮你做了判断，当你一个路由下面的 children 声明的路由大于<code>&gt;1</code> 个时，自动会变成嵌套的模式。</p>
-</li>
-<li><p>如果子路由正好等于一个就会默认将<strong>子路由</strong>作为根路由显示在侧边栏中，若不想这样，可以通过设置在根路由中设置<code>alwaysShow: true</code>来取消这一特性</p>
-</li>
-<li><p>在路由中修改如下，图标可以去<a target="_blank" rel="noopener" href="https://panjiachen.github.io/vue-element-admin/#/icon/index">官方文档</a>查找</p>
-</li>
+<li>修改侧边栏参考官方文档<a target="_blank" rel="noopener" href="https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/essentials/router-and-nav.html#%E9%85%8D%E7%BD%AE%E9%A1%B9">路由||侧边栏</a></li>
+<li>本项目侧边栏和路由是绑定在一起的，所以你只有在 <code>@/router/index.js</code> 下面配置对应的路由，侧边栏就能动态的生成了</li>
+<li>其中的<code>@</code>就是<code>src</code>目录，你可以在<code>vue.config.js</code>中看到</li>
 </ul>
+<img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/26/0d2390355342c73d272ee62df40b6fe3.png" width=50%>
+
+<ul>
+<li>一般侧边栏有两种形式即：<code>submenu</code> 和 直接 <code>el-menu-item</code>。 一个是嵌套子菜单，另一个则是直接一个链接。</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/26/d55e94d443df74706e2c573d09217d8e.png"></p>
+<ul>
+<li>在 Sidebar 中已经帮你做了判断，当你一个路由下面的 children 声明的路由大于<code>&gt;1</code> 个时，自动会变成嵌套的模式。</li>
+<li>如果子路由正好等于一个就会默认将<strong>子路由</strong>作为根路由显示在侧边栏中，若不想这样，可以通过设置在根路由中设置<code>alwaysShow: true</code>来取消这一特性</li>
+<li>在路由中修改如下，图标可以去<a target="_blank" rel="noopener" href="https://panjiachen.github.io/vue-element-admin/#/icon/index">官方文档</a>查找</li>
+</ul>
+<img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/26/7daf8bd987f1ead0c9aa8bcf975ddf31.png" width=50%>
+
 <h1 id="Pagination"><a href="#Pagination" class="headerlink" title="Pagination"></a>Pagination</h1><h2 id="真假分页"><a href="#真假分页" class="headerlink" title="真假分页"></a>真假分页</h2><ul>
-<li><p>任何分页都有五个部分组成：1.记录的总条数，2.每页显示的记录条数，3.总页数，4.当前是第几页，5.当前页的所有记录 </p>
-</li>
-<li><p><strong>真分页</strong>：每一页都去后端发送请求，请求当前页的数据。适用于大数据量，能缓解后端接口的压力</p>
-</li>
-<li><p><strong>假分页</strong>：一开始就从获取所有数据，前端通过组件的方式对数据进行分页，在点击分页按钮时，数据已经都在浏览器缓存中了，不需要再请求后端接口。不适合大数据量</p>
-</li>
-<li><p>分页可以通过Element UI的内置组件<a target="_blank" rel="noopener" href="https://panjiachen.github.io/vue-element-admin-site/zh/feature/component/pagination.html">Pagination</a>实现，其为真分页</p>
-</li>
+<li>任何分页都有五个部分组成：1.记录的总条数，2.每页显示的记录条数，3.总页数，4.当前是第几页，5.当前页的所有记录 </li>
+<li><strong>真分页</strong>：每一页都去后端发送请求，请求当前页的数据。适用于大数据量，能缓解后端接口的压力</li>
+<li><strong>假分页</strong>：一开始就从获取所有数据，前端通过组件的方式对数据进行分页，在点击分页按钮时，数据已经都在浏览器缓存中了，不需要再请求后端接口。不适合大数据量</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/28/84be0e4096c7b286650233a18ef0bd04.png"></p>
+<ul>
+<li>分页可以通过Element UI的内置组件<a target="_blank" rel="noopener" href="https://panjiachen.github.io/vue-element-admin-site/zh/feature/component/pagination.html">Pagination</a>实现，其为真分页</li>
 </ul>
 <h2 id="Pagination原理"><a href="#Pagination原理" class="headerlink" title="Pagination原理"></a>Pagination原理</h2><ul>
 <li>通过分析综合模板，找到<code>src\views\table\complex-table.vue</code></li>
@@ -239,6 +239,7 @@
 <ul>
 <li><code>Pagination</code>实际上是一个组件，组件里设置了分页常用到的参数。通过父组件使用Pagination组件，向该组件中传递参数，让Pagination组件得到分页常用到的参数值，这就能够实现分页，那么这样的组件之间的参数传递（父传子）</li>
 </ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/28/8910205b2433923f07de1e8f3323ba7f.png"></p>
 <h2 id="Pagination使用"><a href="#Pagination使用" class="headerlink" title="Pagination使用"></a>Pagination使用</h2><ul>
 <li>首先在对应文件夹下导入Pagination内容，以下内容可以在综合模块里找<ul>
 <li><code>components/Pagination</code></li>

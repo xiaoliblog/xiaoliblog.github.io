@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
 <meta property="article:published_time" content="2022-05-04T09:05:36.208Z">
-<meta property="article:modified_time" content="2023-02-15T10:56:30.872Z">
+<meta property="article:modified_time" content="2023-03-03T06:05:45.945Z">
 <meta property="article:author" content="小李博客">
 <meta property="article:tag" content="小李博客">
 <meta name="twitter:card" content="summary">
@@ -127,7 +127,7 @@
         <i class="fas fa-history fa-fw post-meta-icon"></i>
         <span class="post-meta-label">
           更新于
-          2023-02-15
+          2023-03-03
         </span>
       </div>
       <div class="post-meta-wordcount">
@@ -149,12 +149,12 @@
 <li>而懒加载就是延迟加载，只有滚动到可视区域时才加载当前的图片，不是一次性加载所有的图片，从而在一程度减少服务端的请求及带宽;</li>
 </ul>
 <h2 id="监听scroll滚动事件"><a href="#监听scroll滚动事件" class="headerlink" title="监听scroll滚动事件"></a>监听scroll滚动事件</h2><ul>
-<li><p>首先我们需要监听scroll滚动事件，来进行判断用户滚动，然后再对图片进行处理。这里就需要知道两个参数窗口显示区的高度<code>window.innerHeight</code>和图片距离视窗顶部的距离<code>getBoundingClientRect().top</code></p>
-</li>
-<li><p>如果图片距离视窗顶部的距离 <code>&gt;</code> 浏览器可视窗口的距离，说明图片在下面，可以延迟加载 </p>
-</li>
-<li><p>图片的加载是由<code>src</code>的值引起的，当对<code>src</code>赋值时浏览器会请求因片资源， 基于这个，可以利用htmI5的自定义属性<code>data-xxx</code>来保存图片的路径，当我们需要加载图片的时候才将<code>data-xxx</code>的值赋予src，就能实现图片的按需加载，也就是懒加载了;</p>
-</li>
+<li>首先我们需要监听scroll滚动事件，来进行判断用户滚动，然后再对图片进行处理。这里就需要知道两个参数窗口显示区的高度<code>window.innerHeight</code>和图片距离视窗顶部的距离<code>getBoundingClientRect().top</code></li>
+<li>如果图片距离视窗顶部的距离 <code>&gt;</code> 浏览器可视窗口的距离，说明图片在下面，可以延迟加载</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/06/14/278c4cfc0bac3c7d4f48abe0ab16f48c.png"></p>
+<ul>
+<li>图片的加载是由<code>src</code>的值引起的，当对<code>src</code>赋值时浏览器会请求因片资源， 基于这个，可以利用htmI5的自定义属性<code>data-xxx</code>来保存图片的路径，当我们需要加载图片的时候才将<code>data-xxx</code>的值赋予src，就能实现图片的按需加载，也就是懒加载了;</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--data-src可以用于保存属性值，其不会被浏览器执行--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">&quot;真实路径&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -163,20 +163,20 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取图片元素</span></span><br><span class="line"><span class="keyword">const</span> images = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;img&#x27;</span>)</span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;scroll&#x27;</span>,<span class="function">(<span class="params">e</span>)=&gt;</span>&#123;</span><br><span class="line">   images.<span class="title function_">forEach</span>(<span class="function"><span class="params">image</span>=&gt;</span>&#123;</span><br><span class="line">      <span class="comment">//获取距离可视窗口的高度</span></span><br><span class="line">      <span class="keyword">const</span> imageTop = image.<span class="title function_">getBoundingClientRect</span>().<span class="property">top</span>;</span><br><span class="line">      <span class="comment">//图片距离视窗顶部的距离 &lt; 浏览器可视窗口的距离，说明出现在可视窗口，赋予真正的src</span></span><br><span class="line">      <span class="keyword">if</span>(imageTop &lt; <span class="variable language_">window</span>.<span class="property">innerHeight</span>)&#123;</span><br><span class="line">         <span class="comment">//图片处理</span></span><br><span class="line">         <span class="keyword">const</span> data_src = image.<span class="title function_">getAttribute</span>(<span class="string">&#x27;data-src&#x27;</span>);</span><br><span class="line">         image.<span class="title function_">setAttribute</span>(<span class="string">&#x27;src&#x27;</span>, data_src);</span><br><span class="line">      &#125;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;scroll触发&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>打开F12设置禁止缓存和Fast 3G进行测试</p>
-</li>
-<li><p>但是会发现其触发了多次<code>scroll</code>滚动事件，到需要加载很多内容时就会导致任务的堆积。而且即使图片已经加载了还是会不断触发事件，非常消耗资源</p>
-</li>
+<li>打开F12设置禁止缓存和Fast 3G进行测试</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/06/14/e0476cdf8ad1d2aaae3c4dd0e0f10ba9.png"></p>
+<ul>
+<li>但是会发现其触发了多次<code>scroll</code>滚动事件，到需要加载很多内容时就会导致任务的堆积。而且即使图片已经加载了还是会不断触发事件，非常消耗资源</li>
 </ul>
 <h2 id="IntersectionObserver接口"><a href="#IntersectionObserver接口" class="headerlink" title="IntersectionObserver接口"></a>IntersectionObserver接口</h2><ul>
-<li><p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/tuupola/lazyload">https://github.com/tuupola/lazyload</a></p>
-</li>
-<li><p><code>IntersectionObserver</code>（交叉观察）是<strong>监听目标元素与其祖先或视窗交叉状态</strong>的手段，如果目标元素未定义(为null)的话默认是根据浏览器视图框可见范围，其效率要比监听scroll滚动事件快</p>
-</li>
-<li><p>可以看到，交叉了就是说明当前元素在视窗里，当前就是可见的了</p>
-</li>
-<li><p>其就是一个简单的构造函数，需要<code>new</code>一个实例</p>
-</li>
+<li>项目地址：<a target="_blank" rel="noopener" href="https://github.com/tuupola/lazyload">https://github.com/tuupola/lazyload</a></li>
+<li><code>IntersectionObserver</code>（交叉观察）是<strong>监听目标元素与其祖先或视窗交叉状态</strong>的手段，如果目标元素未定义(为null)的话默认是根据浏览器视图框可见范围，其效率要比监听scroll滚动事件快</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/06/14/0c56c5c5f92b89c16cdd82ba03d3d7b0.png"></p>
+<ul>
+<li>可以看到，交叉了就是说明当前元素在视窗里，当前就是可见的了</li>
+<li>其就是一个简单的构造函数，需要<code>new</code>一个实例</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">IntersectionObserver</span>(callback, options)</span><br></pre></td></tr></table></figure>
 
@@ -193,32 +193,30 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 图片懒加载</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; img 需要懒加载的img元素(标签)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; attr 图片的真实url地址</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ImgLazyLoad</span>(<span class="params">img,attr</span>)&#123;</span><br><span class="line">   <span class="keyword">var</span> imgLazyLoad = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(img) <span class="comment">// 获取全部需要加载的图片</span></span><br><span class="line">   <span class="keyword">function</span> <span class="title function_">LazyLoad</span>(<span class="params">target</span>)&#123;</span><br><span class="line">      <span class="keyword">const</span> io = <span class="keyword">new</span> <span class="title class_">IntersectionObserver</span>(<span class="function">(<span class="params">entries,Observer</span>)=&gt;</span>&#123;</span><br><span class="line">         entries.<span class="title function_">forEach</span>(<span class="function"><span class="params">entry</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(entry.<span class="property">isIntersecting</span>)&#123;</span><br><span class="line">               <span class="keyword">const</span> img = entry.<span class="property">target</span></span><br><span class="line">               <span class="keyword">const</span> src = img.<span class="title function_">getAttribute</span>(attr)</span><br><span class="line">               img.<span class="title function_">setAttribute</span>(<span class="string">&quot;src&quot;</span>,src)</span><br><span class="line">               <span class="title class_">Observer</span>.<span class="title function_">disconnect</span>()</span><br><span class="line">            &#125;   </span><br><span class="line">         &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">   io.<span class="title function_">observe</span>(target)</span><br><span class="line">   &#125;</span><br><span class="line">   imgLazyLoad.<span class="title function_">forEach</span>(<span class="title class_">LazyLoad</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">ImgLazyLoad</span>(<span class="string">&quot;body img[data-src]&quot;</span>,<span class="string">&quot;data-src&quot;</span>)</span><br></pre></td></tr></table></figure>
 
 <h1 id="defer和async"><a href="#defer和async" class="headerlink" title="defer和async"></a>defer和async</h1><h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><ul>
-<li><p>同步：同步就比如两个人过独木桥，后面的人速度受前面人速度影响</p>
-</li>
-<li><p>异步<code>async</code>：异步就比如两条道路一个出口，速度快的可以优先出去</p>
-</li>
-<li><p>推迟<code>defer</code>：推迟也是两条道路一个出口，但速度快的要等速度慢的</p>
-</li>
-<li><p>同步在<code>Javascript</code>中是一个很重要的概念，因为当浏览器加载HTML的时候一旦遇到了<code>script</code>标签，就会停下来先把<code>script</code>标签里面的内容给执行掉。</p>
-</li>
-<li><p>如果<code>script</code>标签里面有外部文件，那就必须等待下载和执行的步骤，这样浏览器才会继续往下加载。如果外部文件刚好在一个网络情况比较差的服务器上，这样整个网页的加载都会受到很大的影响，这就是同步带来的阻塞弊端。异步和推迟是解决同步的两个方法</p>
-</li>
+<li>同步：同步就比如两个人过独木桥，后面的人速度受前面人速度影响</li>
+<li>异步<code>async</code>：异步就比如两条道路一个出口，速度快的可以优先出去</li>
+<li>推迟<code>defer</code>：推迟也是两条道路一个出口，但速度快的要等速度慢的</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/06/14/4bed8ee9f0f6fb535ddcd22ace3827d4.png"></p>
+<ul>
+<li>同步在<code>Javascript</code>中是一个很重要的概念，因为当浏览器加载HTML的时候一旦遇到了<code>script</code>标签，就会停下来先把<code>script</code>标签里面的内容给执行掉。</li>
+<li>如果<code>script</code>标签里面有外部文件，那就必须等待下载和执行的步骤，这样浏览器才会继续往下加载。如果外部文件刚好在一个网络情况比较差的服务器上，这样整个网页的加载都会受到很大的影响，这就是同步带来的阻塞弊端。异步和推迟是解决同步的两个方法</li>
 </ul>
 <h2 id="异步async"><a href="#异步async" class="headerlink" title="异步async"></a>异步async</h2><ul>
-<li><p><code>async</code>即异步执行，浏览器在加载页面的时候，如果遇到了<code>async</code>属性，浏览器就会立即进行下载，与此同时继续加载页面</p>
-</li>
-<li><p>虽然没有阻塞的情况，但是<code>async</code>下的脚本具体什么时候执行就说不定了，有时页面还没加载完就执行了，也有可能页面加载后才会执行</p>
-</li>
-<li><p>因为这种不确定性，如果脚本是需要修改DOM的，那么就又可能出错。因此<code>async</code>比较适合第三方脚本</p>
-</li>
+<li><code>async</code>即异步执行，浏览器在加载页面的时候，如果遇到了<code>async</code>属性，浏览器就会立即进行下载，与此同时继续加载页面</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/06/14/05c35b86156baec6e7e73e75ef42a8b7.png"></p>
+<ul>
+<li>虽然没有阻塞的情况，但是<code>async</code>下的脚本具体什么时候执行就说不定了，有时页面还没加载完就执行了，也有可能页面加载后才会执行</li>
+<li>因为这种不确定性，如果脚本是需要修改DOM的，那么就又可能出错。因此<code>async</code>比较适合第三方脚本</li>
 </ul>
 <h2 id="推迟defer"><a href="#推迟defer" class="headerlink" title="推迟defer"></a>推迟defer</h2><ul>
-<li><p><code>defer</code>即推迟执行，浏览器在加载页面的时候，如果遇到了<code>defer</code>属性，浏览器就会立即进行下载，与此同时继续加载页面</p>
-</li>
-<li><p>但是不管脚本是否下载完了，都会等到浏览器解析完HTML以后再执行脚本。因此<code>defer</code>比较适合与DOM有关联的脚本</p>
-</li>
-<li><p>但是有一点要注意，不管是<code>async</code>还是<code>defer</code>，两者都只适用于外部脚本，而且还要注意兼容性问题。如果浏览器不能识别这两个属性，那还是把<code>script</code>内容放在页面底部比较好</p>
-</li>
+<li><code>defer</code>即推迟执行，浏览器在加载页面的时候，如果遇到了<code>defer</code>属性，浏览器就会立即进行下载，与此同时继续加载页面</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/06/14/2770865cb6b9b3008e6f68fc6e36366f.png"></p>
+<ul>
+<li>但是不管脚本是否下载完了，都会等到浏览器解析完HTML以后再执行脚本。因此<code>defer</code>比较适合与DOM有关联的脚本</li>
+<li>但是有一点要注意，不管是<code>async</code>还是<code>defer</code>，两者都只适用于外部脚本，而且还要注意兼容性问题。如果浏览器不能识别这两个属性，那还是把<code>script</code>内容放在页面底部比较好</li>
 </ul>
 
   </div>
@@ -258,10 +256,9 @@
     </a>
     
     
-    <a href="/posts/211ab908.html">
-      <div class="next-title">Flex弹性盒子模型<i class="fas fa-chevron-right"></i></div>
-      <div class="next-desc">弹性盒子模型CSS3 新增了弹性盒子模型（Flexible Box 或 FlexBox），是一种新的用于在 HTML 页面实现布局的方式。使得当 HTML 页面适应不同尺寸的屏幕和不同的设备时，元素是可预测地运行。
-弹性盒子模型实现 HTML 页面布局是与方向无关的。不类似于块级布局侧重垂直方向，内联布局侧重水平...</div>
+    <a href="/posts/e1d88301.html">
+      <div class="next-title">BackUp博客备份及恢复<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">博客备份备份对于静态博客来说是及其重要的，本文章介绍一种hexo-git-backup插件备份的办法来实现hexo博客备份GitHub项目地址：https://github.com/coneycode/hexo-git-backup官方文档地址：https://github.com/coneycode/hexo-...</div>
     </a>
     
   </div>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Vue项目——电商管理系统之主页布局实现 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="主页实现主页布局  使用ElementUI的布局容器组件，在配置文件中按需引入。注意出现-需要转为大写字母代替  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue项目——电商管理系统之主页布局实现">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/f44d8b0f.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="主页实现主页布局  使用ElementUI的布局容器组件，在配置文件中按需引入。注意出现-需要转为大写字母代替  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.248Z">
+<meta property="article:modified_time" content="2023-03-03T10:22:03.027Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Vue项目——电商管理系统之主页布局实现</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">2.1k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>11分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="主页实现"><a href="#主页实现" class="headerlink" title="主页实现"></a>主页实现</h1><h2 id="主页布局"><a href="#主页布局" class="headerlink" title="主页布局"></a>主页布局</h2><p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210808164652.png"></p>
+<ul>
+<li>使用ElementUI的布局容器组件，在配置文件中按需引入。注意出现<code>-</code>需要转为大写字母代替</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-container</span> <span class="attr">class</span>=<span class="string">&quot;home-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Header头部--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-header</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">          <span class="attr">src</span>=<span class="string">&quot;../assets/logo.png&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">alt</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">style</span>=<span class="string">&quot;width: 50px; height: 50px&quot;</span></span></span><br><span class="line"><span class="tag">        /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>电商后台管理系统<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;info&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;logout&quot;</span>&gt;</span>退出<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-container</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--侧边栏--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-aside</span> <span class="attr">width</span>=<span class="string">&quot;200px&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-menu</span></span></span><br><span class="line"><span class="tag">          <span class="attr">background-color</span>=<span class="string">&quot;#333744&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">text-color</span>=<span class="string">&quot;#fff&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">active-text-color</span>=<span class="string">&quot;#ffd04b&quot;</span></span></span><br><span class="line"><span class="tag">        &gt;</span></span><br><span class="line">          <span class="comment">&lt;!--一级菜单--&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">el-submenu</span> <span class="attr">index</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">&quot;title&quot;</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;el-icon-location&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">span</span>&gt;</span>导航一<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--二级菜单--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-menu-item</span> <span class="attr">index</span>=<span class="string">&quot;1-1&quot;</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">&quot;title&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;el-icon-location&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">span</span>&gt;</span>导航一<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">el-menu-item</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">el-submenu</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-menu</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-aside</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--中心内容--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-main</span>&gt;</span>Main<span class="tag">&lt;/<span class="name">el-main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-container</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-container</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">name</span>: <span class="string">&#x27;Home&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">logout</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 清空token</span></span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">window</span>.<span class="property">sessionStorage</span>.<span class="title function_">clear</span>()</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 跳转到登录页</span></span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">this</span>.<span class="property">$router</span>.<span class="title function_">push</span>(<span class="string">&#x27;/login&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span> <span class="attr">lang</span>=<span class="string">&#x27;less&#x27;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="comment">/*组件名称就是类名*/</span></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.el-header</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">background-color</span>: <span class="number">#373d41</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">justify-content</span>: space-between;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">align-items</span>: center;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="language-css">  &gt; <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">align-items</span>: center;</span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">span</span> &#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">margin-left</span>: <span class="number">15px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.el-aside</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">background-color</span>: <span class="number">#333744</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.el-main</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">background-color</span>: <span class="number">#eaedf1</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.home-container</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="token验证"><a href="#token验证" class="headerlink" title="token验证"></a>token验证</h2><ul>
+<li>需要授权的 API ，必须在请求头对象中使用 <code>Authorization</code> 字段提供 <code>token</code> 令牌</li>
+<li>通过<code>axios</code>请求拦截器添加<code>token</code>，保证拥有获取数据的权限</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210808165438.png"></p>
+<ul>
+<li>在<code>main.js</code>中配置</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"><span class="comment">// 配置请求根路径</span></span><br><span class="line">axios.<span class="property">defaults</span>.<span class="property">baseURL</span> = <span class="string">&#x27;http://127.0.0.1:8888/api/private/v1/&#x27;</span></span><br><span class="line"><span class="comment">// 设置Axios拦截器</span></span><br><span class="line">axios.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">use</span>(<span class="function"><span class="params">config</span> =&gt;</span>&#123;</span><br><span class="line">  <span class="comment">//为请求头对象，添加Token验证的Authorization字段</span></span><br><span class="line">  config.<span class="property">headers</span>.<span class="property">Authorization</span> = <span class="variable language_">window</span>.<span class="property">sessionStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;token&#x27;</span>)</span><br><span class="line">  <span class="keyword">return</span> config</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 挂载到VM的原型对象上</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$http</span> = axios</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取侧边栏数据"><a href="#获取侧边栏数据" class="headerlink" title="获取侧边栏数据"></a>获取侧边栏数据</h2><ul>
+<li>使用生命周期钩子发送axios获取数据，赋值给<code>data</code>中的<code>menulist</code>，然后双层<code>for</code>循环遍历</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-container</span> <span class="attr">class</span>=<span class="string">&quot;home-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Header头部--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-header</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">          <span class="attr">src</span>=<span class="string">&quot;../assets/logo.png&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">alt</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">style</span>=<span class="string">&quot;width: 50px; height: 50px&quot;</span></span></span><br><span class="line"><span class="tag">        /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>电商后台管理系统<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;info&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;logout&quot;</span>&gt;</span>退出<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-container</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--侧边栏--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-aside</span> <span class="attr">width</span>=<span class="string">&quot;200px&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-menu</span></span></span><br><span class="line"><span class="tag">          <span class="attr">background-color</span>=<span class="string">&quot;#333744&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">text-color</span>=<span class="string">&quot;#fff&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">active-text-color</span>=<span class="string">&quot;#409eff&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">:unique-opened</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">        &gt;</span></span><br><span class="line">          <span class="comment">&lt;!--一级菜单--&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">el-submenu</span> <span class="attr">:index</span>=<span class="string">&quot;item.id +&#x27;&#x27;&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;item in menulist&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">&quot;title&quot;</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">i</span> <span class="attr">:class</span>=<span class="string">&quot;iconsObj[item.id]&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.authName&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--二级菜单--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-menu-item</span> <span class="attr">:index</span>=<span class="string">&quot;subItem.id+&#x27;&#x27;&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;subItem in item.children&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;subItem.id&quot;</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">&quot;title&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;el-icon-menu&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;subItem.authName&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">el-menu-item</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">el-submenu</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-menu</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-aside</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--中心内容--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-main</span>&gt;</span>Main<span class="tag">&lt;/<span class="name">el-main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-container</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-container</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">name</span>: <span class="string">&#x27;Home&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="title function_">data</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">return</span>&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 左侧菜单数据</span></span></span><br><span class="line"><span class="language-javascript">        <span class="attr">menulist</span>:[],</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 图标对象</span></span></span><br><span class="line"><span class="language-javascript">        <span class="attr">iconsObj</span>:&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// id: icon类名</span></span></span><br><span class="line"><span class="language-javascript">            <span class="string">&#x27;125&#x27;</span>:<span class="string">&#x27;iconfont icon-user&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">            <span class="string">&#x27;103&#x27;</span>:<span class="string">&#x27;iconfont icon-tijikongjian&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">            <span class="string">&#x27;101&#x27;</span>:<span class="string">&#x27;iconfont icon-3702mima&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">            <span class="string">&#x27;102&#x27;</span>:<span class="string">&#x27;iconfont icon-danju&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">            <span class="string">&#x27;145&#x27;</span>:<span class="string">&#x27;iconfont icon-baobiao&#x27;</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">logout</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 清空token</span></span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">window</span>.<span class="property">sessionStorage</span>.<span class="title function_">clear</span>()</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 跳转到登录页</span></span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">this</span>.<span class="property">$router</span>.<span class="title function_">push</span>(<span class="string">&#x27;/login&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 获取所有的菜单</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">async</span> <span class="title function_">getMenuList</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> &#123;<span class="attr">data</span>: res&#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(<span class="string">&#x27;menus&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span>(res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span> ) <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(res.<span class="property">meta</span>.<span class="property">res</span>)</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">this</span>.<span class="property">menulist</span> = res.<span class="property">data</span></span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">  <span class="title function_">created</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">this</span>.<span class="title function_">getMenuList</span>()</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span> <span class="attr">lang</span>=<span class="string">&#x27;less&#x27;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="comment">/*组件名称就是类名*/</span></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.el-header</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">background-color</span>: <span class="number">#373d41</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">justify-content</span>: space-between;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">align-items</span>: center;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="language-css">  &gt; <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">align-items</span>: center;</span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">span</span> &#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">margin-left</span>: <span class="number">15px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.el-aside</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">background-color</span>: <span class="number">#333744</span>;</span></span><br><span class="line"><span class="language-css">  <span class="selector-class">.el-menu</span>&#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">border-right</span>: none;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.el-main</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">background-color</span>: <span class="number">#eaedf1</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.home-container</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.iconfont</span>&#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin-right</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210808172510.png"></p>
+<h2 id="实现折叠效果"><a href="#实现折叠效果" class="headerlink" title="实现折叠效果"></a>实现折叠效果</h2><ul>
+<li>添加一个<code>div</code>做按钮效果，通过操作菜单的属性值<code>collapse</code>实现，是一个布尔值</li>
+<li>然后关闭折叠动画<code>collapse-transition</code>防止出现问题。宽度随<code>collapse</code>的布尔值变化</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-container</span> <span class="attr">class</span>=<span class="string">&quot;home-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Header头部--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-header</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">          <span class="attr">src</span>=<span class="string">&quot;../assets/logo.png&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">alt</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">style</span>=<span class="string">&quot;width: 50px; height: 50px&quot;</span></span></span><br><span class="line"><span class="tag">        /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>电商后台管理系统<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;info&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;logout&quot;</span>&gt;</span>退出<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-container</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--侧边栏--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-aside</span> <span class="attr">:width</span>=<span class="string">&quot;isCollapse? &#x27;64px&#x27; : &#x27;200px&#x27;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;toggle-button&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;toggleCollapse&quot;</span>&gt;</span></span><br><span class="line">            |||</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-menu</span></span></span><br><span class="line"><span class="tag">          <span class="attr">background-color</span>=<span class="string">&quot;#333744&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">text-color</span>=<span class="string">&quot;#fff&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">active-text-color</span>=<span class="string">&quot;#409eff&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">:unique-opened</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">:collapse</span>=<span class="string">&quot;isCollapse&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">:collapse-transition</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">        &gt;</span></span><br><span class="line">          <span class="comment">&lt;!--一级菜单--&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">el-submenu</span> <span class="attr">:index</span>=<span class="string">&quot;item.id +&#x27;&#x27;&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;item in menulist&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">&quot;title&quot;</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">i</span> <span class="attr">:class</span>=<span class="string">&quot;iconsObj[item.id]&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.authName&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--二级菜单--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-menu-item</span> <span class="attr">:index</span>=<span class="string">&quot;subItem.id+&#x27;&#x27;&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;subItem in item.children&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;subItem.id&quot;</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">&quot;title&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;el-icon-menu&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;subItem.authName&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">el-menu-item</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">el-submenu</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-menu</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-aside</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--中心内容--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-main</span>&gt;</span>Main<span class="tag">&lt;/<span class="name">el-main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-container</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-container</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">name</span>: <span class="string">&#x27;Home&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="title function_">data</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">return</span>&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 左侧菜单数据</span></span></span><br><span class="line"><span class="language-javascript">        <span class="attr">menulist</span>:[],</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 图标对象</span></span></span><br><span class="line"><span class="language-javascript">        <span class="attr">iconsObj</span>:&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// id: icon类名</span></span></span><br><span class="line"><span class="language-javascript">            <span class="string">&#x27;125&#x27;</span>:<span class="string">&#x27;iconfont icon-user&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">            <span class="string">&#x27;103&#x27;</span>:<span class="string">&#x27;iconfont icon-tijikongjian&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">            <span class="string">&#x27;101&#x27;</span>:<span class="string">&#x27;iconfont icon-3702mima&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">            <span class="string">&#x27;102&#x27;</span>:<span class="string">&#x27;iconfont icon-danju&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">            <span class="string">&#x27;145&#x27;</span>:<span class="string">&#x27;iconfont icon-baobiao&#x27;</span></span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 是否折叠</span></span></span><br><span class="line"><span class="language-javascript">        <span class="attr">isCollapse</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">logout</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 清空token</span></span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">window</span>.<span class="property">sessionStorage</span>.<span class="title function_">clear</span>()</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 跳转到登录页</span></span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">this</span>.<span class="property">$router</span>.<span class="title function_">push</span>(<span class="string">&#x27;/login&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 获取所有的菜单</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">async</span> <span class="title function_">getMenuList</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> &#123;<span class="attr">data</span>: res&#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(<span class="string">&#x27;menus&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span>(res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span> ) <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(res.<span class="property">meta</span>.<span class="property">res</span>)</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">this</span>.<span class="property">menulist</span> = res.<span class="property">data</span></span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 点击按钮，实现菜单的折叠与展开</span></span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">toggleCollapse</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">this</span>.<span class="property">isCollapse</span> = !<span class="variable language_">this</span>.<span class="property">isCollapse</span></span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">  <span class="title function_">created</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">this</span>.<span class="title function_">getMenuList</span>()</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span> <span class="attr">lang</span>=<span class="string">&#x27;less&#x27;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="comment">/*组件名称就是类名*/</span></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.el-header</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">background-color</span>: <span class="number">#373d41</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">justify-content</span>: space-between;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">align-items</span>: center;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="language-css">  &gt; <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">align-items</span>: center;</span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">span</span> &#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">margin-left</span>: <span class="number">15px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.el-aside</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">background-color</span>: <span class="number">#333744</span>;</span></span><br><span class="line"><span class="language-css">  <span class="selector-class">.el-menu</span>&#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">border-right</span>: none;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.el-main</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">background-color</span>: <span class="number">#eaedf1</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.home-container</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.iconfont</span>&#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin-right</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.toggle-button</span>&#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background-color</span>: <span class="number">#4a5064</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">font-size</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">line-height</span>: <span class="number">24px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">color</span>:<span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">letter-spacing</span>:<span class="number">0.2em</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">cursor</span>: pointer;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="首页路由重定向"><a href="#首页路由重定向" class="headerlink" title="首页路由重定向"></a>首页路由重定向</h2><ul>
+<li>实现登录到主页后重定向到<code>/welcome</code>，显示<code>welcome</code>组件的内容</li>
+<li>路由为<code>home</code>下的子路由，首先新建<code>home</code>组件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h3</span>&gt;</span>欢迎<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">name</span>:<span class="string">&#x27;Welcome&#x27;</span></span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置路由规则</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">VueRouter</span> <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Login</span> <span class="keyword">from</span> <span class="string">&#x27;../components/Login&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Home</span> <span class="keyword">from</span> <span class="string">&#x27;../components/Home&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Welcome</span> <span class="keyword">from</span> <span class="string">&#x27;../components/Welcome&#x27;</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">VueRouter</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;</span><br><span class="line">  <span class="attr">routes</span>: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">redirect</span>: <span class="string">&#x27;/login&#x27;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/login&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Login</span> &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">path</span>: <span class="string">&#x27;/home&#x27;</span>,</span><br><span class="line">      <span class="attr">component</span>: <span class="title class_">Home</span>,</span><br><span class="line">      <span class="attr">redirect</span>:<span class="string">&#x27;/welcome&#x27;</span>,</span><br><span class="line">      <span class="attr">children</span>: [&#123; <span class="attr">path</span>: <span class="string">&#x27;/welcome&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Welcome</span> &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 挂载路由导航守卫</span></span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>home</code>组件的内容区域使用占位符</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--中心内容--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-main</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--路由占位符--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">router-view</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-main</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210808174228.png"></p>
+<h2 id="侧边栏由链接"><a href="#侧边栏由链接" class="headerlink" title="侧边栏由链接"></a>侧边栏由链接</h2><ul>
+<li>实现侧边栏点击不同选项实现不同页面展示</li>
+<li>使用菜单栏的属性<code>router</code>：是否使用 vue-router 的模式，启用该模式会在激活导航时以 <code>index</code> 作为 <code>path</code> 进行路由跳转</li>
+<li>我们使用响应数据里的<code>path</code>作为<code>index</code></li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210808174902.png"></p>
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/f44d8b0f.html">http://xiaoliblog.cn/posts/f44d8b0f.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/a377bf34.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Vue项目——电商管理系统之商品分类管理</div>
+      <div class="prev-desc">商品分类创建分支
+创建一个goods_cate分支用于开发商品分类功能
+
+12345git branch# 创建分支git checkout -b goods_cate# 初次推送分支到云端git push -u origin goods_cate
+
+分类路由
+创建Categories组件，并配置路由
+
+1234...</div>
+    </a>
+    
+    
+    <a href="/posts/b0d57f65.html">
+      <div class="next-title">前端实例——学成在线首页<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">准备工作
+学成在线素材PSD格式图像请戳👉密码:9fpb，并通过PS软件切图和测量颜色和像素宽度(pt)
+
+采取结构和样式相分离思想（CSS和HTML分开）
+
+确定页面的版心（可视区）
+
+分析页面中的行模块，以及每个行模块中的列模块
+
+一行中的列模块经常浮动布局，先确定每个列的大小，之后确定列的位置
+
+制作HT...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BB%E9%A1%B5%E5%AE%9E%E7%8E%B0"><span class="toc-text">主页实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E9%A1%B5%E5%B8%83%E5%B1%80"><span class="toc-text">主页布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#token%E9%AA%8C%E8%AF%81"><span class="toc-text">token验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E4%BE%A7%E8%BE%B9%E6%A0%8F%E6%95%B0%E6%8D%AE"><span class="toc-text">获取侧边栏数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%8A%98%E5%8F%A0%E6%95%88%E6%9E%9C"><span class="toc-text">实现折叠效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A6%96%E9%A1%B5%E8%B7%AF%E7%94%B1%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">首页路由重定向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%94%B1%E9%93%BE%E6%8E%A5"><span class="toc-text">侧边栏由链接</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

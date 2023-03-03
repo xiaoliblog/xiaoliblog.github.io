@@ -21,16 +21,16 @@
 
 
 
-<meta name="description" content="组件化编程组件化组件：实现应用中局部功能和资源的集合。所有组件由一个VM对象管理 非单文件组件非单文件组件：一个文件（HTML）中包含多个组件  比如一个HTML文件，页面可以分school组件和student组件  创建组件 组件完整创建过程分三步 创建组件 注册组件 使用组件标签   使用Vue.extend创建组件，里面写法和Vue实例中写法一致，HTML结构在template中写，用模板字">
+<meta name="description" content="组件化编程组件化组件：实现应用中局部功能和资源的集合。所有组件由一个VM对象管理  非单文件组件非单文件组件：一个文件（HTML）中包含多个组件  比如一个HTML文件，页面可以分school组件和student组件   创建组件 组件完整创建过程分三步 创建组件 注册组件 使用组件标签   使用Vue.extend创建组件，里面写法和Vue实例中写法一致，HTML结构在template中写，用模">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue组件化编程">
 <meta property="og:url" content="http://xiaoliblog.cn/posts/cdf8f938.html">
 <meta property="og:site_name" content="小李博客">
-<meta property="og:description" content="组件化编程组件化组件：实现应用中局部功能和资源的集合。所有组件由一个VM对象管理 非单文件组件非单文件组件：一个文件（HTML）中包含多个组件  比如一个HTML文件，页面可以分school组件和student组件  创建组件 组件完整创建过程分三步 创建组件 注册组件 使用组件标签   使用Vue.extend创建组件，里面写法和Vue实例中写法一致，HTML结构在template中写，用模板字">
+<meta property="og:description" content="组件化编程组件化组件：实现应用中局部功能和资源的集合。所有组件由一个VM对象管理  非单文件组件非单文件组件：一个文件（HTML）中包含多个组件  比如一个HTML文件，页面可以分school组件和student组件   创建组件 组件完整创建过程分三步 创建组件 注册组件 使用组件标签   使用Vue.extend创建组件，里面写法和Vue实例中写法一致，HTML结构在template中写，用模">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
 <meta property="article:published_time" content="2023-02-22T04:53:10.539Z">
-<meta property="article:modified_time" content="2023-02-22T12:12:41.762Z">
+<meta property="article:modified_time" content="2023-03-03T10:44:57.839Z">
 <meta property="article:author" content="小李博客">
 <meta property="article:tag" content="小李博客">
 <meta name="twitter:card" content="summary">
@@ -127,7 +127,7 @@
         <i class="fas fa-history fa-fw post-meta-icon"></i>
         <span class="post-meta-label">
           更新于
-          2023-02-22
+          2023-03-03
         </span>
       </div>
       <div class="post-meta-wordcount">
@@ -145,10 +145,12 @@
   
   <div class="post-content">
     <h1 id="组件化编程"><a href="#组件化编程" class="headerlink" title="组件化编程"></a>组件化编程</h1><h2 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h2><p>组件：实现应用中局部功能和资源的集合。所有组件由一个VM对象管理</p>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/05/09/ad308f842e9f7b7a65c09050ed3638d0.png"></p>
 <h1 id="非单文件组件"><a href="#非单文件组件" class="headerlink" title="非单文件组件"></a>非单文件组件</h1><p>非单文件组件：一个文件（HTML）中包含多个组件</p>
 <ul>
 <li>比如一个HTML文件，页面可以分<code>school</code>组件和<code>student</code>组件</li>
 </ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210723143005.png"></p>
 <h2 id="创建组件"><a href="#创建组件" class="headerlink" title="创建组件"></a>创建组件</h2><ul>
 <li>组件完整创建过程分三步<ul>
 <li>创建组件</li>
@@ -169,6 +171,7 @@
 <li>在HTML页面使用组件标签使用</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--第三步:组件标签--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">school</span>&gt;</span><span class="tag">&lt;/<span class="name">school</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">student</span>&gt;</span><span class="tag">&lt;/<span class="name">student</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210723143005.png"></p>
 <ul>
 <li>当然，以上是局部注册组件，也可以进行全局组件注册</li>
 </ul>
@@ -176,7 +179,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app2&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">hello</span>&gt;</span><span class="tag">&lt;/<span class="name">hello</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app2&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">hello</span>&gt;</span><span class="tag">&lt;/<span class="name">hello</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210723145112.png"></p>
 <h2 id="组件嵌套"><a href="#组件嵌套" class="headerlink" title="组件嵌套"></a>组件嵌套</h2><ul>
 <li>组件嵌套很简单，嵌套的组件注册在父组件里面即可。比如在<code>school</code>组件中嵌套<code>student</code>组件，<code>student</code>组件只能在<code>school</code>中使用</li>
 </ul>
@@ -187,6 +190,7 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建VM实例</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">components</span>: &#123;</span><br><span class="line">        <span class="attr">school</span>:school</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210724104541.png"></p>
 <p>一般实际开发中，使用一个<code>app</code>组件管理所有的组件，然后在Vue实例中只需注册<code>app</code>即可</p>
 <ul>
 <li>比如再创建一个和<code>school</code>平级的组件</li>
@@ -199,14 +203,13 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建VM实例</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">components</span>: &#123;</span><br><span class="line">        <span class="attr">app</span>: app</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">     &lt;app&gt;&lt;/app&gt;</span></span><br><span class="line"><span class="string">    `</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210724104907.png"></p>
 <h2 id="VueComponent"><a href="#VueComponent" class="headerlink" title="VueComponent"></a>VueComponent</h2><ul>
 <li>我们打印输出一下<code>school</code>组件</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> school = <span class="title class_">Vue</span>.<span class="title function_">extend</span>(&#123;</span><br><span class="line">    <span class="comment">//....</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(school)</span><br></pre></td></tr></table></figure>
 
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210724105928.png"></p>
 <ul>
 <li><code>school</code>组件本质是一个名为<code>VueComponent</code>的构造函数。且不是程序员定义的，是<code>Vue .extend</code>生成的</li>
 <li>我们只需要写<code>&lt;school/&gt;</code>或<code>&lt;school&gt;&lt;/school&gt;</code>。 Vue解析时会帮我们创建<code>school</code>组件的实例对象，即Vue帮我们执行的：<code>new VueComponent(options)</code></li>
@@ -232,7 +235,7 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个构造函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">demo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">a</span> = <span class="number">1</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">b</span> = <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 创建实例对象</span></span><br><span class="line"><span class="keyword">const</span> d = <span class="keyword">new</span> <span class="title function_">demo</span>()</span><br><span class="line"><span class="comment">// 显示原型属性</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(demo.<span class="property"><span class="keyword">prototype</span></span>)</span><br><span class="line"><span class="comment">// 隐式原型属性</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(d.<span class="property">__proto__</span>)</span><br><span class="line"><span class="comment">// 通过显示原型属性操作原型对象，追加x属性且值为99</span></span><br><span class="line">demo.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">x</span> = <span class="number">99</span></span><br><span class="line"><span class="comment">// 通过隐式原型属性获取属性</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(d.<span class="property">__proto__</span>.<span class="property">x</span>) <span class="comment">//99</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(demo.<span class="property"><span class="keyword">prototype</span></span> === d.<span class="property">__proto__</span>) <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(d)</span><br></pre></td></tr></table></figure>
 
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210724113456.png"></p>
 <ul>
 <li>一个重要的内置关系:</li>
 </ul>
@@ -244,12 +247,14 @@
 </ul>
 </li>
 </ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210724124601.png"></p>
 <h1 id="单文件组件"><a href="#单文件组件" class="headerlink" title="单文件组件"></a>单文件组件</h1><p>单文件组件：一个文件（HTML文件）只包含1个组件</p>
 <h2 id="单组件结构"><a href="#单组件结构" class="headerlink" title="单组件结构"></a>单组件结构</h2><ul>
-<li><p>推荐下载安装一个VSCode插件，提供Vue高亮语法</p>
-</li>
-<li><p>单个Vue组件名称推荐首字母大写，以<code>.vue</code>结尾。其结构如下</p>
-</li>
+<li>推荐下载安装一个VSCode插件，提供Vue高亮语法</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210724125728.png"></p>
+<ul>
+<li>单个Vue组件名称推荐首字母大写，以<code>.vue</code>结尾。其结构如下</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--组件结构--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--组件交互代码--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    </span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--组件样式--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -283,7 +288,7 @@
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--准备一个容器--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../vue.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;main.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210724132636.png"></p>
 <p>以上只是一个单组件开发的过程，代码需要脚手架环境才能运行。因为浏览器无法执行ES6模块化</p>
 
   </div>

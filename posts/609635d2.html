@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Vue项目——电商管理系统之权限管理模块 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="权限列表创建分支 由于要开发一个新的功能模块，需要创建一个新的分支rights  12git checkout -b rightsgit branch   然后推送到云端，由于是第一次推送，需要-u参数  1git push -u origin rights  权限路由 创建power&#x2F;Rights.vue组件，并在home子路由下创建路由规则  12345678910111213141516co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue项目——电商管理系统之权限管理模块">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/609635d2.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="权限列表创建分支 由于要开发一个新的功能模块，需要创建一个新的分支rights  12git checkout -b rightsgit branch   然后推送到云端，由于是第一次推送，需要-u参数  1git push -u origin rights  权限路由 创建power&#x2F;Rights.vue组件，并在home子路由下创建路由规则  12345678910111213141516co">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.251Z">
+<meta property="article:modified_time" content="2023-03-03T10:16:34.341Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Vue项目——电商管理系统之权限管理模块</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">3.2k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>16分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="权限列表"><a href="#权限列表" class="headerlink" title="权限列表"></a>权限列表</h1><h2 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h2><ul>
+<li>由于要开发一个新的功能模块，需要创建一个新的分支<code>rights</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b rights</span><br><span class="line">git branch</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后推送到云端，由于是第一次推送，需要<code>-u</code>参数</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin rights</span><br></pre></td></tr></table></figure>
+
+<h2 id="权限路由"><a href="#权限路由" class="headerlink" title="权限路由"></a>权限路由</h2><ul>
+<li>创建<code>power/Rights.vue</code>组件，并在<code>home</code>子路由下创建路由规则</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;</span><br><span class="line">  <span class="attr">routes</span>: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">redirect</span>: <span class="string">&#x27;/login&#x27;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/login&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Login</span> &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">path</span>: <span class="string">&#x27;/home&#x27;</span>,</span><br><span class="line">      <span class="attr">component</span>: <span class="title class_">Home</span>,</span><br><span class="line">      <span class="attr">redirect</span>: <span class="string">&#x27;/welcome&#x27;</span>,</span><br><span class="line">      <span class="attr">children</span>: [</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;/welcome&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Welcome</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;/users&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Users</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;/rights&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Rights</span>&#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>绘制基本的视图后，请求权限列表的数据</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Rights&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// 权限列表</span></span><br><span class="line">      <span class="attr">rightsList</span>: [],</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 获取所有权限</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getRightsList</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="comment">// 获取权限列表</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">getRightsList</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(<span class="string">&#x27;rights/list&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span>(res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取权限列表失败&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">rightsList</span> = res.<span class="property">data</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="渲染视图"><a href="#渲染视图" class="headerlink" title="渲染视图"></a>渲染视图</h2><ul>
+<li>使用到了表格，面包屑，卡片和Tag标签UI组件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--面包屑导航区--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-breadcrumb</span> <span class="attr">separator-class</span>=<span class="string">&quot;el-icon-arrow-right&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-breadcrumb-item</span> <span class="attr">:to</span>=<span class="string">&quot;&#123; path: &#x27;/home&#x27; &#125;&quot;</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">el-breadcrumb-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-breadcrumb-item</span>&gt;</span>权限管理<span class="tag">&lt;/<span class="name">el-breadcrumb-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-breadcrumb-item</span>&gt;</span>权限列表<span class="tag">&lt;/<span class="name">el-breadcrumb-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-breadcrumb</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--卡片视图--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-card</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-table</span> <span class="attr">:data</span>=<span class="string">&quot;rightsList&quot;</span> <span class="attr">border</span> <span class="attr">stripe</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">label</span>=<span class="string">&quot;#&quot;</span> <span class="attr">type</span>=<span class="string">&quot;index&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">label</span>=<span class="string">&quot;权限名称&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;authName&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">label</span>=<span class="string">&quot;路径&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;path&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">label</span>=<span class="string">&quot;权限等级&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot-scope</span>=<span class="string">&quot;scope&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-tag</span> <span class="attr">v-if</span>=<span class="string">&quot;scope.row.level === &#x27;0&#x27;&quot;</span>&gt;</span>一级<span class="tag">&lt;/<span class="name">el-tag</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-tag</span> <span class="attr">type</span>=<span class="string">&quot;success&quot;</span> <span class="attr">v-if</span>=<span class="string">&quot;scope.row.level === &#x27;1&#x27;&quot;</span>&gt;</span>二级<span class="tag">&lt;/<span class="name">el-tag</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-tag</span> <span class="attr">type</span>=<span class="string">&quot;warning&quot;</span> <span class="attr">v-if</span>=<span class="string">&quot;scope.row.level === &#x27;2&#x27;&quot;</span>&gt;</span>三级<span class="tag">&lt;/<span class="name">el-tag</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-card</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210810124507.png"></p>
+<ul>
+<li>通过权限管理模块控制不同的用户可以进行哪些操作，具体可以通过角色的方式进行控制，即每个用户分配一个特定的角色，角色包括不同的功能权限</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210810124632.png"></p>
+<h1 id="角色列表"><a href="#角色列表" class="headerlink" title="角色列表"></a>角色列表</h1><h2 id="角色路由"><a href="#角色路由" class="headerlink" title="角色路由"></a>角色路由</h2><ul>
+<li>创建<code>power/Roles.vue</code>组件，并在<code>home</code>下配置子路由</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;</span><br><span class="line">  <span class="attr">routes</span>: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">redirect</span>: <span class="string">&#x27;/login&#x27;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/login&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Login</span> &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">path</span>: <span class="string">&#x27;/home&#x27;</span>,</span><br><span class="line">      <span class="attr">component</span>: <span class="title class_">Home</span>,</span><br><span class="line">      <span class="attr">redirect</span>: <span class="string">&#x27;/welcome&#x27;</span>,</span><br><span class="line">      <span class="attr">children</span>: [</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;/welcome&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Welcome</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;/users&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Users</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;/rights&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Rights</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;/roles&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Roles</span>&#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>并发送请求获取数据</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Roles&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// 所有角色列表数据</span></span><br><span class="line">      <span class="attr">roleList</span>: [],</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getRolesList</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="comment">// 获取所有角色的列表</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">getRolesList</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(<span class="string">&#x27;roles&#x27;</span>)</span><br><span class="line">      <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取角色列表失败&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">roleList</span> = res.<span class="property">data</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">roleList</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="渲染视图-1"><a href="#渲染视图-1" class="headerlink" title="渲染视图"></a>渲染视图</h2><ul>
+<li>通过表格渲染，并且具有展开列，里面存放一二三级权限，通过一二三层for循环实现</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--面包屑导航区--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-breadcrumb</span> <span class="attr">separator-class</span>=<span class="string">&quot;el-icon-arrow-right&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-breadcrumb-item</span> <span class="attr">:to</span>=<span class="string">&quot;&#123; path: &#x27;/home&#x27; &#125;&quot;</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">el-breadcrumb-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-breadcrumb-item</span>&gt;</span>权限管理<span class="tag">&lt;/<span class="name">el-breadcrumb-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-breadcrumb-item</span>&gt;</span>角色列表<span class="tag">&lt;/<span class="name">el-breadcrumb-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-breadcrumb</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--卡片视图--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-card</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-row</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-col</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span>&gt;</span>添加角色<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-col</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-row</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">&lt;!--角色列表区域--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-table</span> <span class="attr">:data</span>=<span class="string">&quot;roleList&quot;</span> <span class="attr">border</span> <span class="attr">stripe</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--展开列--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">type</span>=<span class="string">&quot;expand&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot-scope</span>=<span class="string">&quot;scope&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--使用如下方式格式化查看--&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- &lt;pre&gt;&#123;&#123;scope.row&#125;&#125;&lt;/pre&gt; --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-row</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:class</span>=<span class="string">&quot;[&#x27;vcenter&#x27;,&#x27;bdbottom&#x27;, i1 === 0 ? &#x27;bdtop&#x27; : &#x27;bdbottom&#x27;]&quot;</span></span></span><br><span class="line"><span class="tag">              <span class="attr">v-for</span>=<span class="string">&quot;(item1, i1) in scope.row.children&quot;</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:key</span>=<span class="string">&quot;item1.id&quot;</span></span></span><br><span class="line"><span class="tag">            &gt;</span></span><br><span class="line">              <span class="comment">&lt;!--渲染一级权限--&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">el-col</span> <span class="attr">:span</span>=<span class="string">&quot;5&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">el-tag</span>&gt;</span>&#123;&#123; item1.authName &#125;&#125;<span class="tag">&lt;/<span class="name">el-tag</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;el-icon-caret-right e&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">el-col</span>&gt;</span></span><br><span class="line">              <span class="comment">&lt;!--渲染二级和三级权限--&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">el-col</span> <span class="attr">:span</span>=<span class="string">&quot;19&quot;</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--通过for循环嵌套渲染二级权限--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">el-row</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">:class</span>=<span class="string">&quot;[&#x27;vcenter&#x27;,&#x27;bdbottom&#x27;, i1 === 0 ? &#x27;bdtop&#x27; : &#x27;bdbottom&#x27;]&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">v-for</span>=<span class="string">&quot;(item2, i2) in item1.children&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">:key</span>=<span class="string">&quot;item2.id&quot;</span></span></span><br><span class="line"><span class="tag">                &gt;</span></span><br><span class="line">                  <span class="tag">&lt;<span class="name">el-col</span> <span class="attr">:span</span>=<span class="string">&quot;6&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">el-tag</span> <span class="attr">type</span>=<span class="string">&quot;success&quot;</span>&gt;</span>&#123;&#123; item2.authName &#125;&#125;<span class="tag">&lt;/<span class="name">el-tag</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;el-icon-caret-right e&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                  <span class="tag">&lt;/<span class="name">el-col</span>&gt;</span></span><br><span class="line">                  <span class="comment">&lt;!-- for循环渲染三级权限--&gt;</span></span><br><span class="line">                  <span class="tag">&lt;<span class="name">el-col</span> <span class="attr">:span</span>=<span class="string">&quot;18&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">el-tag</span> <span class="attr">type</span>=<span class="string">&quot;warning&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item3, i3) in item2.children&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item3.id&quot;</span>&gt;</span>&#123;&#123;item3.authName&#125;&#125;<span class="tag">&lt;/<span class="name">el-tag</span>&gt;</span></span><br><span class="line">                  <span class="tag">&lt;/<span class="name">el-col</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">el-row</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">el-col</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">el-row</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--索引列--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">type</span>=<span class="string">&quot;index&quot;</span> <span class="attr">label</span>=<span class="string">&quot;#&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">label</span>=<span class="string">&quot;角色名称&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;roleName&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">label</span>=<span class="string">&quot;角色描述&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;roleDesc&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">label</span>=<span class="string">&quot;操作&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot-scope</span>=<span class="string">&quot;scope&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> <span class="attr">icon</span>=<span class="string">&quot;el-icon-edit&quot;</span> <span class="attr">size</span>=<span class="string">&quot;mini&quot;</span></span></span><br><span class="line"><span class="tag">              &gt;</span>编辑&lt;/el-button</span><br><span class="line">            &gt;</span><br><span class="line">            <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;danger&quot;</span> <span class="attr">icon</span>=<span class="string">&quot;el-icon-delete&quot;</span> <span class="attr">size</span>=<span class="string">&quot;mini&quot;</span></span></span><br><span class="line"><span class="tag">              &gt;</span>删除&lt;/el-button</span><br><span class="line">            &gt;</span><br><span class="line">            <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;warning&quot;</span> <span class="attr">icon</span>=<span class="string">&quot;el-icon-setting&quot;</span> <span class="attr">size</span>=<span class="string">&quot;mini&quot;</span></span></span><br><span class="line"><span class="tag">              &gt;</span>分配权限&lt;/el-button</span><br><span class="line">            &gt;</span><br><span class="line">          <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-card</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.el-tag</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">7px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.bdtop</span> &#123;</span><br><span class="line">  <span class="attribute">border-top</span>: <span class="number">1px</span> solid <span class="number">#eee</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.bdbottom</span> &#123;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#eee</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.vcenter</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210810133713.png"></p>
+<h2 id="删除功能"><a href="#删除功能" class="headerlink" title="删除功能"></a>删除功能</h2><ul>
+<li>每个权限标签tag都可以删除，只需要添加属性<code>closeable</code>即可。并绑定回调事件 <code>@close=&quot;removeRightByID&quot;</code>实现删除权限功能</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-tag</span> <span class="attr">type</span>=<span class="string">&quot;warning&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item3, i3) in item2.children&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item3.id&quot;</span> <span class="attr">closable</span> @<span class="attr">close</span>=<span class="string">&quot;removeRightByID(scope.row,item3.id)&quot;</span>&gt;</span>&#123;&#123;item3.authName&#125;&#125;<span class="tag">&lt;/<span class="name">el-tag</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>发送请求</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 根据id删除对应权限</span></span><br><span class="line"><span class="keyword">async</span> <span class="title function_">removeRightByID</span>(<span class="params">role, rightId</span>) &#123;</span><br><span class="line">  <span class="comment">// 弹框提示是否删除</span></span><br><span class="line">  <span class="keyword">const</span> confirmResult = <span class="keyword">await</span> <span class="variable language_">this</span>.$confirm(</span><br><span class="line">    <span class="string">&#x27;此操作将永久删除该文件, 是否继续?&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;提示&#x27;</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">confirmButtonText</span>: <span class="string">&#x27;确定&#x27;</span>,</span><br><span class="line">      <span class="attr">cancelButtonText</span>: <span class="string">&#x27;取消&#x27;</span>,</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;warning&#x27;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  ).<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> err)</span><br><span class="line">  <span class="keyword">if</span> (confirmResult !== <span class="string">&#x27;confirm&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">info</span>(<span class="string">&#x27;已取消删除&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 发送请求删除权限</span></span><br><span class="line">  <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">delete</span>(</span><br><span class="line">    <span class="string">`roles/<span class="subst">$&#123;role.id&#125;</span>/rights/<span class="subst">$&#123;rightId&#125;</span>`</span></span><br><span class="line">  )</span><br><span class="line">  <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;删除权限失败&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 重新更新数据,不能重新发送请求，这样会导致展开列关闭</span></span><br><span class="line">  <span class="comment">// 使用重新赋值比较好</span></span><br><span class="line">  role.<span class="property">children</span> = res.<span class="property">data</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="分配权限"><a href="#分配权限" class="headerlink" title="分配权限"></a>分配权限</h1><h2 id="权限对话框"><a href="#权限对话框" class="headerlink" title="权限对话框"></a>权限对话框</h2><ul>
+<li>点击分配权限按钮需要弹出对话框</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span></span></span><br><span class="line"><span class="tag">   <span class="attr">title</span>=<span class="string">&quot;分配权限&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:visible.sync</span>=<span class="string">&quot;setRightDialogVisible&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">width</span>=<span class="string">&quot;50%&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">span</span>&gt;</span>这是一段信息<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">span</span> <span class="attr">slot</span>=<span class="string">&quot;footer&quot;</span> <span class="attr">class</span>=<span class="string">&quot;dialog-footer&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> @<span class="attr">click</span>=<span class="string">&quot;setRightDialogVisible = false&quot;</span>&gt;</span>取 消<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;setRightDialogVisible = false&quot;</span>&gt;</span>确 定<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-dialog</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>打开对话框后需要发送请求获取所有的权限</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Roles&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// 所有角色列表数据</span></span><br><span class="line">      <span class="attr">roleList</span>: [],</span><br><span class="line">      <span class="attr">setRightDialogVisible</span>: <span class="literal">false</span>, <span class="comment">// 控制分配权限对话框的显示与隐藏</span></span><br><span class="line">      <span class="attr">tightsList</span>:[], <span class="comment">// 所有权限的数据</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getRolesList</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">     <span class="comment">//..</span></span><br><span class="line">    <span class="comment">// 展示分配权限的对话框</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">showSetRightDialog</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// 获取所有权限的数据</span></span><br><span class="line">      <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(<span class="string">&#x27;rights/tree&#x27;</span>)</span><br><span class="line">      <span class="keyword">if</span>(res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取权限失败&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 获取到的权限数据保存到data中</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">rightsList</span> = res.<span class="property">data</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">rightsList</span>)</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">setRightDialogVisible</span> = <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="树形视图"><a href="#树形视图" class="headerlink" title="树形视图"></a>树形视图</h2><ul>
+<li>使用到了Tree树形组件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--树形控件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-tree</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:data</span>=<span class="string">&quot;rightsList&quot;</span> </span></span><br><span class="line"><span class="tag">   <span class="attr">:props</span>=<span class="string">&quot;treeProps&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">show-checkbox</span></span></span><br><span class="line"><span class="tag">   <span class="attr">node-key</span>=<span class="string">&quot;id&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:default-expand-all</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">:default-checked-keys</span>=<span class="string">&quot;defKeys&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">el-tree</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>需要把三级权限的ID保存起来实现默认选中，在对话框关闭后需要清空数组</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Roles&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// 所有角色列表数据</span></span><br><span class="line">      <span class="attr">roleList</span>: [],</span><br><span class="line">      <span class="attr">setRightDialogVisible</span>: <span class="literal">false</span>, <span class="comment">// 控制分配权限对话框的显示与隐藏</span></span><br><span class="line">      <span class="attr">rightsList</span>: [], <span class="comment">// 所有权限的数据</span></span><br><span class="line">      <span class="attr">treeProps</span>: &#123;</span><br><span class="line">        <span class="comment">// 树形组件的绑定对象</span></span><br><span class="line">        <span class="attr">label</span>: <span class="string">&#x27;authName&#x27;</span>, <span class="comment">// 内容</span></span><br><span class="line">        <span class="attr">children</span>: <span class="string">&#x27;children&#x27;</span>, <span class="comment">// 父子节点</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 默认选中的节点ID值数组((只需三级权限ID即可)</span></span><br><span class="line">      <span class="attr">defKeys</span>: [],</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getRolesList</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">// 展示分配权限的对话框</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">showSetRightDialog</span>(<span class="params">role</span>) &#123;</span><br><span class="line">      <span class="comment">// 获取所有权限的数据</span></span><br><span class="line">      <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(<span class="string">&#x27;rights/tree&#x27;</span>)</span><br><span class="line">      <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取权限失败&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 获取到的权限数据保存到data中</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">rightsList</span> = res.<span class="property">data</span></span><br><span class="line">      <span class="comment">// 递归获取三级节点的ID</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">getLeafKeys</span>(role, <span class="variable language_">this</span>.<span class="property">defKeys</span>)</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">setRightDialogVisible</span> = <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 通过递归的形式获取角色下所有三级权限的id并保存</span></span><br><span class="line">    <span class="title function_">getLeafKeys</span>(<span class="params">node, arr</span>) &#123;</span><br><span class="line">      <span class="comment">// node节点不包含childran属性即为第三级别</span></span><br><span class="line">      <span class="keyword">if</span> (!node.<span class="property">children</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> arr.<span class="title function_">push</span>(node.<span class="property">id</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 递归获取</span></span><br><span class="line">      node.<span class="property">children</span>.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">getLeafKeys</span>(item, arr)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 监听分配权限关闭对话框的事件</span></span><br><span class="line">    <span class="title function_">setRightDialogClosed</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">defKeys</span> = []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210810162630.png"></p>
+<h2 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h2><ul>
+<li>发送请求前需要获取所有选中的权限的ID中，只需要使用到Tree组件引用的对象的一个方法<code>getCheckedKeys</code>和<code>getHalfCheckedKeys</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--树形控件，使用ref指定引用对象--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-tree</span> <span class="attr">ref</span>=<span class="string">&quot;treeRef&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-tree</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--点击按钮触发事件分配权限--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;allotRights&quot;</span>&gt;</span>确 定<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>发送请求</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 为角色分配权限</span></span><br><span class="line"><span class="keyword">async</span> <span class="title function_">allotRights</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> keys = [</span><br><span class="line">    ...<span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">treeRef</span>.<span class="title function_">getCheckedKeys</span>(),</span><br><span class="line">    ...<span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">treeRef</span>.<span class="title function_">getHalfCheckedKeys</span>(),</span><br><span class="line">  ]</span><br><span class="line">  <span class="comment">// 所有ID以,逗号进行拼接</span></span><br><span class="line">  <span class="keyword">const</span> idStr = keys.<span class="title function_">join</span>(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">  <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">post</span>(</span><br><span class="line">    <span class="string">`roles/<span class="subst">$&#123;<span class="variable language_">this</span>.roleId&#125;</span>/rights`</span>,</span><br><span class="line">    &#123; <span class="attr">rids</span>: idStr &#125;</span><br><span class="line">  )</span><br><span class="line">  <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;分配权限失败&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">success</span>(<span class="string">&#x27;分配角色成功&#x27;</span>)</span><br><span class="line">  <span class="comment">// 重新获取角色列表</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">getRolesList</span>()</span><br><span class="line">  <span class="comment">// 关闭对话框</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">setRightDialogVisible</span> = <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="分配角色"><a href="#分配角色" class="headerlink" title="分配角色"></a>分配角色</h1><h2 id="分配对话框"><a href="#分配对话框" class="headerlink" title="分配对话框"></a>分配对话框</h2><ul>
+<li>使用到了Select 选择器组件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--分配角色的对话框--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> <span class="attr">title</span>=<span class="string">&quot;分配角色&quot;</span> <span class="attr">:visible.sync</span>=<span class="string">&quot;setRoledialogVisible&quot;</span> <span class="attr">width</span>=<span class="string">&quot;50%&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>当前的用户：&#123;&#123; userInfo.username &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>当前的角色：&#123;&#123; userInfo.role_name &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">      分配新角色：</span><br><span class="line">      <span class="tag">&lt;<span class="name">el-select</span> <span class="attr">v-model</span>=<span class="string">&quot;selectRoleId&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请选择&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-option</span> <span class="attr">v-for</span>=<span class="string">&quot;item in rolesList&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item.id&quot;</span> <span class="attr">:label</span>=<span class="string">&quot;item.roleName&quot;</span> <span class="attr">:value</span>=<span class="string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-option</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-select</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">slot</span>=<span class="string">&quot;footer&quot;</span> <span class="attr">class</span>=<span class="string">&quot;dialog-footer&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-button</span> @<span class="attr">click</span>=<span class="string">&quot;setRoledialogVisible = false&quot;</span>&gt;</span>取 消<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;setRoledialogVisible = false&quot;</span>&gt;</span>确 定<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-dialog</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>绑定相关数据和事件</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Users&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// 控制分配角色对话框的显示与隐藏</span></span><br><span class="line">      <span class="attr">setRoledialogVisible</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">userInfo</span>: &#123;&#125;, <span class="comment">// 需要被分配角色的用户信息</span></span><br><span class="line">      <span class="attr">rolesList</span>: [], <span class="comment">// 所有角色的数据列表</span></span><br><span class="line">      <span class="attr">selectRoleId</span>: <span class="string">&#x27;&#x27;</span> <span class="comment">// 已选中的角色ID值</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getUserList</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="comment">// 分配角色的事件</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">setRole</span>(<span class="params">userInfo</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">userInfo</span> = userInfo</span><br><span class="line">      <span class="comment">// 在展示对话框之前，获取所有角色的列表</span></span><br><span class="line">      <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">get</span>(<span class="string">&#x27;roles&#x27;</span>)</span><br><span class="line">      <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取角色列表失败&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">rolesList</span> = res.<span class="property">data</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">setRoledialogVisible</span> = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/BlogImage/20210810165820.png"></p>
+<h2 id="发送请求-1"><a href="#发送请求-1" class="headerlink" title="发送请求"></a>发送请求</h2><ul>
+<li>给对话框确定按钮绑定事件，关闭对话框也绑定事件清除下拉框内容</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> @<span class="attr">close</span>=<span class="string">&quot;setRoledialogClosed&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;saveRoleInfo&quot;</span>&gt;</span>确 定<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-dialog</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>发送请求</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 点击按钮分配角色</span></span><br><span class="line"> <span class="keyword">async</span> <span class="title function_">saveRoleInfo</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">selectRoleId</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;请选择分配的角色&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 发送请求</span></span><br><span class="line">  <span class="keyword">const</span> &#123; <span class="attr">data</span>: res &#125; = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$http</span>.<span class="title function_">put</span>(</span><br><span class="line">    <span class="string">`users/<span class="subst">$&#123;<span class="variable language_">this</span>.userInfo.id&#125;</span>/role`</span>,</span><br><span class="line">    &#123; <span class="attr">rid</span>: <span class="variable language_">this</span>.<span class="property">selectRoleId</span> &#125;</span><br><span class="line">  )</span><br><span class="line">  <span class="keyword">if</span> (res.<span class="property">meta</span>.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;更新角色失败&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">success</span>(<span class="string">&#x27;更新角色成功&#x27;</span>)</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">getUserList</span>()</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">setRoledialogVisible</span> = <span class="literal">false</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="comment">// 监听分配角色对话框的事件</span></span><br><span class="line"><span class="title function_">setRoledialogClosed</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">selectRoleId</span> = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">userInfo</span> = &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="提交码云"><a href="#提交码云" class="headerlink" title="提交码云"></a>提交码云</h2><ul>
+<li>关于权限管理模块已经完成了，需要上传到码云</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看是否是right分支</span></span><br><span class="line">git branch</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;完成了权限管理功能&quot;</span></span><br><span class="line"><span class="comment"># 云端已经有了right分支就直接push</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>right</code>分支合并到<code>master</code>分支</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git merge rights</span><br><span class="line"><span class="comment"># 更新云端matser分支</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/609635d2.html">http://xiaoliblog.cn/posts/609635d2.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/f978d8db.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Vue项目——电商管理系统之商品添加模块</div>
+      <div class="prev-desc">商品添加编程式导航
+点击添加按钮前往商品添加页面
+
+1&amp;lt;el-button type=&amp;quot;primary&amp;quot; @click=&amp;quot;goAddpage&amp;quot;&amp;gt;添加商品&amp;lt;/el-button&amp;gt;
+
+
+处理函数
+
+1234// 前往商品添加页面goAddpage()&amp;#...</div>
+    </a>
+    
+    
+    <a href="/posts/9e2f2d4b.html">
+      <div class="next-title">Vue项目——电商管理系统之商品列表管理<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">商品列表创建分支
+开发新功能，创建goods_list分支
+
+123git branchgit checkout -b goods_listgit push -u origin goods_list
+
+商品路由
+创建Goods.vue组件，并配置好路由。发送请求获取商品数据
+
+123456789101112131...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E5%88%97%E8%A1%A8"><span class="toc-text">权限列表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF"><span class="toc-text">创建分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E8%B7%AF%E7%94%B1"><span class="toc-text">权限路由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E8%A7%86%E5%9B%BE"><span class="toc-text">渲染视图</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%92%E8%89%B2%E5%88%97%E8%A1%A8"><span class="toc-text">角色列表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%92%E8%89%B2%E8%B7%AF%E7%94%B1"><span class="toc-text">角色路由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E8%A7%86%E5%9B%BE-1"><span class="toc-text">渲染视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD"><span class="toc-text">删除功能</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E9%85%8D%E6%9D%83%E9%99%90"><span class="toc-text">分配权限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E5%AF%B9%E8%AF%9D%E6%A1%86"><span class="toc-text">权限对话框</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E5%BD%A2%E8%A7%86%E5%9B%BE"><span class="toc-text">树形视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82"><span class="toc-text">发送请求</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E9%85%8D%E8%A7%92%E8%89%B2"><span class="toc-text">分配角色</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%85%8D%E5%AF%B9%E8%AF%9D%E6%A1%86"><span class="toc-text">分配对话框</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82-1"><span class="toc-text">发送请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E7%A0%81%E4%BA%91"><span class="toc-text">提交码云</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

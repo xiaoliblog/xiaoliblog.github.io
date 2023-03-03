@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Angular项目——网易音乐之轮播及推荐歌单 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="轮播图服务封装 出现端口被占用，打开CMD窗口，输入netstat -ano  然后找到相应端口对应的PID，打开任务管理员，点击详细信息关闭即可  调用网易云API接口获取轮播图数据：https:&#x2F;&#x2F;binaryify.github.io&#x2F;NeteaseCloudMusicApi&#x2F;#&#x2F;  首先创建HomeService服务模块，用于处理HTTP请求   1ng g s services&#x2F;home">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular项目——网易音乐之轮播及推荐歌单">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/949defeb.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="轮播图服务封装 出现端口被占用，打开CMD窗口，输入netstat -ano  然后找到相应端口对应的PID，打开任务管理员，点击详细信息关闭即可  调用网易云API接口获取轮播图数据：https:&#x2F;&#x2F;binaryify.github.io&#x2F;NeteaseCloudMusicApi&#x2F;#&#x2F;  首先创建HomeService服务模块，用于处理HTTP请求   1ng g s services&#x2F;home">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.241Z">
+<meta property="article:modified_time" content="2023-03-03T10:06:57.733Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="小李博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Angular项目——网易音乐之轮播及推荐歌单</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">2.5k | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>13分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="轮播图"><a href="#轮播图" class="headerlink" title="轮播图"></a>轮播图</h1><h2 id="服务封装"><a href="#服务封装" class="headerlink" title="服务封装"></a>服务封装</h2><ul>
+<li><p>出现端口被占用，打开CMD窗口，输入<code>netstat -ano</code></p>
+</li>
+<li><p>然后找到相应端口对应的<code>PID</code>，打开任务管理员，点击详细信息关闭即可</p>
+</li>
+<li><p>调用网易云API接口获取轮播图数据：<a target="_blank" rel="noopener" href="https://binaryify.github.io/NeteaseCloudMusicApi/#/">https://binaryify.github.io/NeteaseCloudMusicApi/#/</a></p>
+</li>
+<li><p>首先创建<code>HomeService</code>服务模块，用于处理HTTP请求</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g s services/home</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改挂载<code>root</code>改为<code>ServicesModule</code></li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Injectable</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ServicesModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./services.module&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  <span class="attr">providedIn</span>: <span class="title class_">ServicesModule</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeService</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将端口封装在<code>services.module.ts</code>中</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">InjectionToken</span>, <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="comment">// 暴露出去</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">API_CONFIG</span> = <span class="keyword">new</span> <span class="title class_">InjectionToken</span>(<span class="string">&quot;ApiConfigToken&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// HTTP服务模块</span></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [],</span><br><span class="line">  <span class="attr">imports</span>: [],</span><br><span class="line">  <span class="attr">providers</span>: [&#123; <span class="attr">provide</span>: <span class="variable constant_">API_CONFIG</span>, <span class="attr">useValue</span>: <span class="string">&quot;http://localhost:3000/&quot;</span> &#125;],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ServicesModule</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>services</code>文件夹下创建<code>data-types</code>文件夹，再创建<code>common.types.ts</code>文件，用于定义返回的数据类型</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义Banner的数据类型</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> <span class="title class_">Banner</span> = &#123;</span><br><span class="line">    targetId : <span class="built_in">number</span>;</span><br><span class="line">    url : <span class="built_in">string</span>;</span><br><span class="line">    imageUrl : <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>home.service.ts</code>具体内容如下</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HttpClient</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/common/http&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Inject</span>, <span class="title class_">Injectable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Banner</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./data-types/common.types&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="variable constant_">API_CONFIG</span>, <span class="title class_">ServicesModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./services.module&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs/internal/operators&quot;</span>;</span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  <span class="attr">providedIn</span>: <span class="title class_">ServicesModule</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeService</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> http: HttpClient,<span class="meta">@Inject</span>(API_CONFIG) <span class="keyword">private</span> uri:<span class="built_in">string</span></span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取轮播图</span></span><br><span class="line">  <span class="title function_">getBanners</span>(): <span class="title class_">Observable</span>&lt;<span class="title class_">Banner</span>[]&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">http</span></span><br><span class="line">      .<span class="title function_">get</span>(<span class="variable language_">this</span>.<span class="property">uri</span>+<span class="string">&quot;banner&quot;</span>)</span><br><span class="line">      .<span class="title function_">pipe</span>(<span class="title function_">map</span>(<span class="function">(<span class="params">res: &#123; banners: Banner[] &#125;</span>) =&gt;</span> res.<span class="property">banners</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h2><ul>
+<li>服务封装好后，在<code>home.component.ts</code>组件中依赖注入并使用</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnInit</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Banner</span> &#125; <span class="keyword">from</span> <span class="string">&quot;src/app/services/data-types/common.types&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HomeService</span> &#125; <span class="keyword">from</span> <span class="string">&quot;src/app/services/home.service&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&quot;app-home&quot;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&quot;./home.component.html&quot;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&quot;./home.component.less&quot;</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line">  <span class="attr">banners</span>:<span class="title class_">Banner</span>[];</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> homeService: HomeService</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">homeService</span>.<span class="title function_">getBanners</span>().<span class="title function_">subscribe</span>(<span class="function">(<span class="params">banners</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;banners&quot;</span>, banners);</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">banners</span> = banners</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="轮播样式"><a href="#轮播样式" class="headerlink" title="轮播样式"></a>轮播样式</h2><ul>
+<li>在<code>home</code>目录下创建<code>components/wy-carousel</code>组件，对组件进行二次封装</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g c pages/home/components/wy-carousel</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;carousel&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--左箭头--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">i</span> <span class="attr">nz-icon</span> <span class="attr">class</span>=<span class="string">&quot;arrow left&quot;</span> <span class="attr">nzType</span>=<span class="string">&quot;left&quot;</span> <span class="attr">nzTheme</span>=<span class="string">&quot;outline&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;onChangeSlide(&#x27;pre&#x27;)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--占位符，插槽--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ng-content</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-content</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--模板，用于覆盖原有样式，number为索引变量，接收索引值--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ng-template</span> #<span class="attr">dot</span> <span class="attr">let-number</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--拿到小圆点索引控制样式--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;dot&quot;</span> [<span class="attr">class.active</span>]=<span class="string">&quot;activeIndex === number&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--右箭头--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">i</span> <span class="attr">nz-icon</span> <span class="attr">class</span>=<span class="string">&quot;arrow right&quot;</span> <span class="attr">nzType</span>=<span class="string">&quot;right&quot;</span> <span class="attr">nzTheme</span>=<span class="string">&quot;outline&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;onChangeSlide(&#x27;next&#x27;)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  <span class="title class_">Component</span>,</span><br><span class="line">  <span class="title class_">OnInit</span>,</span><br><span class="line">  <span class="title class_">TemplateRef</span>,</span><br><span class="line">  <span class="title class_">ViewChild</span>,</span><br><span class="line">  <span class="title class_">Input</span>,</span><br><span class="line">  <span class="title class_">Output</span>,</span><br><span class="line">  <span class="title class_">EventEmitter</span>,</span><br><span class="line">  <span class="title class_">ChangeDetectionStrategy</span>,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&quot;app-wy-carousel&quot;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&quot;./wy-carousel.component.html&quot;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&quot;./wy-carousel.component.less&quot;</span>],</span><br><span class="line">  <span class="comment">// 变更检测策略改变 OnPush只会在Input属性发生变化才触发变更检测</span></span><br><span class="line">  <span class="attr">changeDetection</span>: <span class="title class_">ChangeDetectionStrategy</span>.<span class="property">OnPush</span>, </span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">WyCarouselComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line">  <span class="comment">// 索引值，父组件home传过来</span></span><br><span class="line">  <span class="meta">@Input</span>() activeIndex = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">// 子组件需要触发父组件的事件 参数为联合参数</span></span><br><span class="line">  <span class="meta">@Output</span>() changeSlide = <span class="keyword">new</span> <span class="title class_">EventEmitter</span>&lt;<span class="string">&quot;pre&quot;</span> | <span class="string">&quot;next&quot;</span>&gt;();</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 模板变量,ViewChild获取子组件的dot引用并赋值给dotRef</span></span><br><span class="line">  <span class="meta">@ViewChild</span>(<span class="string">&quot;dot&quot;</span>, &#123; <span class="attr">static</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">  <span class="attr">dotRef</span>: <span class="title class_">TemplateRef</span>&lt;<span class="built_in">any</span>&gt;;</span><br><span class="line">  </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 触发事件，发送给父组件</span></span><br><span class="line">  <span class="title function_">onChangeSlide</span>(<span class="params"><span class="keyword">type</span>: <span class="string">&quot;pre&quot;</span> | <span class="string">&quot;next&quot;</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">changeSlide</span>.<span class="title function_">emit</span>(<span class="keyword">type</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>home.component.html</code>中编写轮播HTML结构</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;home&quot;</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--子组件 #wyCarouse相当于ref</span></span><br><span class="line"><span class="comment">   activeIndex传给子组件</span></span><br><span class="line"><span class="comment">   changeSlide 监听子组件的事件 this.changeSlide.emit(type);</span></span><br><span class="line"><span class="comment">   --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">app-wy-carousel</span> #<span class="attr">wyCarousel</span> [<span class="attr">activeIndex</span>]=<span class="string">&quot;carouselActiveIndex&quot;</span> (<span class="attr">changeSlide</span>)=<span class="string">&quot;onChangeSlide($event)&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--里面nz-carousel内容放插槽里</span></span><br><span class="line"><span class="comment">    [nzDotRender]=&quot;wyCarousel.dotRef 引用模板</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">nz-carousel</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">nzAutoPlay</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">nzEffect</span>=<span class="string">&quot;fade&quot;</span> </span></span><br><span class="line"><span class="tag">    [<span class="attr">nzDotRender</span>]=<span class="string">&quot;wyCarousel.dotRef&quot;</span></span></span><br><span class="line"><span class="tag">    (<span class="attr">nzBeforeChange</span>)=<span class="string">&quot;onBeforeChange($event)&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">        <span class="attr">class</span>=<span class="string">&quot;carousel-item&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">nz-carousel-content</span></span></span><br><span class="line"><span class="tag">        *<span class="attr">ngFor</span>=<span class="string">&quot;let item of banners&quot;</span></span></span><br><span class="line"><span class="tag">      &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> [<span class="attr">href</span>]=<span class="string">&quot;item.url&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span> <span class="attr">class</span>=<span class="string">&quot;banner-item&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">img</span> [<span class="attr">src</span>]=<span class="string">&quot;item.imageUrl&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">nz-carousel</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">app-wy-carousel</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnInit</span>, <span class="title class_">ViewChild</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NzCarouselComponent</span> &#125; <span class="keyword">from</span> <span class="string">&quot;ng-zorro-antd&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Banner</span> &#125; <span class="keyword">from</span> <span class="string">&quot;src/app/services/data-types/common.types&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HomeService</span> &#125; <span class="keyword">from</span> <span class="string">&quot;src/app/services/home.service&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&quot;app-home&quot;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&quot;./home.component.html&quot;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&quot;./home.component.less&quot;</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line">  <span class="comment">// 保存索引变量</span></span><br><span class="line">  carouselActiveIndex = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">// 自定义的banner数据格式</span></span><br><span class="line">  <span class="attr">banners</span>: <span class="title class_">Banner</span>[];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 拿到轮播图的引用</span></span><br><span class="line">  <span class="meta">@ViewChild</span>(<span class="title class_">NzCarouselComponent</span>, &#123; <span class="attr">static</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">  <span class="keyword">private</span> <span class="attr">nzCarousel</span>: <span class="title class_">NzCarouselComponent</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> homeService: HomeService</span>) &#123;</span><br><span class="line">    <span class="comment">// 请求数据</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">homeService</span>.<span class="title function_">getBanners</span>().<span class="title function_">subscribe</span>(<span class="function">(<span class="params">banners</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">banners</span> = banners;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 切换前回调，获取索引值 &#123;to&#125;为解构赋值</span></span><br><span class="line">  <span class="title function_">onBeforeChange</span>(<span class="params">&#123; to &#125;</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">carouselActiveIndex</span> = to;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 通过轮播图组件的实例调用前后箭头翻页方法</span></span><br><span class="line">  <span class="title function_">onChangeSlide</span>(<span class="params"><span class="keyword">type</span>: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">nzCarousel</span>[<span class="keyword">type</span>]();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="推荐歌单"><a href="#推荐歌单" class="headerlink" title="推荐歌单"></a>推荐歌单</h1><h2 id="封装服务"><a href="#封装服务" class="headerlink" title="封装服务"></a>封装服务</h2><ul>
+<li>首先根据接口在<code>data-types/common.types.ts</code>中定义数据格式</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义Banner的数据类型</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> <span class="title class_">Banner</span> = &#123;</span><br><span class="line">    targetId : <span class="built_in">number</span>;</span><br><span class="line">    url : <span class="built_in">string</span>;</span><br><span class="line">    imageUrl : <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定义热门标签所需的内容格式</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> <span class="title class_">HotTag</span> = &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">position</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定义歌单所需的内容格式</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> <span class="title class_">SongSheet</span> = &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">picUrl</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">playCount</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>home.service.ts</code>中封装服务</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HttpClient</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/common/http&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Inject</span>, <span class="title class_">Injectable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Banner</span>, <span class="title class_">HotTag</span>, <span class="title class_">SongSheet</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./data-types/common.types&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="variable constant_">API_CONFIG</span>, <span class="title class_">ServicesModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./services.module&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs/internal/operators&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  <span class="attr">providedIn</span>: <span class="title class_">ServicesModule</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeService</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> http: HttpClient,</span></span><br><span class="line"><span class="params">    <span class="meta">@Inject</span>(API_CONFIG) <span class="keyword">private</span> uri: <span class="built_in">string</span></span></span><br><span class="line"><span class="params">  </span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取轮播图</span></span><br><span class="line">  <span class="title function_">getBanners</span>(): <span class="title class_">Observable</span>&lt;<span class="title class_">Banner</span>[]&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">http</span></span><br><span class="line">      .<span class="title function_">get</span>(<span class="variable language_">this</span>.<span class="property">uri</span> + <span class="string">&quot;banner&quot;</span>)</span><br><span class="line">      .<span class="title function_">pipe</span>(<span class="title function_">map</span>(<span class="function">(<span class="params">res: &#123; banners: Banner[] &#125;</span>) =&gt;</span> res.<span class="property">banners</span>));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 获取热门标签</span></span><br><span class="line">  <span class="title function_">getHotTags</span>(): <span class="title class_">Observable</span>&lt;<span class="title class_">HotTag</span>[]&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">http</span>.<span class="title function_">get</span>(<span class="variable language_">this</span>.<span class="property">uri</span> + <span class="string">&quot;playlist/hot&quot;</span>).<span class="title function_">pipe</span>(</span><br><span class="line">      <span class="title function_">map</span>(<span class="function">(<span class="params">res: &#123; tags: HotTag[] &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 先排序再截取5条数据</span></span><br><span class="line">        <span class="keyword">return</span> res.<span class="property">tags</span></span><br><span class="line">          .<span class="title function_">sort</span>(<span class="function">(<span class="params">x: HotTag, y: HotTag</span>) =&gt;</span> x.<span class="property">position</span> - y.<span class="property">position</span>)</span><br><span class="line">          .<span class="title function_">slice</span>(<span class="number">0</span>, <span class="number">5</span>);</span><br><span class="line">      &#125;)</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 获取热门歌单</span></span><br><span class="line">  <span class="title function_">getPersonalSheetList</span>(): <span class="title class_">Observable</span>&lt;<span class="title class_">SongSheet</span>[]&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">http</span></span><br><span class="line">      .<span class="title function_">get</span>(<span class="variable language_">this</span>.<span class="property">uri</span> + <span class="string">&quot;personalized&quot;</span>)</span><br><span class="line">      .<span class="title function_">pipe</span>(<span class="title function_">map</span>(<span class="function">(<span class="params">res: &#123; result: SongSheet[] &#125;</span>) =&gt;</span> res.<span class="property">result</span>.<span class="title function_">slice</span>(<span class="number">0</span>,<span class="number">16</span>))); <span class="comment">// 截取16条数据</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>在<code>home.component.ts</code>组件中使用即可</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnInit</span>, <span class="title class_">ViewChild</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  <span class="title class_">Banner</span>,</span><br><span class="line">  <span class="title class_">HotTag</span>,</span><br><span class="line">  <span class="title class_">SongSheet</span>,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;src/app/services/data-types/common.types&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HomeService</span> &#125; <span class="keyword">from</span> <span class="string">&quot;src/app/services/home.service&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&quot;app-home&quot;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&quot;./home.component.html&quot;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&quot;./home.component.less&quot;</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HomeComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line">  carouselActiveIndex = <span class="number">0</span>;</span><br><span class="line">  <span class="attr">banners</span>: <span class="title class_">Banner</span>[];</span><br><span class="line">  <span class="attr">hotTags</span>: <span class="title class_">HotTag</span>[];</span><br><span class="line">  <span class="attr">songSheetList</span>: <span class="title class_">SongSheet</span>[];</span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> homeService: HomeService</span>) &#123;</span><br><span class="line">    <span class="comment">// 获取数据</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getBanners</span>();</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getHotTags</span>();</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getPersonalSheetList</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取轮播图</span></span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">getBanners</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">homeService</span>.<span class="title function_">getBanners</span>().<span class="title function_">subscribe</span>(<span class="function">(<span class="params">banners</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">banners</span> = banners;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 获取热门标签</span></span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">getHotTags</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">homeService</span>.<span class="title function_">getHotTags</span>().<span class="title function_">subscribe</span>(<span class="function">(<span class="params">tags</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">hotTags</span> = tags;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 获取推荐歌单</span></span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">getPersonalSheetList</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">homeService</span>.<span class="title function_">getPersonalSheetList</span>().<span class="title function_">subscribe</span>(<span class="function">(<span class="params">sheets</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">songSheetList</span> = sheets;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="歌单组件"><a href="#歌单组件" class="headerlink" title="歌单组件"></a>歌单组件</h2><ul>
+<li>歌单是一种卡片UI形式，大多数地方会使用到。所以可以封装成一个组件。创建一个用于管理自定义UI的模块</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g m share/wy-ui</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>share.module.ts</code>中导入</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">WyUiModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./wy-ui/wy-ui.module&#x27;</span></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [],</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="title class_">WyUiModule</span>      </span><br><span class="line">  ],</span><br><span class="line">  <span class="comment">// 共享模块 需要导出</span></span><br><span class="line">  <span class="attr">exports</span>: [</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="title class_">WyUiModule</span></span><br><span class="line">  ],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ShareModule</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后创建歌单组件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g c share/wy-ui/single-sheet</span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在wy-ui.module.ts中导入歌单组件</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">SingleSheetComponent</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./single-sheet/single-sheet.component&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [<span class="title class_">SingleSheetComponent</span>],</span><br><span class="line">  <span class="attr">imports</span>: [],</span><br><span class="line">  <span class="attr">exports</span>: [<span class="title class_">SingleSheetComponent</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">WyUiModule</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>home.componenet.html</code>中使用</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;home&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--轮播组件--&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--推荐歌单--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;main&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;sec&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;up&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;navs&quot;</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">h2</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">a</span>&gt;</span>热门标签<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">a</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let item of hotTags&quot;</span>&gt;</span>&#123;&#123; item.name &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span>&gt;</span></span><br><span class="line">              更多</span><br><span class="line">              <span class="tag">&lt;<span class="name">i</span> <span class="attr">nz-icon</span> <span class="attr">type</span>=<span class="string">&quot;arrow-right&quot;</span> <span class="attr">theme</span>=<span class="string">&quot;outline&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="comment">&lt;!--歌单--&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;down&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;down-wrap&quot;</span>&gt;</span></span><br><span class="line">              <span class="comment">&lt;!--使用歌单组件，传数据进去--&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">app-single-sheet</span> </span></span><br><span class="line"><span class="tag">              <span class="attr">class</span>=<span class="string">&quot;sheet-item&quot;</span></span></span><br><span class="line"><span class="tag">              *<span class="attr">ngFor</span>=<span class="string">&quot;let item of songSheetList&quot;</span></span></span><br><span class="line"><span class="tag">              [<span class="attr">sheet</span>]=<span class="string">&quot;item&quot;</span></span></span><br><span class="line"><span class="tag">              &gt;</span><span class="tag">&lt;/<span class="name">app-single-sheet</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>父组件把歌单数据传过来，需要接受并展示</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ChangeDetectionStrategy</span>, <span class="title class_">Component</span>, <span class="title class_">Input</span>, <span class="title class_">OnInit</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">SongSheet</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;src/app/services/data-types/common.types&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-single-sheet&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./single-sheet.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./single-sheet.component.less&#x27;</span>],</span><br><span class="line">  <span class="comment">// 简单组件都推荐改变一下显示策略</span></span><br><span class="line">  <span class="attr">changeDetection</span>: <span class="title class_">ChangeDetectionStrategy</span>.<span class="property">OnPush</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">SingleSheetComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line">  <span class="comment">// 接受父组件传来的数据,然后进行遍历,SongSheet为数据格式类型</span></span><br><span class="line">  <span class="meta">@Input</span>() <span class="attr">sheet</span>:<span class="title class_">SongSheet</span></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ng-container</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;cover&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> [<span class="attr">src</span>]=<span class="string">&quot;sheet.picUrl&quot;</span> [<span class="attr">alt</span>]=<span class="string">&quot;sheet.name&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;bottom&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;num&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--播放量--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;icon erji&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--播放量进行处理 管道--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123; sheet.playCount | playCount &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;icon play&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;dec&quot;</span>&gt;</span> &#123;&#123; sheet.name &#125;&#125; <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ng-container</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="创建管道"><a href="#创建管道" class="headerlink" title="创建管道"></a>创建管道</h2><ul>
+<li>播放量超过万级，需要进行处理，可以定义一个管道</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g p share/play-count</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Pipe</span>, <span class="title class_">PipeTransform</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Pipe</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;playCount&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">PlayCountPipe</span> <span class="keyword">implements</span> <span class="title class_">PipeTransform</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// value为传进来的参数</span></span><br><span class="line">  <span class="title function_">transform</span>(<span class="attr">value</span>: <span class="built_in">number</span>): <span class="built_in">number</span> | <span class="built_in">string</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(value &gt; <span class="number">10000</span> )&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title class_">Math</span>.<span class="title function_">floor</span>(value / <span class="number">1000</span>) + <span class="string">&#x27;万&#x27;</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> value</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在<code>share.module.ts</code>中导入导出</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NgModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@angular/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">SingleSheetComponent</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./single-sheet/single-sheet.component&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">PlayCountPipe</span> &#125; <span class="keyword">from</span> <span class="string">&quot;../play-count.pipe&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [<span class="title class_">SingleSheetComponent</span>, <span class="title class_">PlayCountPipe</span>],</span><br><span class="line">  <span class="attr">imports</span>: [],</span><br><span class="line">  <span class="attr">exports</span>: [<span class="title class_">SingleSheetComponent</span>, <span class="title class_">PlayCountPipe</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">WyUiModule</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/949defeb.html">http://xiaoliblog.cn/posts/949defeb.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/aff90e07.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Angular项目——网易音乐之Resolve守卫及播放器</div>
+      <div class="prev-desc">入驻歌手封装服务
+首先定义请求返回的入驻歌手数据格式
+
+1234567// 定义入驻歌手列表数据export type Singer = &amp;#123;    id: number;    name: string;    picUrl: string;    albumSize: number&amp;#125;
+
+
+在...</div>
+    </a>
+    
+    
+    <a href="/posts/f3f74fdb.html">
+      <div class="next-title">Webpack安装及使用<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">Webpack
+Webpack是一个前端资源加载&amp;#x2F;打包工具。它将根据模块的依赖关系进行静态分享，然后将这些模块按照指定的规则生成对应的静态资源
+Webpack官方文档：https://webpack.docschina.org/
+从图中我们可以看出，Webpack可以将多种静态资源js、css、less...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BD%AE%E6%92%AD%E5%9B%BE"><span class="toc-text">轮播图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%B0%81%E8%A3%85"><span class="toc-text">服务封装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-text">获取数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AE%E6%92%AD%E6%A0%B7%E5%BC%8F"><span class="toc-text">轮播样式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E6%AD%8C%E5%8D%95"><span class="toc-text">推荐歌单</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85%E6%9C%8D%E5%8A%A1"><span class="toc-text">封装服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%8C%E5%8D%95%E7%BB%84%E4%BB%B6"><span class="toc-text">歌单组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%AE%A1%E9%81%93"><span class="toc-text">创建管道</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>

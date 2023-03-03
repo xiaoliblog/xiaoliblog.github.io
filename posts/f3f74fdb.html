@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="zh-CN">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>Webpack安装及使用 | 小李博客</title>
+<meta name="author" content="小李博客">
+<meta name="copyright" content="小李博客">
+
+<link rel="shortcut icon" href="/img/favicon.svg">
+
+
+<meta name="keywords" content="小李博客">
+
+
+
+
+<meta name="description" content="Webpack Webpack是一个前端资源加载&#x2F;打包工具。它将根据模块的依赖关系进行静态分享，然后将这些模块按照指定的规则生成对应的静态资源 Webpack官方文档：https:&#x2F;&#x2F;webpack.docschina.org&#x2F; 从图中我们可以看出，Webpack可以将多种静态资源js、css、less转换成一个静态文件，减少了页面的请求   Webpack安装 全局安装  1npm i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack安装及使用">
+<meta property="og:url" content="http://xiaoliblog.cn/posts/f3f74fdb.html">
+<meta property="og:site_name" content="小李博客">
+<meta property="og:description" content="Webpack Webpack是一个前端资源加载&#x2F;打包工具。它将根据模块的依赖关系进行静态分享，然后将这些模块按照指定的规则生成对应的静态资源 Webpack官方文档：https:&#x2F;&#x2F;webpack.docschina.org&#x2F; 从图中我们可以看出，Webpack可以将多种静态资源js、css、less转换成一个静态文件，减少了页面的请求   Webpack安装 全局安装  1npm i">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+<meta property="article:published_time" content="2023-03-03T03:20:56.177Z">
+<meta property="article:modified_time" content="2023-03-03T09:39:06.689Z">
+<meta property="article:author" content="小李博客">
+<meta property="article:tag" content="Webpack">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg">
+
+
+<link href="/third-party/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/utlis.js"></script>
+<script>
+  (function() {
+    var html = mengd.$query('html')
+    var isDark = localStorage.isDark === 'true'
+    if (isDark) html.setAttribute('theme', 'dark')
+    else html.removeAttribute('theme')
+  })()
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+     
+    
+
+<script>
+  var $config = {
+      CDN: {
+        fancyboxJs: "/third-party/js/fancybox.js",
+        fancyboxCss: "/third-party/css/fancybox.css"
+      },
+      
+      searchFile: "/search.xml",
+      
+      
+      codeBlockExpand: {
+        enable: true,
+        height: 300,
+        scrollTop: 200
+      }
+      
+    }
+</script>
+
+    
+
+
+    <div id="body-wrap">
+        
+
+        <header id="header">
+    <div class="header-author">
+        <a href="/" class="author">
+            <img src="/img/load.gif" data-src="https://s2.loli.net/2022/08/06/t5YcsIz34OMkglL.jpg" alt="小李博客" class="author-avatar">
+            <div class="author-name">
+                小李博客
+            </div>
+        </a>
+    </div>
+    <div class="header-description">
+        <p>
+           量变引起质变，一切都是积累！
+            
+        </p>
+        <div class="header-icon">
+            
+                <i class="fas fa-search search-btn"></i>
+            
+            
+                <a href="/"><i class="fa-fw fas fa-home"></i></a>
+            
+                <a href="/archives"><i class="fas fa-archive"></i></a>
+            
+                <a target="_blank" rel="noopener" href="https://github.com/xiaoliblog"><i class="fab fa-github"></i></a>
+            
+                <a href="/link"><i class="fa fa-link"></i></a>
+            
+        </div>
+    </div>
+</header>
+        <main id="main">
+            <article id="post">
+  <div class="post-info">
+    <div class="post-title">
+      <h1>Webpack安装及使用</h1>
+    </div>
+    <div class="post-meta">
+      <div class="post-date">
+        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          发表于
+          2023-03-03 |
+        </span>
+
+        <i class="fas fa-history fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">
+          更新于
+          2023-03-03
+        </span>
+      </div>
+      <div class="post-meta-wordcount">
+        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">总字数:</span>
+        <span class="word-count">978 | </span>
+        <i class="far fa-clock fa-fw post-meta-icon"></i>
+        <span class="post-meta-label">阅读时长:</span>
+        <span>4分钟</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="post-content">
+    <h1 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h1><ul>
+<li><code>Webpack</code>是一个前端资源加载&#x2F;打包工具。它将根据模块的依赖关系进行静态分享，然后将这些模块按照指定的规则生成对应的静态资源</li>
+<li>Webpack官方文档：<a target="_blank" rel="noopener" href="https://webpack.docschina.org/">https://webpack.docschina.org/</a></li>
+<li>从图中我们可以看出，Webpack可以将多种静态资源<code>js</code>、<code>css</code>、<code>less</code>转换成一个静态文件，减少了页面的请求</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/19/41c71c9cf66220d1fe1568a471dd4a94.png"></p>
+<h2 id="Webpack安装"><a href="#Webpack安装" class="headerlink" title="Webpack安装"></a>Webpack安装</h2><ul>
+<li>全局安装</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install 0g webpack webpack-cli</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装后查看版本号</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack -v</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="Webpack合并JS"><a href="#Webpack合并JS" class="headerlink" title="Webpack合并JS"></a>Webpack合并JS</h1><ul>
+<li>项目实现步骤<ol>
+<li>创建一个nodejs项目<code>npm init -y</code></li>
+<li>创建一个<code>src</code>目录</li>
+<li>在<code>src</code>存放两个需要合并的<code>util.js</code>和<code>common.js</code></li>
+<li>准备一个入口文件<code>main.js</code>, 其实就是模块集中进行引入</li>
+<li>在根目录下定义个<code>webpack.config.js</code>文件配置打包的规则</li>
+<li>执行<code>webpack</code>查看效果</li>
+</ol>
+</li>
+</ul>
+<h2 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h2><ul>
+<li>创建<code>webpack</code>项目文件夹</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
+
+<img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/19/ac1f9cacd74090a7602b5aa46eee9272.png" width=50%>
+
+<ul>
+<li>创建<code>src</code>文件夹</li>
+<li><code>src</code>下创建<code>common.js</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输出</span></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">info</span> = <span class="keyword">function</span> (<span class="params">str</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(str);</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">write</span>(str);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>src</code>下创建<code>util.js</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//相加函数</span></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">add</span> = <span class="function">(<span class="params">a, b</span>) =&gt;</span> a + b;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>src</code>下创建<code>main.js</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导入模块</span></span><br><span class="line"><span class="keyword">const</span> util = <span class="built_in">require</span>(<span class="string">&#x27;./util&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> common = <span class="built_in">require</span>(<span class="string">&#x27;./common&#x27;</span>);</span><br><span class="line"><span class="comment">//合并打印</span></span><br><span class="line">common.<span class="title function_">info</span>(<span class="string">&quot;Hello world,&quot;</span>+util.<span class="title function_">add</span>(<span class="number">100</span>,<span class="number">100</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在根目录下创建<code>webpack-config.js</code>文件</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导入path模块,nodejs内置模块</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//等于JS打包规则</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> =&#123;</span><br><span class="line">    <span class="comment">//1.入口函数：从哪里开始进行编译打包</span></span><br><span class="line">    <span class="attr">entry</span>:<span class="string">&quot;./src/main.js&quot;</span>,</span><br><span class="line">    <span class="comment">//2.编译成功后把内容输出到哪里去</span></span><br><span class="line">    <span class="attr">output</span>:&#123;</span><br><span class="line">        <span class="comment">//2-1:定义输出的指定的目录，__dirname:当前项目根目录，生成一个dist文件</span></span><br><span class="line">        <span class="attr">path</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&quot;./dist&quot;</span>),</span><br><span class="line">        <span class="comment">//2-2:合并的js文件存储在dist/bundle.js中</span></span><br><span class="line">        <span class="attr">filename</span>:<span class="string">&quot;bundle.js&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行<code>webpack</code>指令·，如果出现以下错误</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/19/97cf8c14166b2cb187d32140c1efe260.png"></p>
+<ul>
+<li><p>需要按<code>Shift</code>运行<code>powershell</code>（管理员身份），输入<code>set-ExecutionPolicy RemoteSigned</code>，并选择<code>A</code><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/19/e68fb41f49779c33bffab73c86e8bb10.png"></p>
+</li>
+<li><p>然后执行<code>webpack</code>打包指令</p>
+</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/19/142ff4f3ec894ad7c07bbe128f540748.png"></p>
+<ul>
+<li><p>可以看到生成了<code>dist/bundle.js</code>文件，其合并了<code>common.js</code>和<code>util.js</code>的JS文件，未格式化时是一行显示，被压缩了</p>
+</li>
+<li><p>创建一个<code>test.html</code>，引入<code>bundle.js</code>文件运行</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;bundle.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/19/0540e40196550481c83759e90bfa9efa.png"></p>
+<ul>
+<li>其他命令可以通过<code>webpack -h</code>查看，比如<code>webpack -w</code>有监听作用，当你修改或增加模块时，会动态打包</li>
+</ul>
+<h1 id="webpack合并CSS"><a href="#webpack合并CSS" class="headerlink" title="webpack合并CSS"></a>webpack合并CSS</h1><h2 id="安装Loader插件"><a href="#安装Loader插件" class="headerlink" title="安装Loader插件"></a>安装Loader插件</h2><ul>
+<li>Webpack本身只能处理JavaScript模块，如果要处理其他类型的文件，就需要使用<code>loader</code>进行转换</li>
+<li><code>Loader</code> 可以理解为模块和资源的转换器</li>
+<li>首先需要安装相关Loader插件<ul>
+<li><code>css-loader</code> 是将css装载到javascript</li>
+<li><code>style-loader</code> 是让javascript认识css</li>
+</ul>
+</li>
+<li>在<code>webpack</code>工程目录下安装依赖</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev style-loader css-loader</span><br></pre></td></tr></table></figure>
+
+<h2 id="合并配置"><a href="#合并配置" class="headerlink" title="合并配置"></a>合并配置</h2><ul>
+<li>修改<code>webpack.config.js</code>文件</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导入path模块,nodejs内置模块</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//等于JS打包规则</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> =&#123;</span><br><span class="line">    <span class="comment">//1.入口函数：从哪里开始进行编译打包</span></span><br><span class="line">    <span class="attr">entry</span>:<span class="string">&quot;./src/main.js&quot;</span>,</span><br><span class="line">    <span class="comment">//2.编译成功后把内容输出到哪里去</span></span><br><span class="line">    <span class="attr">output</span>:&#123;</span><br><span class="line">        <span class="comment">//2-1:定义输出的指定的目录，_dirname:当前项目根目录，生成一个dist文件</span></span><br><span class="line">        <span class="attr">path</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&quot;./dist&quot;</span>),</span><br><span class="line">        <span class="comment">//2-2:合并的js文件存储在dist/bundle.js中</span></span><br><span class="line">        <span class="attr">filename</span>:<span class="string">&quot;bundle.js&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">module</span>:&#123;</span><br><span class="line">        <span class="attr">rules</span>:[&#123;</span><br><span class="line">            <span class="attr">test</span>:<span class="regexp">/\.css$/</span>, <span class="comment">//把项目中所有的.css结尾的文件进行打包</span></span><br><span class="line">            <span class="attr">use</span>:[<span class="string">&quot;style-loader&quot;</span>,<span class="string">&quot;css-loader&quot;</span>] <span class="comment">//使用两个依赖</span></span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>src</code>文件夹创建<code>style.css</code></li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>:yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改入口函数<code>main.js</code>，引入<code>style.css</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导入css</span></span><br><span class="line"><span class="built_in">require</span>(<span class="string">&quot;./style.css&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行<code>webpack</code>命令·，或者在<code>package.json</code>中编写脚本</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">webpack</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">或者</span></span><br><span class="line">npm run 脚本名</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>依然生成了<code>dist/bundle.js</code>文件·，里面把JS和CSS合并了，运行引入了<code>bundle.js</code>文件的<code>test.html</code>，可以看到已经生效了</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/19/a3f299e3b60633575a5f4af8e816264e.png"></p>
+<ul>
+<li>此时执行监听命令</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack -w</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改<code>style.css</code></li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>:yellow;</span><br><span class="line">    <span class="attribute">font-size</span>:<span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>test.html</code>页面也随之改变·</li>
+</ul>
+<p><img src="/img/load.gif" data-src="https://origins-xiaoliblog.oss-cn-shanghai.aliyuncs.com/image-main/2021/04/19/f2e8f2269e7988f03e30d411b91ffe2f.png"></p>
+
+  </div>
+  
+  
+  
+  <div class="post-copyright">
+    <div class="post-copyright-icon"></div>
+    <div class="post-copyright-author">
+      <span class="post-copyright-meta">作者: </span>
+      <span class="post-copyright-info">
+        <a href="https://xiaoliblog.cn">小李博客</a>
+      </span>
+    </div>
+    <div class="post-copyright-type">
+      <span class="post-copyright-meta">文章链接: </span>
+      <span class="post-copyright-info">
+        <a href="http://xiaoliblog.cn/posts/f3f74fdb.html">http://xiaoliblog.cn/posts/f3f74fdb.html</a>
+      </span>
+    </div>
+    <div class="post-copyright-notice">
+      <span class="post-copyright-meta">版权声明: </span>
+      <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaoliblog.cn/" target="_blank">小李博客</a> !</span>
+    </div>
+  </div>
+  
+
+  
+  <div class="pagination-post">
+    
+    <a href="/posts/949defeb.html">
+      <div class="prev-title"><i class="fas fa-chevron-left"></i>Angular项目——网易音乐之轮播及推荐歌单</div>
+      <div class="prev-desc">轮播图服务封装
+出现端口被占用，打开CMD窗口，输入netstat -ano
+
+然后找到相应端口对应的PID，打开任务管理员，点击详细信息关闭即可
+
+调用网易云API接口获取轮播图数据：https://binaryify.github.io/NeteaseCloudMusicApi/#/
+
+首先创建HomeSer...</div>
+    </a>
+    
+    
+    <a href="/posts/d4c69e89.html">
+      <div class="next-title">Web移动开发基础<i class="fas fa-chevron-right"></i></div>
+      <div class="next-desc">移动端基础移动端浏览器
+国内的UC和QQ ，百度等手机浏览器都是根据Webkit修改过来的内核,国内尚无自主研发的内核，就像国内的手机操作系统都是基于Android修改开发的一样
+
+总结：兼容移动端主流浏览器,处理Webkit内核浏览器即可
+
+
+手机屏幕
+移动端设备屏幕尺寸非常多 ,碎片化严重。
+Android设...</div>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+<div id="toc-wrap">
+  <div id="toc">
+    <div class="toc-title">
+      <div>
+        目录
+        <span class="num">0%</span>
+      </div>
+      <progress class="progress" value="0" max="100"></progress>
+    </div>
+    <div class="toc-list">
+      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Webpack"><span class="toc-text">Webpack</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Webpack%E5%AE%89%E8%A3%85"><span class="toc-text">Webpack安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Webpack%E5%90%88%E5%B9%B6JS"><span class="toc-text">Webpack合并JS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE"><span class="toc-text">初始化项目</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#webpack%E5%90%88%E5%B9%B6CSS"><span class="toc-text">webpack合并CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Loader%E6%8F%92%E4%BB%B6"><span class="toc-text">安装Loader插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E9%85%8D%E7%BD%AE"><span class="toc-text">合并配置</span></a></li></ol></li></ol>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+    <section id="rightside">
+    <div class="rightside-item">
+
+         
+        
+        
+            <a id="open-toc" title="目录">
+                <i class="fas fa-list-ul"></i>
+            </a>
+        
+
+
+         
+         
+        <a href="javascript:void(0);" id="darkmode" title="深色/浅色 ">
+            <i class="fas fa-moon"></i>
+        </a>
+         
+
+
+        
+
+
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+    
+
+<footer class="footer" id="footer">
+  <div class="copyright">
+    &copy; 2022 - 2023
+    <i class="fas fa-fan"></i>
+    小李博客
+  </div>
+  <div class="framework-info">
+    <span>框架</span>
+    <a href="https://hexo.io" target="_blank">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>主题 </span>
+    <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD </a>
+  </div>
+  <div><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:black"><img src="/img/load.gif" data-src="/img/icp.png" style="width:15px;height: 15px;vertical-align: middle;">湘ICP备2021002541号</a></div>
+  <div class="custom-text"></div>
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2022 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div id="mask" onclick="closeAll()"></div>
+    
+    <div id="local-search">
+        <div id="local-search-title">本地搜索 </div>
+        <input id="local-search-input" autocomplete="off" placeholder="搜索文章"
+            type="text">
+        <hr>
+        <div id="local-search-result"></div>
+        <span class="search-close-button"><i class="fas fa-times"></i></span>
+    </div>
+    <script src="/js/search.js"></script>
+
+    <script src="/js/main.js"></script>
+    
+<script>
+  var originTitle = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+      titleTime = setTimeout(function() {
+        document.title = originTitle;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="/js/lazyload.js"></script>
+
+
+
+
+<script>
+  function loadCardLink() {
+    cardLink.server = 'https://cardlink-server.deta.dev/?url='
+    cardLink(mengd.$queryAll('#post>.post-content a[target=_blank]'))
+  }
+  mengd.getScript('/third-party/js/cardlink.js', loadCardLink)
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/MyStyle.css">
+
+
+
+
+
+<script>
+  mengd.getScript('/third-party/js/prefetch-page.js', () => {
+    const requestIdleCa = requestIdleCallback
+    if (requestIdleCa) {
+      requestIdleCa(() => {
+        prefetch({"delay":1000,"threshold":25})
+      })
+    } else {
+      setTimeout(() => {
+        prefetch({"delay":1000,"threshold":25})
+      }, 3000);
+    }
+  })
+</script>
+
+</body>
+
+</html>
